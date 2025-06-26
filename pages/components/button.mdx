@@ -1,0 +1,322 @@
+---
+title: Button
+---
+
+import { Callout, Tabs, Tab } from 'nextra/components'
+
+# Button
+
+The Button component is a fundamental interactive element that triggers actions when clicked. It features beautiful glassmorphism effects and multiple variants to suit different use cases.
+
+## Import
+
+```jsx
+import { Button } from 'glass-ui'
+```
+
+## Usage
+
+### Basic Button
+
+```jsx
+<Button>Click me</Button>
+```
+
+### Button Variants
+
+Glass UI provides several button variants to match different design needs:
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab>
+    <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+        Primary
+      </button>
+      <button className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-gray-900 dark:text-white rounded-lg font-medium transition-all">
+        Glass
+      </button>
+      <button className="px-4 py-2 border border-gray-300 hover:border-gray-400 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg font-medium transition-colors">
+        Outline
+      </button>
+      <button className="px-4 py-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg font-medium transition-colors">
+        Ghost
+      </button>
+    </div>
+  </Tab>
+  <Tab>
+    ```jsx
+    <Button variant="primary">Primary</Button>
+    <Button variant="glass">Glass</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="ghost">Ghost</Button>
+    ```
+  </Tab>
+</Tabs>
+
+### Button Sizes
+
+Choose from different sizes to fit your design:
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab>
+    <div className="flex items-center gap-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+      <button className="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-medium transition-colors">
+        Small
+      </button>
+      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+        Medium
+      </button>
+      <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-lg font-medium transition-colors">
+        Large
+      </button>
+    </div>
+  </Tab>
+  <Tab>
+    ```jsx
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+    ```
+  </Tab>
+</Tabs>
+
+### Button States
+
+Buttons support different states for various interactions:
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab>
+    <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+        Default
+      </button>
+      <button className="px-4 py-2 bg-blue-700 text-white rounded-lg font-medium">
+        Active
+      </button>
+      <button className="px-4 py-2 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed" disabled>
+        Disabled
+      </button>
+      <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2">
+        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        Loading
+      </button>
+    </div>
+  </Tab>
+  <Tab>
+    ```jsx
+    <Button>Default</Button>
+    <Button active>Active</Button>
+    <Button disabled>Disabled</Button>
+    <Button loading>Loading</Button>
+    ```
+  </Tab>
+</Tabs>
+
+### Icon Buttons
+
+Buttons can include icons for better visual communication:
+
+<Tabs items={['Preview', 'Code']}>
+  <Tab>
+    <div className="flex flex-wrap gap-4 p-6 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+      <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2">
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+        Add Item
+      </button>
+      <button className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 text-gray-900 dark:text-white rounded-lg font-medium transition-all flex items-center gap-2">
+        Download
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </button>
+      <button className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </Tab>
+  <Tab>
+    ```jsx
+    <Button leftIcon={<PlusIcon />}>Add Item</Button>
+    <Button rightIcon={<DownloadIcon />}>Download</Button>
+    <Button iconOnly><CloseIcon /></Button>
+    ```
+  </Tab>
+</Tabs>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'glass' \| 'outline' \| 'ghost'` | `'primary'` | Visual style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+| `loading` | `boolean` | `false` | Whether the button is in loading state |
+| `active` | `boolean` | `false` | Whether the button is in active state |
+| `leftIcon` | `ReactNode` | - | Icon to display on the left |
+| `rightIcon` | `ReactNode` | - | Icon to display on the right |
+| `iconOnly` | `boolean` | `false` | Whether the button only contains an icon |
+| `fullWidth` | `boolean` | `false` | Whether the button should take full width |
+| `onClick` | `(event: MouseEvent) => void` | - | Click event handler |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type |
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | Button content |
+
+### CSS Variables
+
+Customize the button appearance using CSS variables:
+
+```css
+.glass-button {
+  --button-primary-bg: #3b82f6;
+  --button-primary-hover: #2563eb;
+  --button-primary-text: #ffffff;
+  
+  --button-glass-bg: rgba(255, 255, 255, 0.2);
+  --button-glass-hover: rgba(255, 255, 255, 0.3);
+  --button-glass-border: rgba(255, 255, 255, 0.3);
+  --button-glass-blur: 10px;
+  
+  --button-outline-border: #d1d5db;
+  --button-outline-hover: #f3f4f6;
+  
+  --button-ghost-hover: rgba(59, 130, 246, 0.1);
+  
+  --button-disabled-bg: #e5e7eb;
+  --button-disabled-text: #9ca3af;
+  
+  --button-border-radius: 0.5rem;
+  --button-font-weight: 500;
+  --button-transition: all 0.2s ease-in-out;
+}
+```
+
+## Examples
+
+### Form Submit Button
+
+```jsx
+function LoginForm() {
+  const [loading, setLoading] = useState(false)
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    setLoading(false)
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <Input type="email" placeholder="Email" className="mb-4" />
+      <Input type="password" placeholder="Password" className="mb-6" />
+      <Button 
+        type="submit" 
+        variant="glass" 
+        fullWidth 
+        loading={loading}
+      >
+        {loading ? 'Signing in...' : 'Sign In'}
+      </Button>
+    </form>
+  )
+}
+```
+
+### Button Group
+
+```jsx
+function ButtonGroup() {
+  const [selected, setSelected] = useState('option1')
+  
+  return (
+    <div className="flex rounded-lg overflow-hidden border border-gray-300">
+      <Button 
+        variant={selected === 'option1' ? 'primary' : 'ghost'}
+        onClick={() => setSelected('option1')}
+        className="rounded-none"
+      >
+        Option 1
+      </Button>
+      <Button 
+        variant={selected === 'option2' ? 'primary' : 'ghost'}
+        onClick={() => setSelected('option2')}
+        className="rounded-none border-l border-r"
+      >
+        Option 2
+      </Button>
+      <Button 
+        variant={selected === 'option3' ? 'primary' : 'ghost'}
+        onClick={() => setSelected('option3')}
+        className="rounded-none"
+      >
+        Option 3
+      </Button>
+    </div>
+  )
+}
+```
+
+### Floating Action Button
+
+```jsx
+function FloatingActionButton() {
+  return (
+    <Button
+      variant="glass"
+      iconOnly
+      className="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg"
+    >
+      <PlusIcon className="w-6 h-6" />
+    </Button>
+  )
+}
+```
+
+## Accessibility
+
+The Button component follows WCAG 2.1 guidelines:
+
+- **Keyboard Navigation**: Fully accessible via keyboard (Tab, Enter, Space)
+- **Screen Readers**: Proper ARIA labels and roles
+- **Focus Management**: Clear focus indicators
+- **Color Contrast**: Meets AA contrast requirements
+- **Loading States**: Announced to screen readers
+
+<Callout type="info">
+  When using `iconOnly` buttons, always provide an `aria-label` for screen readers.
+</Callout>
+
+### Accessibility Example
+
+```jsx
+<Button 
+  iconOnly 
+  variant="glass"
+  aria-label="Close dialog"
+  onClick={closeDialog}
+>
+  <CloseIcon />
+</Button>
+```
+
+## Best Practices
+
+1. **Use semantic button types** - Set `type="submit"` for form submissions
+2. **Provide loading states** - Show feedback during async operations
+3. **Use appropriate variants** - Primary for main actions, ghost for secondary
+4. **Include icons thoughtfully** - Icons should enhance, not replace clear labels
+5. **Consider mobile touch targets** - Ensure buttons are at least 44px tall
+6. **Group related actions** - Use consistent styling for related buttons
+
+## Related Components
+
+- [Input](/components/input) - Form input fields
+- [Card](/components/card) - Container components
+- [Modal](/components/modal) - Dialog components

@@ -1,0 +1,152 @@
+---
+title: Components
+---
+
+import { Callout, Cards, Card } from 'nextra/components'
+
+# Components
+
+Glass UI provides a comprehensive set of components designed with glassmorphism aesthetics and accessibility in mind. Each component is fully customizable and follows modern React patterns.
+
+## Component Categories
+
+<Cards>
+  <Card icon="🔘" title="Form Components" href="/components/form">
+    Interactive form elements like buttons, inputs, and selects with glass effects.
+  </Card>
+  <Card icon="📦" title="Layout Components" href="/components/layout">
+    Structural components for organizing content including cards, containers, and grids.
+  </Card>
+  <Card icon="🧭" title="Navigation" href="/components/navigation">
+    Navigation components like menus, breadcrumbs, and pagination.
+  </Card>
+  <Card icon="💬" title="Feedback" href="/components/feedback">
+    User feedback components including alerts, toasts, and modals.
+  </Card>
+  <Card icon="📊" title="Data Display" href="/components/data-display">
+    Components for displaying data like tables, lists, and badges.
+  </Card>
+  <Card icon="🎨" title="Media" href="/components/media">
+    Media components including avatars, images, and icons.
+  </Card>
+</Cards>
+
+## Design Principles
+
+All Glass UI components follow these core principles:
+
+### 🎨 Glassmorphism First
+Every component embraces the glassmorphism design language with:
+- Translucent backgrounds with backdrop blur
+- Subtle borders and shadows
+- Layered depth and hierarchy
+- Smooth animations and transitions
+
+### ♿ Accessibility
+Components are built with accessibility as a priority:
+- WCAG 2.1 AA compliance
+- Keyboard navigation support
+- Screen reader compatibility
+- Focus management
+- Semantic HTML structure
+
+### 🎯 TypeScript Support
+Full TypeScript support with:
+- Comprehensive type definitions
+- IntelliSense support
+- Strict type checking
+- Generic component props
+
+### 🎨 Customization
+Flexible theming system:
+- CSS custom properties
+- Design tokens
+- Variant system
+- Size modifiers
+- Color schemes
+
+## Quick Reference
+
+### Most Used Components
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <h4 className="font-semibold mb-2">Button</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Interactive button with multiple variants</p>
+    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+      &lt;Button variant="glass"&gt;Click me&lt;/Button&gt;
+    </code>
+  </div>
+  
+  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <h4 className="font-semibold mb-2">Card</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Container with glass effect</p>
+    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+      &lt;Card className="glass-effect"&gt;Content&lt;/Card&gt;
+    </code>
+  </div>
+  
+  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <h4 className="font-semibold mb-2">Input</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Form input with glass styling</p>
+    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+      &lt;Input placeholder="Enter text" /&gt;
+    </code>
+  </div>
+  
+  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <h4 className="font-semibold mb-2">Modal</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Overlay dialog with backdrop blur</p>
+    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+      &lt;Modal isOpen={true}&gt;Content&lt;/Modal&gt;
+    </code>
+  </div>
+</div>
+
+## Component Status
+
+| Component | Status | Version | Accessibility |
+|-----------|--------|---------|---------------|
+| Button | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Card | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Input | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Modal | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Select | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Checkbox | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Radio | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Switch | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Alert | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Badge | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Avatar | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Tooltip | ✅ Stable | 1.0.0 | ♿ WCAG AA |
+| Dropdown | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
+| Table | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
+| Tabs | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
+| Accordion | 📋 Planned | - | - |
+| Slider | 📋 Planned | - | - |
+| DatePicker | 📋 Planned | - | - |
+
+<Callout type="info">
+  All stable components are production-ready and follow semantic versioning. Beta components are feature-complete but may have API changes before stable release.
+</Callout>
+
+## Getting Help
+
+Need help with a specific component?
+
+1. **Component Documentation** - Each component has detailed documentation with examples
+2. **Storybook** - Interactive component playground at [storybook.glass-ui.com](https://storybook.glass-ui.com)
+3. **GitHub Issues** - Report bugs or request features
+4. **Discord Community** - Get help from other developers
+
+## Contributing
+
+Want to contribute a new component or improve existing ones?
+
+1. Check our [Contributing Guide](/contributing)
+2. Review the [Component Guidelines](/component-guidelines)
+3. Submit a [Component Proposal](https://github.com/tulio-pinheiro-cunha/glass-ui/issues/new?template=component-proposal.md)
+
+---
+
+Ready to explore? Start with our [Form Components](/components/form) or browse by category above.
