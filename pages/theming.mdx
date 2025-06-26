@@ -1,0 +1,464 @@
+---
+title: Theming
+---
+
+import { Callout, Tabs, Tab } from 'nextra/components'
+
+# Theming
+
+Glass UI provides a powerful and flexible theming system that allows you to customize every aspect of your components to match your brand and design requirements.
+
+## Design Tokens
+
+Glass UI uses CSS custom properties (CSS variables) as design tokens, making it easy to customize colors, spacing, typography, and effects throughout your application.
+
+### Color System
+
+The color system is built around semantic color tokens that adapt to both light and dark themes:
+
+```css
+:root {
+  /* Primary Colors */
+  --glass-primary: #3b82f6;
+  --glass-primary-hover: #2563eb;
+  --glass-primary-text: #ffffff;
+  
+  /* Secondary Colors */
+  --glass-secondary: #6366f1;
+  --glass-secondary-hover: #4f46e5;
+  --glass-secondary-text: #ffffff;
+  
+  /* Glass Effects */
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-background-hover: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border-hover: rgba(255, 255, 255, 0.3);
+  --glass-blur: 10px;
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  
+  /* Semantic Colors */
+  --glass-success: #10b981;
+  --glass-warning: #f59e0b;
+  --glass-error: #ef4444;
+  --glass-info: #3b82f6;
+  
+  /* Text Colors */
+  --glass-text-primary: #1f2937;
+  --glass-text-secondary: #6b7280;
+  --glass-text-muted: #9ca3af;
+}
+```
+
+### Dark Theme
+
+Dark theme colors are automatically applied when the `dark` class is present:
+
+```css
+.dark {
+  /* Glass Effects for Dark Mode */
+  --glass-background: rgba(0, 0, 0, 0.1);
+  --glass-background-hover: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-hover: rgba(255, 255, 255, 0.2);
+  
+  /* Text Colors for Dark Mode */
+  --glass-text-primary: #f9fafb;
+  --glass-text-secondary: #d1d5db;
+  --glass-text-muted: #9ca3af;
+}
+```
+
+## Customizing Your Theme
+
+### Method 1: CSS Variables Override
+
+The simplest way to customize Glass UI is by overriding CSS variables in your global stylesheet:
+
+<Tabs items={['CSS', 'Example']}>
+  <Tab>
+    ```css
+    /* In your global CSS file */
+    :root {
+      /* Custom brand colors */
+      --glass-primary: #7c3aed;
+      --glass-primary-hover: #6d28d9;
+      --glass-secondary: #ec4899;
+      --glass-secondary-hover: #db2777;
+      
+      /* Custom glass effects */
+      --glass-blur: 15px;
+      --glass-background: rgba(124, 58, 237, 0.1);
+      --glass-border: rgba(124, 58, 237, 0.2);
+      
+      /* Custom spacing */
+      --glass-spacing-md: 1.25rem;
+      --glass-spacing-lg: 2rem;
+      
+      /* Custom border radius */
+      --glass-radius-md: 0.75rem;
+      --glass-radius-lg: 1rem;
+    }
+    ```
+  </Tab>
+  <Tab>
+    <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800 rounded-lg">
+      <div className="space-y-4">
+        <button 
+          className="px-4 py-2 rounded-lg font-medium transition-all"
+          style={{
+            background: 'rgba(124, 58, 237, 0.1)',
+            backdropFilter: 'blur(15px)',
+            border: '1px solid rgba(124, 58, 237, 0.2)',
+            color: '#7c3aed'
+          }}
+        >
+          Custom Glass Button
+        </button>
+        <div 
+          className="p-4 rounded-lg"
+          style={{
+            background: 'rgba(236, 72, 153, 0.1)',
+            backdropFilter: 'blur(15px)',
+            border: '1px solid rgba(236, 72, 153, 0.2)'
+          }}
+        >
+          <h4 className="font-semibold text-pink-600">Custom Glass Card</h4>
+          <p className="text-gray-600 dark:text-gray-300">With custom purple and pink theme</p>
+        </div>
+      </div>
+    </div>
+  </Tab>
+</Tabs>
+
+### Method 2: Theme Configuration Object
+
+For more advanced theming, you can create a theme configuration object:
+
+```tsx
+// theme.config.ts
+export const customTheme = {
+  colors: {
+    primary: {
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      500: '#8b5cf6',
+      600: '#7c3aed',
+      700: '#6d28d9',
+    },
+    glass: {
+      background: 'rgba(139, 92, 246, 0.1)',
+      backgroundHover: 'rgba(139, 92, 246, 0.2)',
+      border: 'rgba(139, 92, 246, 0.2)',
+      borderHover: 'rgba(139, 92, 246, 0.3)',
+      blur: '12px',
+    }
+  },
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem',
+  },
+  borderRadius: {
+    sm: '0.375rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
+  }
+}
+
+// Apply theme
+import { applyTheme } from 'glass-ui/theme'
+applyTheme(customTheme)
+```
+
+## Component-Specific Theming
+
+### Button Theming
+
+Customize button variants with specific CSS variables:
+
+```css
+/* Custom button variants */
+.glass-button-brand {
+  --button-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --button-text: #ffffff;
+  --button-hover-bg: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  --button-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.glass-button-success {
+  --button-bg: var(--glass-success);
+  --button-text: #ffffff;
+  --button-hover-bg: #059669;
+}
+```
+
+### Card Theming
+
+Create custom card styles:
+
+```css
+.glass-card-elevated {
+  --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --card-hover-transform: translateY(-8px);
+  --card-border-width: 2px;
+}
+
+.glass-card-minimal {
+  --card-background: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: none;
+}
+```
+
+## Responsive Theming
+
+Glass UI supports responsive theming using CSS media queries:
+
+```css
+/* Mobile-first responsive theming */
+:root {
+  --glass-blur: 8px;
+  --glass-spacing-md: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --glass-blur: 10px;
+    --glass-spacing-md: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --glass-blur: 12px;
+    --glass-spacing-md: 1.25rem;
+  }
+}
+```
+
+## Theme Presets
+
+Glass UI comes with several built-in theme presets:
+
+### Ocean Theme
+
+```css
+.theme-ocean {
+  --glass-primary: #0ea5e9;
+  --glass-primary-hover: #0284c7;
+  --glass-secondary: #06b6d4;
+  --glass-secondary-hover: #0891b2;
+  --glass-background: rgba(14, 165, 233, 0.1);
+  --glass-border: rgba(14, 165, 233, 0.2);
+}
+```
+
+### Forest Theme
+
+```css
+.theme-forest {
+  --glass-primary: #059669;
+  --glass-primary-hover: #047857;
+  --glass-secondary: #10b981;
+  --glass-secondary-hover: #059669;
+  --glass-background: rgba(5, 150, 105, 0.1);
+  --glass-border: rgba(5, 150, 105, 0.2);
+}
+```
+
+### Sunset Theme
+
+```css
+.theme-sunset {
+  --glass-primary: #f97316;
+  --glass-primary-hover: #ea580c;
+  --glass-secondary: #f59e0b;
+  --glass-secondary-hover: #d97706;
+  --glass-background: rgba(249, 115, 22, 0.1);
+  --glass-border: rgba(249, 115, 22, 0.2);
+}
+```
+
+## Advanced Theming
+
+### Dynamic Theme Switching
+
+Implement dynamic theme switching with JavaScript:
+
+```tsx
+import { useState, useEffect } from 'react'
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('default')
+  
+  useEffect(() => {
+    document.documentElement.className = `theme-${theme}`
+  }, [theme])
+  
+  const themes = [
+    { name: 'default', label: 'Default' },
+    { name: 'ocean', label: 'Ocean' },
+    { name: 'forest', label: 'Forest' },
+    { name: 'sunset', label: 'Sunset' },
+  ]
+  
+  return (
+    <div>
+      <div className="theme-selector">
+        {themes.map((t) => (
+          <button
+            key={t.name}
+            onClick={() => setTheme(t.name)}
+            className={theme === t.name ? 'active' : ''}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      {children}
+    </div>
+  )
+}
+```
+
+### CSS-in-JS Integration
+
+Glass UI works seamlessly with CSS-in-JS libraries:
+
+```tsx
+// With styled-components
+import styled from 'styled-components'
+
+const CustomButton = styled.button`
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--glass-radius-md);
+  padding: var(--glass-spacing-sm) var(--glass-spacing-md);
+  color: var(--glass-text-primary);
+  transition: all var(--glass-transition-normal);
+  
+  &:hover {
+    background: var(--glass-background-hover);
+    border-color: var(--glass-border-hover);
+  }
+`
+
+// With emotion
+import { css } from '@emotion/react'
+
+const buttonStyles = css`
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--glass-blur));
+  /* ... rest of styles */
+`
+```
+
+## Accessibility Considerations
+
+When customizing themes, ensure accessibility standards are maintained:
+
+### Color Contrast
+
+```css
+/* Ensure sufficient contrast ratios */
+:root {
+  --glass-text-primary: #1f2937; /* 4.5:1 contrast ratio */
+  --glass-text-secondary: #4b5563; /* 3:1 contrast ratio */
+}
+
+.dark {
+  --glass-text-primary: #f9fafb; /* 4.5:1 contrast ratio */
+  --glass-text-secondary: #d1d5db; /* 3:1 contrast ratio */
+}
+```
+
+### Focus Indicators
+
+```css
+/* Maintain visible focus indicators */
+.glass-button:focus {
+  outline: 2px solid var(--glass-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-effect {
+    background: white !important;
+    border: 2px solid black !important;
+    backdrop-filter: none !important;
+  }
+}
+```
+
+### Reduced Motion
+
+```css
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Best Practices
+
+1. **Start with design tokens** - Use CSS variables for consistency
+2. **Test in both themes** - Ensure your customizations work in light and dark modes
+3. **Maintain contrast ratios** - Follow WCAG guidelines for accessibility
+4. **Use semantic naming** - Name your custom properties based on purpose, not appearance
+5. **Document your theme** - Keep a style guide for your custom theme
+6. **Test across devices** - Ensure glass effects work on different screen types
+
+<Callout type="warning">
+  Glass effects may not be supported on older browsers. Always provide fallback styles for better compatibility.
+</Callout>
+
+## Migration from Other Libraries
+
+### From Material-UI
+
+```css
+/* Material-UI primary color */
+--mui-primary: #1976d2;
+
+/* Convert to Glass UI */
+--glass-primary: #1976d2;
+--glass-primary-hover: #1565c0;
+```
+
+### From Chakra UI
+
+```css
+/* Chakra UI blue.500 */
+--chakra-colors-blue-500: #3182ce;
+
+/* Convert to Glass UI */
+--glass-primary: #3182ce;
+--glass-primary-hover: #2c5aa0;
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Glass effects not showing**: Ensure `backdrop-filter` is supported
+2. **Colors not updating**: Check CSS specificity and variable scope
+3. **Dark mode not working**: Verify the `dark` class is applied to the root element
+
+### Browser Support
+
+Glass effects require modern browser support:
+- Chrome 76+
+- Firefox 103+
+- Safari 14+
+- Edge 79+
+
+For older browsers, components will gracefully fallback to solid backgrounds.
