@@ -1,0 +1,198 @@
+---
+title: Getting Started
+---
+
+import { Callout, Steps, Tabs, Tab } from 'nextra/components'
+
+# Getting Started
+
+Welcome to Glass UI! This guide will help you get up and running with our component library in just a few minutes.
+
+## Installation
+
+<Tabs items={['npm', 'yarn', 'pnpm']}>
+  <Tab>
+    ```bash
+    npm install glass-ui
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn add glass-ui
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    pnpm add glass-ui
+    ```
+  </Tab>
+</Tabs>
+
+## Setup
+
+<Steps>
+
+### Install Dependencies
+
+Glass UI requires React 18+ and has peer dependencies on some common packages:
+
+```bash
+npm install react react-dom
+```
+
+### Import Styles
+
+Import the Glass UI CSS file in your main application file:
+
+```jsx
+// In your main App.js or index.js
+import 'glass-ui/dist/index.css'
+```
+
+### Start Using Components
+
+You can now import and use Glass UI components:
+
+```jsx
+import { Button, Card, Input } from 'glass-ui'
+
+function MyComponent() {
+  return (
+    <Card className="glass-effect p-6">
+      <h2 className="text-xl font-semibold mb-4">Welcome to Glass UI</h2>
+      <Input placeholder="Enter your email" className="mb-4" />
+      <Button variant="glass">Get Started</Button>
+    </Card>
+  )
+}
+```
+
+</Steps>
+
+## Framework Integration
+
+### Next.js
+
+Glass UI works seamlessly with Next.js. Here's how to set it up:
+
+```jsx
+// pages/_app.js
+import 'glass-ui/dist/index.css'
+import '../styles/globals.css'
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+
+export default MyApp
+```
+
+<Callout type="info">
+  For Next.js 13+ with the app directory, import the CSS in your root layout.tsx file.
+</Callout>
+
+### Vite
+
+For Vite projects, import the CSS in your main.jsx or main.tsx:
+
+```jsx
+// main.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import 'glass-ui/dist/index.css'
+import App from './App.jsx'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+```
+
+### Create React App
+
+Import the CSS in your index.js or App.js:
+
+```jsx
+// src/index.js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import 'glass-ui/dist/index.css'
+import './index.css'
+import App from './App'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)
+```
+
+## TypeScript Support
+
+Glass UI is built with TypeScript and provides excellent type safety out of the box. No additional setup is required for TypeScript projects.
+
+```tsx
+import { Button, ButtonProps } from 'glass-ui'
+
+interface MyComponentProps {
+  onSubmit: () => void
+}
+
+const MyComponent: React.FC<MyComponentProps> = ({ onSubmit }) => {
+  return (
+    <Button 
+      variant="glass" 
+      size="lg"
+      onClick={onSubmit}
+    >
+      Submit
+    </Button>
+  )
+}
+```
+
+## Theming
+
+Glass UI comes with a default theme that works great out of the box, but you can customize it to match your brand:
+
+```css
+/* In your global CSS file */
+:root {
+  --glass-primary: #3b82f6;
+  --glass-secondary: #6366f1;
+  --glass-background: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 10px;
+}
+```
+
+## Browser Support
+
+Glass UI supports all modern browsers:
+
+- Chrome 88+
+- Firefox 87+
+- Safari 14+
+- Edge 88+
+
+<Callout type="warning">
+  Glassmorphism effects require backdrop-filter support. For older browsers, components will gracefully fallback to solid backgrounds.
+</Callout>
+
+## What's Next?
+
+Now that you have Glass UI set up, explore our documentation:
+
+- [Components](/components) - Browse all available components
+- [Theming](/theming) - Learn about customization options
+- [Examples](/examples) - See real-world usage examples
+- [API Reference](/api) - Detailed component APIs
+
+## Need Help?
+
+If you run into any issues:
+
+1. Check our [FAQ](/faq) for common questions
+2. Search [GitHub Issues](https://github.com/tulio-pinheiro-cunha/glass-ui/issues)
+3. Join our [Discord community](https://discord.gg/glass-ui)
+4. Create a new issue if you found a bug
+
+Happy coding! 🚀

@@ -1,0 +1,11 @@
+{
+  "index": "Introduction",
+  "getting-started": "Getting Started",
+  "components": "Components",
+  "theming": "Theming",
+  "examples": "Examples",
+  "api": "API Reference",
+  "migration": "Migration Guide",
+  "contributing": "Contributing",
+  "faq": "FAQ"
+}
