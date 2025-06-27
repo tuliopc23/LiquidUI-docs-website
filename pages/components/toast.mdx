@@ -32,47 +32,55 @@ A sleek toast notification component with glassmorphism design, providing contex
 </GlassToast>`}
 >
   <div className="space-y-4 w-full max-w-md">
-    <div className="glass-card p-4 border-l-4 border-green-500">
+    <div className="glass-card p-4 border-l-4 border-green-500" role="alert" aria-live="polite">
       <div className="flex items-center gap-3">
-        <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+        <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" aria-hidden="true" />
         <div className="flex-1">
           <h4 className="font-medium text-green-400">Success!</h4>
           <p className="text-sm text-muted-foreground">Your changes have been saved successfully.</p>
         </div>
-        <X className="w-4 h-4 text-muted-foreground cursor-pointer" />
+        <button className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" aria-label="Close notification">
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
     
-    <div className="glass-card p-4 border-l-4 border-red-500">
+    <div className="glass-card p-4 border-l-4 border-red-500" role="alert" aria-live="assertive">
       <div className="flex items-center gap-3">
-        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+        <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" aria-hidden="true" />
         <div className="flex-1">
           <h4 className="font-medium text-red-400">Error</h4>
           <p className="text-sm text-muted-foreground">Something went wrong. Please try again.</p>
         </div>
-        <X className="w-4 h-4 text-muted-foreground cursor-pointer" />
+        <button className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" aria-label="Close error notification">
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
     
-    <div className="glass-card p-4 border-l-4 border-orange-500">
+    <div className="glass-card p-4 border-l-4 border-orange-500" role="alert" aria-live="polite">
       <div className="flex items-center gap-3">
-        <AlertTriangle className="w-5 h-5 text-orange-400 flex-shrink-0" />
+        <AlertTriangle className="w-5 h-5 text-orange-400 flex-shrink-0" aria-hidden="true" />
         <div className="flex-1">
           <h4 className="font-medium text-orange-400">Warning</h4>
           <p className="text-sm text-muted-foreground">Your session will expire in 5 minutes.</p>
         </div>
-        <X className="w-4 h-4 text-muted-foreground cursor-pointer" />
+        <button className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" aria-label="Close warning notification">
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
     
-    <div className="glass-card p-4 border-l-4 border-blue-500">
+    <div className="glass-card p-4 border-l-4 border-blue-500" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
-        <Info className="w-5 h-5 text-blue-400 flex-shrink-0" />
+        <Info className="w-5 h-5 text-blue-400 flex-shrink-0" aria-hidden="true" />
         <div className="flex-1">
           <h4 className="font-medium text-blue-400">Info</h4>
           <p className="text-sm text-muted-foreground">New updates are available for download.</p>
         </div>
-        <X className="w-4 h-4 text-muted-foreground cursor-pointer" />
+        <button className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors" aria-label="Close info notification">
+          <X className="w-4 h-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
   </div>

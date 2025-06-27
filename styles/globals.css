@@ -26,6 +26,14 @@
     --ring: 224.3 76.3% 94.1%;
     --radius: 0.75rem;
 
+    /* Semantic Colors */
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 210 40% 98%;
+    --warning: 32.2 94.6% 43.7%;
+    --warning-foreground: 210 40% 98%;
+    --info: 217.2 91.2% 59.8%;
+    --info-foreground: 210 40% 98%;
+
     /* Typography Variables */
     --font-heading: 'Cal Sans', 'Inter', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
@@ -457,9 +465,66 @@ body {
     color: hsl(var(--primary-foreground));
 }
 
+/* Enhanced focus-visible styles for better accessibility */
 :focus-visible {
     @apply outline-none ring-2 ring-primary/60 ring-offset-2 ring-offset-background;
     transition: all var(--animation-speed) var(--animation-curve);
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--primary) / 0.6);
+}
+
+/* Focus styles for interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    @apply ring-2 ring-primary/60 ring-offset-2 ring-offset-background;
+    outline: none;
+    transition: all var(--animation-speed) var(--animation-curve);
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    @apply absolute -top-40 left-6 z-50 px-4 py-2 bg-primary text-primary-foreground rounded-md;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    @apply top-6;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: high) {
+    :focus-visible {
+        outline: 3px solid hsl(var(--foreground));
+        outline-offset: 2px;
+        box-shadow: none;
+    }
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: initial;
+    margin: initial;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
 }
 
 /* Loading States */

@@ -97,11 +97,12 @@ export function ComponentShowcase({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
+          role="banner"
         >
           <div className="flex items-center justify-between">
             <div>
               {title && (
-                <h3 className="text-lg font-semibold text-foreground mb-1">
+                <h3 className="text-lg font-semibold text-foreground mb-1" id={`showcase-${title.replace(/\s+/g, '-').toLowerCase()}`}>
                   {title}
                 </h3>
               )}
@@ -113,24 +114,32 @@ export function ComponentShowcase({
             </div>
 
             {code && (
-              <div className="flex items-center gap-2">
-<button
+              <div className="flex items-center gap-2" role="toolbar" aria-label="Code actions">
+                <button
                   onClick={() => setIsCodeVisible(!isCodeVisible)}
-                  aria-label={isCodeVisible ? "Hide code" : "Show code"}
-                  className="p-2 rounded-md hover:bg-white/10 transition-colors"
+                  aria-label={isCodeVisible ? "Hide code example" : "Show code example"}
+                  aria-expanded={isCodeVisible}
+                  aria-controls={title ? `code-${title.replace(/\s+/g, '-').toLowerCase()}` : 'code-section'}
+                  className="p-2 rounded-md hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  type="button"
                 >
                   {isCodeVisible ? (
-                    <Eye className="w-4 h-4" />
+                    <Eye className="w-4 h-4" aria-hidden="true" />
                   ) : (
-                    <Code className="w-4 h-4" />
+                    <Code className="w-4 h-4" aria-hidden="true" />
                   )}
                 </button>
 
-                <button onClick={handleCopy} aria-label="Copy code" className="p-2 rounded-md hover:bg-white/10 transition-colors">
+                <button 
+                  onClick={handleCopy} 
+                  aria-label={copied ? "Code copied to clipboard" : "Copy code to clipboard"}
+                  className="p-2 rounded-md hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  type="button"
+                >
                   {copied ? (
-                    <Check className="w-4 h-4 text-green-400" />
+                    <Check className="w-4 h-4 text-green-400" aria-hidden="true" />
                   ) : (
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-4 h-4" aria-hidden="true" />
                   )}
                 </button>
               </div>

@@ -14,6 +14,12 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'subtle' | 'strong' | 'card';
   /** Whether the card should have hover effects */
   interactive?: boolean;
+  /** Semantic role for the card (optional) */
+  role?: string;
+  /** Accessible name for the card (optional) */
+  'aria-label'?: string;
+  /** Reference to describe the card content (optional) */
+  'aria-describedby'?: string;
 }
 
 /**
