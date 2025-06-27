@@ -7,7 +7,7 @@ import { cn } from 'glass-ui-tulio';
 interface PlaceholderProps {
   children?: React.ReactNode;
   className?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 const createPlaceholderComponent = (name: string) => {

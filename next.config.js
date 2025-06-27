@@ -9,10 +9,7 @@ try {
   withBundleAnalyzer = (config) => config;
 }
 
-const withNextra = require('nextra')({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx',
-  staticImage: true,
+const withNextra = require('nextra').default({
   latex: true,
   defaultShowCopyCode: true,
 })
@@ -22,11 +19,6 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     esmExternals: true,
-  },
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
   },
   transpilePackages: ['glass-ui-tulio'],
   images: {
