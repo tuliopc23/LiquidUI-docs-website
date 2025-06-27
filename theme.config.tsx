@@ -1,15 +1,32 @@
 import React from 'react'
-import { motion } from 'framer-motion'
-import { Sparkles, Github, MessageCircle } from 'lucide-react'
+import dynamic from 'next/dynamic'
+// Tree-shaken lucide-react imports (destructured for better tree-shaking)
+import { Sparkles, MessageCircle } from 'lucide-react';
+
+// Dynamic imports for framer-motion
+const MotionDiv = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+const MotionSpan = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.span })),
+  { ssr: false }
+);
+
+const MotionA = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.a })),
+  { ssr: false }
+);
 
 const Logo = () => (
-  <motion.div
+  <MotionDiv
     className="flex items-center gap-3"
     whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
     <div className="relative">
-      <motion.div
+      <MotionDiv
         className="w-8 h-8 glass-effect rounded-lg flex items-center justify-center"
         animate={{
           boxShadow: [
@@ -21,12 +38,12 @@ const Logo = () => (
         transition={{ duration: 3, repeat: Infinity }}
       >
         <Sparkles className="w-4 h-4 text-primary" />
-      </motion.div>
+      </MotionDiv>
     </div>
     <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
       LiquidiUI
     </span>
-  </motion.div>
+  </MotionDiv>
 )
 
 const config = {
@@ -94,13 +111,13 @@ const config = {
         )
       }
       return (
-        <motion.span
+        <MotionSpan
           whileHover={{ x: 2 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
           className="flex items-center gap-2"
         >
           {title}
-        </motion.span>
+        </MotionSpan>
       )
     },
     defaultMenuCollapseLevel: 1,
@@ -109,33 +126,33 @@ const config = {
   toc: {
     backToTop: true,
     title: (
-      <motion.div
+      <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="glass-effect px-3 py-2 rounded-lg"
       >
         <span className="text-sm font-semibold">On This Page</span>
-      </motion.div>
+      </MotionDiv>
     )
   },
   editLink: {
     text: (
-      <motion.span
+      <MotionSpan
         whileHover={{ x: 2 }}
         className="flex items-center gap-1 text-sm"
       >
         Edit this page on GitHub →
-      </motion.span>
+      </MotionSpan>
     )
   },
   feedback: {
     content: (
-      <motion.span
+      <MotionSpan
         whileHover={{ scale: 1.02 }}
         className="flex items-center gap-1 text-sm"
       >
         Question? Give us feedback →
-      </motion.span>
+      </MotionSpan>
     ),
     labels: 'feedback'
   },
@@ -145,14 +162,14 @@ const config = {
   banner: {
     key: 'liquidi-ui-v1',
     text: (
-      <motion.a
+      <MotionA
         href="/getting-started"
         className="glass-effect px-4 py-2 rounded-lg hover:bg-white/10 transition-colors"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
         🎉 LiquidiUI v1.0 is released with physics-based interactions. Get started →
-      </motion.a>
+      </MotionA>
     )
   },
   primaryHue: {

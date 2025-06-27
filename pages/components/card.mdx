@@ -1,6 +1,11 @@
-import { GlassCard, GlassButton, GlassBadge } from "glass-ui-tulio";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
-import { Heart, MessageCircle, Share, Calendar, MapPin } from "lucide-react";
+import { 
+  BasicCard, 
+  CardWithActions, 
+  ProfileCard, 
+  SocialMediaCard, 
+  NestedCards 
+} from "./ExampleComponents";
 
 # Card
 
@@ -18,12 +23,7 @@ A flexible container component with stunning glassmorphism effects, perfect for 
   </p>
 </GlassCard>`}
 >
-  <GlassCard className="p-6 max-w-md">
-    <h3 className="text-lg font-semibold mb-2">Card Title</h3>
-    <p className="text-muted-foreground">
-      This is a basic card component with glassmorphism effects.
-    </p>
-  </GlassCard>
+  <BasicCard />
 </ComponentShowcase>
 
 ## With Header and Actions
@@ -45,19 +45,7 @@ A flexible container component with stunning glassmorphism effects, perfect for 
   </div>
 </GlassCard>`}
 >
-  <GlassCard className="p-6 max-w-md">
-    <div className="flex items-center justify-between mb-4">
-      <h3 className="text-lg font-semibold">Project Update</h3>
-      <GlassBadge variant="outline">New</GlassBadge>
-    </div>
-    <p className="text-muted-foreground mb-4">
-      The new feature has been successfully deployed to production.
-    </p>
-    <div className="flex gap-2">
-      <GlassButton size="sm">View Details</GlassButton>
-      <GlassButton variant="outline" size="sm">Dismiss</GlassButton>
-    </div>
-  </GlassCard>
+  <CardWithActions />
 </ComponentShowcase>
 
 ## User Profile Card
@@ -88,28 +76,7 @@ A flexible container component with stunning glassmorphism effects, perfect for 
   <GlassButton className="w-full">Follow</GlassButton>
 </GlassCard>`}
 >
-  <GlassCard className="p-6 max-w-sm">
-    <div className="flex items-center gap-4 mb-4">
-      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
-        SJ
-      </div>
-      <div>
-        <h3 className="font-semibold">Sarah Johnson</h3>
-        <p className="text-sm text-muted-foreground">UI/UX Designer</p>
-      </div>
-    </div>
-    <div className="space-y-2 text-sm text-muted-foreground mb-4">
-      <div className="flex items-center gap-2">
-        <MapPin className="w-4 h-4" />
-        San Francisco, CA
-      </div>
-      <div className="flex items-center gap-2">
-        <Calendar className="w-4 h-4" />
-        Joined March 2023
-      </div>
-    </div>
-    <GlassButton className="w-full">Follow</GlassButton>
-  </GlassCard>
+  <ProfileCard />
 </ComponentShowcase>
 
 ## Social Media Card
@@ -149,37 +116,7 @@ A flexible container component with stunning glassmorphism effects, perfect for 
   </div>
 </GlassCard>`}
 >
-  <GlassCard className="p-6 max-w-md">
-    <div className="flex items-center gap-3 mb-4">
-      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
-        GT
-      </div>
-      <div className="flex-1">
-        <h4 className="font-medium">LiquidiUI Team</h4>
-        <p className="text-sm text-muted-foreground">2 hours ago</p>
-      </div>
-    </div>
-    <p className="mb-4">
-      🎉 Just released LiquidiUI v1.0 with physics-based interactions! 
-      Experience the future of React components.
-    </p>
-    <div className="flex items-center justify-between pt-4 border-t border-white/10">
-      <div className="flex gap-4">
-        <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <Heart className="w-4 h-4" />
-          42
-        </button>
-        <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-          <MessageCircle className="w-4 h-4" />
-          8
-        </button>
-      </div>
-      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-        <Share className="w-4 h-4" />
-        Share
-      </button>
-    </div>
-  </GlassCard>
+  <SocialMediaCard />
 </ComponentShowcase>
 
 ## Nested Cards
@@ -203,21 +140,7 @@ A flexible container component with stunning glassmorphism effects, perfect for 
   </div>
 </GlassCard>`}
 >
-  <GlassCard className="p-6 max-w-2xl">
-    <h3 className="text-xl font-semibold mb-4">Dashboard Overview</h3>
-    <div className="grid gap-4 md:grid-cols-2">
-      <GlassCard className="p-4">
-        <h4 className="font-medium mb-2">Total Users</h4>
-        <p className="text-2xl font-bold text-primary">12,485</p>
-        <p className="text-sm text-green-400">+2.5% from last month</p>
-      </GlassCard>
-      <GlassCard className="p-4">
-        <h4 className="font-medium mb-2">Revenue</h4>
-        <p className="text-2xl font-bold text-primary">$45,210</p>
-        <p className="text-sm text-green-400">+8.1% from last month</p>
-      </GlassCard>
-    </div>
-  </GlassCard>
+  <NestedCards />
 </ComponentShowcase>
 
 ## API Reference

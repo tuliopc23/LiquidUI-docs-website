@@ -1,17 +1,66 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { cn } from 'glass-ui-tulio';
-import { motion } from 'framer-motion';
+// Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye } from 'lucide-react';
 
+// Dynamic import for framer-motion components
+const MotionDiv = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+const MotionHeader = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+const MotionShowcase = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+const MotionCodeSection = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+const MotionParticle = dynamic(
+  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
+  { ssr: false }
+);
+
+
+/**
+ * Props for the ComponentShowcase component.
+ */
 interface ComponentShowcaseProps {
+  /** The component to be showcased. */
   children: React.ReactNode;
+  /** Optional additional CSS classes to apply to the showcase area. */
   className?: string;
+  /** The title of the component showcase. */
   title?: string;
+  /** A description of the component being showcased. */
   description?: string;
+  /** The code snippet to be displayed. */
   code?: string;
+  /** Whether to show the code snippet by default. */
   showCode?: boolean;
 }
 
+/**
+ * A component that showcases other components with an optional code display.
+ * Features a glass morphism design with smooth animations and interactive elements.
+ * 
+ * @param children - The component(s) to be showcased
+ * @param className - Optional CSS classes for the showcase area
+ * @param title - Optional title displayed in the header
+ * @param description - Optional description displayed below the title
+ * @param code - Optional code snippet to display
+ * @param showCode - Whether to show the code snippet by default
+ * @returns A styled showcase component with optional code display
+ */
 export function ComponentShowcase({
   children,
   className,
@@ -32,7 +81,7 @@ export function ComponentShowcase({
   };
 
   return (
-    <motion.div
+    <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -43,7 +92,7 @@ export function ComponentShowcase({
 
       {/* Header */}
       {(title || description || code) && (
-        <motion.div
+        <MotionHeader
           className="glass-effect border-b border-white/10 px-6 py-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -65,41 +114,33 @@ export function ComponentShowcase({
 
             {code && (
               <div className="flex items-center gap-2">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+<button
                   onClick={() => setIsCodeVisible(!isCodeVisible)}
-                  className="glass-effect p-2 rounded-lg hover:bg-white/10 transition-colors"
                   aria-label={isCodeVisible ? "Hide code" : "Show code"}
+                  className="p-2 rounded-md hover:bg-white/10 transition-colors"
                 >
                   {isCodeVisible ? (
                     <Eye className="w-4 h-4" />
                   ) : (
                     <Code className="w-4 h-4" />
                   )}
-                </motion.button>
+                </button>
 
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleCopy}
-                  className="glass-effect p-2 rounded-lg hover:bg-white/10 transition-colors"
-                  aria-label="Copy code"
-                >
+                <button onClick={handleCopy} aria-label="Copy code" className="p-2 rounded-md hover:bg-white/10 transition-colors">
                   {copied ? (
                     <Check className="w-4 h-4 text-green-400" />
                   ) : (
                     <Copy className="w-4 h-4" />
                   )}
-                </motion.button>
+                </button>
               </div>
             )}
           </div>
-        </motion.div>
+        </MotionHeader>
       )}
 
       {/* Component showcase area */}
-      <motion.div
+      <MotionShowcase
         className={cn(
           "relative z-10 flex flex-wrap gap-4 items-center justify-center p-8 min-h-[120px]",
           className
@@ -109,11 +150,11 @@ export function ComponentShowcase({
         transition={{ delay: 0.3, duration: 0.4 }}
       >
         {children}
-      </motion.div>
+      </MotionShowcase>
 
       {/* Code section */}
       {code && isCodeVisible && (
-        <motion.div
+        <MotionCodeSection
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
@@ -127,13 +168,13 @@ export function ComponentShowcase({
               </code>
             </pre>
           </div>
-        </motion.div>
+        </MotionCodeSection>
       )}
 
       {/* Floating particles effect */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(3)].map((_, i) => (
-          <motion.div
+          <MotionParticle
             key={i}
             className="absolute w-1 h-1 bg-primary/20 rounded-full"
             animate={{
@@ -153,6 +194,6 @@ export function ComponentShowcase({
           />
         ))}
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 }
