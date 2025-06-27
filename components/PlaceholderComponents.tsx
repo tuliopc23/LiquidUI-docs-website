@@ -25,7 +25,7 @@ interface PlaceholderProps {
  */
 const createPlaceholderComponent = (name: string) => {
 const Component = React.forwardRef<HTMLDivElement, PlaceholderProps>(
-    ({ children, className }, ref) => (
+    ({ children, className, ...props }, ref) => (
       <div
         ref={ref}
         className={cn(
@@ -33,9 +33,13 @@ const Component = React.forwardRef<HTMLDivElement, PlaceholderProps>(
           "bg-white/10 backdrop-blur-sm",
           className
         )}
+        role="region"
+        aria-label={`${name} component placeholder`}
+        {...props}
       >
         {children || (
-          <div className="text-center text-sm text-gray-500">
+          <div className="text-center text-sm text-gray-500" aria-live="polite">
+            <span className="sr-only">Placeholder: </span>
             {name} Component (Coming Soon)
           </div>
         )}

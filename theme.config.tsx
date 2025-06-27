@@ -24,20 +24,23 @@ const Logo = () => (
     className="flex items-center gap-3"
     whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
+    role="img"
+    aria-label="LiquidiUI logo"
   >
     <div className="relative">
       <MotionDiv
         className="w-8 h-8 glass-effect rounded-lg flex items-center justify-center"
         animate={{
           boxShadow: [
-            "0 0 20px rgba(99, 102, 241, 0.3)",
-            "0 0 30px rgba(168, 85, 247, 0.4)",
-            "0 0 20px rgba(99, 102, 241, 0.3)"
+            "0 0 20px hsl(var(--primary) / 0.3)",
+            "0 0 30px hsl(var(--accent) / 0.4)",
+            "0 0 20px hsl(var(--primary) / 0.3)"
           ]
         }}
         transition={{ duration: 3, repeat: Infinity }}
+        aria-hidden="true"
       >
-        <Sparkles className="w-4 h-4 text-primary" />
+        <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
       </MotionDiv>
     </div>
     <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
