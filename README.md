@@ -48,11 +48,17 @@ npm run dev
 # Build for production
 npm run build
 
-# Run performance tests
-npm run lighthouse
+# Start production server
+npm run start
 
-# Check accessibility
-npm run a11y-test
+# Development tools
+npm run lint              # ESLint code quality check
+npm run type-check        # TypeScript validation
+npm run build:analyze     # Bundle size analysis
+
+# Performance & Quality
+npm run lighthouse        # Lighthouse CI performance tests
+npm run a11y-test         # Pa11y accessibility compliance
 ```
 
 ## 📊 Performance & Quality
