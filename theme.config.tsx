@@ -1,5 +1,4 @@
 import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
 import { motion } from 'framer-motion'
 import { Sparkles, Github, MessageCircle } from 'lucide-react'
 
@@ -30,7 +29,7 @@ const Logo = () => (
   </motion.div>
 )
 
-const config: DocsThemeConfig = {
+const config = {
   logo: (
     <div className="flex items-center gap-2">
       <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -84,7 +83,7 @@ const config: DocsThemeConfig = {
     </>
   ),
   sidebar: {
-    titleComponent({ title, type }) {
+    titleComponent({ title, type }: { title: string; type: string }) {
       if (type === 'separator') {
         return (
           <div className="glass-effect px-3 py-1 rounded-md my-2">
