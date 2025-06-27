@@ -1,0 +1,25 @@
+
+import { GlassModal } from "../../components/PlaceholderComponents";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Modal
+
+A modal is a dialog that is displayed on top of the current page.
+
+<ComponentShowcase>
+  <GlassModal
+    title="Modal Title"
+    description="Modal description"
+    isOpen={false}
+    onClose={() => {}}
+  />
+</ComponentShowcase>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `string` | `undefined` | The title of the modal. |
+| `description` | `string` | `undefined` | The description of the modal. |
+| `isOpen` | `boolean` | `false` | Whether the modal is open. |
+| `onClose` | `() => void` | `undefined` | A callback that is called when the modal is closed. |

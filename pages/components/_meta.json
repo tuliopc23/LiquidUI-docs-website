@@ -1,50 +1,33 @@
 {
-  "index": "Overview",
+  "index": "Introduction",
   "button": "Button",
   "card": "Card",
-  "input": "Input",
-  "modal": "Modal",
-  "form": {
-    "title": "Form Components",
-    "type": "separator"
-  },
-  "select": "Select",
-  "checkbox": "Checkbox",
-  "radio": "Radio",
-  "switch": "Switch",
-  "layout": {
-    "title": "Layout Components",
-    "type": "separator"
-  },
-  "container": "Container",
-  "grid": "Grid",
-  "stack": "Stack",
-  "navigation": {
-    "title": "Navigation",
-    "type": "separator"
-  },
-  "menu": "Menu",
-  "breadcrumb": "Breadcrumb",
-  "pagination": "Pagination",
-  "feedback": {
-    "title": "Feedback",
-    "type": "separator"
-  },
-  "alert": "Alert",
-  "toast": "Toast",
-  "tooltip": "Tooltip",
-  "data-display": {
-    "title": "Data Display",
-    "type": "separator"
-  },
-  "table": "Table",
-  "badge": "Badge",
-  "list": "List",
-  "media": {
-    "title": "Media",
-    "type": "separator"
-  },
   "avatar": "Avatar",
-  "image": "Image",
-  "icon": "Icon"
+  "badge": "Badge",
+  "checkbox": "Checkbox",
+  "input": "Input",
+  "progress": "Progress",
+  "slider": "Slider",
+  "switch": "Switch",
+  "textarea": "Textarea",
+  "tooltip": "Tooltip",
+  "chart": "Chart",
+  "command": "Command",
+  "dropdown": "Dropdown",
+  "loading": "Loading",
+  "modal": "Modal",
+  "notification": "Notification",
+  "popover": "Popover",
+  "search": "Search",
+  "select": "Select",
+  "table": "Table",
+  "tabs": "Tabs",
+  "toast": "Toast",
+  "mobile-nav": "Mobile Nav",
+  "responsive-button": "Responsive Button",
+  "responsive-card": "Responsive Card",
+  "navbar": "Navbar",
+  "sidebar": "Sidebar",
+  "theme-provider": "Theme Provider",
+  "theme-toggle": "Theme Toggle"
 }
