@@ -3,37 +3,286 @@ title: Components
 ---
 
 import { Callout, Cards, Card } from 'nextra/components'
+import { GlassCard, GlassButton, GlassBadge, GlassInput } from "glass-ui-tulio";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { motion } from "framer-motion";
+import { 
+  Palette, 
+  Layout, 
+  MousePointer, 
+  FormInput, 
+  BarChart3, 
+  Bell, 
+  Settings,
+  Sparkles,
+  Code,
+  Search
+} from "lucide-react";
 
 # Components
 
-Glass UI provides a comprehensive set of components designed with glassmorphism aesthetics and accessibility in mind. Each component is fully customizable and follows modern React patterns.
+LiquidiUI provides a comprehensive set of components designed with glassmorphism aesthetics and accessibility in mind. Each component is fully customizable and follows modern React patterns.
+
+## Components Overview
+
+Discover our comprehensive collection of 30+ physics-based glassmorphism components, each crafted with attention to detail and accessibility.
+
+<div className="glass-card p-6 my-8">
+  <div className="flex items-center gap-3 mb-4">
+    <Sparkles className="w-6 h-6 text-primary" />
+    <h2 className="text-xl font-semibold m-0">What Makes Our Components Special</h2>
+  </div>
+  <div className="grid gap-4 md:grid-cols-3">
+    <div className="glass-effect p-4 rounded-lg">
+      <h3 className="font-semibold mb-2">Physics-Based</h3>
+      <p className="text-sm text-muted-foreground">
+        Natural spring animations and magnetic hover effects
+      </p>
+    </div>
+    <div className="glass-effect p-4 rounded-lg">
+      <h3 className="font-semibold mb-2">Content-Aware</h3>
+      <p className="text-sm text-muted-foreground">
+        Automatically adapts to background and content
+      </p>
+    </div>
+    <div className="glass-effect p-4 rounded-lg">
+      <h3 className="font-semibold mb-2">Accessible</h3>
+      <p className="text-sm text-muted-foreground">
+        Full WCAG 2.1 compliance with keyboard navigation
+      </p>
+    </div>
+  </div>
+</div>
 
 ## Component Categories
 
-<Cards>
-  <Card icon="🔘" title="Form Components" href="/components/form">
-    Interactive form elements like buttons, inputs, and selects with glass effects.
-  </Card>
-  <Card icon="📦" title="Layout Components" href="/components/layout">
-    Structural components for organizing content including cards, containers, and grids.
-  </Card>
-  <Card icon="🧭" title="Navigation" href="/components/navigation">
-    Navigation components like menus, breadcrumbs, and pagination.
-  </Card>
-  <Card icon="💬" title="Feedback" href="/components/feedback">
-    User feedback components including alerts, toasts, and modals.
-  </Card>
-  <Card icon="📊" title="Data Display" href="/components/data-display">
-    Components for displaying data like tables, lists, and badges.
-  </Card>
-  <Card icon="🎨" title="Media" href="/components/media">
-    Media components including avatars, images, and icons.
-  </Card>
-</Cards>
+### Basic Components
+
+<ComponentShowcase
+  title="Fundamental Building Blocks"
+  description="Essential components for any interface"
+>
+  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
+    <GlassCard className="p-4">
+      <h4 className="font-medium mb-2">Button</h4>
+      <p className="text-sm text-muted-foreground mb-3">
+        Interactive buttons with magnetic hover
+      </p>
+      <GlassButton size="sm">
+        <a href="/components/button">View Component</a>
+      </GlassButton>
+    </GlassCard>
+    
+    <GlassCard className="p-4">
+      <h4 className="font-medium mb-2">Card</h4>
+      <p className="text-sm text-muted-foreground mb-3">
+        Flexible containers with glassmorphism
+      </p>
+      <GlassButton size="sm">
+        <a href="/components/card">View Component</a>
+      </GlassButton>
+    </GlassCard>
+    
+    <GlassCard className="p-4">
+      <h4 className="font-medium mb-2">Badge</h4>
+      <p className="text-sm text-muted-foreground mb-3">
+        Status indicators and labels
+      </p>
+      <GlassButton size="sm">
+        <a href="/components/badge">View Component</a>
+      </GlassButton>
+    </GlassCard>
+  </div>
+</ComponentShowcase>
+
+### Form Components
+
+<ComponentShowcase
+  title="Form Elements"
+  description="Interactive form components with validation support"
+>
+  <div className="space-y-4 w-full max-w-md">
+    <GlassInput placeholder="Email address" />
+    <div className="flex items-center gap-3">
+      <GlassSwitch />
+      <span className="text-sm">Enable notifications</span>
+    </div>
+    <GlassButton className="w-full">Submit Form</GlassButton>
+  </div>
+</ComponentShowcase>
+
+### Data Display
+
+<ComponentShowcase
+  title="Data Visualization"
+  description="Components for displaying information and metrics"
+>
+  <div className="space-y-4 w-full max-w-md">
+    <div>
+      <div className="flex justify-between text-sm mb-2">
+        <span>Progress</span>
+        <span>75%</span>
+      </div>
+      <div className="glass-effect rounded-full h-2 overflow-hidden">
+        <div className="h-full bg-primary rounded-full" style={{width: '75%'}}></div>
+      </div>
+    </div>
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
+        JD
+      </div>
+      <div>
+        <div className="font-medium">John Doe</div>
+        <div className="text-sm text-muted-foreground">Developer</div>
+      </div>
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Component Library
+
+<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+  {[
+    {
+      category: "Basic",
+      icon: <Layout className="w-5 h-5" />,
+      color: "text-blue-400",
+      components: ["Button", "Card", "Badge", "Avatar"]
+    },
+    {
+      category: "Forms",
+      icon: <FormInput className="w-5 h-5" />,
+      color: "text-green-400", 
+      components: ["Input", "Textarea", "Select", "Checkbox", "Switch"]
+    },
+    {
+      category: "Navigation",
+      icon: <MousePointer className="w-5 h-5" />,
+      color: "text-purple-400",
+      components: ["Navbar", "Sidebar", "Tabs", "Dropdown"]
+    },
+    {
+      category: "Feedback",
+      icon: <Bell className="w-5 h-5" />,
+      color: "text-orange-400",
+      components: ["Toast", "Modal", "Notification", "Loading"]
+    },
+    {
+      category: "Data Display",
+      icon: <BarChart3 className="w-5 h-5" />,
+      color: "text-cyan-400",
+      components: ["Table", "Chart", "Progress", "Tooltip"]
+    },
+    {
+      category: "Utilities",
+      icon: <Settings className="w-5 h-5" />,
+      color: "text-pink-400",
+      components: ["Theme Provider", "Theme Toggle", "Search", "Command"]
+    }
+  ].map((category, index) => (
+    <motion.div
+      key={category.category}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+    >
+      <GlassCard className="p-6 h-full">
+        <div className="flex items-center gap-3 mb-4">
+          <div className={`p-2 glass-effect rounded-lg ${category.color}`}>
+            {category.icon}
+          </div>
+          <h3 className="text-lg font-semibold">{category.category}</h3>
+        </div>
+        <div className="space-y-2 mb-4">
+          {category.components.map((component) => (
+            <div key={component} className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">{component}</span>
+              <GlassBadge variant="outline" className="text-xs">
+                <a href={`/components/${component.toLowerCase().replace(' ', '-')}`}>
+                  View
+                </a>
+              </GlassBadge>
+            </div>
+          ))}
+        </div>
+        <GlassButton variant="outline" size="sm" className="w-full">
+          View All {category.category}
+        </GlassButton>
+      </GlassCard>
+    </motion.div>
+  ))}
+</div>
+
+## Quick Search
+
+<div className="glass-card p-6 mt-8">
+  <div className="flex items-center gap-3 mb-4">
+    <Search className="w-5 h-5 text-primary" />
+    <h3 className="text-lg font-semibold">Find Components</h3>
+  </div>
+  <div className="grid gap-2 md:grid-cols-4 lg:grid-cols-6">
+    {[
+      "Button", "Card", "Input", "Modal", "Tooltip", "Badge",
+      "Avatar", "Progress", "Switch", "Tabs", "Table", "Chart",
+      "Navbar", "Sidebar", "Toast", "Loading", "Select", "Textarea"
+    ].map((component) => (
+      <GlassBadge key={component} className="justify-center">
+        <a href={`/components/${component.toLowerCase()}`}>
+          {component}
+        </a>
+      </GlassBadge>
+    ))}
+  </div>
+</div>
+
+## Getting Started
+
+Ready to start building? Choose your path:
+
+<div className="grid gap-4 md:grid-cols-2 mt-8">
+  <GlassCard className="p-6">
+    <Code className="w-8 h-8 text-primary mb-4" />
+    <h3 className="text-lg font-semibold mb-2">Start Coding</h3>
+    <p className="text-muted-foreground mb-4">
+      Jump right in with our installation guide and first component.
+    </p>
+    <GlassButton>
+      <a href="/getting-started">Quick Start</a>
+    </GlassButton>
+  </GlassCard>
+
+  <GlassCard className="p-6">
+    <Palette className="w-8 h-8 text-purple-400 mb-4" />
+    <h3 className="text-lg font-semibold mb-2">Design System</h3>
+    <p className="text-muted-foreground mb-4">
+      Learn about our design principles and theming system.
+    </p>
+    <GlassButton variant="outline">
+      <a href="/theming">Design Guide</a>
+    </GlassButton>
+  </GlassCard>
+</div>
+
+## Features
+
+<div className="grid gap-4 md:grid-cols-3 mt-8">
+  <div className="glass-effect p-4 rounded-lg text-center">
+    <div className="text-2xl font-bold text-primary mb-2">30+</div>
+    <div className="text-sm text-muted-foreground">Components</div>
+  </div>
+  <div className="glass-effect p-4 rounded-lg text-center">
+    <div className="text-2xl font-bold text-green-400 mb-2">100%</div>
+    <div className="text-sm text-muted-foreground">Accessible</div>
+  </div>
+  <div className="glass-effect p-4 rounded-lg text-center">
+    <div className="text-2xl font-bold text-cyan-400 mb-2">TS</div>
+    <div className="text-sm text-muted-foreground">TypeScript</div>
+  </div>
+</div>
 
 ## Design Principles
 
-All Glass UI components follow these core principles:
+All LiquidiUI components follow these core principles:
 
 ### 🎨 Glassmorphism First
 Every component embraces the glassmorphism design language with:
@@ -135,7 +384,7 @@ Flexible theming system:
 Need help with a specific component?
 
 1. **Component Documentation** - Each component has detailed documentation with examples
-2. **Storybook** - Interactive component playground at [storybook.glass-ui.com](https://storybook.glass-ui.com)
+2. **Storybook** - Interactive component playground at [storybook.liquidi-ui.com](https://storybook.liquidi-ui.com)
 3. **GitHub Issues** - Report bugs or request features
 4. **Discord Community** - Get help from other developers
 
@@ -145,7 +394,7 @@ Want to contribute a new component or improve existing ones?
 
 1. Check our [Contributing Guide](/contributing)
 2. Review the [Component Guidelines](/component-guidelines)
-3. Submit a [Component Proposal](https://github.com/tulio-pinheiro-cunha/glass-ui/issues/new?template=component-proposal.md)
+3. Submit a [Component Proposal](https://github.com/tulio-pinheiro-cunha/liquidi-ui/issues/new?template=component-proposal.md)
 
 ---
 

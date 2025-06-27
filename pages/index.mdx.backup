@@ -30,7 +30,7 @@ import { Sparkles, Zap, Palette, Shield, Code, Rocket } from "lucide-react";
       transition={{ delay: 0.4, duration: 0.6 }}
     >
       <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-        LiquidUI
+        LiquidiUI
       </span>
       <br />
       <span className="text-foreground">for React</span>
@@ -104,7 +104,7 @@ import { Sparkles, Zap, Palette, Shield, Code, Rocket } from "lucide-react";
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.4, duration: 0.6 }}
     >
-      Why Choose LiquidUI?
+      Why Choose LiquidiUI?
     </motion.h2>
     <motion.p 
       className="text-xl text-center text-muted-foreground mb-12"
@@ -194,7 +194,7 @@ import { Sparkles, Zap, Palette, Shield, Code, Rocket } from "lucide-react";
         Ready to Build Something Amazing?
       </h2>
       <p className="text-xl text-muted-foreground mb-8">
-        Join thousands of developers creating beautiful, accessible, and performant UIs with LiquidUI.
+        Join thousands of developers creating beautiful, accessible, and performant UIs with LiquidiUI.
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <GlassButton size="lg" className="text-lg px-8 py-4">

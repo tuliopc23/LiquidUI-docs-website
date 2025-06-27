@@ -1,8 +1,8 @@
 import React from 'react';
 import { cn } from 'glass-ui-tulio';
 
-// Placeholder components for missing glass-ui components
-// These will be replaced when the full glass-ui package is available
+// Placeholder components for missing liquidi-ui components
+// These will be replaced when the full liquidi-ui package is available
 
 interface PlaceholderProps {
   children?: React.ReactNode;

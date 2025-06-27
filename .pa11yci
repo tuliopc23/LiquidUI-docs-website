@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "timeout": 20000,
+    "wait": 2000,
+    "chromeLaunchConfig": {
+      "ignoreHTTPSErrors": false
+    }
+  },
+  "urls": [
+    "http://localhost:3000",
+    "http://localhost:3000/getting-started",
+    "http://localhost:3000/components",
+    "http://localhost:3000/components/button",
+    "http://localhost:3000/components/card",
+    "http://localhost:3000/components/input",
+    "http://localhost:3000/components/modal",
+    "http://localhost:3000/examples",
+    "http://localhost:3000/theming"
+  ]
+} 

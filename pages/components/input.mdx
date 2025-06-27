@@ -1,18 +1,274 @@
-
 import { GlassInput } from "glass-ui-tulio";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { Search, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 
 # Input
 
-An input is a form element that allows the user to enter text.
+A versatile input component with glassmorphism design, seamless integration, and comprehensive form support.
 
-<ComponentShowcase>
-  <GlassInput />
+## Basic Usage
+
+<ComponentShowcase
+  title="Input Variants"
+  description="Different input styles for various use cases"
+  code={`<GlassInput placeholder="Enter text..." />
+<GlassInput type="email" placeholder="Email address" />
+<GlassInput type="password" placeholder="Password" />
+<GlassInput disabled placeholder="Disabled input" />`}
+>
+  <div className="space-y-4 w-full max-w-md">
+    <GlassInput placeholder="Enter text..." />
+    <GlassInput type="email" placeholder="Email address" />
+    <GlassInput type="password" placeholder="Password" />
+    <GlassInput disabled placeholder="Disabled input" />
+  </div>
 </ComponentShowcase>
 
-## Props
+## With Icons
+
+<ComponentShowcase
+  title="Input with Icons"
+  description="Enhanced inputs with icon support"
+  code={`<div className="relative">
+  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+  <GlassInput className="pl-10" placeholder="Search..." />
+</div>
+<div className="relative">
+  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+  <GlassInput className="pl-10" type="email" placeholder="Email" />
+</div>
+<div className="relative">
+  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+  <GlassInput className="pl-10" type="password" placeholder="Password" />
+</div>`}
+>
+  <div className="space-y-4 w-full max-w-md">
+    <div className="relative">
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10" placeholder="Search..." />
+    </div>
+    <div className="relative">
+      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10" type="email" placeholder="Email" />
+    </div>
+    <div className="relative">
+      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10" type="password" placeholder="Password" />
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Sizes
+
+<ComponentShowcase
+  title="Input Sizes"
+  description="Different sizes to fit your design needs"
+  code={`<GlassInput size="sm" placeholder="Small input" />
+<GlassInput size="default" placeholder="Default input" />
+<GlassInput size="lg" placeholder="Large input" />`}
+>
+  <div className="space-y-4 w-full max-w-md">
+    <GlassInput size="sm" placeholder="Small input" />
+    <GlassInput size="default" placeholder="Default input" />
+    <GlassInput size="lg" placeholder="Large input" />
+  </div>
+</ComponentShowcase>
+
+## States and Validation
+
+<ComponentShowcase
+  title="Input States"
+  description="Different validation and interaction states"
+  code={`<GlassInput placeholder="Normal state" />
+<GlassInput placeholder="Focus state" className="ring-2 ring-primary" />
+<GlassInput placeholder="Error state" className="border-red-500 ring-2 ring-red-500/20" />
+<GlassInput placeholder="Success state" className="border-green-500 ring-2 ring-green-500/20" />`}
+>
+  <div className="space-y-4 w-full max-w-md">
+    <div>
+      <label className="block text-sm font-medium mb-2">Normal</label>
+      <GlassInput placeholder="Enter your name" />
+    </div>
+    <div>
+      <label className="block text-sm font-medium mb-2">Error</label>
+      <GlassInput placeholder="Invalid email" className="border-red-500 ring-2 ring-red-500/20" />
+      <p className="text-sm text-red-500 mt-1">Please enter a valid email address</p>
+    </div>
+    <div>
+      <label className="block text-sm font-medium mb-2">Success</label>
+      <GlassInput placeholder="Valid input" className="border-green-500 ring-2 ring-green-500/20" />
+      <p className="text-sm text-green-500 mt-1">Looks good!</p>
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Form Integration
+
+<ComponentShowcase
+  title="Complete Form Example"
+  description="Input integrated in a real form"
+  code={`<form className="space-y-6 max-w-md">
+  <div>
+    <label className="block text-sm font-medium mb-2">Full Name</label>
+    <div className="relative">
+      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10" placeholder="Enter your full name" required />
+    </div>
+  </div>
+  
+  <div>
+    <label className="block text-sm font-medium mb-2">Email</label>
+    <div className="relative">
+      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10" type="email" placeholder="your@email.com" required />
+    </div>
+  </div>
+  
+  <div>
+    <label className="block text-sm font-medium mb-2">Password</label>
+    <div className="relative">
+      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+      <GlassInput className="pl-10 pr-10" type="password" placeholder="Enter password" required />
+      <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2">
+        <EyeOff className="w-4 h-4 text-muted-foreground" />
+      </button>
+    </div>
+  </div>
+</form>`}
+>
+  <form className="space-y-6 max-w-md">
+    <div>
+      <label className="block text-sm font-medium mb-2">Full Name</label>
+      <div className="relative">
+        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <GlassInput className="pl-10" placeholder="Enter your full name" required />
+      </div>
+    </div>
+    
+    <div>
+      <label className="block text-sm font-medium mb-2">Email</label>
+      <div className="relative">
+        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <GlassInput className="pl-10" type="email" placeholder="your@email.com" required />
+      </div>
+    </div>
+    
+    <div>
+      <label className="block text-sm font-medium mb-2">Password</label>
+      <div className="relative">
+        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <GlassInput className="pl-10 pr-10" type="password" placeholder="Enter password" required />
+        <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2">
+          <EyeOff className="w-4 h-4 text-muted-foreground" />
+        </button>
+      </div>
+    </div>
+  </form>
+</ComponentShowcase>
+
+## API Reference
+
+### Props
 
 | Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `type` | `string` | `"text"` | The type of the input. |
-| `placeholder` | `string` | `undefined` | The placeholder text for the input. |
+|------|------|---------|-------------|
+| `type` | `"text" \| "email" \| "password" \| "number" \| "tel" \| "url"` | `"text"` | The HTML input type |
+| `size` | `"sm" \| "default" \| "lg"` | `"default"` | The size of the input |
+| `placeholder` | `string` | - | Placeholder text |
+| `value` | `string` | - | The controlled value |
+| `defaultValue` | `string` | - | The default value for uncontrolled usage |
+| `disabled` | `boolean` | `false` | Whether the input is disabled |
+| `required` | `boolean` | `false` | Whether the input is required |
+| `className` | `string` | - | Additional CSS classes |
+| `onChange` | `(event: ChangeEvent<HTMLInputElement>) => void` | - | Change event handler |
+| `onFocus` | `(event: FocusEvent<HTMLInputElement>) => void` | - | Focus event handler |
+| `onBlur` | `(event: FocusEvent<HTMLInputElement>) => void` | - | Blur event handler |
+
+### Glassmorphism Properties
+
+The GlassInput includes advanced visual effects:
+
+- **Background Blur**: Backdrop filter with blur effect
+- **Border Adaptation**: Dynamic border opacity based on background
+- **Focus Enhancement**: Smooth focus transitions with ring effects
+- **Content Awareness**: Adapts glass opacity to background content
+
+### Accessibility
+
+- Full keyboard navigation support
+- Screen reader compatible with proper labeling
+- Focus management and visual indicators
+- High contrast mode support
+- ARIA attributes for validation states
+
+## Usage Guidelines
+
+### Best Practices
+
+- Always provide clear labels for accessibility
+- Use appropriate input types for better mobile experience
+- Provide helpful placeholder text that doesn't replace labels
+- Include validation feedback for better user experience
+- Group related inputs logically
+
+### When to Use
+
+- **Text**: General text input, names, titles
+- **Email**: Email addresses with built-in validation
+- **Password**: Sensitive data with masked characters
+- **Search**: Search functionality with enhanced styling
+- **Number**: Numeric data with appropriate keyboard on mobile
+
+## Examples
+
+### Controlled Input
+
+```tsx
+import { GlassInput } from "glass-ui-tulio";
+import { useState } from "react";
+
+function ControlledInput() {
+  const [value, setValue] = useState("");
+
+  return (
+    <GlassInput
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      placeholder="Type something..."
+    />
+  );
+}
+```
+
+### With Validation
+
+```tsx
+import { GlassInput } from "glass-ui-tulio";
+import { useState } from "react";
+
+function ValidatedInput() {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
+  const validateEmail = (value: string) => {
+    const isValid = /\S+@\S+\.\S+/.test(value);
+    setError(isValid ? "" : "Please enter a valid email");
+  };
+
+  return (
+    <div>
+      <GlassInput
+        type="email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          validateEmail(e.target.value);
+        }}
+        className={error ? "border-red-500" : ""}
+        placeholder="Enter email"
+      />
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  );
+}
+```

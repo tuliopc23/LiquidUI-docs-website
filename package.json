@@ -1,16 +1,29 @@
 {
-  "name": "glass-ui-docs",
+  "name": "liquidui-docs-website",
   "version": "1.0.0",
-  "description": "Professional documentation site for Glass UI component library",
+  "private": true,
+  "description": "Documentation site for LiquidUI component library",
+  "homepage": "https://docs-one-taupe.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuliopc23/LiquidUI-docs-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuliopc23/LiquidUI-docs-website/issues"
+  },
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:analyze": "ANALYZE=true next build",
+    "lighthouse": "lhci autorun",
+    "a11y-test": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [
-    "glass-ui",
+    "liquidi-ui",
     "component-library",
     "documentation",
     "react",
@@ -19,7 +32,9 @@
   "author": "Tulio Pinheiro Cunha",
   "license": "MIT",
   "dependencies": {
+    "framer-motion": "^11.0.0",
     "glass-ui-tulio": "^1.0.0",
+    "lucide-react": "^0.400.0",
     "next": "^14.2.0",
     "nextra": "^2.13.0",
     "nextra-theme-docs": "^2.13.0",
@@ -27,10 +42,15 @@
     "react-dom": "^18.3.0"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.12.0",
+    "@next/bundle-analyzer": "^14.2.30",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.0",
+    "lighthouse": "^11.7.1",
+    "pa11y-ci": "^3.1.0",
     "postcss": "^8.4.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.0.0"
