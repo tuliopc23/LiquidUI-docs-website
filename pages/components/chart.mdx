@@ -1,0 +1,31 @@
+
+import { GlassChart } from "../../components/PlaceholderComponents";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Chart
+
+A chart is a graphical representation of data.
+
+<ComponentShowcase>
+  <GlassChart
+    data={[
+      { name: "Jan", value: 4000 },
+      { name: "Feb", value: 3000 },
+      { name: "Mar", value: 2000 },
+      { name: "Apr", value: 2780 },
+      { name: "May", value: 1890 },
+      { name: "Jun", value: 2390 },
+      { name: "Jul", value: 3490 },
+    ]}
+    dataKey="value"
+    xAxisKey="name"
+  />
+</ComponentShowcase>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` | `any[]` | `[]` | The data for the chart. |
+| `dataKey` | `string` | `undefined` | The key for the data to be displayed on the y-axis. |
+| `xAxisKey` | `string` | `undefined` | The key for the data to be displayed on the x-axis. |

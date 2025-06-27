@@ -1,0 +1,23 @@
+
+import { GlassSelect } from "../../components/PlaceholderComponents";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Select
+
+A select is a form element that allows the user to select an option from a list.
+
+<ComponentShowcase>
+  <GlassSelect
+    options={[
+      { label: "Option 1", value: "1" },
+      { label: "Option 2", value: "2" },
+      { label: "Option 3", value: "3" },
+    ]}
+  />
+</ComponentShowcase>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `options` | `{ label: string; value: string; }[]` | `[]` | The options to be displayed in the select. |

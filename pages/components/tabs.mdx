@@ -1,0 +1,23 @@
+
+import { GlassTabs } from "../../components/PlaceholderComponents";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Tabs
+
+Tabs are used to switch between different views.
+
+<ComponentShowcase>
+  <GlassTabs
+    tabs={[
+      { title: "Tab 1", content: "Content 1" },
+      { title: "Tab 2", content: "Content 2" },
+      { title: "Tab 3", content: "Content 3" },
+    ]}
+  />
+</ComponentShowcase>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `tabs` | `{ title: string; content: React.ReactNode; }[]` | `[]` | The tabs to be displayed. |

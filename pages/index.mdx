@@ -1,83 +1,54 @@
----
-title: Glass UI - Modern React Component Library
----
+import { GlassCard, GlassButton } from "glass-ui-tulio";
+import { ArrowRight } from "lucide-react";
 
-import { Callout } from 'nextra/components'
-
-# Glass UI
-
-A modern, accessible React component library featuring beautiful glassmorphism design patterns. Build stunning interfaces with components that blend seamlessly into any design system.
-
-## ✨ Features
-
-- **🎨 Glassmorphism Design** - Beautiful frosted glass effects with backdrop blur and transparency
-- **♿ Accessibility First** - WCAG 2.1 compliant components with keyboard navigation and screen reader support  
-- **🎯 TypeScript Ready** - Fully typed components with excellent IntelliSense support
-- **🎨 Customizable** - Extensive theming system with CSS variables and design tokens
-- **📱 Responsive** - Mobile-first design with responsive breakpoints built-in
-- **⚡ Performance** - Optimized bundle size with tree-shaking support
-
-## 🚀 Quick Start
-
-Get up and running with Glass UI in minutes:
-
-```bash
-npm install glass-ui
-```
-
-```jsx
-import { Button, Card } from 'glass-ui'
-
-function App() {
-  return (
-    <Card className="glass-effect">
-      <h2>Welcome to Glass UI</h2>
-      <Button variant="glass">Get Started</Button>
-    </Card>
-  )
-}
-```
-
-<Callout type="info">
-  Glass UI works seamlessly with popular frameworks like Next.js, Vite, and Create React App.
-</Callout>
-
-## 🎯 Why Glass UI?
-
-Glass UI was built with modern web development in mind. Whether you're building a dashboard, landing page, or complex application, our components provide the perfect balance of aesthetics and functionality.
-
-### Design Philosophy
-
-- **Minimalist** - Clean, uncluttered interfaces that focus on content
-- **Accessible** - Every component follows WCAG guidelines
-- **Consistent** - Unified design language across all components
-- **Flexible** - Easy to customize and extend for your brand
-
-### Perfect For
-
-- 🏢 **SaaS Applications** - Professional dashboards and admin panels
-- 🛍️ **E-commerce** - Modern product showcases and checkout flows
-- 📱 **Mobile Apps** - Progressive web apps with native feel
-- 🎨 **Portfolios** - Creative showcases with stunning visuals
-
-## 📚 Documentation
-
-Explore our comprehensive documentation to learn everything about Glass UI:
-
-- [Getting Started](/getting-started) - Installation and setup guide
-- [Components](/components) - Complete component reference
-- [Theming](/theming) - Customization and design tokens
-- [Examples](/examples) - Real-world usage examples
-- [Migration](/migration) - Upgrade guides and breaking changes
-
-## 🤝 Community
-
-Join our growing community of developers:
-
-- [GitHub Discussions](https://github.com/tulio-pinheiro-cunha/glass-ui/discussions)
-- [Discord Server](https://discord.gg/glass-ui)
-- [Twitter](https://twitter.com/glass-ui)
-
-## 📄 License
-
-Glass UI is open source software licensed under the [MIT License](https://github.com/tulio-pinheiro-cunha/glass-ui/blob/main/LICENSE).
+<div className="w-full h-full">
+  <div className="flex flex-col items-center justify-center text-center">
+    <h1 className="text-4xl font-bold tracking-tight lg:text-6xl">
+      Stunning Glassmorphism UI for React
+    </h1>
+    <p className="mt-4 text-lg text-muted-foreground lg:text-xl">
+      A component library for building beautiful, modern, and accessible UIs
+      with a glassmorphism design.
+    </p>
+    <div className="mt-6 flex gap-4">
+      <GlassButton>
+        <a href="/getting-started">Get Started</a>
+      </GlassButton>
+      <GlassButton variant="secondary">
+        <a
+          href="https://github.com/tuliopc23/glass-ui"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+      </GlassButton>
+    </div>
+  </div>
+  <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <GlassCard>
+      <div className="flex flex-col items-center justify-center p-6">
+        <h3 className="text-xl font-semibold">30+ Components</h3>
+        <p className="mt-2 text-center text-muted-foreground">
+          A rich set of components to build your next project.
+        </p>
+      </div>
+    </GlassCard>
+    <GlassCard>
+      <div className="flex flex-col items-center justify-center p-6">
+        <h3 className="text-xl font-semibold">Themable</h3>
+        <p className="mt-2 text-center text-muted-foreground">
+          Easily customize the look and feel of your components.
+        </p>
+      </div>
+    </GlassCard>
+    <GlassCard>
+      <div className="flex flex-col items-center justify-center p-6">
+        <h3 className="text-xl font-semibold">Accessible</h3>
+        <p className="mt-2 text-center text-muted-foreground">
+          Built with accessibility in mind, following WAI-ARIA standards.
+        </p>
+      </div>
+    </GlassCard>
+  </div>
+</div>

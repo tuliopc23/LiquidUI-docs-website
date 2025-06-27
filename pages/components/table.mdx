@@ -1,0 +1,27 @@
+
+import { GlassTable } from "../../components/PlaceholderComponents";
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Table
+
+A table is a component that displays data in a tabular format.
+
+<ComponentShowcase>
+  <GlassTable
+    data={[
+      { name: "John Doe", age: 30 },
+      { name: "Jane Doe", age: 25 },
+    ]}
+    columns={[
+      { header: "Name", accessor: "name" },
+      { header: "Age", accessor: "age" },
+    ]}
+  />
+</ComponentShowcase>
+
+## Props
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` | `any[]` | `[]` | The data for the table. |
+| `columns` | `{ header: string; accessor: string; }[]` | `[]` | The columns for the table. |
