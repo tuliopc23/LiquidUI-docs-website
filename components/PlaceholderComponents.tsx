@@ -1,18 +1,31 @@
 import React from 'react';
 import { cn } from 'glass-ui-tulio';
+import { ClassValue } from 'clsx';
 
-// Placeholder components for missing liquidi-ui components
-// These will be replaced when the full liquidi-ui package is available
+/**
+ * Placeholder components for missing glass-ui components.
+ * These will be replaced when the full glass-ui package is available.
+ */
 
+/**
+ * Props for placeholder components.
+ */
 interface PlaceholderProps {
+  /** Optional children to render inside the placeholder */
   children?: React.ReactNode;
-  className?: string;
-  [key: string]: unknown;
+  /** Optional CSS classes to apply */
+  className?: ClassValue;
 }
 
+/**
+ * Creates a placeholder component with glass morphism styling.
+ * 
+ * @param name - The name of the component being placeholdered
+ * @returns A React component with placeholder functionality
+ */
 const createPlaceholderComponent = (name: string) => {
-  const Component = React.forwardRef<HTMLDivElement, PlaceholderProps>(
-    ({ children, className, ...props }, ref) => (
+const Component = React.forwardRef<HTMLDivElement, PlaceholderProps>(
+    ({ children, className }, ref) => (
       <div
         ref={ref}
         className={cn(
@@ -20,7 +33,6 @@ const createPlaceholderComponent = (name: string) => {
           "bg-white/10 backdrop-blur-sm",
           className
         )}
-        {...props}
       >
         {children || (
           <div className="text-center text-sm text-gray-500">

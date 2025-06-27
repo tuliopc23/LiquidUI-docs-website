@@ -9,10 +9,12 @@ try {
   withBundleAnalyzer = (config) => config;
 }
 
-const withNextra = require('nextra').default({
-  latex: true,
-  defaultShowCopyCode: true,
-})
+// Temporarily disable Nextra for bundle analysis
+// const withNextra = require('nextra').default({
+//   defaultShowCopyCode: true,
+//   latex: true
+// })
+const withNextra = (config) => config; // Identity function
 
 const nextConfig = {
   reactStrictMode: true,
@@ -22,10 +24,12 @@ const nextConfig = {
   },
   transpilePackages: ['glass-ui-tulio'],
   images: {
-    unoptimized: true,
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   async redirects() {
     return [
@@ -44,6 +48,7 @@ const nextConfig = {
   // Performance optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    reactRemoveProperties: process.env.NODE_ENV === 'production',
   },
   // SEO optimizations
   generateEtags: true,

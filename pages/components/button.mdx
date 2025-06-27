@@ -1,6 +1,10 @@
-import { GlassButton } from "glass-ui-tulio";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
-import { Download, Heart, Settings, Trash2, ExternalLink } from "lucide-react";
+import { 
+  ButtonVariants, 
+  ButtonSizes, 
+  ButtonsWithIcons, 
+  ButtonStates 
+} from "./ExampleComponents";
 
 # Button
 
@@ -17,11 +21,7 @@ A versatile button component with glassmorphism design, physics-based interactio
 <GlassButton variant="ghost">Ghost</GlassButton>
 <GlassButton variant="link">Link</GlassButton>`}
 >
-  <GlassButton>Default</GlassButton>
-  <GlassButton variant="secondary">Secondary</GlassButton>
-  <GlassButton variant="destructive">Destructive</GlassButton>
-  <GlassButton variant="ghost">Ghost</GlassButton>
-  <GlassButton variant="link">Link</GlassButton>
+  <ButtonVariants />
 </ComponentShowcase>
 
 ## Sizes
@@ -36,12 +36,7 @@ A versatile button component with glassmorphism design, physics-based interactio
   <Settings className="w-4 h-4" />
 </GlassButton>`}
 >
-  <GlassButton size="sm">Small</GlassButton>
-  <GlassButton size="default">Default</GlassButton>
-  <GlassButton size="lg">Large</GlassButton>
-  <GlassButton size="icon">
-    <Settings className="w-4 h-4" />
-  </GlassButton>
+  <ButtonSizes />
 </ComponentShowcase>
 
 ## With Icons
@@ -62,18 +57,7 @@ A versatile button component with glassmorphism design, physics-based interactio
   Delete
 </GlassButton>`}
 >
-  <GlassButton>
-    <Download className="w-4 h-4 mr-2" />
-    Download
-  </GlassButton>
-  <GlassButton variant="secondary">
-    <Heart className="w-4 h-4 mr-2" />
-    Like
-  </GlassButton>
-  <GlassButton variant="destructive">
-    <Trash2 className="w-4 h-4 mr-2" />
-    Delete
-  </GlassButton>
+  <ButtonsWithIcons />
 </ComponentShowcase>
 
 ## States
@@ -85,11 +69,7 @@ A versatile button component with glassmorphism design, physics-based interactio
 <GlassButton loading>Loading</GlassButton>
 <GlassButton className="animate-pulse">Animated</GlassButton>`}
 >
-  <GlassButton disabled>Disabled</GlassButton>
-  <GlassButton>
-    <ExternalLink className="w-4 h-4 mr-2" />
-    Active
-  </GlassButton>
+  <ButtonStates />
 </ComponentShowcase>
 
 ## API Reference
