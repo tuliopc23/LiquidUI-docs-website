@@ -1,22 +1,353 @@
-
-import { GlassCard } from "glass-ui-tulio";
+import { GlassCard, GlassButton, GlassBadge } from "glass-ui-tulio";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { Heart, MessageCircle, Share, Calendar, MapPin } from "lucide-react";
 
 # Card
 
-A card is a container for content.
+A flexible container component with stunning glassmorphism effects, perfect for displaying content with depth and visual hierarchy.
 
-<ComponentShowcase>
-  <GlassCard>
-    <div className="p-6">
-      <h3 className="text-xl font-semibold">Card Title</h3>
-      <p className="mt-2 text-muted-foreground">Card content</p>
+## Basic Usage
+
+<ComponentShowcase
+  title="Basic Card"
+  description="Simple card with content"
+  code={`<GlassCard className="p-6 max-w-md">
+  <h3 className="text-lg font-semibold mb-2">Card Title</h3>
+  <p className="text-muted-foreground">
+    This is a basic card component with glassmorphism effects.
+  </p>
+</GlassCard>`}
+>
+  <GlassCard className="p-6 max-w-md">
+    <h3 className="text-lg font-semibold mb-2">Card Title</h3>
+    <p className="text-muted-foreground">
+      This is a basic card component with glassmorphism effects.
+    </p>
+  </GlassCard>
+</ComponentShowcase>
+
+## With Header and Actions
+
+<ComponentShowcase
+  title="Card with Actions"
+  description="Card with header and action buttons"
+  code={`<GlassCard className="p-6 max-w-md">
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="text-lg font-semibold">Project Update</h3>
+    <GlassBadge variant="outline">New</GlassBadge>
+  </div>
+  <p className="text-muted-foreground mb-4">
+    The new feature has been successfully deployed to production.
+  </p>
+  <div className="flex gap-2">
+    <GlassButton size="sm">View Details</GlassButton>
+    <GlassButton variant="outline" size="sm">Dismiss</GlassButton>
+  </div>
+</GlassCard>`}
+>
+  <GlassCard className="p-6 max-w-md">
+    <div className="flex items-center justify-between mb-4">
+      <h3 className="text-lg font-semibold">Project Update</h3>
+      <GlassBadge variant="outline">New</GlassBadge>
+    </div>
+    <p className="text-muted-foreground mb-4">
+      The new feature has been successfully deployed to production.
+    </p>
+    <div className="flex gap-2">
+      <GlassButton size="sm">View Details</GlassButton>
+      <GlassButton variant="outline" size="sm">Dismiss</GlassButton>
     </div>
   </GlassCard>
 </ComponentShowcase>
 
-## Props
+## User Profile Card
+
+<ComponentShowcase
+  title="Profile Card"
+  description="Card displaying user information"
+  code={`<GlassCard className="p-6 max-w-sm">
+  <div className="flex items-center gap-4 mb-4">
+    <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
+      SJ
+    </div>
+    <div>
+      <h3 className="font-semibold">Sarah Johnson</h3>
+      <p className="text-sm text-muted-foreground">UI/UX Designer</p>
+    </div>
+  </div>
+  <div className="space-y-2 text-sm text-muted-foreground mb-4">
+    <div className="flex items-center gap-2">
+      <MapPin className="w-4 h-4" />
+      San Francisco, CA
+    </div>
+    <div className="flex items-center gap-2">
+      <Calendar className="w-4 h-4" />
+      Joined March 2023
+    </div>
+  </div>
+  <GlassButton className="w-full">Follow</GlassButton>
+</GlassCard>`}
+>
+  <GlassCard className="p-6 max-w-sm">
+    <div className="flex items-center gap-4 mb-4">
+      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
+        SJ
+      </div>
+      <div>
+        <h3 className="font-semibold">Sarah Johnson</h3>
+        <p className="text-sm text-muted-foreground">UI/UX Designer</p>
+      </div>
+    </div>
+    <div className="space-y-2 text-sm text-muted-foreground mb-4">
+      <div className="flex items-center gap-2">
+        <MapPin className="w-4 h-4" />
+        San Francisco, CA
+      </div>
+      <div className="flex items-center gap-2">
+        <Calendar className="w-4 h-4" />
+        Joined March 2023
+      </div>
+    </div>
+    <GlassButton className="w-full">Follow</GlassButton>
+  </GlassCard>
+</ComponentShowcase>
+
+## Social Media Card
+
+<ComponentShowcase
+  title="Social Media Post"
+  description="Card resembling a social media post"
+  code={`<GlassCard className="p-6 max-w-md">
+  <div className="flex items-center gap-3 mb-4">
+    <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
+      GT
+    </div>
+    <div className="flex-1">
+      <h4 className="font-medium">Glass UI Team</h4>
+      <p className="text-sm text-muted-foreground">2 hours ago</p>
+    </div>
+  </div>
+  <p className="mb-4">
+    🎉 Just released Glass UI v1.0 with physics-based interactions! 
+    Experience the future of React components.
+  </p>
+  <div className="flex items-center justify-between pt-4 border-t border-white/10">
+    <div className="flex gap-4">
+      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+        <Heart className="w-4 h-4" />
+        42
+      </button>
+      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+        <MessageCircle className="w-4 h-4" />
+        8
+      </button>
+    </div>
+    <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+      <Share className="w-4 h-4" />
+      Share
+    </button>
+  </div>
+</GlassCard>`}
+>
+  <GlassCard className="p-6 max-w-md">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
+        GT
+      </div>
+      <div className="flex-1">
+        <h4 className="font-medium">LiquidiUI Team</h4>
+        <p className="text-sm text-muted-foreground">2 hours ago</p>
+      </div>
+    </div>
+    <p className="mb-4">
+      🎉 Just released LiquidiUI v1.0 with physics-based interactions! 
+      Experience the future of React components.
+    </p>
+    <div className="flex items-center justify-between pt-4 border-t border-white/10">
+      <div className="flex gap-4">
+        <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <Heart className="w-4 h-4" />
+          42
+        </button>
+        <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <MessageCircle className="w-4 h-4" />
+          8
+        </button>
+      </div>
+      <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+        <Share className="w-4 h-4" />
+        Share
+      </button>
+    </div>
+  </GlassCard>
+</ComponentShowcase>
+
+## Nested Cards
+
+<ComponentShowcase
+  title="Nested Layout"
+  description="Cards can be nested for complex layouts"
+  code={`<GlassCard className="p-6 max-w-2xl">
+  <h3 className="text-xl font-semibold mb-4">Dashboard Overview</h3>
+  <div className="grid gap-4 md:grid-cols-2">
+    <GlassCard className="p-4">
+      <h4 className="font-medium mb-2">Total Users</h4>
+      <p className="text-2xl font-bold text-primary">12,485</p>
+      <p className="text-sm text-green-400">+2.5% from last month</p>
+    </GlassCard>
+    <GlassCard className="p-4">
+      <h4 className="font-medium mb-2">Revenue</h4>
+      <p className="text-2xl font-bold text-primary">$45,210</p>
+      <p className="text-sm text-green-400">+8.1% from last month</p>
+    </GlassCard>
+  </div>
+</GlassCard>`}
+>
+  <GlassCard className="p-6 max-w-2xl">
+    <h3 className="text-xl font-semibold mb-4">Dashboard Overview</h3>
+    <div className="grid gap-4 md:grid-cols-2">
+      <GlassCard className="p-4">
+        <h4 className="font-medium mb-2">Total Users</h4>
+        <p className="text-2xl font-bold text-primary">12,485</p>
+        <p className="text-sm text-green-400">+2.5% from last month</p>
+      </GlassCard>
+      <GlassCard className="p-4">
+        <h4 className="font-medium mb-2">Revenue</h4>
+        <p className="text-2xl font-bold text-primary">$45,210</p>
+        <p className="text-sm text-green-400">+8.1% from last month</p>
+      </GlassCard>
+    </div>
+  </GlassCard>
+</ComponentShowcase>
+
+## API Reference
+
+### Props
 
 | Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `as` | `React.ElementType` | `"div"` | The element to render the card as. |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+| `children` | `ReactNode` | - | Card content |
+| `asChild` | `boolean` | `false` | Render as a child element |
+
+### Physics Properties
+
+The GlassCard includes advanced glassmorphism features:
+
+- **Adaptive Transparency**: Adjusts opacity based on background content
+- **Depth Layering**: Creates visual hierarchy through multiple glass layers
+- **Content Awareness**: Automatically adjusts blur and opacity for readability
+- **Hover Enhancement**: Subtle interactive effects on hover
+
+### Styling
+
+Cards can be styled using Tailwind CSS classes:
+
+```tsx
+// Padding and spacing
+<GlassCard className="p-4">   // Small padding
+<GlassCard className="p-6">   // Medium padding (recommended)
+<GlassCard className="p-8">   // Large padding
+
+// Width constraints
+<GlassCard className="max-w-sm">  // Small max width
+<GlassCard className="max-w-md">  // Medium max width
+<GlassCard className="max-w-lg">  // Large max width
+<GlassCard className="w-full">    // Full width
+
+// Height
+<GlassCard className="h-32">      // Fixed height
+<GlassCard className="min-h-40">  // Minimum height
+<GlassCard className="h-full">    // Full height
+```
+
+## Accessibility
+
+- Uses semantic HTML structure
+- Proper focus management for interactive elements
+- Screen reader compatible
+- Keyboard navigation support
+- High contrast mode support
+
+## Best Practices
+
+### Content Organization
+
+- Use clear hierarchy with headings and sections
+- Group related content together
+- Provide adequate spacing between elements
+- Use consistent padding throughout your application
+
+### Visual Design
+
+- Avoid nesting too many glass effects (max 2-3 levels)
+- Ensure sufficient contrast for text readability
+- Use consistent card sizes within the same context
+- Consider responsive design for different screen sizes
+
+### Performance
+
+- Avoid excessive nesting of glass cards
+- Use appropriate image optimization for card backgrounds
+- Consider lazy loading for cards with heavy content
+
+## Examples
+
+### Article Card
+
+```tsx
+function ArticleCard({ article }) {
+  return (
+    <GlassCard className="p-6 max-w-md">
+      <div className="aspect-video bg-muted rounded-lg mb-4" />
+      <div className="space-y-2">
+        <GlassBadge variant="outline">{article.category}</GlassBadge>
+        <h3 className="text-lg font-semibold">{article.title}</h3>
+        <p className="text-muted-foreground text-sm">
+          {article.excerpt}
+        </p>
+        <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 glass-effect rounded-full flex items-center justify-center text-xs font-medium">
+              A
+            </div>
+            <span className="text-sm">{article.author}</span>
+          </div>
+          <span className="text-sm text-muted-foreground">
+            {article.readTime}
+          </span>
+        </div>
+      </div>
+    </GlassCard>
+  )
+}
+```
+
+### Pricing Card
+
+```tsx
+function PricingCard({ plan }) {
+  return (
+    <GlassCard className="p-8 max-w-sm">
+      <div className="text-center">
+        <h3 className="text-2xl font-bold">{plan.name}</h3>
+        <div className="mt-4 mb-8">
+          <span className="text-4xl font-bold">${plan.price}</span>
+          <span className="text-muted-foreground">/month</span>
+        </div>
+        <ul className="space-y-3 mb-8">
+          {plan.features.map((feature, index) => (
+            <li key={index} className="flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span className="text-sm">{feature}</span>
+            </li>
+          ))}
+        </ul>
+        <GlassButton className="w-full">
+          Choose Plan
+        </GlassButton>
+      </div>
+    </GlassCard>
+  )
+}
+```

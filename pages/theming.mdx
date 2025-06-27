@@ -3,462 +3,510 @@ title: Theming
 ---
 
 import { Callout, Tabs, Tab } from 'nextra/components'
+import { GlassCard, GlassButton, GlassBadge } from "glass-ui-tulio";
+import { ComponentShowcase } from "../components/ComponentShowcase";
+import { motion } from "framer-motion";
+import { Palette, Sparkles, Settings, Code, Sun, Moon } from "lucide-react";
 
 # Theming
 
-Glass UI provides a powerful and flexible theming system that allows you to customize every aspect of your components to match your brand and design requirements.
+Customize LiquidiUI to match your brand and design requirements with our powerful theming system.
 
-## Design Tokens
+<div className="glass-card p-6 my-8">
+  <div className="flex items-center gap-3 mb-4">
+    <Palette className="w-6 h-6 text-primary" />
+    <h2 className="text-xl font-semibold m-0">Design System Foundation</h2>
+  </div>
+  <p className="text-muted-foreground mb-4">
+    LiquidiUI's theming system is built on CSS custom properties and provides deep customization capabilities while maintaining the signature glassmorphism aesthetic.
+  </p>
+  <div className="flex flex-wrap gap-2">
+    <GlassBadge variant="outline">CSS Variables</GlassBadge>
+    <GlassBadge variant="outline">Dark/Light Mode</GlassBadge>
+    <GlassBadge variant="outline">Custom Properties</GlassBadge>
+    <GlassBadge variant="outline">Brand Colors</GlassBadge>
+  </div>
+</div>
 
-Glass UI uses CSS custom properties (CSS variables) as design tokens, making it easy to customize colors, spacing, typography, and effects throughout your application.
+## Theme Toggle
 
-### Color System
+<ComponentShowcase
+  title="Theme Switching"
+  description="Built-in theme toggle component"
+  code={`// Theme toggle will be available in the full package
+// For now, you can implement a custom toggle using CSS variables
 
-The color system is built around semantic color tokens that adapt to both light and dark themes:
-
-```css
-:root {
-  /* Primary Colors */
-  --glass-primary: #3b82f6;
-  --glass-primary-hover: #2563eb;
-  --glass-primary-text: #ffffff;
+function ThemeToggle() {
+  const [theme, setTheme] = useState('dark')
   
-  /* Secondary Colors */
-  --glass-secondary: #6366f1;
-  --glass-secondary-hover: #4f46e5;
-  --glass-secondary-text: #ffffff;
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(newTheme)
+    document.documentElement.setAttribute('data-theme', newTheme)
+  }
   
-  /* Glass Effects */
-  --glass-background: rgba(255, 255, 255, 0.1);
-  --glass-background-hover: rgba(255, 255, 255, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-border-hover: rgba(255, 255, 255, 0.3);
-  --glass-blur: 10px;
-  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-  
-  /* Semantic Colors */
-  --glass-success: #10b981;
-  --glass-warning: #f59e0b;
-  --glass-error: #ef4444;
-  --glass-info: #3b82f6;
-  
-  /* Text Colors */
-  --glass-text-primary: #1f2937;
-  --glass-text-secondary: #6b7280;
-  --glass-text-muted: #9ca3af;
-}
-```
+  return (
+    <button onClick={toggleTheme} className="glass-effect p-2 rounded-lg">
+      {theme === 'dark' ? '🌙' : '☀️'}
+    </button>
+  )
+}`}
+>
+  <div className="flex items-center gap-4">
+    <button className="glass-effect p-2 rounded-lg hover:bg-white/10 transition-colors">
+      🌙
+    </button>
+    <span className="text-sm text-muted-foreground">
+      Theme toggle (implementation shown in code)
+    </span>
+  </div>
+</ComponentShowcase>
 
-### Dark Theme
+## Color System
 
-Dark theme colors are automatically applied when the `dark` class is present:
+### Primary Colors
 
-```css
-.dark {
-  /* Glass Effects for Dark Mode */
-  --glass-background: rgba(0, 0, 0, 0.1);
-  --glass-background-hover: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-border-hover: rgba(255, 255, 255, 0.2);
-  
-  /* Text Colors for Dark Mode */
-  --glass-text-primary: #f9fafb;
-  --glass-text-secondary: #d1d5db;
-  --glass-text-muted: #9ca3af;
-}
-```
-
-## Customizing Your Theme
-
-### Method 1: CSS Variables Override
-
-The simplest way to customize Glass UI is by overriding CSS variables in your global stylesheet:
-
-<Tabs items={['CSS', 'Example']}>
-  <Tab>
-    ```css
-    /* In your global CSS file */
-    :root {
-      /* Custom brand colors */
-      --glass-primary: #7c3aed;
-      --glass-primary-hover: #6d28d9;
-      --glass-secondary: #ec4899;
-      --glass-secondary-hover: #db2777;
-      
-      /* Custom glass effects */
-      --glass-blur: 15px;
-      --glass-background: rgba(124, 58, 237, 0.1);
-      --glass-border: rgba(124, 58, 237, 0.2);
-      
-      /* Custom spacing */
-      --glass-spacing-md: 1.25rem;
-      --glass-spacing-lg: 2rem;
-      
-      /* Custom border radius */
-      --glass-radius-md: 0.75rem;
-      --glass-radius-lg: 1rem;
-    }
-    ```
-  </Tab>
-  <Tab>
-    <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800 rounded-lg">
-      <div className="space-y-4">
-        <button 
-          className="px-4 py-2 rounded-lg font-medium transition-all"
-          style={{
-            background: 'rgba(124, 58, 237, 0.1)',
-            backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(124, 58, 237, 0.2)',
-            color: '#7c3aed'
-          }}
-        >
-          Custom Glass Button
-        </button>
-        <div 
-          className="p-4 rounded-lg"
-          style={{
-            background: 'rgba(236, 72, 153, 0.1)',
-            backdropFilter: 'blur(15px)',
-            border: '1px solid rgba(236, 72, 153, 0.2)'
-          }}
-        >
-          <h4 className="font-semibold text-pink-600">Custom Glass Card</h4>
-          <p className="text-gray-600 dark:text-gray-300">With custom purple and pink theme</p>
-        </div>
-      </div>
+<ComponentShowcase
+  title="Color Palette"
+  description="Core color system with glassmorphism support"
+>
+  <div className="grid gap-4 md:grid-cols-3 w-full">
+    <div className="glass-effect p-4 rounded-lg">
+      <div className="w-full h-12 bg-primary rounded mb-3"></div>
+      <div className="text-sm font-medium">Primary</div>
+      <div className="text-xs text-muted-foreground">hsl(217, 91%, 60%)</div>
     </div>
-  </Tab>
-</Tabs>
+    <div className="glass-effect p-4 rounded-lg">
+      <div className="w-full h-12 bg-secondary rounded mb-3"></div>
+      <div className="text-sm font-medium">Secondary</div>
+      <div className="text-xs text-muted-foreground">hsl(217, 33%, 18%)</div>
+    </div>
+    <div className="glass-effect p-4 rounded-lg">
+      <div className="w-full h-12 bg-accent rounded mb-3"></div>
+      <div className="text-sm font-medium">Accent</div>
+      <div className="text-xs text-muted-foreground">hsl(217, 33%, 18%)</div>
+    </div>
+  </div>
+</ComponentShowcase>
 
-### Method 2: Theme Configuration Object
+### Semantic Colors
 
-For more advanced theming, you can create a theme configuration object:
+<ComponentShowcase
+  title="Semantic Color System"
+  description="Colors with specific meanings and use cases"
+>
+  <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4 w-full">
+    <GlassCard className="p-3 text-center">
+      <div className="w-full h-8 bg-green-500 rounded mb-2"></div>
+      <div className="text-xs font-medium">Success</div>
+    </GlassCard>
+    <GlassCard className="p-3 text-center">
+      <div className="w-full h-8 bg-yellow-500 rounded mb-2"></div>
+      <div className="text-xs font-medium">Warning</div>
+    </GlassCard>
+    <GlassCard className="p-3 text-center">
+      <div className="w-full h-8 bg-red-500 rounded mb-2"></div>
+      <div className="text-xs font-medium">Error</div>
+    </GlassCard>
+    <GlassCard className="p-3 text-center">
+      <div className="w-full h-8 bg-blue-500 rounded mb-2"></div>
+      <div className="text-xs font-medium">Info</div>
+    </GlassCard>
+  </div>
+</ComponentShowcase>
 
-```tsx
-// theme.config.ts
-export const customTheme = {
-  colors: {
-    primary: {
-      50: '#faf5ff',
-      100: '#f3e8ff',
-      500: '#8b5cf6',
-      600: '#7c3aed',
-      700: '#6d28d9',
-    },
-    glass: {
-      background: 'rgba(139, 92, 246, 0.1)',
-      backgroundHover: 'rgba(139, 92, 246, 0.2)',
-      border: 'rgba(139, 92, 246, 0.2)',
-      borderHover: 'rgba(139, 92, 246, 0.3)',
-      blur: '12px',
-    }
-  },
-  spacing: {
-    xs: '0.25rem',
-    sm: '0.5rem',
-    md: '1rem',
-    lg: '1.5rem',
-    xl: '2rem',
-  },
-  borderRadius: {
-    sm: '0.375rem',
-    md: '0.5rem',
-    lg: '0.75rem',
-    xl: '1rem',
-  }
-}
+## CSS Variables
 
-// Apply theme
-import { applyTheme } from 'glass-ui/theme'
-applyTheme(customTheme)
-```
+### Core Variables
 
-## Component-Specific Theming
-
-### Button Theming
-
-Customize button variants with specific CSS variables:
+LiquidiUI uses CSS custom properties for easy theming:
 
 ```css
-/* Custom button variants */
-.glass-button-brand {
-  --button-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --button-text: #ffffff;
-  --button-hover-bg: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-  --button-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-.glass-button-success {
-  --button-bg: var(--glass-success);
-  --button-text: #ffffff;
-  --button-hover-bg: #059669;
-}
-```
-
-### Card Theming
-
-Create custom card styles:
-
-```css
-.glass-card-elevated {
-  --card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --card-hover-transform: translateY(-8px);
-  --card-border-width: 2px;
-}
-
-.glass-card-minimal {
-  --card-background: rgba(255, 255, 255, 0.05);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --card-shadow: none;
-}
-```
-
-## Responsive Theming
-
-Glass UI supports responsive theming using CSS media queries:
-
-```css
-/* Mobile-first responsive theming */
 :root {
-  --glass-blur: 8px;
-  --glass-spacing-md: 0.75rem;
+  /* Colors */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 94.1%;
+  
+  /* Sizing */
+  --radius: 0.75rem;
+}
+```
+
+### Light Theme
+
+```css
+[data-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+}
+```
+
+## Custom Brand Colors
+
+### Step 1: Define Your Colors
+
+Create your brand color palette:
+
+```css
+:root {
+  /* Your brand colors */
+  --brand-blue: 210 100% 50%;
+  --brand-purple: 270 100% 60%;
+  --brand-green: 120 100% 40%;
+  
+  /* Apply to LiquidiUI variables */
+  --primary: var(--brand-blue);
+  --accent: var(--brand-purple);
+}
+```
+
+### Step 2: Create Theme Variants
+
+<ComponentShowcase
+  title="Brand Color Examples"
+  description="Different brand color applications"
+>
+  <div className="space-y-4 w-full">
+    <div className="flex gap-3">
+      <GlassButton style={{ '--primary': '210 100% 50%' }}>
+        Tech Blue
+      </GlassButton>
+      <GlassButton style={{ '--primary': '270 100% 60%' }}>
+        Creative Purple  
+      </GlassButton>
+      <GlassButton style={{ '--primary': '120 100% 40%' }}>
+        Nature Green
+      </GlassButton>
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Advanced Customization
+
+### Glass Effect Properties
+
+Customize the glassmorphism effects:
+
+```css
+.custom-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+}
+```
+
+### Component-Specific Theming
+
+Override specific component styles:
+
+```css
+/* Custom button theme */
+.my-button {
+  --glass-primary: #ff6b6b;
+  --glass-primary-foreground: #ffffff;
+  --glass-blur: 15px;
+  --glass-opacity: 0.1;
 }
 
-@media (min-width: 768px) {
-  :root {
-    --glass-blur: 10px;
-    --glass-spacing-md: 1rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --glass-blur: 12px;
-    --glass-spacing-md: 1.25rem;
-  }
+/* Custom card theme */
+.my-card {
+  --glass-background: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 ```
 
 ## Theme Presets
 
-Glass UI comes with several built-in theme presets:
+### Corporate Theme
 
-### Ocean Theme
+<ComponentShowcase
+  title="Corporate Theme"
+  description="Professional, business-focused theme"
+  code={`// Corporate theme variables
+const corporateTheme = {
+  '--primary': '210 100% 45%',
+  '--secondary': '210 15% 20%',
+  '--accent': '210 100% 55%',
+  '--background': '210 15% 8%',
+  '--foreground': '210 15% 95%'
+}`}
+>
+  <div 
+    className="glass-card p-6 max-w-md"
+    style={{
+      '--primary': '210 100% 45%',
+      '--secondary': '210 15% 20%',
+      '--accent': '210 100% 55%'
+    }}
+  >
+    <h3 className="text-lg font-semibold mb-3">Corporate Dashboard</h3>
+    <p className="text-muted-foreground mb-4">
+      Professional and reliable interface design.
+    </p>
+    <GlassButton>View Reports</GlassButton>
+  </div>
+</ComponentShowcase>
+
+### Creative Theme
+
+<ComponentShowcase
+  title="Creative Theme"
+  description="Vibrant, artistic theme for creative projects"
+  code={`// Creative theme variables
+const creativeTheme = {
+  '--primary': '270 100% 60%',
+  '--secondary': '320 100% 50%',
+  '--accent': '45 100% 55%',
+  '--background': '270 15% 5%',
+  '--foreground': '270 5% 95%'
+}`}
+>
+  <div 
+    className="glass-card p-6 max-w-md"
+    style={{
+      '--primary': '270 100% 60%',
+      '--secondary': '320 100% 50%',
+      '--accent': '45 100% 55%'
+    }}
+  >
+    <h3 className="text-lg font-semibold mb-3">Creative Portfolio</h3>
+    <p className="text-muted-foreground mb-4">
+      Express your creativity with vibrant colors.
+    </p>
+    <GlassButton>View Gallery</GlassButton>
+  </div>
+</ComponentShowcase>
+
+## Typography Customization
+
+### Font Families
 
 ```css
-.theme-ocean {
-  --glass-primary: #0ea5e9;
-  --glass-primary-hover: #0284c7;
-  --glass-secondary: #06b6d4;
-  --glass-secondary-hover: #0891b2;
-  --glass-background: rgba(14, 165, 233, 0.1);
-  --glass-border: rgba(14, 165, 233, 0.2);
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-heading: 'Cal Sans', 'Inter', sans-serif;
+}
+
+/* Apply custom fonts */
+.prose h1, .prose h2, .prose h3 {
+  font-family: var(--font-heading);
 }
 ```
 
-### Forest Theme
+### Font Sizes
 
 ```css
-.theme-forest {
-  --glass-primary: #059669;
-  --glass-primary-hover: #047857;
-  --glass-secondary: #10b981;
-  --glass-secondary-hover: #059669;
-  --glass-background: rgba(5, 150, 105, 0.1);
-  --glass-border: rgba(5, 150, 105, 0.2);
+:root {
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
 }
 ```
 
-### Sunset Theme
+## Dark Mode Implementation
 
-```css
-.theme-sunset {
-  --glass-primary: #f97316;
-  --glass-primary-hover: #ea580c;
-  --glass-secondary: #f59e0b;
-  --glass-secondary-hover: #d97706;
-  --glass-background: rgba(249, 115, 22, 0.1);
-  --glass-border: rgba(249, 115, 22, 0.2);
-}
-```
-
-## Advanced Theming
-
-### Dynamic Theme Switching
-
-Implement dynamic theme switching with JavaScript:
+### Automatic Detection
 
 ```tsx
-import { useState, useEffect } from 'react'
+import { ThemeProvider } from 'glass-ui-tulio'
 
-function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('default')
-  
-  useEffect(() => {
-    document.documentElement.className = `theme-${theme}`
-  }, [theme])
-  
-  const themes = [
-    { name: 'default', label: 'Default' },
-    { name: 'ocean', label: 'Ocean' },
-    { name: 'forest', label: 'Forest' },
-    { name: 'sunset', label: 'Sunset' },
-  ]
+function App() {
+  return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {/* Your app */}
+    </ThemeProvider>
+  )
+}
+```
+
+### Manual Control
+
+```tsx
+import { useTheme } from 'glass-ui-tulio'
+
+function ThemeControls() {
+  const { theme, setTheme } = useTheme()
   
   return (
-    <div>
-      <div className="theme-selector">
-        {themes.map((t) => (
-          <button
-            key={t.name}
-            onClick={() => setTheme(t.name)}
-            className={theme === t.name ? 'active' : ''}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-      {children}
+    <div className="flex gap-2">
+      <GlassButton 
+        variant={theme === 'light' ? 'default' : 'outline'}
+        onClick={() => setTheme('light')}
+      >
+        <Sun className="w-4 h-4" />
+        Light
+      </GlassButton>
+      <GlassButton 
+        variant={theme === 'dark' ? 'default' : 'outline'}
+        onClick={() => setTheme('dark')}
+      >
+        <Moon className="w-4 h-4" />
+        Dark
+      </GlassButton>
     </div>
   )
 }
 ```
 
-### CSS-in-JS Integration
+## Responsive Theming
 
-Glass UI works seamlessly with CSS-in-JS libraries:
+### Breakpoint-Based Themes
+
+```css
+/* Mobile theme adjustments */
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 8px;
+    --glass-opacity: 0.12;
+    --radius: 0.5rem;
+  }
+}
+
+/* Desktop theme enhancements */
+@media (min-width: 1024px) {
+  :root {
+    --glass-blur: 15px;
+    --glass-opacity: 0.08;
+    --radius: 1rem;
+  }
+}
+```
+
+## Performance Considerations
+
+### CSS Variable Optimization
+
+- Use HSL color space for better interpolation
+- Minimize the number of custom properties
+- Group related variables together
+- Use fallback values for better browser support
+
+### Best Practices
+
+1. **Consistent Naming**: Use semantic names for variables
+2. **Fallback Values**: Always provide fallbacks for custom properties
+3. **Performance**: Avoid excessive nesting of glass effects
+4. **Accessibility**: Ensure sufficient contrast ratios
+5. **Testing**: Test themes across different devices and browsers
+
+## Examples
+
+### Complete Theme Implementation
 
 ```tsx
-// With styled-components
-import styled from 'styled-components'
+// theme.ts
+export const themes = {
+  corporate: {
+    '--primary': '210 100% 45%',
+    '--secondary': '210 15% 20%',
+    '--accent': '210 100% 55%',
+    '--background': '210 15% 8%',
+    '--foreground': '210 15% 95%',
+    '--muted': '210 15% 15%',
+    '--muted-foreground': '210 15% 70%',
+    '--border': '210 15% 18%',
+    '--radius': '0.5rem'
+  },
+  creative: {
+    '--primary': '270 100% 60%',
+    '--secondary': '320 100% 50%',
+    '--accent': '45 100% 55%',
+    '--background': '270 15% 5%',
+    '--foreground': '270 5% 95%',
+    '--muted': '270 15% 10%',
+    '--muted-foreground': '270 5% 70%',
+    '--border': '270 15% 15%',
+    '--radius': '1rem'
+  }
+}
 
-const CustomButton = styled.button`
-  background: var(--glass-background);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--glass-radius-md);
-  padding: var(--glass-spacing-sm) var(--glass-spacing-md);
-  color: var(--glass-text-primary);
-  transition: all var(--glass-transition-normal);
+// Apply theme
+function applyTheme(themeName: keyof typeof themes) {
+  const theme = themes[themeName]
+  const root = document.documentElement
   
-  &:hover {
-    background: var(--glass-background-hover);
-    border-color: var(--glass-border-hover);
-  }
-`
-
-// With emotion
-import { css } from '@emotion/react'
-
-const buttonStyles = css`
-  background: var(--glass-background);
-  backdrop-filter: blur(var(--glass-blur));
-  /* ... rest of styles */
-`
-```
-
-## Accessibility Considerations
-
-When customizing themes, ensure accessibility standards are maintained:
-
-### Color Contrast
-
-```css
-/* Ensure sufficient contrast ratios */
-:root {
-  --glass-text-primary: #1f2937; /* 4.5:1 contrast ratio */
-  --glass-text-secondary: #4b5563; /* 3:1 contrast ratio */
-}
-
-.dark {
-  --glass-text-primary: #f9fafb; /* 4.5:1 contrast ratio */
-  --glass-text-secondary: #d1d5db; /* 3:1 contrast ratio */
+  Object.entries(theme).forEach(([property, value]) => {
+    root.style.setProperty(property, value)
+  })
 }
 ```
 
-### Focus Indicators
+### Theme Selector Component
 
-```css
-/* Maintain visible focus indicators */
-.glass-button:focus {
-  outline: 2px solid var(--glass-primary);
-  outline-offset: 2px;
+```tsx
+import { useState } from 'react'
+import { GlassButton, GlassCard } from 'glass-ui-tulio'
+
+function ThemeSelector() {
+  const [activeTheme, setActiveTheme] = useState('default')
+  
+  const themes = [
+    { name: 'default', label: 'Default', primary: '217 91% 60%' },
+    { name: 'corporate', label: 'Corporate', primary: '210 100% 45%' },
+    { name: 'creative', label: 'Creative', primary: '270 100% 60%' },
+    { name: 'nature', label: 'Nature', primary: '120 100% 40%' }
+  ]
+  
+  return (
+    <GlassCard className="p-6">
+      <h3 className="text-lg font-semibold mb-4">Choose Theme</h3>
+      <div className="grid gap-3 md:grid-cols-2">
+        {themes.map((theme) => (
+          <GlassButton
+            key={theme.name}
+            variant={activeTheme === theme.name ? 'default' : 'outline'}
+            onClick={() => {
+              setActiveTheme(theme.name)
+              applyTheme(theme.name)
+            }}
+            className="flex items-center gap-2"
+          >
+            <div 
+              className="w-4 h-4 rounded-full"
+              style={{ background: `hsl(${theme.primary})` }}
+            />
+            {theme.label}
+          </GlassButton>
+        ))}
+      </div>
+    </GlassCard>
+  )
 }
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .glass-effect {
-    background: white !important;
-    border: 2px solid black !important;
-    backdrop-filter: none !important;
-  }
-}
 ```
-
-### Reduced Motion
-
-```css
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-```
-
-## Best Practices
-
-1. **Start with design tokens** - Use CSS variables for consistency
-2. **Test in both themes** - Ensure your customizations work in light and dark modes
-3. **Maintain contrast ratios** - Follow WCAG guidelines for accessibility
-4. **Use semantic naming** - Name your custom properties based on purpose, not appearance
-5. **Document your theme** - Keep a style guide for your custom theme
-6. **Test across devices** - Ensure glass effects work on different screen types
-
-<Callout type="warning">
-  Glass effects may not be supported on older browsers. Always provide fallback styles for better compatibility.
-</Callout>
-
-## Migration from Other Libraries
-
-### From Material-UI
-
-```css
-/* Material-UI primary color */
---mui-primary: #1976d2;
-
-/* Convert to Glass UI */
---glass-primary: #1976d2;
---glass-primary-hover: #1565c0;
-```
-
-### From Chakra UI
-
-```css
-/* Chakra UI blue.500 */
---chakra-colors-blue-500: #3182ce;
-
-/* Convert to Glass UI */
---glass-primary: #3182ce;
---glass-primary-hover: #2c5aa0;
-```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Glass effects not showing**: Ensure `backdrop-filter` is supported
-2. **Colors not updating**: Check CSS specificity and variable scope
-3. **Dark mode not working**: Verify the `dark` class is applied to the root element
-
-### Browser Support
-
-Glass effects require modern browser support:
-- Chrome 76+
-- Firefox 103+
-- Safari 14+
-- Edge 79+
-
-For older browsers, components will gracefully fallback to solid backgrounds.

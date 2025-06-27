@@ -2,197 +2,285 @@
 title: Getting Started
 ---
 
-import { Callout, Steps, Tabs, Tab } from 'nextra/components'
+import { GlassButton, GlassCard, GlassBadge } from "glass-ui-tulio";
+import { ComponentShowcase } from "../components/ComponentShowcase";
+import { motion } from "framer-motion";
+import { Package, Download, Code, Rocket, CheckCircle } from "lucide-react";
 
 # Getting Started
 
-Welcome to Glass UI! This guide will help you get up and running with our component library in just a few minutes.
+Welcome to LiquidiUI! Get up and running with our physics-based glassmorphism component library in minutes.
+
+<div className="glass-card p-6 my-6">
+  <div className="flex items-center gap-3 mb-4">
+    <Rocket className="w-6 h-6 text-primary" />
+    <h2 className="text-xl font-semibold m-0">Quick Start</h2>
+  </div>
+  <p className="text-muted-foreground mb-4">
+    LiquidiUI is a modern React component library that brings physics-based interactions and stunning glassmorphism design to your applications.
+  </p>
+  <div className="flex flex-wrap gap-2">
+    <GlassBadge variant="outline">
+      <Package className="w-3 h-3 mr-1" />
+      React 18+
+    </GlassBadge>
+    <GlassBadge variant="outline">
+      <Code className="w-3 h-3 mr-1" />
+      TypeScript Ready
+    </GlassBadge>
+    <GlassBadge variant="outline">
+      <CheckCircle className="w-3 h-3 mr-1" />
+      Accessible
+    </GlassBadge>
+  </div>
+</div>
 
 ## Installation
 
-<Tabs items={['npm', 'yarn', 'pnpm']}>
-  <Tab>
-    ```bash
-    npm install glass-ui
-    ```
-  </Tab>
-  <Tab>
-    ```bash
-    yarn add glass-ui
-    ```
-  </Tab>
-  <Tab>
-    ```bash
-    pnpm add glass-ui
-    ```
-  </Tab>
-</Tabs>
+### Using npm
+
+```bash
+npm install glass-ui-tulio
+```
+
+### Using yarn
+
+```bash
+yarn add glass-ui-tulio
+```
+
+### Using pnpm
+
+```bash
+pnpm add glass-ui-tulio
+```
 
 ## Setup
 
-<Steps>
+### 1. Import Styles
 
-### Install Dependencies
+Add the LiquidiUI CSS to your project. In your main CSS file or `_app.tsx`:
 
-Glass UI requires React 18+ and has peer dependencies on some common packages:
-
-```bash
-npm install react react-dom
+```tsx
+import 'glass-ui-tulio/css'
 ```
 
-### Import Styles
+### 2. Configure Tailwind CSS
 
-Import the Glass UI CSS file in your main application file:
+If you're using Tailwind CSS (recommended), add LiquidiUI to your `tailwind.config.js`:
 
-```jsx
-// In your main App.js or index.js
-import 'glass-ui/dist/index.css'
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/glass-ui-tulio/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 ```
 
-### Start Using Components
+### 3. Setup Theme Provider (Optional)
 
-You can now import and use Glass UI components:
+For better theme support, wrap your app with the theme provider:
 
-```jsx
-import { Button, Card, Input } from 'glass-ui'
+```tsx
+import { ThemeProvider } from 'glass-ui-tulio'
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  )
+}
+```
+
+## First Component
+
+Let's create your first LiquidiUI component:
+
+<ComponentShowcase
+  title="Your First LiquidiUI Component"
+  description="A simple button with glassmorphism effect"
+  code={`import { GlassButton } from 'glass-ui-tulio'
 
 function MyComponent() {
   return (
-    <Card className="glass-effect p-6">
-      <h2 className="text-xl font-semibold mb-4">Welcome to Glass UI</h2>
-      <Input placeholder="Enter your email" className="mb-4" />
-      <Button variant="glass">Get Started</Button>
-    </Card>
+    <GlassButton onClick={() => alert('Hello LiquidiUI!')}>
+      Click me!
+    </GlassButton>
   )
-}
-```
+}`}
+>
+  <GlassButton onClick={() => alert('Hello LiquidiUI!')}>
+    Click me!
+  </GlassButton>
+</ComponentShowcase>
 
-</Steps>
+## Basic Example
 
-## Framework Integration
+Here's a more complete example showing multiple components:
 
-### Next.js
+<ComponentShowcase
+  title="Complete Example"
+  description="Card with button and content"
+  code={`import { GlassCard, GlassButton, GlassBadge } from 'glass-ui-tulio'
 
-Glass UI works seamlessly with Next.js. Here's how to set it up:
+function WelcomeCard() {
+  return (
+    <GlassCard className="p-6 max-w-md">
+      <div className="space-y-4">
+        <GlassBadge>New Feature</GlassBadge>
+        <h3 className="text-xl font-semibold">Welcome to LiquidiUI</h3>
+        <p className="text-muted-foreground">
+          Experience the future of React components with physics-based interactions.
+        </p>
+        <GlassButton className="w-full">
+          Get Started
+        </GlassButton>
+      </div>
+    </GlassCard>
+  )
+}`}
+>
+  <GlassCard className="p-6 max-w-md">
+    <div className="space-y-4">
+      <GlassBadge>New Feature</GlassBadge>
+      <h3 className="text-xl font-semibold">Welcome to Glass UI</h3>
+      <p className="text-muted-foreground">
+        Experience the future of React components with physics-based interactions.
+      </p>
+      <GlassButton className="w-full">
+        Get Started
+      </GlassButton>
+    </div>
+  </GlassCard>
+</ComponentShowcase>
 
-```jsx
-// pages/_app.js
-import 'glass-ui/dist/index.css'
-import '../styles/globals.css'
+## Key Features
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+### Physics-Based Interactions
 
-export default MyApp
-```
+LiquidiUI components respond to user interaction with natural, physics-based animations:
 
-<Callout type="info">
-  For Next.js 13+ with the app directory, import the CSS in your root layout.tsx file.
-</Callout>
+- **Magnetic Hover**: Components attract the cursor within a proximity radius
+- **Spring Animations**: Smooth, natural transitions using spring physics
+- **Gesture Recognition**: Advanced touch and mouse gesture support
 
-### Vite
+### Content-Aware Adaptation
 
-For Vite projects, import the CSS in your main.jsx or main.tsx:
+Components automatically adapt to their environment:
 
-```jsx
-// main.jsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import 'glass-ui/dist/index.css'
-import App from './App.jsx'
+- **Background Detection**: Adjusts opacity based on background content
+- **Color Contrast**: Maintains readability across different backgrounds
+- **Dynamic Sizing**: Responds to content changes with smooth transitions
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
-```
+### Accessibility First
 
-### Create React App
+Built with accessibility as a core principle:
 
-Import the CSS in your index.js or App.js:
-
-```jsx
-// src/index.js
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import 'glass-ui/dist/index.css'
-import './index.css'
-import App from './App'
-
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App />)
-```
+- **Screen Reader Support**: Full ARIA compliance
+- **Keyboard Navigation**: Complete keyboard interaction support
+- **Focus Management**: Intelligent focus handling and indicators
+- **High Contrast**: Supports system high contrast modes
 
 ## TypeScript Support
 
-Glass UI is built with TypeScript and provides excellent type safety out of the box. No additional setup is required for TypeScript projects.
+LiquidiUI is built with TypeScript and provides full type safety:
 
 ```tsx
-import { Button, ButtonProps } from 'glass-ui'
+import { GlassButtonProps } from 'glass-ui-tulio'
 
-interface MyComponentProps {
-  onSubmit: () => void
+interface MyButtonProps extends GlassButtonProps {
+  customProp?: string
 }
 
-const MyComponent: React.FC<MyComponentProps> = ({ onSubmit }) => {
-  return (
-    <Button 
-      variant="glass" 
-      size="lg"
-      onClick={onSubmit}
-    >
-      Submit
-    </Button>
-  )
+function MyButton({ customProp, ...props }: MyButtonProps) {
+  return <GlassButton {...props} />
 }
 ```
 
-## Theming
+## Performance
 
-Glass UI comes with a default theme that works great out of the box, but you can customize it to match your brand:
+LiquidiUI is optimized for performance:
 
-```css
-/* In your global CSS file */
-:root {
-  --glass-primary: #3b82f6;
-  --glass-secondary: #6366f1;
-  --glass-background: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-blur: 10px;
-}
-```
+- **Tree Shaking**: Only import components you use
+- **Lazy Loading**: Components load on demand
+- **Minimal Bundle Size**: Efficient packaging and compression
+- **Hardware Acceleration**: Uses GPU acceleration for smooth animations
 
 ## Browser Support
 
-Glass UI supports all modern browsers:
+LiquidiUI supports all modern browsers:
 
 - Chrome 88+
-- Firefox 87+
+- Firefox 85+
 - Safari 14+
 - Edge 88+
 
-<Callout type="warning">
-  Glassmorphism effects require backdrop-filter support. For older browsers, components will gracefully fallback to solid backgrounds.
-</Callout>
+## Next Steps
 
-## What's Next?
+<div className="grid gap-4 md:grid-cols-2 mt-8">
+  <GlassCard className="p-6">
+    <h3 className="text-lg font-semibold mb-2">📚 Explore Components</h3>
+    <p className="text-muted-foreground mb-4">
+      Browse our comprehensive component library with 30+ components.
+    </p>
+    <GlassButton variant="outline" size="sm">
+      <a href="/components">View Components</a>
+    </GlassButton>
+  </GlassCard>
 
-Now that you have Glass UI set up, explore our documentation:
+  <GlassCard className="p-6">
+    <h3 className="text-lg font-semibold mb-2">🎨 Theming Guide</h3>
+    <p className="text-muted-foreground mb-4">
+      Learn how to customize LiquidiUI to match your brand.
+    </p>
+    <GlassButton variant="outline" size="sm">
+      <a href="/theming">Theming Guide</a>
+    </GlassButton>
+  </GlassCard>
 
-- [Components](/components) - Browse all available components
-- [Theming](/theming) - Learn about customization options
-- [Examples](/examples) - See real-world usage examples
-- [API Reference](/api) - Detailed component APIs
+  <GlassCard className="p-6">
+    <h3 className="text-lg font-semibold mb-2">💡 Examples</h3>
+    <p className="text-muted-foreground mb-4">
+      See LiquidiUI in action with real-world examples.
+    </p>
+    <GlassButton variant="outline" size="sm">
+      <a href="/examples">View Examples</a>
+    </GlassButton>
+  </GlassCard>
 
-## Need Help?
+  <GlassCard className="p-6">
+    <h3 className="text-lg font-semibold mb-2">🚀 Advanced Usage</h3>
+    <p className="text-muted-foreground mb-4">
+      Discover advanced patterns and customization options.
+    </p>
+    <GlassButton variant="outline" size="sm">
+      <a href="/advanced">Advanced Guide</a>
+    </GlassButton>
+  </GlassCard>
+</div>
 
-If you run into any issues:
+## Community
 
-1. Check our [FAQ](/faq) for common questions
-2. Search [GitHub Issues](https://github.com/tulio-pinheiro-cunha/glass-ui/issues)
-3. Join our [Discord community](https://discord.gg/glass-ui)
-4. Create a new issue if you found a bug
+Join our growing community:
 
-Happy coding! 🚀
+- **GitHub**: [liquidi-ui repository](https://github.com/tuliopc23/liquidi-ui)
+- **Discord**: [Join our Discord server](https://discord.gg/liquidi-ui)
+- **Twitter**: [@liquidiui](https://twitter.com/liquidiui)
+
+## Support
+
+Need help? We're here for you:
+
+- 📖 [Documentation](/components)
+- 🐛 [Report Issues](https://github.com/tuliopc23/liquidi-ui/issues)
+- 💬 [Discussions](https://github.com/tuliopc23/liquidi-ui/discussions)
+- 📧 [Email Support](mailto:support@liquidi-ui.dev)
