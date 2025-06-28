@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from 'glass-ui-tulio';
+import { cn } from '@tuliocunha23/liquidui';
 import { glassEffect, cardPadding } from './utils/classNames';
 
 /**
