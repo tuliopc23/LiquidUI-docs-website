@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@tuliocunha23/liquidui";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
-import { Copy, Check, Code, Eye } from "lucide-react";
+import { Copy, Check, Code, Eye, ExternalLink } from "lucide-react";
 
 /**
  * Props for the ComponentShowcase component.
@@ -93,11 +93,12 @@ export function ComponentShowcase({
               )}
             </div>
 
-            {code && (
-              <div
-                className="flex items-center gap-2"
-                role="toolbar"
-                aria-label="Code actions"
+            <div className="flex items-center gap-2">
+              {code && (
+                <div
+                  className="flex items-center gap-2"
+                  role="toolbar"
+                  aria-label="Code actions"
               >
                 <button
                   onClick={() => setIsCodeVisible(!isCodeVisible)}
@@ -143,7 +144,20 @@ export function ComponentShowcase({
                   )}
                 </button>
               </div>
-            )}
+              )}
+              
+              {/* Storybook Link */}
+              <a
+                href="https://liquidui-storybook.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                aria-label="View component in Storybook"
+              >
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                <span className="hidden sm:inline">Storybook</span>
+              </a>
+            </div>
           </div>
         </motion.div>
       )}
