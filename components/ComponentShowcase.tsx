@@ -1,34 +1,8 @@
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 import { cn } from "@tuliocunha23/liquidui";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye } from "lucide-react";
-
-// Dynamic import for framer-motion components
-const MotionDiv = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
-
-const MotionHeader = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
-
-const MotionShowcase = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
-
-const MotionCodeSection = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
-
-const MotionParticle = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
 
 /**
  * Props for the ComponentShowcase component.
@@ -80,20 +54,20 @@ export function ComponentShowcase({
   };
 
   return (
-    <MotionDiv
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="component-showcase group relative overflow-hidden rounded-3xl my-8 glass-card border border-white/20"
     >
-      {/* Animated background effect with light mode gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-white/40 to-green-50/80 opacity-100 transition-opacity duration-500" />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-green-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Animated background effect for better visibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-transparent to-purple-100/30 dark:from-blue-400/10 dark:via-transparent dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Header */}
       {(title || description || code) && (
-        <MotionHeader
-          className="relative z-10 liquid-glass border-b border-white/20 px-6 py-4 bg-white/20 backdrop-blur-xl"
+        <motion.div
+          className="relative z-10 liquid-glass border-b border-white/20 dark:border-white/10 px-6 py-4 bg-white/40 dark:bg-gray-900/40 backdrop-blur-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -171,16 +145,17 @@ export function ComponentShowcase({
               </div>
             )}
           </div>
-        </MotionHeader>
+        </motion.div>
       )}
 
-      {/* Component showcase area with light background for better glassmorphism visibility */}
-      <MotionShowcase
+      {/* Component showcase area with proper contrast for visibility */}
+      <motion.div
         className={cn(
           "relative z-10 flex flex-wrap gap-4 items-center justify-center p-8 min-h-[120px]",
-          // Force light theme with colorful gradient background for glassmorphism visibility
-          "bg-gradient-to-br from-blue-50 via-purple-25 to-cyan-50",
-          "dark:bg-gradient-to-br dark:from-blue-50 dark:via-purple-900 dark:to-cyan-900",
+          // Light mode: bright background for glass components to show
+          "bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50",
+          // Dark mode: darker but visible background
+          "dark:bg-gradient-to-br dark:from-gray-800 dark:via-gray-900 dark:to-gray-800",
           className,
         )}
         initial={{ opacity: 0, scale: 0.95 }}
@@ -188,29 +163,31 @@ export function ComponentShowcase({
         transition={{ delay: 0.3, duration: 0.4 }}
       >
         {children}
-      </MotionShowcase>
+      </motion.div>
 
       {/* Code section */}
       {code && isCodeVisible && (
-        <MotionCodeSection
+        <motion.div
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.3 }}
           className="border-t border-white/20 overflow-hidden"
         >
-          <div className="relative z-10 liquid-glass bg-gray-900/90 backdrop-blur-xl p-4 rounded-b-3xl">
+          <div className="relative z-10 liquid-glass bg-gray-50/90 dark:bg-gray-900/90 backdrop-blur-xl p-4 rounded-b-3xl">
             <pre className="text-sm overflow-x-auto">
-              <code className="text-gray-100 font-mono body-text">{code}</code>
+              <code className="text-gray-900 dark:text-gray-100 font-mono body-text">
+                {code}
+              </code>
             </pre>
           </div>
-        </MotionCodeSection>
+        </motion.div>
       )}
 
       {/* Enhanced floating particles effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(5)].map((_, i) => (
-          <MotionParticle
+          <motion.div
             key={i}
             className="absolute w-2 h-2 rounded-full"
             style={{
@@ -243,6 +220,6 @@ export function ComponentShowcase({
           style={{ animationDelay: "2s" }}
         ></div>
       </div>
-    </MotionDiv>
+    </motion.div>
   );
 }
