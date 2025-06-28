@@ -1,32 +1,351 @@
-import { GlassHero } from "../../components/PlaceholderComponents";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { HeroExamples } from "../../components/ExampleComponents";
 
 # Hero
 
-This document serves to showcase the **Hero** component.
+A stunning glassmorphism hero component with liquid effects and physics-based animations, perfect for creating captivating landing page headers with Apple-inspired aesthetics.
 
-```jsx
-import { GlassHero } from "../../components/GlassComponents";
-```
+## Basic Usage
 
-<ComponentShowcase>
-  
+<ComponentShowcase
+  title="Basic Hero"
+  description="Simple hero section with title, subtitle, and glassmorphism effects"
+  code={`import { GlassHero } from '@tuliocunha23/liquidui';
+
+<GlassHero
+  title="Welcome to LiquidifUI"
+  subtitle="The future of UI design with glassmorphism components that flow like liquid glass."
+/>`}
+>
+  <HeroExamples />
 </ComponentShowcase>
 
-## Props
+## With Call-to-Action
 
-| Name | Type | Default | Description |
+<ComponentShowcase
+  title="Hero with CTA Buttons"
+  description="Hero section with call-to-action buttons and interactive elements"
+  code={`<GlassHero
+  title="Build Beautiful UIs"
+  subtitle="Experience the magic of liquid glass components with physics-based interactions."
+  actions={
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <GlassButton variant="primary" size="lg">
+        Get Started
+      </GlassButton>
+      <GlassButton variant="secondary" size="lg">
+        View Components
+      </GlassButton>
+    </div>
+  }
+/>`}
+>
+  <HeroExamples />
+</ComponentShowcase>
+
+## With Background Elements
+
+<ComponentShowcase
+  title="Enhanced Hero with Background"
+  description="Hero with animated background elements and gradient effects"
+  code={`<GlassHero
+  title={
+    <span className="hero-text bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+      Liquid Glass Components
+    </span>
+  }
+  subtitle="Build stunning interfaces with Apple-inspired glassmorphism design"
+  variant="elevated"
+  background="gradient"
+  actions={
+    <div className="flex items-center gap-6">
+      <GlassButton variant="primary" size="lg">
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 ios-logo apple-gradient"></div>
+          Explore Components
+        </div>
+      </GlassButton>
+      <a href="#demo" className="text-gray-700 hover:text-blue-600 transition-colors body-text">
+        Watch Demo →
+      </a>
+    </div>
+  }
+/>`}
+>
+  <HeroExamples />
+</ComponentShowcase>
+
+## Full-Screen Hero
+
+<ComponentShowcase
+  title="Full-Screen Hero"
+  description="Immersive full-screen hero with centered content and ambient effects"
+  code={`<GlassHero
+  title="The Future of UI"
+  subtitle="Experience components that adapt, flow, and respond with lifelike physics."
+  variant="fullscreen"
+  size="xl"
+  className="min-h-screen"
+  actions={
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <GlassButton variant="primary" size="lg" className="px-8">
+          Start Building
+        </GlassButton>
+        <GlassButton variant="ghost" size="lg" className="px-8">
+          Learn More
+        </GlassButton>
+      </div>
+      <div className="flex items-center justify-center gap-8 text-sm text-gray-600 body-text">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 ios-logo apple-gradient-2"></div>
+          <span>30+ Components</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 ios-logo apple-gradient-3"></div>
+          <span>TypeScript</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 ios-logo apple-gradient-4"></div>
+          <span>Accessible</span>
+        </div>
+      </div>
+    </div>
+  }
+/>`}
+>
+  <HeroExamples />
+</ComponentShowcase>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| title | `string` | — | Main hero title text |
-| subtitle | `string` | — | Optional subtitle displayed above the title |
-| description | `string` | — | Optional description text below the title |
-| primaryAction | `{ label: string; onClick: () => void; icon?: React.ReactNode }` | — | Primary call-to-action button configuration |
-| secondaryAction | `{ label: string; onClick: () => void; icon?: React.ReactNode }` | — | Secondary action button configuration |
-| backgroundImage | `string` | — | Optional background image URL |
-| backgroundVideo | `string` | — | Optional background video URL |
-| variant | `'default' \| 'centered' \| 'split' \| 'minimal'` | `'default'` | Layout variant for the hero section |
-| size | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'lg'` | Overall size and spacing of the hero |
-| enableParallax | `boolean` | `true` | Enable parallax background effects |
-| enableMagnetic | `boolean` | `false` | Enable magnetic hover interactions |
+| `title` | `React.ReactNode` | - | Main hero title content |
+| `subtitle` | `React.ReactNode` | - | Hero subtitle or description |
+| `actions` | `React.ReactNode` | - | Call-to-action buttons or elements |
+| `background` | `"none" \| "gradient" \| "particles" \| "waves"` | `"none"` | Background animation type |
+| `variant` | `"default" \| "minimal" \| "elevated" \| "fullscreen"` | `"default"` | Visual style variant |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"lg"` | Hero section size |
+| `alignment` | `"left" \| "center" \| "right"` | `"center"` | Content alignment |
+| `className` | `string` | - | Additional CSS classes |
+
+### Physics Properties
+
+The GlassHero includes advanced interactive features:
+
+- **Parallax Effects**: Multi-layer background movement on scroll
+- **Particle Animation**: Floating glass particles with realistic physics
+- **Adaptive Blur**: Dynamic blur adjustment based on content
+- **Magnetic Interactions**: Buttons that respond to cursor proximity
+- **Liquid Morphing**: Smooth shape transitions and hover effects
+
+### Background Variants
+
+- **None**: Clean hero without background effects
+- **Gradient**: Animated gradient background with color transitions
+- **Particles**: Floating glass particles with physics simulation
+- **Waves**: Liquid wave animation with glassmorphism effects
+
+### Accessibility
+
+- Semantic HTML structure with proper heading hierarchy
+- Screen reader compatible with ARIA labels
+- Keyboard navigation support for interactive elements
+- High contrast mode support
+- Motion preferences respect (reduced motion)
+
+## Usage Guidelines
+
+### Best Practices
+
+- Use clear, compelling headlines that communicate value
+- Keep call-to-action buttons prominent and actionable
+- Ensure sufficient contrast for text readability
+- Consider mobile responsiveness for all content
+- Use background effects sparingly to avoid distraction
+
+### When to Use
+
+- **Landing Pages**: Main website entry point and first impression
+- **Product Launch**: Introducing new features or products
+- **Campaign Pages**: Marketing and promotional content
+- **App Onboarding**: Welcome screens and getting started flows
 
 ## Examples
+
+### Product Landing Hero
+
+```tsx
+import { GlassHero, GlassButton } from '@tuliocunha23/liquidui';
+import { ArrowRight, Play } from 'lucide-react';
+
+function ProductHero() {
+  return (
+    <GlassHero
+      title={
+        <div className="space-y-2">
+          <div className="hero-text text-6xl font-bold">
+            <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+              LiquidifUI
+            </span>
+          </div>
+          <div className="hero-text text-4xl font-semibold text-gray-800">
+            Liquid Glass Components
+          </div>
+        </div>
+      }
+      subtitle="Build beautiful, responsive interfaces with Apple-inspired glassmorphism design and physics-based interactions."
+      variant="elevated"
+      background="particles"
+      actions={
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
+          <GlassButton variant="primary" size="lg" className="px-8 py-4">
+            <div className="flex items-center gap-2">
+              Get Started
+              <ArrowRight className="w-5 h-5" />
+            </div>
+          </GlassButton>
+          <GlassButton variant="ghost" size="lg" className="px-8 py-4">
+            <div className="flex items-center gap-2">
+              <Play className="w-5 h-5" />
+              Watch Demo
+            </div>
+          </GlassButton>
+        </div>
+      }
+    />
+  );
+}
+```
+
+### SaaS Application Hero
+
+```tsx
+import { GlassHero, GlassButton, GlassCard } from '@tuliocunha23/liquidui';
+import { Zap, Shield, Sparkles } from 'lucide-react';
+
+function SaaSHero() {
+  const features = [
+    { icon: Zap, text: "Lightning Fast" },
+    { icon: Shield, text: "Enterprise Secure" },
+    { icon: Sparkles, text: "AI Powered" }
+  ];
+
+  return (
+    <GlassHero
+      title="Transform Your Workflow"
+      subtitle="The only tool you need to manage projects, collaborate with teams, and deliver results faster than ever."
+      variant="fullscreen"
+      background="gradient"
+      actions={
+        <div className="space-y-8">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <GlassButton variant="primary" size="lg">
+              Start Free Trial
+            </GlassButton>
+            <GlassButton variant="secondary" size="lg">
+              Schedule Demo
+            </GlassButton>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto">
+            {features.map((feature, index) => (
+              <GlassCard key={index} className="p-4 text-center">
+                <feature.icon className="w-6 h-6 mx-auto mb-2 text-blue-600" />
+                <span className="text-sm text-gray-700 body-text">{feature.text}</span>
+              </GlassCard>
+            ))}
+          </div>
+        </div>
+      }
+    />
+  );
+}
+```
+
+### Minimal Hero
+
+```tsx
+import { GlassHero, GlassButton } from '@tuliocunha23/liquidui';
+
+function MinimalHero() {
+  return (
+    <GlassHero
+      title="Simple. Powerful. Beautiful."
+      subtitle="Everything you need, nothing you don't."
+      variant="minimal"
+      size="md"
+      alignment="left"
+      className="py-20"
+      actions={
+        <GlassButton variant="primary">
+          Get Started
+        </GlassButton>
+      }
+    />
+  );
+}
+```
+
+### Animated Hero with Stats
+
+```tsx
+import { GlassHero, GlassButton } from '@tuliocunha23/liquidui';
+import { useState, useEffect } from 'react';
+
+function AnimatedHero() {
+  const [stats, setStats] = useState({ users: 0, components: 0, downloads: 0 });
+
+  useEffect(() => {
+    // Animate numbers on mount
+    const timer = setInterval(() => {
+      setStats(prev => ({
+        users: Math.min(prev.users + 127, 10000),
+        components: Math.min(prev.components + 1, 30),
+        downloads: Math.min(prev.downloads + 289, 25000)
+      }));
+    }, 50);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <GlassHero
+      title="Trusted by Developers Worldwide"
+      subtitle="Join thousands of developers building beautiful UIs with LiquidifUI"
+      background="waves"
+      actions={
+        <div className="space-y-8">
+          <GlassButton variant="primary" size="lg">
+            Join the Community
+          </GlassButton>
+          
+          <div className="grid grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-3xl font-bold text-blue-600 hero-text">
+                {stats.users.toLocaleString()}+
+              </div>
+              <div className="text-sm text-gray-600 body-text">Active Users</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-green-600 hero-text">
+                {stats.components}+
+              </div>
+              <div className="text-sm text-gray-600 body-text">Components</div>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-purple-600 hero-text">
+                {stats.downloads.toLocaleString()}+
+              </div>
+              <div className="text-sm text-gray-600 body-text">Downloads</div>
+            </div>
+          </div>
+        </div>
+      }
+    />
+  );
+}
+```

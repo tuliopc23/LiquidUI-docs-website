@@ -1,11 +1,19 @@
 {
-  "index": "Introduction",
-  "getting-started": "Getting Started",
-  "components": "Components",
-  "theming": "Theming",
-  "examples": "Examples",
-  "api": "API Reference",
-  "migration": "Migration Guide",
-  "contributing": "Contributing",
-  "faq": "FAQ"
+  "index": "🏠 Home",
+  "getting-started": "🚀 Getting Started",
+  "components": "🧩 Components",
+  "theming": "🎨 Theming",
+  "examples": "📚 Examples",
+  "---": {
+    "type": "separator",
+    "title": "Resources"
+  },
+  "api": "📖 API Reference",
+  "migration": "🔄 Migration Guide",
+  "---community": {
+    "type": "separator",
+    "title": "Community"
+  },
+  "contributing": "🤝 Contributing",
+  "faq": "❓ FAQ"
 }

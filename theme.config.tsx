@@ -1,22 +1,22 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
+import React from "react";
+import dynamic from "next/dynamic";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
-import { Sparkles, MessageCircle } from 'lucide-react';
+import { Sparkles, MessageCircle } from "lucide-react";
 
 // Dynamic imports for framer-motion
 const MotionDiv = dynamic(
-  () => import('framer-motion').then(mod => ({ default: mod.motion.div })),
-  { ssr: false }
+  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
+  { ssr: false },
 );
 
 const MotionSpan = dynamic(
-  () => import('framer-motion').then(mod => ({ default: mod.motion.span })),
-  { ssr: false }
+  () => import("framer-motion").then((mod) => ({ default: mod.motion.span })),
+  { ssr: false },
 );
 
 const MotionA = dynamic(
-  () => import('framer-motion').then(mod => ({ default: mod.motion.a })),
-  { ssr: false }
+  () => import("framer-motion").then((mod) => ({ default: mod.motion.a })),
+  { ssr: false },
 );
 
 const Logo = () => (
@@ -25,103 +25,107 @@ const Logo = () => (
     whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
     role="img"
-    aria-label="LiquidiUI logo"
+    aria-label="LiquidifUI logo"
   >
     <div className="relative">
       <MotionDiv
-        className="w-8 h-8 glass-effect rounded-lg flex items-center justify-center"
-        animate={{
-          boxShadow: [
-            "0 0 20px hsl(var(--primary) / 0.3)",
-            "0 0 30px hsl(var(--accent) / 0.4)",
-            "0 0 20px hsl(var(--primary) / 0.3)"
-          ]
-        }}
-        transition={{ duration: 3, repeat: Infinity }}
+        className="w-8 h-8 ios-logo apple-gradient animate-liquid-morph flex items-center justify-center"
+        whileHover={{ scale: 1.05, rotate: 2 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-hidden="true"
       >
-        <Sparkles className="w-4 h-4 text-primary" aria-hidden="true" />
+        <Sparkles className="w-4 h-4 text-white" aria-hidden="true" />
       </MotionDiv>
     </div>
-    <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-      LiquidiUI
+    <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text tracking-tight">
+      LiquidifUI
     </span>
   </MotionDiv>
-)
+);
 
 const config = {
-  logo: (
-    <div className="flex items-center gap-2">
-      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-        <span className="text-white font-bold text-sm">L</span>
-      </div>
-      <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        LiquidUI
-      </span>
-    </div>
-  ),
+  logo: <Logo />,
   project: {
-    link: 'https://github.com/tuliopc23/LiquidUI-docs-website'
+    link: "https://github.com/tuliopc23/LiquidUI-docs-website",
   },
   chat: {
-    link: 'https://discord.gg/liquidi-ui',
-    icon: <MessageCircle className="w-5 h-5" />
+    link: "https://discord.gg/liquidif-ui",
+    icon: <MessageCircle className="w-5 h-5 text-blue-600" />,
   },
-  docsRepositoryBase: 'https://github.com/tuliopc23/LiquidUI-docs-website/tree/main',
+  docsRepositoryBase:
+    "https://github.com/tuliopc23/LiquidUI-docs-website/tree/main",
   footer: {
     text: (
       <div className="flex w-full flex-col items-center sm:items-start">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-6 h-6 ios-logo apple-gradient-2 animate-liquid-morph"></div>
+          <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text">
+            LiquidifUI
+          </span>
+        </div>
         <div>
           <a
-            className="flex items-center gap-1 text-current"
+            className="flex items-center gap-2 text-current hover:text-blue-600 transition-colors body-text"
             target="_blank"
             rel="noopener noreferrer"
-            title="LiquidUI Documentation"
+            title="LiquidifUI Documentation"
             href="https://docs-one-taupe.vercel.app"
           >
-            Built with LiquidUI
+            <Sparkles className="w-4 h-4" />
+            Built with LiquidifUI
           </a>
         </div>
       </div>
-    )
+    ),
   },
   useNextSeoProps() {
     return {
-      titleTemplate: '%s | LiquidiUI Documentation',
-      description: 'Physics-based glassmorphism component library for React with 30+ components, content-aware adaptation, and magnetic interactions.',
-    }
+      titleTemplate: "%s | LiquidifUI Documentation",
+      description:
+        "The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics.",
+    };
   },
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="LiquidUI" />
-      <meta property="og:description" content="React component library with glassmorphism design" />
+      <meta property="og:title" content="LiquidifUI" />
+      <meta
+        property="og:description"
+        content="The future of UI design with glassmorphism components that flow like liquid glass"
+      />
       <meta property="og:url" content="https://docs-one-taupe.vercel.app" />
-      <meta name="description" content="LiquidUI - React component library with glassmorphism design and physics-based interactions" />
-      <meta name="keywords" content="React, Components, UI, Glassmorphism, TypeScript, Design System" />
+      <meta
+        name="description"
+        content="LiquidifUI - The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics."
+      />
+      <meta
+        name="keywords"
+        content="React, Components, UI, Glassmorphism, TypeScript, Design System, Liquid Glass, Apple Design, Neubrutalism"
+      />
       <link rel="icon" href="/favicon.ico" />
     </>
   ),
   sidebar: {
     titleComponent({ title, type }: { title: string; type: string }) {
-      if (type === 'separator') {
+      if (type === "separator") {
         return (
-          <div className="glass-effect px-3 py-1 rounded-md my-2">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+          <div className="liquid-glass px-4 py-2 rounded-2xl my-3 border border-white/20">
+            <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider body-text flex items-center gap-2">
+              <div className="w-3 h-3 ios-logo apple-gradient-3"></div>
               {title}
             </span>
           </div>
-        )
+        );
       }
       return (
         <MotionSpan
-          whileHover={{ x: 2 }}
+          whileHover={{ x: 3, scale: 1.02 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 body-text hover:text-blue-600 transition-colors"
         >
           {title}
         </MotionSpan>
-      )
+      );
     },
     defaultMenuCollapseLevel: 1,
     toggleButton: true,
@@ -132,57 +136,64 @@ const config = {
       <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="glass-effect px-3 py-2 rounded-lg"
+        className="liquid-glass px-4 py-3 rounded-2xl border border-white/20"
       >
-        <span className="text-sm font-semibold">On This Page</span>
+        <span className="text-sm font-semibold body-text flex items-center gap-2">
+          <div className="w-4 h-4 ios-logo apple-gradient-4"></div>
+          On This Page
+        </span>
       </MotionDiv>
-    )
+    ),
   },
   editLink: {
     text: (
       <MotionSpan
-        whileHover={{ x: 2 }}
-        className="flex items-center gap-1 text-sm"
+        whileHover={{ x: 3, scale: 1.02 }}
+        className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
+        <div className="w-3 h-3 ios-logo apple-gradient-2"></div>
         Edit this page on GitHub →
       </MotionSpan>
-    )
+    ),
   },
   feedback: {
     content: (
       <MotionSpan
         whileHover={{ scale: 1.02 }}
-        className="flex items-center gap-1 text-sm"
+        className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
+        <div className="w-3 h-3 ios-logo apple-gradient-3"></div>
         Question? Give us feedback →
       </MotionSpan>
     ),
-    labels: 'feedback'
+    labels: "feedback",
   },
   search: {
-    placeholder: 'Search LiquidiUI docs...',
+    placeholder: "Search LiquidifUI docs...",
   },
   banner: {
-    key: 'liquidi-ui-v1',
+    key: "liquidif-ui-v2",
     text: (
       <MotionA
         href="/getting-started"
-        className="glass-effect px-4 py-2 rounded-lg hover:bg-white/10 transition-colors"
+        className="liquid-glass px-6 py-3 rounded-2xl border border-white/20 hover:scale-105 transition-all duration-300 body-text flex items-center gap-3"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
-        🎉 LiquidiUI v1.0 is released with physics-based interactions. Get started →
+        <div className="w-5 h-5 ios-logo apple-gradient animate-liquid-morph"></div>
+        🎉 LiquidifUI v2.0 is released with liquid glass components. Get started
+        →
       </MotionA>
-    )
+    ),
   },
   primaryHue: {
     dark: 217,
-    light: 217
+    light: 217,
   },
   primarySaturation: {
     dark: 91,
-    light: 91
-  }
-}
+    light: 91,
+  },
+};
 
-export default config
+export default config;

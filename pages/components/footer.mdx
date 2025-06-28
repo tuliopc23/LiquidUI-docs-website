@@ -1,70 +1,318 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { FooterExamples } from "../../components/ExampleComponents";
+
 # Footer
 
-This document serves to showcase the **Footer** component.
+A glassmorphism footer component with liquid effects, perfect for creating stunning page footers with Apple-inspired aesthetics and smooth interactions.
 
-import { ComponentShowcase } from "../../components/ComponentShowcase";
+## Basic Usage
 
-```jsx
-import { GlassFooter } from "../../components/GlassComponents";
-```
+<ComponentShowcase
+  title="Basic Footer"
+  description="Simple footer with links and glassmorphism effects"
+  code={`import { GlassFooter } from '@tuliocunha23/liquidui';
 
-<ComponentShowcase>
-  ```jsx
-  // Basic Footer with Navigation Links
-  const basicLinks = [
-    { label: "About", href: "/about" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Contact", href: "/contact" }
-  ];
+const links = [
+  { label: "About", href: "/about" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Contact", href: "/contact" }
+];
 
-  <GlassFooter links={basicLinks} />
-  ```
-
-  ```jsx
-  // Footer with Product Links
-  const productLinks = [
-    { label: "Documentation", href: "/docs" },
-    { label: "API Reference", href: "/api" },
-    { label: "GitHub", href: "https://github.com/liquidi-ui" },
-    { label: "NPM Package", href: "https://npmjs.com/package/@tuliocunha23/liquidui" },
-    { label: "Changelog", href: "/changelog" },
-    { label: "Support", href: "/support" }
-  ];
-
-  <GlassFooter 
-    links={productLinks}
-    className="border-t-2 border-primary/20 bg-gradient-to-r from-primary/5 to-secondary/5"
-  />
-  ```
-
-  ```jsx
-  // Minimal Footer without Links
-  <GlassFooter className="py-4 text-center" />
-  ```
-
-  ```jsx
-  // Footer with Social Media Links
-  const socialLinks = [
-    { label: "Twitter", href: "https://twitter.com/glassui" },
-    { label: "Discord", href: "https://discord.gg/glassui" },
-    { label: "YouTube", href: "https://youtube.com/@glassui" },
-    { label: "Blog", href: "/blog" }
-  ];
-
-  <GlassFooter 
-    links={socialLinks}
-    className="glass-effect-elevated backdrop-blur-xl"
-  />
-  ```
+<GlassFooter links={links} />`}
+>
+  <FooterExamples />
 </ComponentShowcase>
 
-## Props
+## With Social Links
 
-| Name | Type | Default | Description |
+<ComponentShowcase
+  title="Footer with Social Media"
+  description="Footer with social media links and icons"
+  code={`<GlassFooter 
+  links={[
+    { label: "Twitter", href: "https://twitter.com/liquidifui", icon: "twitter" },
+    { label: "Discord", href: "https://discord.gg/liquidifui", icon: "discord" },
+    { label: "GitHub", href: "https://github.com/tuliopc23/liquidui", icon: "github" },
+    { label: "NPM", href: "https://npmjs.com/package/@tuliocunha23/liquidui", icon: "npm" }
+  ]}
+  variant="social"
+/>`}
+>
+  <FooterExamples />
+</ComponentShowcase>
+
+## Multi-Column Layout
+
+<ComponentShowcase
+  title="Multi-Column Footer"
+  description="Organized footer with multiple sections and columns"
+  code={`<GlassFooter 
+  sections={[
+    {
+      title: "Product",
+      links: [
+        { label: "Documentation", href: "/docs" },
+        { label: "Components", href: "/components" },
+        { label: "Examples", href: "/examples" },
+        { label: "Changelog", href: "/changelog" }
+      ]
+    },
+    {
+      title: "Community",
+      links: [
+        { label: "Discord", href: "#" },
+        { label: "GitHub", href: "#" },
+        { label: "Twitter", href: "#" },
+        { label: "Blog", href: "#" }
+      ]
+    },
+    {
+      title: "Support",
+      links: [
+        { label: "Help Center", href: "#" },
+        { label: "Contact Us", href: "#" },
+        { label: "Bug Reports", href: "#" },
+        { label: "Feature Requests", href: "#" }
+      ]
+    }
+  ]}
+  variant="columns"
+/>`}
+>
+  <FooterExamples />
+</ComponentShowcase>
+
+## Minimal Footer
+
+<ComponentShowcase
+  title="Minimal Footer"
+  description="Clean minimal footer with just copyright information"
+  code={`<GlassFooter 
+  variant="minimal"
+  copyright="© 2024 LiquidifUI. All rights reserved."
+  className="py-6"
+/>`}
+>
+  <FooterExamples />
+</ComponentShowcase>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| links | `GlassFooterLink[]` | — | Optional array of footer navigation links |
-| className | `string` | — | Additional CSS classes to apply |
-| ...props | `React.HTMLAttributes<HTMLElement>` | — | Standard HTML footer element attributes |
+| `links` | `FooterLink[]` | - | Array of footer navigation links |
+| `sections` | `FooterSection[]` | - | Array of footer sections for multi-column layout |
+| `copyright` | `string` | - | Copyright text to display |
+| `variant` | `"default" \| "minimal" \| "social" \| "columns"` | `"default"` | Visual style variant |
+| `className` | `string` | - | Additional CSS classes |
+
+### FooterLink Interface
+
+```tsx
+interface FooterLink {
+  label: string;
+  href: string;
+  icon?: string;
+  external?: boolean;
+}
+```
+
+### FooterSection Interface
+
+```tsx
+interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+```
+
+### Physics Properties
+
+The GlassFooter includes advanced glassmorphism features:
+
+- **Adaptive Background**: Automatically adjusts opacity based on page content
+- **Liquid Hover Effects**: Smooth transitions on link interactions
+- **Content-Aware Styling**: Optimizes glass effects for better readability
+- **Magnetic Link Attraction**: Subtle hover effects that feel natural
+
+### Accessibility
+
+- Semantic HTML structure with proper landmark roles
+- Screen reader compatible with ARIA labels
+- Keyboard navigation support for all links
+- High contrast mode support
+- Focus management and visual indicators
+
+## Usage Guidelines
+
+### Best Practices
+
+- Keep link organization logical and intuitive
+- Limit the number of footer links to avoid clutter
+- Ensure links are easily clickable on mobile devices
+- Use consistent spacing and typography
+- Consider legal requirements for footer content
+
+### When to Use
+
+- **Site Navigation**: Secondary navigation and utility links
+- **Legal Pages**: Privacy policy, terms of service, accessibility
+- **Social Media**: Links to social platforms and community
+- **Contact Information**: Support, contact, and help resources
 
 ## Examples
+
+### Complete Application Footer
+
+```tsx
+import { GlassFooter } from '@tuliocunha23/liquidui';
+
+function AppFooter() {
+  const footerSections = [
+    {
+      title: "Product",
+      links: [
+        { label: "Features", href: "/features" },
+        { label: "Pricing", href: "/pricing" },
+        { label: "Documentation", href: "/docs" },
+        { label: "API Reference", href: "/api" }
+      ]
+    },
+    {
+      title: "Community",
+      links: [
+        { label: "Discord", href: "https://discord.gg/liquidifui", external: true },
+        { label: "GitHub", href: "https://github.com/tuliopc23/liquidui", external: true },
+        { label: "Twitter", href: "https://twitter.com/liquidifui", external: true },
+        { label: "Blog", href: "/blog" }
+      ]
+    },
+    {
+      title: "Support",
+      links: [
+        { label: "Help Center", href: "/help" },
+        { label: "Contact", href: "/contact" },
+        { label: "Status", href: "/status" },
+        { label: "Feedback", href: "/feedback" }
+      ]
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms of Service", href: "/terms" },
+        { label: "Cookie Policy", href: "/cookies" },
+        { label: "Accessibility", href: "/accessibility" }
+      ]
+    }
+  ];
+
+  return (
+    <GlassFooter
+      sections={footerSections}
+      copyright="© 2024 LiquidifUI. Built with liquid glass components."
+      variant="columns"
+    />
+  );
+}
+```
+
+### Simple Landing Page Footer
+
+```tsx
+import { GlassFooter } from '@tuliocunha23/liquidui';
+
+function LandingFooter() {
+  const socialLinks = [
+    { 
+      label: "Twitter", 
+      href: "https://twitter.com/liquidifui",
+      icon: "twitter",
+      external: true 
+    },
+    { 
+      label: "GitHub", 
+      href: "https://github.com/tuliopc23/liquidui",
+      icon: "github",
+      external: true 
+    },
+    { 
+      label: "Discord", 
+      href: "https://discord.gg/liquidifui",
+      icon: "discord",
+      external: true 
+    }
+  ];
+
+  return (
+    <GlassFooter
+      links={socialLinks}
+      copyright="Made with ❤️ using LiquidifUI"
+      variant="social"
+      className="border-t border-white/20"
+    />
+  );
+}
+```
+
+### Newsletter Signup Footer
+
+```tsx
+import { GlassFooter, GlassInput, GlassButton } from '@tuliocunha23/liquidui';
+
+function NewsletterFooter() {
+  return (
+    <GlassFooter variant="default">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          <div className="lg:col-span-2">
+            <h3 className="text-lg font-semibold mb-4 hero-text">
+              Stay Updated
+            </h3>
+            <p className="text-gray-600 mb-4 body-text">
+              Get the latest updates about LiquidifUI components and features.
+            </p>
+            <div className="flex gap-2">
+              <GlassInput
+                placeholder="Enter your email"
+                type="email"
+                className="flex-1"
+              />
+              <GlassButton variant="primary">
+                Subscribe
+              </GlassButton>
+            </div>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-3 body-text">Resources</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="/docs" className="text-gray-600 hover:text-blue-600 transition-colors">Documentation</a></li>
+              <li><a href="/examples" className="text-gray-600 hover:text-blue-600 transition-colors">Examples</a></li>
+              <li><a href="/tutorials" className="text-gray-600 hover:text-blue-600 transition-colors">Tutorials</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-3 body-text">Community</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">Discord</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">GitHub</a></li>
+              <li><a href="#" className="text-gray-600 hover:text-blue-600 transition-colors">Twitter</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="border-t border-white/20 pt-6 text-center">
+          <p className="text-gray-600 body-text">
+            © 2024 LiquidifUI. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </GlassFooter>
+  );
+}
+```
