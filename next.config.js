@@ -9,12 +9,13 @@ try {
   withBundleAnalyzer = (config) => config;
 }
 
-// Temporarily disable Nextra for bundle analysis
-// const withNextra = require('nextra').default({
-//   defaultShowCopyCode: true,
-//   latex: true
-// })
-const withNextra = (config) => config; // Identity function
+const withNextra = require('nextra')({
+  theme: 'nextra-theme-docs',
+  themeConfig: './theme.config.tsx',
+  staticImage: true,
+  latex: true,
+  defaultShowCopyCode: true,
+})
 
 const nextConfig = {
   reactStrictMode: true,
@@ -22,7 +23,7 @@ const nextConfig = {
   experimental: {
     esmExternals: true,
   },
-  transpilePackages: ['glass-ui-tulio'],
+  transpilePackages: ['@tuliocunha23/liquidui'],
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

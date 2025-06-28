@@ -3,7 +3,7 @@ title: Theming
 ---
 
 import { Callout, Tabs, Tab } from 'nextra/components'
-import { GlassCard, GlassButton, GlassBadge } from "glass-ui-tulio";
+import { GlassCard, GlassButton, GlassBadge } from "../components/GlassComponents";
 import { ComponentShowcase } from "../components/ComponentShowcase";
 import { motion } from "framer-motion";
 import { Palette, Sparkles, Settings, Code, Sun, Moon } from "lucide-react";
@@ -340,7 +340,7 @@ const creativeTheme = {
 ### Automatic Detection
 
 ```tsx
-import { ThemeProvider } from 'glass-ui-tulio'
+import { ThemeProvider } from '@tuliocunha23/liquidui'
 
 function App() {
   return (
@@ -359,7 +359,7 @@ function App() {
 ### Manual Control
 
 ```tsx
-import { useTheme } from 'glass-ui-tulio'
+import { useTheme } from '@tuliocunha23/liquidui'
 
 function ThemeControls() {
   const { theme, setTheme } = useTheme()
@@ -472,7 +472,7 @@ function applyTheme(themeName: keyof typeof themes) {
 
 ```tsx
 import { useState } from 'react'
-import { GlassButton, GlassCard } from 'glass-ui-tulio'
+import { GlassButton, GlassCard } from '@tuliocunha23/liquidui'
 
 function ThemeSelector() {
   const [activeTheme, setActiveTheme] = useState('default')

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { cn } from 'glass-ui-tulio';
+import { cn } from '@tuliocunha23/liquidui';
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye } from 'lucide-react';
 

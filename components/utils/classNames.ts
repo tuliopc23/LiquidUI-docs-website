@@ -1,4 +1,4 @@
-import { cn } from 'glass-ui-tulio';
+import { cn } from '@tuliocunha23/liquidui';
 
 /**
  * Utility functions for common Tailwind CSS class combinations.
