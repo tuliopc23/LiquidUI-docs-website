@@ -1,21 +1,21 @@
 /** @type {import('next').NextConfig} */
 let withBundleAnalyzer;
 try {
-  withBundleAnalyzer = require('@next/bundle-analyzer')({
-    enabled: process.env.ANALYZE === 'true',
+  withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: process.env.ANALYZE === "true",
   });
 } catch (e) {
   // Bundle analyzer not installed, use identity function
   withBundleAnalyzer = (config) => config;
 }
 
-const withNextra = require('nextra')({
-  theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx',
+const withNextra = require("nextra")({
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.tsx",
   staticImage: true,
   latex: true,
   defaultShowCopyCode: true,
-})
+});
 
 const nextConfig = {
   reactStrictMode: true,
@@ -23,9 +23,9 @@ const nextConfig = {
   experimental: {
     esmExternals: true,
   },
-  transpilePackages: ['@tuliocunha23/liquidui'],
+  transpilePackages: ["@tuliocunha23/liquidui"],
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60,
@@ -35,21 +35,21 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/docs',
-        destination: '/',
+        source: "/docs",
+        destination: "/",
         permanent: true,
       },
       {
-        source: '/docs/:path*',
-        destination: '/:path*',
+        source: "/docs/:path*",
+        destination: "/:path*",
         permanent: true,
       },
-    ]
+    ];
   },
   // Performance optimizations
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-    reactRemoveProperties: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
+    reactRemoveProperties: process.env.NODE_ENV === "production",
   },
   // SEO optimizations
   generateEtags: true,
@@ -63,14 +63,14 @@ const nextConfig = {
       config.optimization.splitChunks.cacheGroups = {
         ...config.optimization.splitChunks.cacheGroups,
         commons: {
-          name: 'commons',
-          chunks: 'all',
+          name: "commons",
+          chunks: "all",
           minChunks: 2,
         },
       };
     }
     return config;
   },
-}
+};
 
 module.exports = withBundleAnalyzer(withNextra(nextConfig));

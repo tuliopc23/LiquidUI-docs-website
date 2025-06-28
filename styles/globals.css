@@ -76,8 +76,8 @@
     --ring: 221.2 83.2% 53.3%;
 
     /* Light theme glass adjustments */
-    --glass-opacity: 0.08;
-    --glass-border-opacity: 0.15;
+    --glass-opacity: 0.12;
+    --glass-border-opacity: 0.25;
 }
 
 * {
@@ -98,32 +98,26 @@ body {
         "rlig" 1,
         "calt" 1,
         "ss01" 1;
-    background-image:
-        radial-gradient(
-            circle at 25% 25%,
-            rgba(99, 102, 241, 0.15) 0%,
-            transparent 45%
-        ),
-        radial-gradient(
-            circle at 75% 75%,
-            rgba(168, 85, 247, 0.12) 0%,
-            transparent 45%
-        ),
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(34, 197, 94, 0.05) 0%,
-            transparent 60%
-        );
-    background-attachment: fixed;
-    background-size:
-        100vw 100vh,
-        80vw 80vh,
-        120vw 120vh;
     min-height: 100vh;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+}
+
+/* Light theme background with glassmorphism */
+body[data-theme="light"],
+body:not([data-theme="dark"]) {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Dark theme background with glassmorphism */
+body[data-theme="dark"] {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* Shimmer UI Styles */
@@ -138,12 +132,10 @@ body {
     }
 
     .dark .glass-card {
-        @apply border-white/10;
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.02)
-        );
+        background: rgba(30, 30, 30, 0.7);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .glass-button {
@@ -252,20 +244,26 @@ body {
         @apply relative overflow-hidden;
         background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.1),
-            rgba(255, 255, 255, 0.05)
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.6)
         );
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.08),
+            inset 0 2px 4px rgba(255, 255, 255, 0.5);
     }
 
     .dark .liquid-glass {
         background: linear-gradient(
             135deg,
-            rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.02)
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.05)
         );
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
     .liquid-glass::before {
@@ -344,46 +342,19 @@ body {
 }
 
 /* Enhanced gradient backgrounds with liquid glass effect */
+/* Simplified glass backgrounds for sections */
 .liquid-gradient-light {
-    background: linear-gradient(135deg, #e0f2fe 0%, #a7f3d0 100%);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
-}
-
-.liquid-gradient-light::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(14, 165, 233, 0.1) 0%,
-        rgba(5, 150, 105, 0.1) 100%
-    );
-    backdrop-filter: blur(40px);
-    pointer-events: none;
 }
 
 .liquid-gradient-dark {
-    background: linear-gradient(135deg, #0c4a6e 0%, #064e3b 100%);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
-}
-
-.liquid-gradient-dark::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(29, 78, 216, 0.2) 0%,
-        rgba(5, 150, 105, 0.2) 100%
-    );
-    backdrop-filter: blur(40px);
-    pointer-events: none;
 }
 
 .apple-gradient {
@@ -1391,22 +1362,19 @@ button:active,
 
     .liquid-glass {
         @apply relative overflow-hidden;
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.1),
-            rgba(255, 255, 255, 0.05)
-        );
+        background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     }
 
     .dark .liquid-glass {
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.02)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 30, 30, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
     .liquid-glass::before {
@@ -1485,46 +1453,19 @@ button:active,
 }
 
 /* Enhanced gradient backgrounds with liquid glass effect */
+/* Simplified glass backgrounds for sections */
 .liquid-gradient-light {
-    background: linear-gradient(135deg, #e0f2fe 0%, #a7f3d0 100%);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
-}
-
-.liquid-gradient-light::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(14, 165, 233, 0.1) 0%,
-        rgba(5, 150, 105, 0.1) 100%
-    );
-    backdrop-filter: blur(40px);
-    pointer-events: none;
 }
 
 .liquid-gradient-dark {
-    background: linear-gradient(135deg, #0c4a6e 0%, #064e3b 100%);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     position: relative;
-}
-
-.liquid-gradient-dark::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(29, 78, 216, 0.2) 0%,
-        rgba(5, 150, 105, 0.2) 100%
-    );
-    backdrop-filter: blur(40px);
-    pointer-events: none;
 }
 
 .apple-gradient {

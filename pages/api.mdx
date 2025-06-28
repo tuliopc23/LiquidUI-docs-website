@@ -1,0 +1,444 @@
+import { Tabs, Tab } from 'nextra/components'
+import { ComponentShowcase } from "../components/ComponentShowcase";
+import { 
+  Code, 
+  Package, 
+  Settings, 
+  Palette, 
+  Layout, 
+  Type,
+  Box,
+  Layers,
+  Zap,
+  Database,
+  GitBranch,
+  FileCode,
+  Terminal,
+  Book
+} from "lucide-react";
+
+# 📖 API Reference
+
+<div className="liquid-glass rounded-3xl p-6 my-8 border border-blue-200/30">
+  <div className="flex items-center gap-3 mb-4">
+    <div className="w-12 h-12 ios-logo apple-gradient flex items-center justify-center">
+      <Code className="w-6 h-6 text-white" />
+    </div>
+    <div>
+      <h2 className="text-2xl font-bold text-foreground hero-text">Complete API Documentation</h2>
+      <p className="text-foreground/70 body-text">Everything you need to work with LiquidUI</p>
+    </div>
+  </div>
+</div>
+
+## 📦 Installation
+
+<Tabs items={['npm', 'yarn', 'pnpm', 'bun']}>
+  <Tab>
+    ```bash
+    npm install @tuliocunha23/liquidui
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    yarn add @tuliocunha23/liquidui
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    pnpm add @tuliocunha23/liquidui
+    ```
+  </Tab>
+  <Tab>
+    ```bash
+    bun add @tuliocunha23/liquidui
+    ```
+  </Tab>
+</Tabs>
+
+## 🏗️ Core Exports
+
+### Components
+
+All components are exported from the main package:
+
+```typescript
+import {
+  // Core Components
+  GlassButton,
+  GlassCard,
+  GlassInput,
+  GlassTextarea,
+  GlassSelect,
+  GlassCheckbox,
+  GlassSwitch,
+  GlassSlider,
+  GlassProgress,
+  GlassAvatar,
+  GlassBadge,
+  
+  // Layout Components
+  GlassNavbar,
+  GlassSidebar,
+  GlassMobileNav,
+  GlassHeader,
+  GlassFooter,
+  GlassHero,
+  GlassFeatureShowcase,
+  
+  // Feedback Components
+  GlassModal,
+  GlassToast,
+  GlassNotification,
+  GlassTooltip,
+  GlassPopover,
+  GlassLoading,
+  
+  // Data Display
+  GlassTable,
+  GlassChart,
+  GlassTabs,
+  GlassCommand,
+  GlassSearch,
+  GlassDropdown,
+  
+  // Interactive Elements
+  GlassFloatingAction,
+  ComponentShowcase,
+  GlassResponsiveButton,
+  GlassResponsiveCard,
+  
+  // Theme Components
+  ThemeProvider,
+  ThemeToggle
+} from '@tuliocunha23/liquidui';
+```
+
+### Hooks
+
+```typescript
+import {
+  useTheme,
+  useToast,
+  useModal,
+  useMediaQuery,
+  useMobile,
+  useDebounce,
+  useLocalStorage,
+  useClickOutside,
+  useScrollLock,
+  useAnimation
+} from '@tuliocunha23/liquidui';
+```
+
+### Utilities
+
+```typescript
+import {
+  cn, // Class name utility
+  formatDate,
+  formatCurrency,
+  debounce,
+  throttle,
+  generateId,
+  hexToRgba,
+  rgbaToHex
+} from '@tuliocunha23/liquidui';
+```
+
+## 🎯 Component APIs
+
+### GlassButton
+
+<div className="liquid-glass rounded-2xl p-6 my-6">
+  <h4 className="text-xl font-semibold mb-4 hero-text">Props</h4>
+  
+  | Prop | Type | Default | Description |
+  |------|------|---------|-------------|
+  | `variant` | `'default' \| 'secondary' \| 'destructive' \| 'ghost' \| 'link'` | `'default'` | Button variant style |
+  | `size` | `'sm' \| 'md' \| 'lg' \| 'icon'` | `'md'` | Button size |
+  | `loading` | `boolean` | `false` | Show loading state |
+  | `disabled` | `boolean` | `false` | Disable button |
+  | `fullWidth` | `boolean` | `false` | Make button full width |
+  | `leftIcon` | `ReactNode` | - | Icon to show on left |
+  | `rightIcon` | `ReactNode` | - | Icon to show on right |
+  | `onClick` | `() => void` | - | Click handler |
+  | `className` | `string` | - | Additional CSS classes |
+</div>
+
+### GlassCard
+
+<div className="liquid-glass rounded-2xl p-6 my-6">
+  <h4 className="text-xl font-semibold mb-4 hero-text">Props</h4>
+  
+  | Prop | Type | Default | Description |
+  |------|------|---------|-------------|
+  | `variant` | `'default' \| 'subtle' \| 'strong'` | `'default'` | Glass effect intensity |
+  | `padding` | `'sm' \| 'md' \| 'lg'` | `'md'` | Card padding |
+  | `interactive` | `boolean` | `false` | Enable hover effects |
+  | `onClick` | `() => void` | - | Click handler |
+  | `className` | `string` | - | Additional CSS classes |
+</div>
+
+### GlassInput
+
+<div className="liquid-glass rounded-2xl p-6 my-6">
+  <h4 className="text-xl font-semibold mb-4 hero-text">Props</h4>
+  
+  | Prop | Type | Default | Description |
+  |------|------|---------|-------------|
+  | `type` | `string` | `'text'` | Input type |
+  | `placeholder` | `string` | - | Placeholder text |
+  | `value` | `string` | - | Input value |
+  | `onChange` | `(e: ChangeEvent) => void` | - | Change handler |
+  | `error` | `boolean` | `false` | Show error state |
+  | `helperText` | `string` | - | Helper text below input |
+  | `leftIcon` | `ReactNode` | - | Icon on left side |
+  | `rightIcon` | `ReactNode` | - | Icon on right side |
+  | `disabled` | `boolean` | `false` | Disable input |
+  | `className` | `string` | - | Additional CSS classes |
+</div>
+
+### GlassModal
+
+<div className="liquid-glass rounded-2xl p-6 my-6">
+  <h4 className="text-xl font-semibold mb-4 hero-text">Props</h4>
+  
+  | Prop | Type | Default | Description |
+  |------|------|---------|-------------|
+  | `isOpen` | `boolean` | `false` | Control modal visibility |
+  | `onClose` | `() => void` | - | Close handler |
+  | `title` | `string` | - | Modal title |
+  | `description` | `string` | - | Modal description |
+  | `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Modal size |
+  | `closeOnOverlayClick` | `boolean` | `true` | Close on overlay click |
+  | `closeOnEsc` | `boolean` | `true` | Close on ESC key |
+  | `showCloseButton` | `boolean` | `true` | Show close button |
+  | `children` | `ReactNode` | - | Modal content |
+</div>
+
+## 🪝 Hooks Reference
+
+### useTheme
+
+```typescript
+const { theme, setTheme, toggleTheme } = useTheme();
+
+// theme: 'light' | 'dark' | 'system'
+// setTheme: (theme: Theme) => void
+// toggleTheme: () => void
+```
+
+### useToast
+
+```typescript
+const { toast } = useToast();
+
+// Show toast
+toast({
+  title: "Success!",
+  description: "Your action was completed",
+  variant: "success", // 'success' | 'error' | 'warning' | 'info'
+  duration: 5000,
+  position: "top-right" // 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+});
+```
+
+### useModal
+
+```typescript
+const { isOpen, open, close, toggle } = useModal();
+
+// isOpen: boolean
+// open: () => void
+// close: () => void
+// toggle: () => void
+```
+
+### useMediaQuery
+
+```typescript
+const matches = useMediaQuery('(min-width: 768px)');
+// Returns boolean indicating if query matches
+```
+
+### useMobile
+
+```typescript
+const isMobile = useMobile();
+// Returns true if viewport width < 768px
+```
+
+## 🎨 Theme Configuration
+
+### ThemeProvider Setup
+
+```tsx
+import { ThemeProvider } from '@tuliocunha23/liquidui';
+
+function App() {
+  return (
+    <ThemeProvider
+      defaultTheme="system"
+      storageKey="liquidui-theme"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {/* Your app */}
+    </ThemeProvider>
+  );
+}
+```
+
+### Custom Theme Variables
+
+```css
+:root {
+  /* Glass effects */
+  --glass-opacity: 0.1;
+  --glass-blur: 20px;
+  --glass-border-opacity: 0.2;
+  
+  /* Colors */
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 217.2 33% 95%;
+  
+  /* Animations */
+  --animation-slow: 1s;
+  --animation-normal: 0.5s;
+  --animation-fast: 0.3s;
+}
+```
+
+## 🔧 Utility Functions
+
+### cn (Class Names)
+
+```typescript
+import { cn } from '@tuliocunha23/liquidui';
+
+const className = cn(
+  'base-class',
+  condition && 'conditional-class',
+  {
+    'object-class': true,
+    'another-class': false
+  },
+  ['array', 'of', 'classes']
+);
+```
+
+### Date Formatting
+
+```typescript
+import { formatDate } from '@tuliocunha23/liquidui';
+
+formatDate(new Date()); // "Jan 1, 2024"
+formatDate(new Date(), 'full'); // "Monday, January 1, 2024"
+formatDate(new Date(), 'time'); // "12:00 PM"
+formatDate(new Date(), 'datetime'); // "Jan 1, 2024 at 12:00 PM"
+```
+
+### Debounce & Throttle
+
+```typescript
+import { debounce, throttle } from '@tuliocunha23/liquidui';
+
+// Debounce - delays execution until after wait time
+const debouncedSearch = debounce((query: string) => {
+  console.log('Searching:', query);
+}, 500);
+
+// Throttle - limits execution to once per wait time
+const throttledScroll = throttle(() => {
+  console.log('Scrolling');
+}, 100);
+```
+
+## 📦 TypeScript Support
+
+All components and utilities are fully typed. Import types directly:
+
+```typescript
+import type {
+  ButtonProps,
+  CardProps,
+  ModalProps,
+  Theme,
+  ToastOptions,
+  AnimationVariant
+} from '@tuliocunha23/liquidui';
+```
+
+## 🎯 Best Practices
+
+### Performance
+
+1. **Tree Shaking**: Import only what you need
+   ```typescript
+   // ✅ Good
+   import { GlassButton, GlassCard } from '@tuliocunha23/liquidui';
+   
+   // ❌ Avoid
+   import * as LiquidUI from '@tuliocunha23/liquidui';
+   ```
+
+2. **Lazy Loading**: Use dynamic imports for heavy components
+   ```typescript
+   const GlassChart = dynamic(() => 
+     import('@tuliocunha23/liquidui').then(mod => mod.GlassChart)
+   );
+   ```
+
+3. **Memoization**: Wrap expensive components
+   ```typescript
+   const MemoizedCard = React.memo(GlassCard);
+   ```
+
+### Accessibility
+
+All components follow WCAG 2.1 guidelines:
+
+- Proper ARIA attributes
+- Keyboard navigation support
+- Focus management
+- Screen reader announcements
+- Color contrast compliance
+
+### Styling
+
+Components accept standard CSS classes and style props:
+
+```tsx
+<GlassButton
+  className="custom-class"
+  style={{ marginTop: '1rem' }}
+  data-testid="submit-button"
+/>
+```
+
+## 🔗 Related Resources
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+  <a href="/components" className="liquid-glass rounded-2xl p-6 hover:scale-105 transition-all duration-300 block">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="w-10 h-10 ios-logo apple-gradient-2 flex items-center justify-center">
+        <Layers className="w-5 h-5 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-foreground">Component Docs</h3>
+    </div>
+    <p className="text-sm text-foreground/70">Detailed component documentation with examples</p>
+  </a>
+  
+  <a href="/theming" className="liquid-glass rounded-2xl p-6 hover:scale-105 transition-all duration-300 block">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="w-10 h-10 ios-logo apple-gradient-3 flex items-center justify-center">
+        <Palette className="w-5 h-5 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-foreground">Theming Guide</h3>
+    </div>
+    <p className="text-sm text-foreground/70">Learn how to customize LiquidUI themes</p>
+  </a>
+</div>

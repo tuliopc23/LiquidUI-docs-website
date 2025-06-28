@@ -1,26 +1,10 @@
 import React from "react";
-import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Sparkles, MessageCircle } from "lucide-react";
 
-// Dynamic imports for framer-motion
-const MotionDiv = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.div })),
-  { ssr: false },
-);
-
-const MotionSpan = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.span })),
-  { ssr: false },
-);
-
-const MotionA = dynamic(
-  () => import("framer-motion").then((mod) => ({ default: mod.motion.a })),
-  { ssr: false },
-);
-
 const Logo = () => (
-  <MotionDiv
+  <motion.div
     className="flex items-center gap-3"
     whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -28,19 +12,19 @@ const Logo = () => (
     aria-label="LiquidifUI logo"
   >
     <div className="relative">
-      <MotionDiv
+      <motion.div
         className="w-8 h-8 ios-logo apple-gradient animate-liquid-morph flex items-center justify-center"
         whileHover={{ scale: 1.05, rotate: 2 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-hidden="true"
       >
         <Sparkles className="w-4 h-4 text-white" aria-hidden="true" />
-      </MotionDiv>
+      </motion.div>
     </div>
     <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text tracking-tight">
       LiquidifUI
     </span>
-  </MotionDiv>
+  </motion.div>
 );
 
 const config = {
@@ -118,13 +102,13 @@ const config = {
         );
       }
       return (
-        <MotionSpan
+        <motion.span
           whileHover={{ x: 3, scale: 1.02 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
           className="flex items-center gap-2 body-text hover:text-blue-600 transition-colors"
         >
           {title}
-        </MotionSpan>
+        </motion.span>
       );
     },
     defaultMenuCollapseLevel: 1,
@@ -133,7 +117,7 @@ const config = {
   toc: {
     backToTop: true,
     title: (
-      <MotionDiv
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="liquid-glass px-4 py-3 rounded-2xl border border-white/20"
@@ -142,29 +126,29 @@ const config = {
           <div className="w-4 h-4 ios-logo apple-gradient-4"></div>
           On This Page
         </span>
-      </MotionDiv>
+      </motion.div>
     ),
   },
   editLink: {
     text: (
-      <MotionSpan
+      <motion.span
         whileHover={{ x: 3, scale: 1.02 }}
         className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
         <div className="w-3 h-3 ios-logo apple-gradient-2"></div>
         Edit this page on GitHub →
-      </MotionSpan>
+      </motion.span>
     ),
   },
   feedback: {
     content: (
-      <MotionSpan
+      <motion.span
         whileHover={{ scale: 1.02 }}
         className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
         <div className="w-3 h-3 ios-logo apple-gradient-3"></div>
         Question? Give us feedback →
-      </MotionSpan>
+      </motion.span>
     ),
     labels: "feedback",
   },
@@ -174,7 +158,7 @@ const config = {
   banner: {
     key: "liquidif-ui-v2",
     text: (
-      <MotionA
+      <motion.a
         href="/getting-started"
         className="liquid-glass px-6 py-3 rounded-2xl border border-white/20 hover:scale-105 transition-all duration-300 body-text flex items-center gap-3"
         whileHover={{ scale: 1.02 }}
@@ -183,7 +167,7 @@ const config = {
         <div className="w-5 h-5 ios-logo apple-gradient animate-liquid-morph"></div>
         🎉 LiquidifUI v2.0 is released with liquid glass components. Get started
         →
-      </MotionA>
+      </motion.a>
     ),
   },
   primaryHue: {
