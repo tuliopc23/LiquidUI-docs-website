@@ -1,220 +1,333 @@
-import { GlassCard, GlassButton, GlassBadge } from "../components/GlassComponents";
 import { ComponentShowcase } from "../components/ComponentShowcase";
+import { 
+  ButtonVariants, 
+  BasicCard,
+  HeroExamples,
+  FeatureShowcaseExamples 
+} from "../components/ExampleComponents";
 import { motion } from "framer-motion";
-import { Sparkles, Zap, Palette, Shield, Code, Rocket } from "lucide-react";
+import { 
+  Sparkles, 
+  Zap, 
+  Palette, 
+  Shield, 
+  Code, 
+  Rocket,
+  ArrowRight,
+  Play,
+  Download,
+  Star,
+  Heart,
+  Users,
+  Layers,
+  Settings
+} from "lucide-react";
 
-<div className="w-full min-h-screen relative overflow-hidden">
-  {/* Hero Section */}
-  <motion.section 
-    className="relative z-10 flex flex-col items-center justify-center text-center py-20 px-4"
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    role="banner"
-    aria-labelledby="hero-title"
-  >
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 0.2, duration: 0.6 }}
-      className="mb-6"
-    >
-      <GlassBadge variant="outline" className="mb-4">
-        <Sparkles className="w-4 h-4 mr-2" />
-        Physics-Based Glassmorphism
-      </GlassBadge>
-    </motion.div>
+{/* Hero Section */}
+<section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+  {/* Liquid Glass Background */}
+  <div className="absolute inset-0 liquid-gradient-light dark:liquid-gradient-dark"></div>
+  
+  {/* Animated Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full animate-glass-float"></div>
+    <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-blue-300/20 rounded-full animate-glass-float" style={{ animationDelay: '2s' }}></div>
+    <div className="absolute bottom-1/4 left-1/3 w-32 h-32 bg-green-300/20 rounded-full animate-glass-float" style={{ animationDelay: '4s' }}></div>
+  </div>
 
-    <motion.h1 
-      className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, duration: 0.6 }}
-    >
-      <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-        LiquidUI
-      </span>
-      <br />
-      <span className="text-foreground">for React</span>
-    </motion.h1>
-    
-    <motion.p 
-      className="text-xl md:text-2xl text-muted-foreground max-w-3xl mb-8 leading-relaxed"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.6, duration: 0.6 }}
-    >
-      A revolutionary component library featuring{" "}
-      <span className="text-primary font-semibold">physics-based interactions</span>,{" "}
-      <span className="text-purple-400 font-semibold">content-aware adaptation</span>, and{" "}
-      <span className="text-cyan-400 font-semibold">magnetic hover effects</span>{" "}
-      with stunning glassmorphism design.
-    </motion.p>
-
-    <motion.div 
-      className="flex flex-col sm:flex-row gap-4 mb-12"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8, duration: 0.6 }}
-    >
-      <GlassButton size="lg" className="text-lg px-8 py-4">
-        <a href="/getting-started" className="flex items-center gap-2">
-          <Rocket className="w-5 h-5" />
-          Get Started
-        </a>
-      </GlassButton>
-      <GlassButton variant="secondary" size="lg" className="text-lg px-8 py-4">
-        <a href="/components" className="flex items-center gap-2">
-          <Code className="w-5 h-5" />
-          Browse Components
-        </a>
-      </GlassButton>
-    </motion.div>
-
-    {/* Stats */}
-    <motion.div 
-      className="flex flex-wrap justify-center gap-8 text-center"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.0, duration: 0.6 }}
-    >
-      <div className="glass-effect px-4 py-2 rounded-lg">
-        <div className="text-2xl font-bold text-primary">30+</div>
-        <div className="text-sm text-muted-foreground">Components</div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="text-center">
+      {/* Badge */}
+      <div className="inline-flex items-center space-x-2 glass-card px-4 py-2 mb-8 animate-glass-float">
+        <Sparkles className="w-4 h-4 text-blue-400" />
+        <span className="text-sm font-medium text-foreground body-text">
+          Introducing LiquidifUI v2.0
+        </span>
       </div>
-      <div className="glass-effect px-4 py-2 rounded-lg">
-        <div className="text-2xl font-bold text-purple-400">100%</div>
-        <div className="text-sm text-muted-foreground">TypeScript</div>
-      </div>
-      <div className="glass-effect px-4 py-2 rounded-lg">
-        <div className="text-2xl font-bold text-cyan-400">A11Y</div>
-        <div className="text-sm text-muted-foreground">Accessible</div>
-      </div>
-    </motion.div>
-  </motion.section>
 
-  {/* Features Grid */}
-  <motion.div 
-    className="relative z-10 max-w-7xl mx-auto px-4 py-16"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 1.2, duration: 0.8 }}
-  >
-    <motion.h2 
-      className="text-4xl font-bold text-center mb-4"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.4, duration: 0.6 }}
-    >
-      Why Choose LiquidUI?
-    </motion.h2>
-    <motion.p 
-      className="text-xl text-center text-muted-foreground mb-12"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.6, duration: 0.6 }}
-    >
-      Experience the future of React component libraries
-    </motion.p>
+      {/* Main Heading */}
+      <h1 className="hero-text text-5xl md:text-7xl lg:text-8xl text-foreground mb-6 leading-tight">
+        <span className="block">Liquid Glass</span>
+        <span className="block bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+          Components
+        </span>
+      </h1>
 
-    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {/* Subheading */}
+      <p className="body-text text-xl md:text-2xl text-foreground/80 mb-12 max-w-3xl mx-auto">
+        Experience the future of UI design with our glassmorphism component library. 
+        Fluid animations, liquid interactions, and cutting-edge aesthetics.
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <button className="group glass-button-primary px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center space-x-2">
+          <span>Explore Components</span>
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </button>
+        
+        <button className="glass-button px-8 py-4 text-lg font-semibold text-foreground transition-all duration-300">
+          View Documentation
+        </button>
+      </div>
+
+      {/* Feature Highlights */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+        <div className="liquid-glass rounded-3xl p-6 hover:scale-105 transition-all duration-500 group">
+          <div className="w-12 h-12 mx-auto mb-4 ios-logo apple-gradient-2 flex items-center justify-center group-hover:animate-liquid-morph">
+            <Zap className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-foreground mb-2 body-text">Lightning Fast</h3>
+          <p className="text-foreground/70 body-text">Optimized for performance with zero runtime overhead</p>
+        </div>
+
+        <div className="liquid-glass rounded-3xl p-6 hover:scale-105 transition-all duration-500 group" style={{ animationDelay: '0.2s' }}>
+          <div className="w-12 h-12 mx-auto mb-4 ios-logo apple-gradient-3 flex items-center justify-center group-hover:animate-liquid-morph">
+            <Layers className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-foreground mb-2 body-text">Modular Design</h3>
+          <p className="text-foreground/70 body-text">Tree-shakable components for minimal bundle size</p>
+        </div>
+
+        <div className="liquid-glass rounded-3xl p-6 hover:scale-105 transition-all duration-500 group" style={{ animationDelay: '0.4s' }}>
+          <div className="w-12 h-12 mx-auto mb-4 ios-logo apple-gradient-4 flex items-center justify-center group-hover:animate-liquid-morph">
+            <Sparkles className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-foreground mb-2 body-text">Liquid Animations</h3>
+          <p className="text-foreground/70 body-text">Smooth, organic transitions that feel alive</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Features Section */}
+<section className="py-24 bg-gradient-to-br from-background to-muted relative overflow-hidden">
+  {/* Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),transparent_50%)]"></div>
+    <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(255,182,193,0.1),transparent_50%)]"></div>
+  </div>
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    {/* Section Header */}
+    <div className="text-center mb-16">
+      <div className="inline-flex items-center space-x-2 glass-card px-4 py-2 mb-6">
+        <span className="text-sm font-medium text-foreground/70 body-text">Why Choose LiquidifUI</span>
+      </div>
+      
+      <h2 className="hero-text text-4xl md:text-5xl text-foreground mb-6">
+        Built for Modern
+        <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Development
+        </span>
+      </h2>
+      
+      <p className="body-text text-xl text-foreground/70 max-w-3xl mx-auto">
+        Every component is crafted with attention to detail, performance, and user experience. 
+        From design to deployment, we've got you covered.
+      </p>
+    </div>
+
+    {/* Features Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {[
         {
-          icon: <Zap className="w-8 h-8 text-yellow-400" />,
-          title: "Physics-Based Interactions",
-          description: "Real-time spring animations and magnetic hover effects that respond to user interaction with natural, fluid motion.",
-          delay: 1.8
+          icon: <Settings className="w-8 h-8 text-white" />,
+          title: "Responsive by Default",
+          description: "Every component adapts flawlessly to any screen size with fluid breakpoints and intelligent scaling.",
+          gradient: "apple-gradient"
         },
         {
-          icon: <Palette className="w-8 h-8 text-purple-400" />,
-          title: "Content-Aware Adaptation",
-          description: "Smart components that automatically adjust their appearance and behavior based on content and context.",
-          delay: 2.0
+          icon: <Palette className="w-8 h-8 text-white" />,
+          title: "Themeable Design System",
+          description: "Customize colors, spacing, and animations with our powerful design token system.",
+          gradient: "apple-gradient-2"
         },
         {
-          icon: <Shield className="w-8 h-8 text-green-400" />,
-          title: "Accessibility First",
-          description: "Built with WCAG 2.1 standards, screen reader support, and keyboard navigation out of the box.",
-          delay: 2.2
+          icon: <Code className="w-8 h-8 text-white" />,
+          title: "Developer Experience",
+          description: "TypeScript-first with excellent IntelliSense, comprehensive docs, and zero configuration.",
+          gradient: "apple-gradient-3"
         },
         {
-          icon: <Code className="w-8 h-8 text-blue-400" />,
-          title: "TypeScript Native",
-          description: "Fully typed components with IntelliSense support, auto-completion, and compile-time safety.",
-          delay: 2.4
-        },
-        {
-          icon: <Sparkles className="w-8 h-8 text-cyan-400" />,
-          title: "Glassmorphism Design",
-          description: "Stunning backdrop blur effects, transparency layers, and ethereal visual aesthetics.",
-          delay: 2.6
-        },
-        {
-          icon: <Rocket className="w-8 h-8 text-orange-400" />,
+          icon: <Zap className="w-8 h-8 text-white" />,
           title: "Performance Optimized",
-          description: "Tree-shakeable components, minimal bundle size, and optimized for production applications.",
-          delay: 2.8
+          description: "Built with modern React patterns, tree-shaking, and minimal runtime overhead.",
+          gradient: "apple-gradient-4"
+        },
+        {
+          icon: <Shield className="w-8 h-8 text-white" />,
+          title: "Accessible First",
+          description: "WCAG 2.1 compliant with keyboard navigation, screen reader support, and semantic markup.",
+          gradient: "apple-gradient"
+        },
+        {
+          icon: <Heart className="w-8 h-8 text-white" />,
+          title: "Community Driven",
+          description: "Open source with an active community, regular updates, and comprehensive support.",
+          gradient: "apple-gradient-2"
         }
       ].map((feature, index) => (
-        <motion.div
+        <div 
           key={index}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: feature.delay, duration: 0.6 }}
+          className="liquid-glass rounded-3xl p-8 hover:scale-105 transition-all duration-500 group"
+          style={{ animationDelay: `${index * 0.1}s` }}
         >
-          <GlassCard className="h-full p-8 hover:scale-105 transition-transform duration-300">
-            <div className="flex flex-col items-center text-center h-full">
-              <motion.div
-                className="mb-4 p-3 glass-effect rounded-lg"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                {feature.icon}
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">
-                {feature.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed flex-grow">
-                {feature.description}
-              </p>
-            </div>
-          </GlassCard>
-        </motion.div>
+          {/* Icon */}
+          <div className={`w-16 h-16 ios-logo ${feature.gradient} flex items-center justify-center mb-6 group-hover:animate-liquid-morph`}>
+            {feature.icon}
+          </div>
+          
+          {/* Content */}
+          <h3 className="text-xl font-semibold text-foreground mb-4 body-text">
+            {feature.title}
+          </h3>
+          
+          <p className="text-foreground/70 leading-relaxed body-text">
+            {feature.description}
+          </p>
+          
+          {/* Hover Effect */}
+          <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+          </div>
+        </div>
       ))}
     </div>
-  </motion.div>
 
-  {/* Call to Action */}
-  <motion.div 
-    className="relative z-10 text-center py-20 px-4"
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 3.0, duration: 0.8 }}
-  >
-    <div className="glass-card max-w-4xl mx-auto p-12">
-      <h2 className="text-4xl font-bold mb-6">
+    {/* Stats Section */}
+    <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
+      {[
+        { number: "30+", label: "Components" },
+        { number: "100%", label: "TypeScript" },
+        { number: "10k+", label: "Downloads" },
+        { number: "A11Y", label: "Accessible" }
+      ].map((stat, index) => (
+        <div key={index} className="text-center">
+          <div className="hero-text text-3xl md:text-4xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            {stat.number}
+          </div>
+          <div className="text-foreground/70 body-text">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Component Showcase Section */}
+<section className="py-24 bg-gradient-to-br from-muted to-background relative overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <div className="text-center mb-16">
+      <div className="inline-flex items-center space-x-2 glass-card px-4 py-2 mb-6">
+        <span className="text-sm font-medium text-foreground/70 body-text">Component Showcase</span>
+      </div>
+      
+      <h2 className="hero-text text-4xl md:text-5xl text-foreground mb-6">
+        Experience the
+        <span className="block bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+          Magic
+        </span>
+      </h2>
+      
+      <p className="body-text text-xl text-foreground/70 max-w-3xl mx-auto">
+        Interactive previews of our glassmorphism components. Hover, click, and explore 
+        the liquid animations that bring your interfaces to life.
+      </p>
+    </div>
+
+    {/* Component Examples */}
+    <ComponentShowcase
+      title="Glass Buttons in Action"
+      description="See how our buttons respond with physics-based animations and magnetic hover effects"
+    >
+      <ButtonVariants />
+    </ComponentShowcase>
+
+    <ComponentShowcase
+      title="Liquid Glass Cards"
+      description="Content-aware glassmorphism that adapts to your background and content"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        <BasicCard />
+        <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="w-10 h-10 ios-logo apple-gradient animate-liquid-morph"></div>
+            <div>
+              <div className="font-medium text-foreground body-text">Interactive Card</div>
+              <div className="text-sm text-foreground/60 body-text">With physics effects</div>
+            </div>
+          </div>
+          <p className="text-sm text-foreground/70 body-text mb-4">
+            Experience cards that respond to user interaction with natural, fluid motion and adaptive styling.
+          </p>
+          <div className="flex items-center space-x-1">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </ComponentShowcase>
+
+    {/* CTA Section */}
+    <div className="text-center mt-16">
+      <button className="group glass-button-primary px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto body-text">
+        <span>Explore All Components</span>
+        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </div>
+  </div>
+</section>
+
+{/* Final CTA Section */}
+<section className="py-24 bg-gradient-to-br from-background to-foreground/5 relative overflow-hidden">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <div className="liquid-glass rounded-3xl p-12 border border-blue-200/30">
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <div className="w-8 h-8 ios-logo apple-gradient-2 animate-liquid-morph"></div>
+        <div className="w-8 h-8 ios-logo apple-gradient-3 animate-liquid-morph" style={{ animationDelay: '1s' }}></div>
+        <div className="w-8 h-8 ios-logo apple-gradient-4 animate-liquid-morph" style={{ animationDelay: '2s' }}></div>
+      </div>
+      
+      <h2 className="hero-text text-4xl font-bold mb-6 text-foreground">
         Ready to Build Something Amazing?
       </h2>
-      <p className="text-xl text-muted-foreground mb-8">
-        Join thousands of developers creating beautiful, accessible, and performant UIs with LiquidUI.
+      
+      <p className="body-text text-xl text-foreground/70 mb-8">
+        Join thousands of developers creating beautiful, accessible, and performant UIs with LiquidifUI.
       </p>
+      
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <GlassButton size="lg" className="text-lg px-8 py-4">
-          <a href="/getting-started">Start Building</a>
-        </GlassButton>
-        <GlassButton variant="outline" size="lg" className="text-lg px-8 py-4">
-          <a href="https://github.com/tuliopc23/glass-ui" target="_blank" rel="noopener noreferrer">
-            View on GitHub
-          </a>
-        </GlassButton>
+        <a href="/getting-started" className="glass-button-primary px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2">
+          <Rocket className="w-5 h-5" />
+          <span>Start Building</span>
+        </a>
+        <a href="/components" className="glass-button px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2">
+          <Code className="w-5 h-5" />
+          <span>Browse Components</span>
+        </a>
+      </div>
+      
+      <div className="flex items-center justify-center gap-8 mt-8 text-sm text-foreground/60 body-text">
+        <div className="flex items-center gap-2">
+          <Users className="w-4 h-4" />
+          <span>10k+ Developers</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Download className="w-4 h-4" />
+          <span>25k+ Downloads</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Star className="w-4 h-4" />
+          <span>5.0 Rating</span>
+        </div>
       </div>
     </div>
-  </motion.div>
-
-  {/* Background Effects */}
-  <div className="absolute inset-0 pointer-events-none">
-    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
   </div>
-</div>
+  
+  {/* Background decoration */}
+  <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
+  <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-green-400/5 rounded-full blur-3xl"></div>
+</section>

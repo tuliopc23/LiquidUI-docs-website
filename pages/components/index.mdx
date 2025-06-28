@@ -1,402 +1,606 @@
----
-title: Components
----
-
-import { Callout, Cards, Card } from 'nextra/components'
-import { GlassCard, GlassButton, GlassBadge, GlassInput } from "../../components/GlassComponents";
-import { GlassSwitch } from "../../components/PlaceholderComponents";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import {
+  ButtonVariants,
+  ButtonSizes,
+  BasicCard,
+  ProfileCard,
+  HeaderExamples,
+  FooterExamples,
+  HeroExamples,
+  FeatureShowcaseExamples,
+  FloatingActionExamples,
+  AvatarExamples,
+  BadgeExamples,
+  ProgressExamples,
+  SwitchExamples,
+  ToastExamples,
+  InputExamples
+} from "../../components/ExampleComponents";
 import { motion } from "framer-motion";
-import { 
-  Palette, 
-  Layout, 
-  MousePointer, 
-  FormInput, 
-  BarChart3, 
-  Bell, 
-  Settings,
+import {
   Sparkles,
   Code,
-  Search
+  Palette,
+  Layout,
+  FormInput,
+  Bell,
+  BarChart3,
+  Settings,
+  Search,
+  Zap,
+  Shield,
+  Heart,
+  Star,
+  ArrowRight,
+  Check,
+  Download
 } from "lucide-react";
 
-# Components
+# 🧩 Components Overview
 
-LiquidiUI provides a comprehensive set of components designed with glassmorphism aesthetics and accessibility in mind. Each component is fully customizable and follows modern React patterns.
-
-## Components Overview
-
-Discover our comprehensive collection of 30+ physics-based glassmorphism components, each crafted with attention to detail and accessibility.
-
-<div className="glass-card p-6 my-8">
-  <div className="flex items-center gap-3 mb-4">
-    <Sparkles className="w-6 h-6 text-primary" />
-    <h2 className="text-xl font-semibold m-0">What Makes Our Components Special</h2>
+<div className="liquid-glass rounded-3xl p-8 border border-blue-200/30 mb-8 text-center relative overflow-hidden">
+  <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-green-50/80"></div>
+  <div className="relative z-10">
+    <div className="flex items-center justify-center gap-3 mb-4">
+      <div className="w-8 h-8 ios-logo apple-gradient animate-liquid-morph"></div>
+      <span className="glass-button px-4 py-2 rounded-full text-sm text-gray-700 body-text">
+        30+ Components
+      </span>
+    </div>
+    <h1 className="text-4xl md:text-6xl font-bold mb-6 hero-text">
+      <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+        LiquidifUI Components
+      </span>
+    </h1>
+    <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto body-text">
+      The complete collection of glassmorphism components with physics-based interactions,
+      content-aware adaptation, and Apple-inspired aesthetics.
+    </p>
+    <div className="flex items-center justify-center gap-8 text-sm text-gray-600">
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-4 ios-logo apple-gradient-2"></div>
+        <span>Physics-Based</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-4 ios-logo apple-gradient-3"></div>
+        <span>Content-Aware</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-4 ios-logo apple-gradient-4"></div>
+        <span>Accessible</span>
+      </div>
+    </div>
   </div>
-  <div className="grid gap-4 md:grid-cols-3">
-    <div className="glass-effect p-4 rounded-lg">
-      <h3 className="font-semibold mb-2">Physics-Based</h3>
-      <p className="text-sm text-muted-foreground">
-        Natural spring animations and magnetic hover effects
-      </p>
-    </div>
-    <div className="glass-effect p-4 rounded-lg">
-      <h3 className="font-semibold mb-2">Content-Aware</h3>
-      <p className="text-sm text-muted-foreground">
-        Automatically adapts to background and content
-      </p>
-    </div>
-    <div className="glass-effect p-4 rounded-lg">
-      <h3 className="font-semibold mb-2">Accessible</h3>
-      <p className="text-sm text-muted-foreground">
-        Full WCAG 2.1 compliance with keyboard navigation
-      </p>
-    </div>
-  </div>
+  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-400/10 rounded-full animate-glass-float"></div>
+  <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-green-400/10 rounded-full animate-glass-float" style={{ animationDelay: '2s' }}></div>
 </div>
 
-## Component Categories
+## 🔘 Core Components
 
-### Basic Components
+Essential building blocks for any interface with glassmorphism design.
 
 <ComponentShowcase
-  title="Fundamental Building Blocks"
-  description="Essential components for any interface"
+  title="Button Components"
+  description="Interactive buttons with magnetic hover effects and physics-based animations"
+  code={`<GlassButton variant="primary">Primary</GlassButton>
+<GlassButton variant="secondary">Secondary</GlassButton>
+<GlassButton variant="ghost">Ghost</GlassButton>`}
 >
-  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-full">
-    <GlassCard className="p-4">
-      <h4 className="font-medium mb-2">Button</h4>
-      <p className="text-sm text-muted-foreground mb-3">
-        Interactive buttons with magnetic hover
-      </p>
-      <GlassButton size="sm">
-        <a href="/components/button">View Component</a>
-      </GlassButton>
-    </GlassCard>
-    
-    <GlassCard className="p-4">
-      <h4 className="font-medium mb-2">Card</h4>
-      <p className="text-sm text-muted-foreground mb-3">
-        Flexible containers with glassmorphism
-      </p>
-      <GlassButton size="sm">
-        <a href="/components/card">View Component</a>
-      </GlassButton>
-    </GlassCard>
-    
-    <GlassCard className="p-4">
-      <h4 className="font-medium mb-2">Badge</h4>
-      <p className="text-sm text-muted-foreground mb-3">
-        Status indicators and labels
-      </p>
-      <GlassButton size="sm">
-        <a href="/components/badge">View Component</a>
-      </GlassButton>
-    </GlassCard>
+  <ButtonVariants />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Button Sizes"
+  description="Multiple sizes to fit your design needs"
+  code={`<GlassButton size="sm">Small</GlassButton>
+<GlassButton size="md">Medium</GlassButton>
+<GlassButton size="lg">Large</GlassButton>`}
+>
+  <ButtonSizes />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Glass Cards"
+  description="Flexible containers with adaptive glassmorphism effects"
+  code={`<GlassCard className="p-6">
+  <h3>Card Title</h3>
+  <p>Beautiful glassmorphism card with content-aware adaptation.</p>
+</GlassCard>`}
+>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    <BasicCard />
+    <ProfileCard />
   </div>
 </ComponentShowcase>
 
-### Form Components
-
 <ComponentShowcase
-  title="Form Elements"
-  description="Interactive form components with validation support"
+  title="Form Controls"
+  description="Interactive form elements with glass styling and physics feedback"
+  code={`<GlassInput placeholder="Email address" />
+<GlassTextarea placeholder="Your message..." />
+<GlassSelect>
+  <option>Choose option</option>
+</GlassSelect>`}
 >
-  <div className="space-y-4 w-full max-w-md">
-    <GlassInput placeholder="Email address" />
-    <div className="flex items-center gap-3">
-      <GlassSwitch />
-      <span className="text-sm">Enable notifications</span>
-    </div>
-    <GlassButton className="w-full">Submit Form</GlassButton>
-  </div>
+  <InputExamples />
 </ComponentShowcase>
 
-### Data Display
-
 <ComponentShowcase
-  title="Data Visualization"
-  description="Components for displaying information and metrics"
+  title="Avatar Components"
+  description="User profile displays with liquid morphing effects"
+  code={`<GlassAvatar size="lg">JD</GlassAvatar>
+<GlassAvatar src="/avatar.jpg" />
+<GlassAvatar variant="gradient">AB</GlassAvatar>`}
 >
-  <div className="space-y-4 w-full max-w-md">
-    <div>
-      <div className="flex justify-between text-sm mb-2">
-        <span>Progress</span>
-        <span>75%</span>
-      </div>
-      <div className="glass-effect rounded-full h-2 overflow-hidden">
-        <div className="h-full bg-primary rounded-full" style={{width: '75%'}}></div>
-      </div>
-    </div>
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 glass-effect rounded-full flex items-center justify-center text-sm font-medium">
-        JD
-      </div>
-      <div>
-        <div className="font-medium">John Doe</div>
-        <div className="text-sm text-muted-foreground">Developer</div>
-      </div>
-    </div>
-  </div>
+  <AvatarExamples />
 </ComponentShowcase>
 
-## Component Library
+<ComponentShowcase
+  title="Badge & Status"
+  description="Status indicators and labels with glassmorphism styling"
+  code={`<GlassBadge variant="primary">Primary</GlassBadge>
+<GlassBadge variant="success">Success</GlassBadge>
+<GlassBadge variant="warning">Warning</GlassBadge>`}
+>
+  <BadgeExamples />
+</ComponentShowcase>
 
-<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+<ComponentShowcase
+  title="Progress Indicators"
+  description="Progress bars with liquid animations and gradient effects"
+  code={`<GlassProgress value={75} />
+<GlassProgress value={60} variant="gradient" />
+<GlassProgress value={90} size="lg" />`}
+>
+  <ProgressExamples />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Switch Controls"
+  description="Toggle switches with smooth liquid animations"
+  code={`<GlassSwitch />
+<GlassSwitch size="lg" />
+<GlassSwitch variant="colored" />`}
+>
+  <SwitchExamples />
+</ComponentShowcase>
+
+## 🧭 Layout & Navigation
+
+Components for structuring and navigating your application.
+
+<ComponentShowcase
+  title="Header Components"
+  description="Page headers with glassmorphism effects and action elements"
+  code={`<GlassHeader
+  title="Dashboard"
+  subtitle="Welcome back! Here's your overview."
+  actions={<GlassButton>New Project</GlassButton>}
+/>`}
+>
+  <HeaderExamples />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Footer Components"
+  description="Page footers with organized links and social media integration"
+  code={`<GlassFooter 
+  links={[
+    { label: "About", href: "/about" },
+    { label: "Privacy", href: "/privacy" },
+    { label: "Contact", href: "/contact" }
+  ]}
+/>`}
+>
+  <FooterExamples />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Hero Sections"
+  description="Stunning hero sections with liquid glass backgrounds and physics animations"
+  code={`<GlassHero
+  title="Welcome to LiquidifUI"
+  subtitle="The future of UI design with glassmorphism components"
+  actions={<GlassButton variant="primary">Get Started</GlassButton>}
+/>`}
+>
+  <HeroExamples />
+</ComponentShowcase>
+
+<ComponentShowcase
+  title="Feature Showcase"
+  description="Highlight features with animated glass cards and icons"
+  code={`<GlassFeatureShowcase
+  features={[
+    { icon: <Zap />, title: "Lightning Fast", description: "Optimized performance" },
+    { icon: <Shield />, title: "Secure", description: "Built with security in mind" }
+  ]}
+/>`}
+>
+  <FeatureShowcaseExamples />
+</ComponentShowcase>
+
+## 🔔 Feedback & Overlay
+
+Components for user feedback and modal interactions.
+
+<ComponentShowcase
+  title="Toast Notifications"
+  description="Non-intrusive notifications with glassmorphism styling"
+  code={`<GlassToast variant="success">
+  Changes saved successfully!
+</GlassToast>
+<GlassToast variant="info">
+  New update available
+</GlassToast>`}
+>
+  <ToastExamples />
+</ComponentShowcase>
+
+## 🎈 Interactive Elements
+
+Advanced interactive components with physics-based behaviors.
+
+<ComponentShowcase
+  title="Floating Action Buttons"
+  description="Floating action buttons with expandable secondary actions and magnetic effects"
+  code={`<GlassFloatingAction
+  icon={<Plus />}
+  position="bottom-right"
+  actions={[
+    { icon: <Upload />, label: "Upload" },
+    { icon: <FolderPlus />, label: "New Folder" }
+  ]}
+/>`}
+>
+  <FloatingActionExamples />
+</ComponentShowcase>
+
+## 📚 Complete Component Library
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
   {[
     {
-      category: "Basic",
-      icon: <Layout className="w-5 h-5" />,
-      color: "text-blue-400",
-      components: ["Button", "Card", "Badge", "Avatar"]
+      category: "Core Components",
+      icon: <Layout className="w-6 h-6" />,
+      gradient: "apple-gradient",
+      components: [
+        { name: "Button", href: "/components/button", status: "✅" },
+        { name: "Card", href: "/components/card", status: "✅" },
+        { name: "Input", href: "/components/input", status: "✅" },
+        { name: "Textarea", href: "/components/textarea", status: "✅" },
+        { name: "Select", href: "/components/select", status: "✅" },
+        { name: "Checkbox", href: "/components/checkbox", status: "✅" },
+        { name: "Switch", href: "/components/switch", status: "✅" },
+        { name: "Slider", href: "/components/slider", status: "✅" },
+        { name: "Progress", href: "/components/progress", status: "✅" },
+        { name: "Avatar", href: "/components/avatar", status: "✅" },
+        { name: "Badge", href: "/components/badge", status: "✅" }
+      ]
     },
     {
-      category: "Forms",
-      icon: <FormInput className="w-5 h-5" />,
-      color: "text-green-400", 
-      components: ["Input", "Textarea", "Select", "Checkbox", "Switch"]
+      category: "Layout & Navigation",
+      icon: <FormInput className="w-6 h-6" />,
+      gradient: "apple-gradient-2",
+      components: [
+        { name: "Navbar", href: "/components/navbar", status: "✅" },
+        { name: "Sidebar", href: "/components/sidebar", status: "✅" },
+        { name: "Mobile Nav", href: "/components/mobile-nav", status: "✅" },
+        { name: "Header", href: "/components/header", status: "✅" },
+        { name: "Footer", href: "/components/footer", status: "✅" },
+        { name: "Hero", href: "/components/hero", status: "✅" },
+        { name: "Feature Showcase", href: "/components/feature-showcase", status: "✅" }
+      ]
     },
     {
-      category: "Navigation",
-      icon: <MousePointer className="w-5 h-5" />,
-      color: "text-purple-400",
-      components: ["Navbar", "Sidebar", "Tabs", "Dropdown"]
-    },
-    {
-      category: "Feedback",
-      icon: <Bell className="w-5 h-5" />,
-      color: "text-orange-400",
-      components: ["Toast", "Modal", "Notification", "Loading"]
+      category: "Feedback & Overlay",
+      icon: <Bell className="w-6 h-6" />,
+      gradient: "apple-gradient-3",
+      components: [
+        { name: "Modal", href: "/components/modal", status: "✅" },
+        { name: "Toast", href: "/components/toast", status: "✅" },
+        { name: "Notification", href: "/components/notification", status: "✅" },
+        { name: "Tooltip", href: "/components/tooltip", status: "✅" },
+        { name: "Popover", href: "/components/popover", status: "✅" },
+        { name: "Loading", href: "/components/loading", status: "✅" }
+      ]
     },
     {
       category: "Data Display",
-      icon: <BarChart3 className="w-5 h-5" />,
-      color: "text-cyan-400",
-      components: ["Table", "Chart", "Progress", "Tooltip"]
+      icon: <BarChart3 className="w-6 h-6" />,
+      gradient: "apple-gradient-4",
+      components: [
+        { name: "Table", href: "/components/table", status: "✅" },
+        { name: "Chart", href: "/components/chart", status: "✅" },
+        { name: "Tabs", href: "/components/tabs", status: "✅" },
+        { name: "Command", href: "/components/command", status: "✅" },
+        { name: "Search", href: "/components/search", status: "✅" },
+        { name: "Dropdown", href: "/components/dropdown", status: "✅" }
+      ]
     },
     {
-      category: "Utilities",
-      icon: <Settings className="w-5 h-5" />,
-      color: "text-pink-400",
-      components: ["Theme Provider", "Theme Toggle", "Search", "Command"]
+      category: "Interactive Elements",
+      icon: <Sparkles className="w-6 h-6" />,
+      gradient: "apple-gradient",
+      components: [
+        { name: "Floating Action", href: "/components/floating-action", status: "✅" },
+        { name: "Component Showcase", href: "/components/component-showcase", status: "✅" },
+        { name: "Responsive Button", href: "/components/responsive-button", status: "✅" },
+        { name: "Responsive Card", href: "/components/responsive-card", status: "✅" }
+      ]
+    },
+    {
+      category: "Theming & Utils",
+      icon: <Settings className="w-6 h-6" />,
+      gradient: "apple-gradient-2",
+      components: [
+        { name: "Theme Provider", href: "/components/theme-provider", status: "✅" },
+        { name: "Theme Toggle", href: "/components/theme-toggle", status: "✅" }
+      ]
     }
   ].map((category, index) => (
     <motion.div
       key={category.category}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      className="liquid-glass rounded-3xl p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300"
     >
-      <GlassCard className="p-6 h-full">
-        <div className="flex items-center gap-3 mb-4">
-          <div className={`p-2 glass-effect rounded-lg ${category.color}`}>
-            {category.icon}
-          </div>
-          <h3 className="text-lg font-semibold">{category.category}</h3>
+      <div className="flex items-center gap-3 mb-6">
+        <div className={`w-12 h-12 ios-logo ${category.gradient} flex items-center justify-center`}>
+          {category.icon}
         </div>
-        <div className="space-y-2 mb-4">
-          {category.components.map((component) => (
-            <div key={component} className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">{component}</span>
-              <GlassBadge variant="outline" className="text-xs">
-                <a href={`/components/${component.toLowerCase().replace(' ', '-')}`}>
-                  View
-                </a>
-              </GlassBadge>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900 hero-text">{category.category}</h3>
+          <p className="text-sm text-gray-600 body-text">{category.components.length} components</p>
+        </div>
+      </div>
+      
+      <div className="space-y-3 mb-6">
+        {category.components.map((component) => (
+          <a
+            key={component.name}
+            href={component.href}
+            className="flex items-center justify-between p-3 glass-button rounded-2xl hover:scale-102 transition-all duration-200 group"
+          >
+            <span className="text-sm text-gray-700 body-text group-hover:text-blue-600 transition-colors">
+              {component.name}
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs">{component.status}</span>
+              <ArrowRight className="w-3 h-3 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
             </div>
-          ))}
-        </div>
-        <GlassButton variant="outline" size="sm" className="w-full">
-          View All {category.category}
-        </GlassButton>
-      </GlassCard>
+          </a>
+        ))}
+      </div>
+      
+      <button className="w-full glass-button-primary py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300">
+        <a href={`/components/${category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`}>
+          Explore {category.category}
+        </a>
+      </button>
     </motion.div>
   ))}
 </div>
 
-## Quick Search
+## 🔧 Hooks & Utilities
 
-<div className="glass-card p-6 mt-8">
-  <div className="flex items-center gap-3 mb-4">
-    <Search className="w-5 h-5 text-primary" />
-    <h3 className="text-lg font-semibold">Find Components</h3>
+Advanced hooks and utility functions for enhanced functionality.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <div className="liquid-glass rounded-3xl p-6 border border-purple-200/30">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-8 h-8 ios-logo apple-gradient-3 flex items-center justify-center">
+        <Code className="w-4 h-4 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 hero-text">React Hooks</h3>
+    </div>
+    <div className="space-y-3">
+      {[
+        { name: "useLiquidGlass", href: "/components/use-liquid-glass", description: "Advanced glass effects" },
+        { name: "useMobile", href: "/components/use-mobile", description: "Mobile device detection" },
+        { name: "usePerformanceMonitor", href: "/components/use-performance-monitor", description: "Performance tracking" },
+        { name: "useTheme", href: "/components/use-theme", description: "Theme management" },
+        { name: "useToast", href: "/components/use-toast", description: "Toast notifications" }
+      ].map((hook) => (
+        <a
+          key={hook.name}
+          href={hook.href}
+          className="block p-3 glass-button rounded-2xl hover:scale-102 transition-all duration-200 group"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-sm font-medium text-gray-900 body-text">{hook.name}</span>
+              <p className="text-xs text-gray-600 body-text">{hook.description}</p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+          </div>
+        </a>
+      ))}
+    </div>
   </div>
-  <div className="grid gap-2 md:grid-cols-4 lg:grid-cols-6">
+
+  <div className="liquid-glass rounded-3xl p-6 border border-green-200/30">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-8 h-8 ios-logo apple-gradient-4 flex items-center justify-center">
+        <Settings className="w-4 h-4 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 hero-text">Utility Libraries</h3>
+    </div>
+    <div className="space-y-3">
+      {[
+        { name: "Glass Physics", href: "/components/glass-physics", description: "Physics engine for animations" },
+        { name: "Glass Utils", href: "/components/glass-utils", description: "Utility functions" },
+        { name: "Liquid Glass Tokens", href: "/components/liquid-glass-tokens", description: "Design tokens" },
+        { name: "Accessibility Testing", href: "/components/accessibility-testing", description: "A11y testing tools" },
+        { name: "Glass Animations", href: "/components/glass-animations", description: "Animation presets" },
+        { name: "Glass Gestures", href: "/components/glass-gestures", description: "Gesture recognition" },
+        { name: "Glass Performance", href: "/components/glass-performance", description: "Performance optimization" },
+        { name: "Glass Shaders", href: "/components/glass-shaders", description: "WebGL shaders" }
+      ].map((util) => (
+        <a
+          key={util.name}
+          href={util.href}
+          className="block p-3 glass-button rounded-2xl hover:scale-102 transition-all duration-200 group"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-sm font-medium text-gray-900 body-text">{util.name}</span>
+              <p className="text-xs text-gray-600 body-text">{util.description}</p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+## 🎯 Key Features
+
+<div className="grid grid-cols-1 md:grid-cols-4 gap-6 my-8">
+  <div className="text-center">
+    <div className="w-16 h-16 ios-logo apple-gradient mx-auto mb-4 flex items-center justify-center">
+      <span className="text-2xl font-bold text-white hero-text">30+</span>
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 hero-text">Components</h3>
+    <p className="text-sm text-gray-600 body-text">Complete component library</p>
+  </div>
+  
+  <div className="text-center">
+    <div className="w-16 h-16 ios-logo apple-gradient-2 mx-auto mb-4 flex items-center justify-center">
+      <Check className="w-8 h-8 text-white" />
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 hero-text">TypeScript</h3>
+    <p className="text-sm text-gray-600 body-text">100% TypeScript support</p>
+  </div>
+  
+  <div className="text-center">
+    <div className="w-16 h-16 ios-logo apple-gradient-3 mx-auto mb-4 flex items-center justify-center">
+      <Heart className="w-8 h-8 text-white" />
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 hero-text">Accessible</h3>
+    <p className="text-sm text-gray-600 body-text">WCAG 2.1 compliant</p>
+  </div>
+  
+  <div className="text-center">
+    <div className="w-16 h-16 ios-logo apple-gradient-4 mx-auto mb-4 flex items-center justify-center">
+      <Zap className="w-8 h-8 text-white" />
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 mb-2 hero-text">Performant</h3>
+    <p className="text-sm text-gray-600 body-text">Optimized for speed</p>
+  </div>
+</div>
+
+## 🚀 Quick Start
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-8 h-8 ios-logo apple-gradient flex items-center justify-center">
+        <Download className="w-4 h-4 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 hero-text">Install & Setup</h3>
+    </div>
+    <p className="text-gray-600 mb-4 body-text">
+      Get started with LiquidifUI in your project with our quick installation guide.
+    </p>
+    <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300">
+      <a href="/getting-started">Getting Started →</a>
+    </button>
+  </div>
+  
+  <div className="liquid-glass rounded-3xl p-6 border border-green-200/30">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-8 h-8 ios-logo apple-gradient-2 flex items-center justify-center">
+        <Palette className="w-4 h-4 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 hero-text">Design System</h3>
+    </div>
+    <p className="text-gray-600 mb-4 body-text">
+      Learn about our design principles, theming system, and customization options.
+    </p>
+    <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium body-text hover:scale-105 transition-all duration-300">
+      <a href="/theming">Design Guide →</a>
+    </button>
+  </div>
+</div>
+
+## 📖 Component Status
+
+<div className="liquid-glass rounded-3xl p-6 border border-gray-200/30 my-8 overflow-x-auto">
+  <table className="w-full">
+    <thead>
+      <tr className="border-b border-gray-200/30">
+        <th className="text-left py-3 text-gray-900 font-semibold body-text">Component</th>
+        <th className="text-left py-3 text-gray-900 font-semibold body-text">Status</th>
+        <th className="text-left py-3 text-gray-900 font-semibold body-text">Version</th>
+        <th className="text-left py-3 text-gray-900 font-semibold body-text">Accessibility</th>
+      </tr>
+    </thead>
+    <tbody>
+      {[
+        { name: "Button", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Card", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Input", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Modal", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Navbar", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Header", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Footer", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Hero", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Floating Action", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" },
+        { name: "Theme Provider", status: "✅ Stable", version: "1.0.1", a11y: "♿ WCAG AA" }
+      ].map((component, index) => (
+        <tr key={component.name} className="border-b border-gray-200/20">
+          <td className="py-3 text-gray-700 body-text">{component.name}</td>
+          <td className="py-3 text-gray-700 body-text">{component.status}</td>
+          <td className="py-3 text-gray-700 body-text">{component.version}</td>
+          <td className="py-3 text-gray-700 body-text">{component.a11y}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+## 🔍 Quick Search
+
+<div className="liquid-glass rounded-3xl p-6 border border-purple-200/30 my-8">
+  <div className="flex items-center gap-3 mb-6">
+    <div className="w-8 h-8 ios-logo apple-gradient-3 flex items-center justify-center">
+      <Search className="w-4 h-4 text-white" />
+    </div>
+    <h3 className="text-lg font-semibold text-gray-900 hero-text">Find Components</h3>
+  </div>
+  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
     {[
       "Button", "Card", "Input", "Modal", "Tooltip", "Badge",
       "Avatar", "Progress", "Switch", "Tabs", "Table", "Chart",
-      "Navbar", "Sidebar", "Toast", "Loading", "Select", "Textarea"
+      "Navbar", "Sidebar", "Toast", "Loading", "Select", "Textarea",
+      "Header", "Footer", "Hero", "Floating Action", "Theme Toggle", "Search"
     ].map((component) => (
-      <GlassBadge key={component} className="justify-center">
-        <a href={`/components/${component.toLowerCase()}`}>
-          {component}
-        </a>
-      </GlassBadge>
+      <a
+        key={component}
+        href={`/components/${component.toLowerCase().replace(' ', '-')}`}
+        className="glass-button px-3 py-2 rounded-2xl text-center text-sm text-gray-700 body-text hover:scale-105 transition-all duration-200 hover:text-blue-600"
+      >
+        {component}
+      </a>
     ))}
   </div>
 </div>
 
-## Getting Started
-
-Ready to start building? Choose your path:
-
-<div className="grid gap-4 md:grid-cols-2 mt-8">
-  <GlassCard className="p-6">
-    <Code className="w-8 h-8 text-primary mb-4" />
-    <h3 className="text-lg font-semibold mb-2">Start Coding</h3>
-    <p className="text-muted-foreground mb-4">
-      Jump right in with our installation guide and first component.
-    </p>
-    <GlassButton>
-      <a href="/getting-started">Quick Start</a>
-    </GlassButton>
-  </GlassCard>
-
-  <GlassCard className="p-6">
-    <Palette className="w-8 h-8 text-purple-400 mb-4" />
-    <h3 className="text-lg font-semibold mb-2">Design System</h3>
-    <p className="text-muted-foreground mb-4">
-      Learn about our design principles and theming system.
-    </p>
-    <GlassButton variant="outline">
-      <a href="/theming">Design Guide</a>
-    </GlassButton>
-  </GlassCard>
-</div>
-
-## Features
-
-<div className="grid gap-4 md:grid-cols-3 mt-8">
-  <div className="glass-effect p-4 rounded-lg text-center">
-    <div className="text-2xl font-bold text-primary mb-2">30+</div>
-    <div className="text-sm text-muted-foreground">Components</div>
-  </div>
-  <div className="glass-effect p-4 rounded-lg text-center">
-    <div className="text-2xl font-bold text-green-400 mb-2">100%</div>
-    <div className="text-sm text-muted-foreground">Accessible</div>
-  </div>
-  <div className="glass-effect p-4 rounded-lg text-center">
-    <div className="text-2xl font-bold text-cyan-400 mb-2">TS</div>
-    <div className="text-sm text-muted-foreground">TypeScript</div>
-  </div>
-</div>
-
-## Design Principles
-
-All LiquidiUI components follow these core principles:
-
-### 🎨 Glassmorphism First
-Every component embraces the glassmorphism design language with:
-- Translucent backgrounds with backdrop blur
-- Subtle borders and shadows
-- Layered depth and hierarchy
-- Smooth animations and transitions
-
-### ♿ Accessibility
-Components are built with accessibility as a priority:
-- WCAG 2.1 AA compliance
-- Keyboard navigation support
-- Screen reader compatibility
-- Focus management
-- Semantic HTML structure
-
-### 🎯 TypeScript Support
-Full TypeScript support with:
-- Comprehensive type definitions
-- IntelliSense support
-- Strict type checking
-- Generic component props
-
-### 🎨 Customization
-Flexible theming system:
-- CSS custom properties
-- Design tokens
-- Variant system
-- Size modifiers
-- Color schemes
-
-## Quick Reference
-
-### Most Used Components
-
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-    <h4 className="font-semibold mb-2">Button</h4>
-    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Interactive button with multiple variants</p>
-    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-      &lt;Button variant="glass"&gt;Click me&lt;/Button&gt;
-    </code>
-  </div>
-  
-  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-    <h4 className="font-semibold mb-2">Card</h4>
-    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Container with glass effect</p>
-    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-      &lt;Card className="glass-effect"&gt;Content&lt;/Card&gt;
-    </code>
-  </div>
-  
-  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-    <h4 className="font-semibold mb-2">Input</h4>
-    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Form input with glass styling</p>
-    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-      &lt;Input placeholder="Enter text" /&gt;
-    </code>
-  </div>
-  
-  <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-    <h4 className="font-semibold mb-2">Modal</h4>
-    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Overlay dialog with backdrop blur</p>
-    <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-      &lt;Modal isOpen={true}&gt;Content&lt;/Modal&gt;
-    </code>
-  </div>
-</div>
-
-## Component Status
-
-| Component | Status | Version | Accessibility |
-|-----------|--------|---------|---------------|
-| Button | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Card | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Input | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Modal | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Select | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Checkbox | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Radio | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Switch | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Alert | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Badge | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Avatar | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Tooltip | ✅ Stable | 1.0.0 | ♿ WCAG AA |
-| Dropdown | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
-| Table | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
-| Tabs | 🚧 Beta | 0.9.0 | ♿ WCAG AA |
-| Accordion | 📋 Planned | - | - |
-| Slider | 📋 Planned | - | - |
-| DatePicker | 📋 Planned | - | - |
-
-<Callout type="info">
-  All stable components are production-ready and follow semantic versioning. Beta components are feature-complete but may have API changes before stable release.
-</Callout>
-
-## Getting Help
-
-Need help with a specific component?
-
-1. **Component Documentation** - Each component has detailed documentation with examples
-2. **Storybook** - Interactive component playground at [storybook.liquidi-ui.com](https://storybook.liquidi-ui.com)
-3. **GitHub Issues** - Report bugs or request features
-4. **Discord Community** - Get help from other developers
-
-## Contributing
-
-Want to contribute a new component or improve existing ones?
-
-1. Check our [Contributing Guide](/contributing)
-2. Review the [Component Guidelines](/component-guidelines)
-3. Submit a [Component Proposal](https://github.com/tulio-pinheiro-cunha/liquidi-ui/issues/new?template=component-proposal.md)
-
 ---
 
-Ready to explore? Start with our [Form Components](/components/form) or browse by category above.
+<div className="text-center my-12">
+  <p className="text-gray-600 body-text mb-6">
+    Ready to start building beautiful interfaces with liquid glass components?
+  </p>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <button className="glass-button-primary px-8 py-4 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
+      <a href="/getting-started">Get Started →</a>
+    </button>
+    <button className="glass-button px-8 py-4 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
+      <a href="/components">Browse Components →</a>
+    </button>
+  </div>
+</div>

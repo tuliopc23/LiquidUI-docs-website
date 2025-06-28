@@ -1,101 +1,190 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { HeaderExamples } from "../../components/ExampleComponents";
+
 # Header
 
-This document serves to showcase the **Header** component.
+A glassmorphism header component with liquid effects, perfect for creating stunning page headers with Apple-inspired aesthetics and physics-based interactions.
 
-import { ComponentShowcase } from "../../components/ComponentShowcase";
+## Basic Usage
 
-```jsx
-import { GlassHeader } from "../../components/GlassComponents";
-```
+<ComponentShowcase
+  title="Basic Header"
+  description="Simple header with title and glassmorphism effects"
+  code={`import { GlassHeader } from '@tuliocunha23/liquidui';
 
-<ComponentShowcase>
-  ```jsx
-  // Basic Header with Title and Subtitle
-  <GlassHeader
-    title="Dashboard"
-    subtitle="Welcome back, John! Here's what's happening with your projects."
-  />
-  ```
-
-  ```jsx
-  // Header with Actions - Buttons and Dropdown
-  <GlassHeader
-    title="Project Management"
-    subtitle="Manage your team's workflow and track progress"
-    actions={
-      <div className="flex items-center gap-3">
-        <button className="p-2 rounded-lg glass-effect hover:glass-effect-hover transition-all">
-          <Search className="w-5 h-5 text-secondary" />
-        </button>
-        <button className="p-2 rounded-lg glass-effect hover:glass-effect-hover transition-all">
-          <Bell className="w-5 h-5 text-secondary" />
-        </button>
-        <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors">
-          <Plus className="w-4 h-4 mr-2" />
-          New Project
-        </button>
-      </div>
-    }
-  />
-  ```
-
-  ```jsx
-  // Header with User Profile and Status
-  <GlassHeader
-    title={
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600"></div>
-        <span>Analytics Hub</span>
-      </div>
-    }
-    subtitle="Real-time insights and performance metrics"
-    actions={
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 px-3 py-1 rounded-full glass-effect">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-sm text-secondary">Live</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="p-2 rounded-lg glass-effect hover:glass-effect-hover transition-all">
-            <Settings className="w-5 h-5 text-secondary" />
-          </button>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg glass-effect">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500"></div>
-            <span className="text-sm font-medium text-primary">Admin</span>
-            <ChevronDown className="w-4 h-4 text-secondary" />
-          </div>
-        </div>
-      </div>
-    }
-  />
-  ```
-
-  ```jsx
-  // Minimal Header with Custom Styling
-  <GlassHeader
-    title="Clean & Simple"
-    className="bg-white/5 border-white/10"
-    actions={
-      <div className="flex items-center gap-2">
-        <button className="p-2 rounded-lg glass-effect hover:glass-effect-hover transition-all">
-          <Download className="w-5 h-5 text-secondary" />
-        </button>
-        <button className="p-2 rounded-lg glass-effect hover:glass-effect-hover transition-all">
-          <Share className="w-5 h-5 text-secondary" />
-        </button>
-      </div>
-    }
-  />
-  ```
+<GlassHeader
+  title="Dashboard"
+  subtitle="Welcome back! Here's your overview."
+/>`}
+>
+  <HeaderExamples />
 </ComponentShowcase>
 
-## Props
+## With Actions
 
-| Name | Type | Default | Description |
+<ComponentShowcase
+  title="Header with Actions"
+  description="Header with action buttons and navigation elements"
+  code={`<GlassHeader
+  title="Project Management"
+  subtitle="Manage your team's workflow"
+  actions={
+    <div className="flex items-center gap-3">
+      <GlassButton variant="ghost" size="sm">
+        <Search className="w-4 h-4" />
+      </GlassButton>
+      <GlassButton variant="ghost" size="sm">
+        <Bell className="w-4 h-4" />
+      </GlassButton>
+      <GlassButton variant="primary" size="sm">
+        <Plus className="w-4 h-4 mr-2" />
+        New Project
+      </GlassButton>
+    </div>
+  }
+/>`}
+>
+  <HeaderExamples />
+</ComponentShowcase>
+
+## With Custom Content
+
+<ComponentShowcase
+  title="Custom Header Content"
+  description="Header with custom title content and user profile"
+  code={`<GlassHeader
+  title={
+    <div className="flex items-center gap-3">
+      <div className="w-8 h-8 ios-logo apple-gradient"></div>
+      <span className="hero-text">Analytics Hub</span>
+    </div>
+  }
+  subtitle="Real-time insights and performance metrics"
+  actions={
+    <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 glass-button px-3 py-1">
+        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+        <span className="text-sm">Live</span>
+      </div>
+      <GlassButton variant="ghost" size="sm">
+        <Settings className="w-4 h-4" />
+      </GlassButton>
+    </div>
+  }
+/>`}
+>
+  <HeaderExamples />
+</ComponentShowcase>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| title | `React.ReactNode` | — | Main header title content |
-| subtitle | `React.ReactNode` | — | Optional subtitle displayed below the title |
-| actions | `React.ReactNode` | — | Optional action elements (buttons, etc.) to display |
-| className | `string` | — | Additional CSS classes to apply |
+| `title` | `React.ReactNode` | - | Main header title content |
+| `subtitle` | `React.ReactNode` | - | Optional subtitle displayed below the title |
+| `actions` | `React.ReactNode` | - | Optional action elements (buttons, dropdowns, etc.) |
+| `className` | `string` | - | Additional CSS classes |
+| `variant` | `"default" \| "minimal" \| "elevated"` | `"default"` | Visual style variant |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Header size |
+
+### Physics Properties
+
+The GlassHeader includes advanced glassmorphism features:
+
+- **Adaptive Blur**: Automatically adjusts blur intensity based on background content
+- **Liquid Morphing**: Smooth shape transitions on hover and interaction
+- **Content Awareness**: Optimizes glass opacity for better text readability
+- **Magnetic Interactions**: Subtle attraction effects for interactive elements
+
+### Accessibility
+
+- Semantic HTML structure with proper heading hierarchy
+- Screen reader compatible with ARIA labels
+- Keyboard navigation support for action elements
+- High contrast mode support
+
+## Usage Guidelines
+
+### Best Practices
+
+- Use clear, descriptive titles that reflect the page content
+- Keep action elements to essential functions only
+- Ensure sufficient contrast for text readability
+- Consider mobile responsiveness for action layouts
+
+### When to Use
+
+- **Page Headers**: Main navigation and page identification
+- **Section Headers**: Dividing content into logical sections  
+- **Dashboard Headers**: Application status and user controls
+- **Modal Headers**: Dialog and overlay identification
 
 ## Examples
+
+### Application Header
+
+```tsx
+import { GlassHeader, GlassButton } from '@tuliocunha23/liquidui';
+import { Search, Bell, User } from 'lucide-react';
+
+function AppHeader() {
+  return (
+    <GlassHeader
+      title="My Application"
+      subtitle="Dashboard Overview"
+      actions={
+        <div className="flex items-center gap-3">
+          <GlassButton variant="ghost" size="sm">
+            <Search className="w-4 h-4" />
+          </GlassButton>
+          <GlassButton variant="ghost" size="sm">
+            <Bell className="w-4 h-4" />
+          </GlassButton>
+          <GlassButton variant="secondary" size="sm">
+            <User className="w-4 h-4 mr-2" />
+            Profile
+          </GlassButton>
+        </div>
+      }
+    />
+  );
+}
+```
+
+### Responsive Header
+
+```tsx
+import { GlassHeader, GlassButton } from '@tuliocunha23/liquidui';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+
+function ResponsiveHeader() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <GlassHeader
+      title="Responsive App"
+      variant="elevated"
+      actions={
+        <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-3">
+            <GlassButton variant="ghost">Features</GlassButton>
+            <GlassButton variant="ghost">Pricing</GlassButton>
+            <GlassButton variant="primary">Get Started</GlassButton>
+          </div>
+          <GlassButton 
+            variant="ghost" 
+            size="sm"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </GlassButton>
+        </div>
+      }
+    />
+  );
+}
+```

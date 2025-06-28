@@ -1,150 +1,361 @@
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { FloatingActionExamples } from "../../components/ExampleComponents";
 
 # Floating Action
 
-This document serves to showcase the **Floating Action** component.
+A glassmorphism floating action button with liquid effects and physics-based interactions, perfect for quick access to primary actions with Apple-inspired aesthetics.
 
-```jsx
-import { GlassFloatingAction } from "../../components/GlassComponents";
-```
+## Basic Usage
 
-<ComponentShowcase>
-  ```jsx
-  // Default Floating Action with Up Expansion
-  const defaultActions = [
+<ComponentShowcase
+  title="Basic Floating Action"
+  description="Simple floating action button with glassmorphism effects"
+  code={`import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+
+<GlassFloatingAction
+  icon={<Plus className="w-6 h-6" />}
+  position="bottom-right"
+  onClick={() => console.log('Action clicked')}
+/>`}
+>
+  <FloatingActionExamples />
+</ComponentShowcase>
+
+## With Secondary Actions
+
+<ComponentShowcase
+  title="Expandable Actions"
+  description="Floating action button with expandable secondary actions"
+  code={`<GlassFloatingAction
+  icon={<Menu className="w-6 h-6" />}
+  position="bottom-left"
+  actions={[
     {
       icon: <Plus className="w-5 h-5" />,
-      label: "Create New",
-      onClick: () => console.log('Create new item'),
-      color: "primary"
+      label: "Create",
+      onClick: () => console.log('Create'),
     },
     {
       icon: <Upload className="w-5 h-5" />,
-      label: "Upload File",
-      onClick: () => console.log('Upload file'),
-      color: "secondary"
+      label: "Upload",
+      onClick: () => console.log('Upload'),
     },
     {
       icon: <FolderPlus className="w-5 h-5" />,
       label: "New Folder",
-      onClick: () => console.log('Create folder'),
+      onClick: () => console.log('New Folder'),
+    }
+  ]}
+  expandDirection="up"
+/>`}
+>
+  <FloatingActionExamples />
+</ComponentShowcase>
+
+## Different Positions
+
+<ComponentShowcase
+  title="Position Variants"
+  description="Floating action buttons in different screen positions"
+  code={`// Bottom Right (Default)
+<GlassFloatingAction
+  icon={<Heart className="w-6 h-6" />}
+  position="bottom-right"
+/>
+
+// Top Left
+<GlassFloatingAction
+  icon={<Settings className="w-6 h-6" />}
+  position="top-left"
+  variant="minimal"
+/>
+
+// Center
+<GlassFloatingAction
+  icon={<Sparkles className="w-6 h-6" />}
+  position="center"
+  variant="glow"
+/>`}
+>
+  <FloatingActionExamples />
+</ComponentShowcase>
+
+## Radial Expansion
+
+<ComponentShowcase
+  title="Radial Menu"
+  description="Floating action with radial expansion for quick access"
+  code={`<GlassFloatingAction
+  icon={<MoreHorizontal className="w-6 h-6" />}
+  position="center"
+  expandDirection="radial"
+  actions={[
+    { icon: <Heart />, label: "Like", color: "red" },
+    { icon: <Share2 />, label: "Share", color: "blue" },
+    { icon: <Bookmark />, label: "Save", color: "green" },
+    { icon: <MessageCircle />, label: "Comment", color: "purple" }
+  ]}
+  variant="glow"
+/>`}
+>
+  <FloatingActionExamples />
+</ComponentShowcase>
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | - | Main floating action button icon |
+| `actions` | `FloatingAction[]` | `[]` | Array of secondary action items |
+| `position` | `"bottom-right" \| "bottom-left" \| "top-right" \| "top-left" \| "center"` | `"bottom-right"` | Screen position |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Button size |
+| `variant` | `"default" \| "minimal" \| "glow"` | `"default"` | Visual style variant |
+| `expandDirection` | `"up" \| "down" \| "left" \| "right" \| "radial"` | `"up"` | Expansion direction |
+| `tooltip` | `string` | - | Tooltip text for the main button |
+| `enableMagnetic` | `boolean` | `true` | Enable magnetic hover effects |
+| `className` | `string` | - | Additional CSS classes |
+| `onClick` | `() => void` | - | Click handler for main button |
+
+### FloatingAction Interface
+
+```tsx
+interface FloatingAction {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+  color?: "primary" | "secondary" | "success" | "warning" | "error";
+  disabled?: boolean;
+}
+```
+
+### Physics Properties
+
+The GlassFloatingAction includes advanced interactive features:
+
+- **Magnetic Attraction**: Main button attracts cursor within proximity
+- **Liquid Morphing**: Smooth shape transitions during interactions
+- **Physics Expansion**: Secondary actions expand with spring physics
+- **Adaptive Positioning**: Smart collision detection and repositioning
+- **Touch Optimization**: Enhanced touch targets for mobile devices
+
+### Accessibility
+
+- Semantic button structure with proper ARIA labels
+- Keyboard navigation support (Tab, Enter, Escape)
+- Screen reader compatible with action descriptions
+- Focus management for expanded states
+- High contrast mode support
+
+## Usage Guidelines
+
+### Best Practices
+
+- Use for primary actions that are frequently accessed
+- Limit secondary actions to 3-6 items for usability
+- Ensure the main icon clearly represents the primary action
+- Position thoughtfully to avoid blocking important content
+- Provide meaningful tooltips for better UX
+
+### When to Use
+
+- **Primary Actions**: Quick access to main app functionality
+- **Content Creation**: Add, upload, or create new items
+- **Social Actions**: Share, like, comment, or bookmark
+- **Navigation**: Quick access to important app sections
+
+## Examples
+
+### Content Creation FAB
+
+```tsx
+import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { Plus, FileText, Image, Video, Music } from 'lucide-react';
+
+function ContentCreationFAB() {
+  const contentActions = [
+    {
+      icon: <FileText className="w-5 h-5" />,
+      label: "New Document",
+      onClick: () => createDocument(),
+      color: "primary"
+    },
+    {
+      icon: <Image className="w-5 h-5" />,
+      label: "Upload Image",
+      onClick: () => uploadImage(),
       color: "success"
+    },
+    {
+      icon: <Video className="w-5 h-5" />,
+      label: "Record Video",
+      onClick: () => recordVideo(),
+      color: "warning"
+    },
+    {
+      icon: <Music className="w-5 h-5" />,
+      label: "Add Audio",
+      onClick: () => addAudio(),
+      color: "secondary"
     }
   ];
 
-  <GlassFloatingAction
-    mainIcon={<Menu className="w-6 h-6" />}
-    actions={defaultActions}
-    position="bottom-right"
-    size="md"
-    variant="default"
-    expandDirection="up"
-    tooltip="Quick Actions"
-    enableMagnetic={true}
-  />
-  ```
+  return (
+    <GlassFloatingAction
+      icon={<Plus className="w-6 h-6" />}
+      actions={contentActions}
+      position="bottom-right"
+      expandDirection="up"
+      tooltip="Create Content"
+      variant="glow"
+    />
+  );
+}
+```
 
-  ```jsx
-  // Radial Expansion with Different Colors
-  const radialActions = [
+### Social Media FAB
+
+```tsx
+import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { Heart, Share2, Bookmark, MessageCircle, Send } from 'lucide-react';
+
+function SocialMediaFAB({ postId }: { postId: string }) {
+  const socialActions = [
     {
       icon: <Heart className="w-5 h-5" />,
-      label: "Like",
-      onClick: () => console.log('Liked'),
+      label: "Like Post",
+      onClick: () => likePost(postId),
       color: "error"
     },
     {
       icon: <Share2 className="w-5 h-5" />,
       label: "Share",
-      onClick: () => console.log('Shared'),
+      onClick: () => sharePost(postId),
       color: "primary"
     },
     {
       icon: <Bookmark className="w-5 h-5" />,
       label: "Save",
-      onClick: () => console.log('Saved'),
+      onClick: () => savePost(postId),
       color: "warning"
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
       label: "Comment",
-      onClick: () => console.log('Comment'),
+      onClick: () => openComments(postId),
       color: "success"
     }
   ];
 
-  <GlassFloatingAction
-    mainIcon={<MoreHorizontal className="w-6 h-6" />}
-    actions={radialActions}
-    position="bottom-left"
-    size="lg"
-    variant="glow"
-    expandDirection="radial"
-    tooltip="Social Actions"
-    enableMagnetic={false}
-  />
-  ```
+  return (
+    <GlassFloatingAction
+      icon={<Send className="w-6 h-6" />}
+      actions={socialActions}
+      position="bottom-left"
+      expandDirection="radial"
+      tooltip="Social Actions"
+      enableMagnetic={true}
+    />
+  );
+}
+```
 
-  ```jsx
-  // Minimal Variant with Left Expansion
-  const leftActions = [
+### Quick Settings FAB
+
+```tsx
+import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { Settings, Moon, Sun, Volume2, VolumeX, Wifi } from 'lucide-react';
+import { useTheme } from '@tuliocunha23/liquidui';
+
+function QuickSettingsFAB() {
+  const { theme, toggleTheme } = useTheme();
+  const [volume, setVolume] = useState(true);
+  const [wifi, setWifi] = useState(true);
+
+  const settingsActions = [
     {
-      icon: <Settings className="w-5 h-5" />,
-      label: "Settings",
-      onClick: () => console.log('Open settings'),
+      icon: theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />,
+      label: `Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`,
+      onClick: () => toggleTheme(),
+      color: "primary"
+    },
+    {
+      icon: volume ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />,
+      label: volume ? 'Mute' : 'Unmute',
+      onClick: () => setVolume(!volume),
+      color: volume ? "success" : "error"
+    },
+    {
+      icon: <Wifi className="w-5 h-5" />,
+      label: wifi ? 'Disconnect WiFi' : 'Connect WiFi',
+      onClick: () => setWifi(!wifi),
+      color: wifi ? "success" : "warning"
+    }
+  ];
+
+  return (
+    <GlassFloatingAction
+      icon={<Settings className="w-6 h-6" />}
+      actions={settingsActions}
+      position="top-right"
+      expandDirection="left"
+      tooltip="Quick Settings"
+      variant="minimal"
+    />
+  );
+}
+```
+
+### Mobile-Optimized FAB
+
+```tsx
+import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { useMobile } from '@tuliocunha23/liquidui';
+import { Menu, Home, Search, User, Bell } from 'lucide-react';
+
+function MobileFAB() {
+  const isMobile = useMobile();
+
+  if (!isMobile) return null;
+
+  const navigationActions = [
+    {
+      icon: <Home className="w-5 h-5" />,
+      label: "Home",
+      onClick: () => navigate('/'),
+      color: "primary"
+    },
+    {
+      icon: <Search className="w-5 h-5" />,
+      label: "Search",
+      onClick: () => navigate('/search'),
       color: "secondary"
+    },
+    {
+      icon: <Bell className="w-5 h-5" />,
+      label: "Notifications",
+      onClick: () => navigate('/notifications'),
+      color: "warning"
     },
     {
       icon: <User className="w-5 h-5" />,
       label: "Profile",
-      onClick: () => console.log('View profile'),
-      color: "secondary"
-    },
-    {
-      icon: <LogOut className="w-5 h-5" />,
-      label: "Logout",
-      onClick: () => console.log('Logout'),
-      color: "error"
+      onClick: () => navigate('/profile'),
+      color: "success"
     }
   ];
 
-  <GlassFloatingAction
-    mainIcon={<User2 className="w-5 h-5" />}
-    actions={leftActions}
-    position="top-right"
-    size="sm"
-    variant="minimal"
-    expandDirection="left"
-    tooltip="User Menu"
-    enableMagnetic={true}
-  />
-  ```
-
-  ```jsx
-  // Simple Button without Actions
-  <GlassFloatingAction
-    mainIcon={<Zap className="w-6 h-6" />}
-    position="center"
-    size="lg"
-    variant="glow"
-    tooltip="Lightning Mode"
-    onClick={() => console.log('Lightning activated!')}
-    enableMagnetic={true}
-  />
-  ```
-</ComponentShowcase>
-
-## Props
-
-| Name | Type | Default | Description |
-|------|------|---------|-------------|
-| mainIcon | `React.ReactNode` | — | Main floating action button icon |
-| actions | `FloatingAction[]` | `[]` | Array of secondary action items |
-| position | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left' \| 'center'` | `'bottom-right'` | Screen position of the floating action button |
-| size | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the floating action button |
-| variant | `'default' \| 'minimal' \| 'glow'` | `'default'` | Visual style variant |
-| enableMagnetic | `boolean` | `true` | Enable magnetic hover effects |
-| expandDirection | `'up' \| 'down' \| 'left' \| 'right' \| 'radial'` | `'up'` | Direction to expand secondary actions |
-| tooltip | `string` | — | Optional tooltip text for the main button |
-
-## Examples
+  return (
+    <GlassFloatingAction
+      icon={<Menu className="w-6 h-6" />}
+      actions={navigationActions}
+      position="bottom-right"
+      expandDirection="up"
+      size="lg"
+      tooltip="Quick Navigation"
+      enableMagnetic={false} // Disabled for better mobile experience
+    />
+  );
+}
+```
