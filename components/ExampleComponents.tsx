@@ -29,15 +29,7 @@ import {
 } from "lucide-react";
 
 // Import actual LiquidUI components
-import {
-  Button,
-  Card,
-  Badge,
-  Avatar,
-  Input,
-  Switch,
-  Progress
-} from "@tuliocunha23/liquidui";
+
 
 // Light mode wrapper component
 const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
@@ -53,24 +45,24 @@ const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
 export const ButtonVariants = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-4">
-      <Button variant="default" size="lg">
+      <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
         Primary
-      </Button>
-      <Button variant="secondary" size="lg">
+      </button>
+      <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
         Secondary
-      </Button>
-      <Button variant="destructive" size="lg">
+      </button>
+      <button className="px-6 py-3 rounded-2xl text-white font-medium bg-red-500 hover:bg-red-600 hover:scale-105 transition-all duration-300">
         Destructive
-      </Button>
-      <Button variant="outline" size="lg">
+      </button>
+      <button className="px-6 py-3 rounded-2xl text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 hover:scale-105 transition-all duration-300">
         Outline
-      </Button>
-      <Button variant="ghost" size="lg">
+      </button>
+      <button className="px-6 py-3 rounded-2xl text-gray-700 font-medium hover:bg-gray-100 hover:scale-105 transition-all duration-300">
         Ghost
-      </Button>
-      <Button variant="link" size="lg">
+      </button>
+      <button className="px-6 py-3 text-blue-600 font-medium hover:text-blue-800 hover:underline transition-all duration-300">
         Link
-      </Button>
+      </button>
     </div>
   </LightModeShowcase>
 );
@@ -125,19 +117,17 @@ export const ButtonStates = () => (
 
 // Card Examples
 export const BasicCard = () => (
-  <Card className="max-w-md">
+  <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 max-w-md">
     <div className="flex items-center space-x-3 mb-4">
-      <Avatar className="w-10 h-10">
-        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-white" />
-        </div>
-      </Avatar>
+      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+        <Sparkles className="w-5 h-5 text-white" />
+      </div>
       <div>
-        <div className="font-medium text-foreground">LiquidUI Card</div>
-        <div className="text-sm text-muted-foreground">Beautiful glassmorphism</div>
+        <div className="font-medium text-gray-900">LiquidUI Card</div>
+        <div className="text-sm text-gray-600">Beautiful glassmorphism</div>
       </div>
     </div>
-    <p className="text-sm text-muted-foreground mb-4">
+    <p className="text-sm text-gray-600 mb-4">
       Experience the future of UI design with our glassmorphism cards that adapt to any background.
     </p>
     <div className="flex items-center justify-between">
@@ -146,26 +136,26 @@ export const BasicCard = () => (
           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
         ))}
       </div>
-      <Button variant="outline" size="sm">
+      <button className="px-4 py-2 rounded-xl text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 hover:scale-105 transition-all duration-300">
         Learn More
-      </Button>
+      </button>
     </div>
-  </Card>
+  </div>
 );
 
 // Interactive Card Example
 export const InteractiveCard = () => (
-  <Card className="max-w-sm hover:shadow-lg transition-all duration-300">
+  <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 max-w-sm hover:shadow-lg transition-all duration-300">
     <div className="flex items-center space-x-3 mb-3">
       <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
         <Zap className="w-5 h-5 text-white" />
       </div>
       <div>
-        <div className="font-medium text-foreground">Interactive Card</div>
-        <div className="text-sm text-muted-foreground">With physics effects</div>
+        <div className="font-medium text-gray-900">Interactive Card</div>
+        <div className="text-sm text-gray-600">With physics effects</div>
       </div>
     </div>
-    <p className="text-sm text-muted-foreground mb-4">
+    <p className="text-sm text-gray-600 mb-4">
       Experience cards that respond to user interaction with natural, fluid motion and adaptive styling.
     </p>
     <div className="flex items-center space-x-1">
@@ -173,17 +163,17 @@ export const InteractiveCard = () => (
         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
       ))}
     </div>
-  </Card>
+  </div>
 );
 
 // Badge Examples
 export const BadgeExamples = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-3">
-      <Badge variant="default">Default</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="destructive">Destructive</Badge>
-      <Badge variant="outline">Outline</Badge>
+      <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">Default</span>
+      <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">Secondary</span>
+      <span className="px-3 py-1 rounded-full text-sm text-red-700 bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Destructive</span>
+      <span className="px-3 py-1 rounded-full text-sm text-gray-700 bg-transparent border border-gray-300 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Outline</span>
     </div>
   </LightModeShowcase>
 );
@@ -192,11 +182,11 @@ export const BadgeExamples = () => (
 export const InputExamples = () => (
   <LightModeShowcase>
     <div className="space-y-4 max-w-md">
-      <Input placeholder="Enter your email" type="email" />
-      <Input placeholder="Search components..." type="search" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Enter your email" type="email" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
       <div className="flex items-center space-x-2">
-        <Input placeholder="Username" className="flex-1" />
-        <Button size="sm">Submit</Button>
+        <input className="flex-1 px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Username" />
+        <button className="px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
       </div>
     </div>
   </LightModeShowcase>
@@ -211,14 +201,18 @@ export const ProgressExamples = () => (
           <span>Loading...</span>
           <span>75%</span>
         </div>
-        <Progress value={75} className="h-2" />
+        <div className="w-full h-2 liquid-glass rounded-full border border-blue-200/30 overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-300" style={{width: '75%'}}></div>
+        </div>
       </div>
       <div>
         <div className="flex justify-between text-sm mb-2">
           <span>Upload Progress</span>
           <span>45%</span>
         </div>
-        <Progress value={45} className="h-2" />
+        <div className="w-full h-2 liquid-glass rounded-full border border-blue-200/30 overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-green-500 to-blue-600 rounded-full transition-all duration-300" style={{width: '45%'}}></div>
+        </div>
       </div>
     </div>
   </LightModeShowcase>
@@ -229,13 +223,19 @@ export const SwitchExamples = () => (
   <LightModeShowcase>
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
-        <Switch id="notifications" />
+        <div className="relative inline-flex h-6 w-11 items-center rounded-full liquid-glass border border-blue-200/30 transition-colors focus-within:ring-2 focus-within:ring-blue-500/60">
+          <input type="checkbox" id="notifications" className="sr-only" />
+          <span className="inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-transform translate-x-1"></span>
+        </div>
         <label htmlFor="notifications" className="text-sm font-medium">
           Enable notifications
         </label>
       </div>
       <div className="flex items-center space-x-2">
-        <Switch id="dark-mode" defaultChecked />
+        <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-blue-500 border border-blue-600 transition-colors focus-within:ring-2 focus-within:ring-blue-500/60">
+          <input type="checkbox" id="dark-mode" className="sr-only" defaultChecked />
+          <span className="inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-transform translate-x-6"></span>
+        </div>
         <label htmlFor="dark-mode" className="text-sm font-medium">
           Dark mode
         </label>
@@ -687,53 +687,7 @@ export const AvatarExamples = () => (
 
 
 
-// Progress Examples
-export const ProgressExamples = () => (
-  <div className="w-full space-y-4">
-    <div className="liquid-glass rounded-full h-2 overflow-hidden border border-blue-200/30">
-      <div
-        className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full"
-        style={{ width: "75%" }}
-      ></div>
-    </div>
-    <div className="liquid-glass rounded-full h-3 overflow-hidden border border-purple-200/30">
-      <div
-        className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-        style={{ width: "60%" }}
-      ></div>
-    </div>
-    <div className="liquid-glass rounded-full h-4 overflow-hidden border border-green-200/30">
-      <div
-        className="h-full bg-gradient-to-r from-green-500 to-cyan-500 rounded-full"
-        style={{ width: "90%" }}
-      ></div>
-    </div>
-  </div>
-);
 
-// Switch Examples
-export const SwitchExamples = () => (
-  <div className="flex flex-wrap items-center gap-6">
-    <div className="flex items-center space-x-3">
-      <span className="text-sm text-gray-700 body-text">Notifications</span>
-      <div className="w-12 h-6 glass-button rounded-full relative cursor-pointer">
-        <div className="w-5 h-5 bg-blue-500 rounded-full absolute top-0.5 right-0.5 transition-all duration-300"></div>
-      </div>
-    </div>
-    <div className="flex items-center space-x-3">
-      <span className="text-sm text-gray-700 body-text">Dark Mode</span>
-      <div className="w-12 h-6 glass-button rounded-full relative cursor-pointer">
-        <div className="w-5 h-5 bg-gray-400 rounded-full absolute top-0.5 left-0.5 transition-all duration-300"></div>
-      </div>
-    </div>
-    <div className="flex items-center space-x-3">
-      <span className="text-sm text-gray-700 body-text">Auto Save</span>
-      <div className="w-12 h-6 glass-button rounded-full relative cursor-pointer">
-        <div className="w-5 h-5 bg-green-500 rounded-full absolute top-0.5 right-0.5 transition-all duration-300"></div>
-      </div>
-    </div>
-  </div>
-);
 
 // Toast Examples
 export const ToastExamples = () => (
