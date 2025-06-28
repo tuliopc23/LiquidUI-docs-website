@@ -36,6 +36,21 @@ const config = {
     link: "https://discord.gg/liquidif-ui",
     icon: <MessageCircle className="w-5 h-5 text-blue-600" />,
   },
+  navbar: {
+    extraContent: (
+      <a
+        href="https://liquidui-storybook.vercel.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        Storybook
+      </a>
+    ),
+  },
   docsRepositoryBase:
     "https://github.com/tuliopc23/LiquidUI-docs-website/tree/main",
   footer: {

@@ -28,6 +28,17 @@ import {
   MessageCircle,
 } from "lucide-react";
 
+// Import actual LiquidUI components
+import {
+  Button,
+  Card,
+  Badge,
+  Avatar,
+  Input,
+  Switch,
+  Progress
+} from "@tuliocunha23/liquidui";
+
 // Light mode wrapper component
 const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-[200px] p-6 rounded-3xl bg-gradient-to-br from-blue-50 via-white to-green-50 border border-blue-200/50 relative overflow-hidden">
@@ -38,25 +49,28 @@ const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// Button Examples
+// Button Examples using actual LiquidUI components
 export const ButtonVariants = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-4">
-      <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-semibold hover:scale-105 transition-all duration-300">
+      <Button variant="default" size="lg">
         Primary
-      </button>
-      <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-semibold hover:scale-105 transition-all duration-300">
+      </Button>
+      <Button variant="secondary" size="lg">
         Secondary
-      </button>
-      <button className="px-6 py-3 rounded-2xl text-red-700 font-semibold bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-300">
+      </Button>
+      <Button variant="destructive" size="lg">
         Destructive
-      </button>
-      <button className="px-6 py-3 rounded-2xl text-blue-600 font-semibold bg-transparent border border-blue-200 hover:scale-105 transition-all duration-300">
+      </Button>
+      <Button variant="outline" size="lg">
+        Outline
+      </Button>
+      <Button variant="ghost" size="lg">
         Ghost
-      </button>
-      <button className="px-6 py-3 text-blue-600 font-semibold bg-transparent hover:underline">
+      </Button>
+      <Button variant="link" size="lg">
         Link
-      </button>
+      </Button>
     </div>
   </LightModeShowcase>
 );
@@ -111,14 +125,123 @@ export const ButtonStates = () => (
 
 // Card Examples
 export const BasicCard = () => (
-  <div className="liquid-glass rounded-3xl p-6 max-w-md border border-blue-200/30">
-    <h3 className="text-lg font-semibold mb-2 text-gray-900 hero-text">
-      Card Title
-    </h3>
-    <p className="text-gray-700 body-text">
-      This is a basic card component with glassmorphism effects.
+  <Card className="max-w-md">
+    <div className="flex items-center space-x-3 mb-4">
+      <Avatar className="w-10 h-10">
+        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <Sparkles className="w-5 h-5 text-white" />
+        </div>
+      </Avatar>
+      <div>
+        <div className="font-medium text-foreground">LiquidUI Card</div>
+        <div className="text-sm text-muted-foreground">Beautiful glassmorphism</div>
+      </div>
+    </div>
+    <p className="text-sm text-muted-foreground mb-4">
+      Experience the future of UI design with our glassmorphism cards that adapt to any background.
     </p>
-  </div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-1">
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        ))}
+      </div>
+      <Button variant="outline" size="sm">
+        Learn More
+      </Button>
+    </div>
+  </Card>
+);
+
+// Interactive Card Example
+export const InteractiveCard = () => (
+  <Card className="max-w-sm hover:shadow-lg transition-all duration-300">
+    <div className="flex items-center space-x-3 mb-3">
+      <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
+        <Zap className="w-5 h-5 text-white" />
+      </div>
+      <div>
+        <div className="font-medium text-foreground">Interactive Card</div>
+        <div className="text-sm text-muted-foreground">With physics effects</div>
+      </div>
+    </div>
+    <p className="text-sm text-muted-foreground mb-4">
+      Experience cards that respond to user interaction with natural, fluid motion and adaptive styling.
+    </p>
+    <div className="flex items-center space-x-1">
+      {[...Array(5)].map((_, i) => (
+        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+      ))}
+    </div>
+  </Card>
+);
+
+// Badge Examples
+export const BadgeExamples = () => (
+  <LightModeShowcase>
+    <div className="flex flex-wrap gap-3">
+      <Badge variant="default">Default</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="outline">Outline</Badge>
+    </div>
+  </LightModeShowcase>
+);
+
+// Input Examples
+export const InputExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-4 max-w-md">
+      <Input placeholder="Enter your email" type="email" />
+      <Input placeholder="Search components..." type="search" />
+      <div className="flex items-center space-x-2">
+        <Input placeholder="Username" className="flex-1" />
+        <Button size="sm">Submit</Button>
+      </div>
+    </div>
+  </LightModeShowcase>
+);
+
+// Progress Examples
+export const ProgressExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-4 max-w-md">
+      <div>
+        <div className="flex justify-between text-sm mb-2">
+          <span>Loading...</span>
+          <span>75%</span>
+        </div>
+        <Progress value={75} className="h-2" />
+      </div>
+      <div>
+        <div className="flex justify-between text-sm mb-2">
+          <span>Upload Progress</span>
+          <span>45%</span>
+        </div>
+        <Progress value={45} className="h-2" />
+      </div>
+    </div>
+  </LightModeShowcase>
+);
+
+// Switch Examples
+export const SwitchExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-4">
+      <div className="flex items-center space-x-2">
+        <Switch id="notifications" />
+        <label htmlFor="notifications" className="text-sm font-medium">
+          Enable notifications
+        </label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Switch id="dark-mode" defaultChecked />
+        <label htmlFor="dark-mode" className="text-sm font-medium">
+          Dark mode
+        </label>
+      </div>
+    </div>
+  </LightModeShowcase>
 );
 
 export const CardWithActions = () => (
@@ -252,30 +375,6 @@ export const NestedCards = () => (
 );
 
 // Additional examples for other components can be added here
-export const InputExamples = () => (
-  <div className="space-y-4 max-w-md">
-    <div>
-      <label className="block text-sm font-medium mb-2 text-gray-900 body-text">
-        Email
-      </label>
-      <input
-        type="email"
-        placeholder="Enter your email"
-        className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500 body-text"
-      />
-    </div>
-    <div>
-      <label className="block text-sm font-medium mb-2 text-gray-900 body-text">
-        Password
-      </label>
-      <input
-        type="password"
-        placeholder="Enter your password"
-        className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500 body-text"
-      />
-    </div>
-  </div>
-);
 
 export const ModalExample = () => (
   <div className="p-4">
@@ -586,26 +685,7 @@ export const AvatarExamples = () => (
   </div>
 );
 
-// Badge Examples
-export const BadgeExamples = () => (
-  <div className="flex flex-wrap items-center gap-3">
-    <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">
-      Default
-    </span>
-    <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">
-      Primary
-    </span>
-    <span className="px-3 py-1 rounded-full text-sm text-green-700 bg-green-100/80 border border-green-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">
-      Success
-    </span>
-    <span className="px-3 py-1 rounded-full text-sm text-yellow-700 bg-yellow-100/80 border border-yellow-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">
-      Warning
-    </span>
-    <span className="px-3 py-1 rounded-full text-sm text-red-700 bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">
-      Error
-    </span>
-  </div>
-);
+
 
 // Progress Examples
 export const ProgressExamples = () => (
