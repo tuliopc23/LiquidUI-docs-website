@@ -24,16 +24,12 @@ import {
 } from "lucide-react";
 
 {/* Hero Section */}
-<section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-  {/* Simple Glass Background */}
-  <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90"></div>
+<section className="min-h-screen flex items-center justify-center relative overflow-visible py-24">
+  {/* Clean Background */}
+  <div className="absolute inset-0 bg-white dark:bg-gray-900"></div>
   
-  {/* Animated Background Elements */}
-  <div className="absolute inset-0">
-    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full animate-glass-float"></div>
-    <div className="absolute top-3/4 right-1/4 w-48 h-48 bg-blue-300/20 rounded-full animate-glass-float" style={{ animationDelay: '2s' }}></div>
-    <div className="absolute bottom-1/4 left-1/3 w-32 h-32 bg-green-300/20 rounded-full animate-glass-float" style={{ animationDelay: '4s' }}></div>
-  </div>
+  {/* Subtle Grid Pattern */}
+  <div className="absolute inset-0 opacity-10 dark:opacity-5 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwaDQwdjQwSDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTQwIDBIMHY0MCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')]"></div>
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div className="text-center">
@@ -46,12 +42,22 @@ import {
       </div>
 
       {/* Main Heading */}
-      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-12" style={{ lineHeight: 1.2, letterSpacing: '-0.02em' }}>
-        <span className="block mb-6 pb-2">Liquid Glass</span>
-        <span className="block bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent" style={{ paddingTop: '0.2em', paddingBottom: '0.4em', lineHeight: '1.1' }}>
-          Components
-        </span>
-      </h1>
+      <div className="mb-12 max-w-5xl mx-auto">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.15]" style={{ letterSpacing: '-0.02em' }}>
+          <span className="block mb-4">Liquid Glass</span>
+          <span 
+            className="block bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent" 
+            style={{ 
+              paddingTop: '0.1em', 
+              paddingBottom: '0.3em', 
+              lineHeight: '1.1',
+              display: 'inline-block'
+            }}
+          >
+            Components
+          </span>
+        </h1>
+      </div>
 
       {/* Subheading */}
       <p className="body-text text-xl md:text-2xl text-foreground/80 mb-12 max-w-3xl mx-auto">

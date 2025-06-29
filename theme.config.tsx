@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-// Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Sparkles, MessageCircle } from "lucide-react";
 
 const Logo = () => (
@@ -9,32 +8,42 @@ const Logo = () => (
     whileHover={{ scale: 1.02 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
     role="img"
-    aria-label="LiquidifUI logo"
+    aria-label="LiquidUI logo"
   >
     <div className="relative">
       <motion.div
-        className="w-8 h-8 ios-logo apple-gradient animate-liquid-morph flex items-center justify-center"
-        whileHover={{ scale: 1.05, rotate: 2 }}
+        className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg"
+        whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-hidden="true"
       >
         <Sparkles className="w-4 h-4 text-white" aria-hidden="true" />
       </motion.div>
     </div>
-    <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text tracking-tight">
-      LiquidifUI
+    <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent tracking-tight">
+      LiquidUI
     </span>
   </motion.div>
 );
 
 const config = {
+  // Nextra 4.3-style UX enhancements
+  faviconGlyph: '💧', // Custom favicon using emoji (4.3 equivalent)
+  
+  // Enhanced search configuration (FlexSearch equivalent)
+  search: {
+    placeholder: "Search LiquidifUI docs...",
+    loading: "Loading...",
+    emptyResult: "No results found.",
+    error: "Failed to load search index."
+  },
   logo: <Logo />,
   project: {
     link: "https://github.com/tuliopc23/LiquidUI-docs-website",
   },
   chat: {
     link: "https://discord.gg/liquidif-ui",
-    icon: <MessageCircle className="w-5 h-5 text-blue-600" />,
+    icon: <MessageCircle className="w-5 h-5 text-blue-500" />,
   },
   navbar: {
     extraContent: (
@@ -166,9 +175,6 @@ const config = {
       </motion.span>
     ),
     labels: "feedback",
-  },
-  search: {
-    placeholder: "Search LiquidifUI docs...",
   },
   banner: {
     key: "liquidif-ui-v2",

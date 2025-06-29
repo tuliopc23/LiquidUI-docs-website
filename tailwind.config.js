@@ -4,23 +4,92 @@ module.exports = {
         './pages/**/*.{js,ts,jsx,tsx,mdx}',
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './theme.config.tsx',
-        './node_modules/glass-ui-tulio/**/*.{js,ts,jsx,tsx}',
+        './styles/**/*.css',
+        // Only include specific LiquidiUI components if needed
+        // '../LiquidiUI/src/components/**/*.{js,ts,jsx,tsx}',
+    ],
+    safelist: [
+        // Core Apple-inspired classes
+        'apple-gradient',
+        'apple-gradient-2', 
+        'apple-gradient-3',
+        'apple-gradient-4',
+        'ios-logo',
+        'hero-text',
+        'body-text',
+        'animate-liquid-morph',
+        
+        // Glass effect classes
+        'glass-card',
+        'glass-button',
+        'glass-button-primary',
+        'liquid-glass',
+        'glass-effect',
+        'glass-effect-light',
+        'glass-effect-strong',
+        'glass-nav',
+        
+        // Background utilities
+        'liquid-gradient-light',
+        'liquid-gradient-dark',
+        'bg-gradient-radial',
+        'bg-gradient-conic',
+        'bg-gradient-glass',
+        'bg-shimmer',
+        
+        // Animation classes
+        'animate-shimmer',
+        'animate-glass-expand',
+        'animate-liquid-morph',
+        'hover-lift',
+        'hover-glow',
+        'hover-scale',
+        
+        // Text gradients
+        'text-gradient',
+        'text-gradient-primary',
+        'text-gradient-rainbow',
+        
+        // Layout utilities
+        'content-container',
+        'full-bleed',
+        'smooth-scroll',
+        'scroll-padding',
+        
+        // Nextra overrides
+        'nextra-nav-container',
+        'nextra-sidebar',
+        'nextra-content',
+        
+        // Color variants with opacity
+        { pattern: /bg-(white|black|gray|primary|secondary|accent)-\d+/ },
+        { pattern: /text-(white|black|gray|primary|secondary|accent)-\d+/ },
+        { pattern: /border-(white|black|gray|primary|secondary|accent)-\d+/ },
+        
+        // Dynamic RGB color usage - simplified pattern
+        'rgb-primary',
+        
+        // Dark mode variants - simplified
+        'dark:bg-gray-900',
+        'dark:text-white',
+        'dark:border-gray-700',
     ],
     darkMode: ['class', '[data-theme="dark"]'],
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
-                mono: ['JetBrains Mono', 'Consolas', 'Fira Code', 'monospace'],
-                heading: ['Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
+                sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'system-ui', 'sans-serif'],
+                mono: ['SF Mono', 'JetBrains Mono', 'Consolas', 'monospace'],
+                heading: ['SF Pro Display', 'Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
             },
             fontSize: {
-                '2xs': ['0.625rem', { lineHeight: '0.875rem' }],
+                '2xs': ['0.75rem', { lineHeight: '1rem' }],
                 '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em' }],
                 '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.02em' }],
-                '5xl': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
-                '6xl': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
-                '7xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+                '5xl': ['2.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+                '6xl': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+                '7xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+                '8xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
             },
             colors: {
                 border: 'hsl(var(--border))',
@@ -31,6 +100,7 @@ module.exports = {
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
                     foreground: 'hsl(var(--primary-foreground))',
+                    rgb: 'rgb(var(--primary-rgb) / <alpha-value>)',
                     50: '#eff6ff',
                     100: '#dbeafe',
                     200: '#bfdbfe',
@@ -162,8 +232,12 @@ module.exports = {
             keyframes: {
                 // Core animations
                 fadeIn: {
-                    '0%': { opacity: '0' },
-                    '100%': { opacity: '1' },
+                    '0%': { opacity: '0', transform: 'translateY(10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-10px)' },
                 },
                 fadeInUp: {
                     '0%': { opacity: '0', transform: 'translateY(30px)' },
