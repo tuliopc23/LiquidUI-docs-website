@@ -1,20 +1,6 @@
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
-  // Enhanced Nextra 4.3-style features
-  staticImage: true,
-  latex: true,
-  defaultShowCopyCode: true,
-  readingTime: true,
-  // Enhanced search functionality (FlexSearch equivalent)
-  flexsearch: {
-    codeblocks: false
-  },
-  // MDX options for remark-emoji and enhanced functionality
-  mdxOptions: {
-    remarkPlugins: [],
-    rehypePlugins: []
-  }
 });
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -23,14 +9,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   experimental: {
     optimizePackageImports: ["@tuliocunha23/liquidui"],
-  },
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
       },
     },
   },
@@ -42,32 +29,6 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          // Enhanced security headers (Nextra 4.3 equivalent)
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ];
   },
   async redirects() {
     return [
