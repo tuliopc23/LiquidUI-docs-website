@@ -28,7 +28,57 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-// Import actual LiquidUI components
+// Custom component implementations using CSS classes
+interface GlassButtonProps {
+  variant?: 'primary' | 'secondary' | 'destructive' | 'ghost' | 'tertiary';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
+  children: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+}
+
+const GlassButton = ({ variant = 'primary', size = 'md', children, className = '', disabled, onClick }: GlassButtonProps) => {
+  const baseClasses = 'inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 hover:scale-105';
+  
+  const variantClasses = {
+    primary: 'glass-button-primary text-white',
+    secondary: 'glass-button text-gray-700 dark:text-gray-300',
+    destructive: 'bg-red-500 text-white hover:bg-red-600',
+    ghost: 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50',
+    tertiary: 'bg-gray-200/50 text-gray-700 dark:bg-gray-700/50 dark:text-gray-300'
+  };
+  
+  const sizeClasses = {
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-6 py-3 text-base',
+    icon: 'p-2'
+  };
+
+  return (
+    <button 
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+interface GlassCardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const GlassCard = ({ children, className = '' }: GlassCardProps) => {
+  return (
+    <div className={`liquid-glass rounded-3xl p-6 border border-white/20 backdrop-blur-xl ${className}`}>
+      {children}
+    </div>
+  );
+};
 
 
 // Light mode wrapper component
@@ -45,89 +95,86 @@ const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
 export const ButtonVariants = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-4">
-      <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
+      <GlassButton variant="primary" size="md">
         Primary
-      </button>
-      <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
+      </GlassButton>
+      <GlassButton variant="secondary" size="md">
         Secondary
-      </button>
-      <button className="px-6 py-3 rounded-2xl text-white font-medium bg-red-500 hover:bg-red-600 hover:scale-105 transition-all duration-300">
+      </GlassButton>
+      <GlassButton variant="destructive" size="md">
         Destructive
-      </button>
-      <button className="px-6 py-3 rounded-2xl text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 hover:scale-105 transition-all duration-300">
-        Outline
-      </button>
-      <button className="px-6 py-3 rounded-2xl text-gray-700 font-medium hover:bg-gray-100 hover:scale-105 transition-all duration-300">
+      </GlassButton>
+      <GlassButton variant="secondary" size="md">
+        Secondary Alt
+      </GlassButton>
+      <GlassButton variant="ghost" size="md">
         Ghost
-      </button>
-      <button className="px-6 py-3 text-blue-600 font-medium hover:text-blue-800 hover:underline transition-all duration-300">
-        Link
-      </button>
+      </GlassButton>
+      <GlassButton variant="tertiary" size="md">
+        Tertiary
+      </GlassButton>
     </div>
   </LightModeShowcase>
 );
 
 export const ButtonSizes = () => (
   <div className="flex flex-wrap items-center gap-3">
-    <button className="glass-button px-4 py-2 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
+    <GlassButton variant="secondary" size="sm">
       Small
-    </button>
-    <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
+    </GlassButton>
+    <GlassButton variant="secondary" size="md">
       Default
-    </button>
-    <button className="glass-button px-8 py-4 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300">
+    </GlassButton>
+    <GlassButton variant="secondary" size="lg">
       Large
-    </button>
-    <button className="glass-button p-3 rounded-2xl hover:scale-105 transition-all duration-300">
-      <Settings className="w-4 h-4 text-gray-700" />
-    </button>
+    </GlassButton>
+    <GlassButton variant="secondary" size="icon">
+      <Settings className="w-4 h-4" />
+    </GlassButton>
   </div>
 );
 
 export const ButtonsWithIcons = () => (
   <div className="flex flex-wrap gap-3">
-    <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300 flex items-center gap-2">
-      <Download className="w-4 h-4" />
+    <GlassButton variant="primary" size="md">
+      <Download className="w-4 h-4 mr-2" />
       Download
-    </button>
-    <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium hover:scale-105 transition-all duration-300 flex items-center gap-2">
-      <Heart className="w-4 h-4" />
+    </GlassButton>
+    <GlassButton variant="secondary" size="md">
+      <Heart className="w-4 h-4 mr-2" />
       Like
-    </button>
-    <button className="px-6 py-3 rounded-2xl text-red-700 font-medium bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-300 flex items-center gap-2">
-      <Trash2 className="w-4 h-4" />
+    </GlassButton>
+    <GlassButton variant="destructive" size="md">
+      <Trash2 className="w-4 h-4 mr-2" />
       Delete
-    </button>
+    </GlassButton>
   </div>
 );
 
 export const ButtonStates = () => (
   <div className="flex flex-wrap gap-3">
-    <button
-      disabled
-      className="glass-button px-6 py-3 rounded-2xl text-gray-400 font-medium opacity-50 cursor-not-allowed"
-    >
+    <GlassButton variant="secondary" size="md" disabled>
       Disabled
-    </button>
-    <button className="glass-button px-6 py-3 rounded-2xl text-gray-700 font-medium animate-pulse hover:scale-105 transition-all duration-300">
+    </GlassButton>
+    <GlassButton variant="secondary" size="md" className="animate-pulse">
       Animated
-    </button>
+    </GlassButton>
   </div>
 );
 
 // Card Examples
 export const BasicCard = () => (
-  <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 max-w-md">
+  <GlassCard className="max-w-md">
     <div className="flex items-center space-x-3 mb-4">
       <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
         <Sparkles className="w-5 h-5 text-white" />
       </div>
       <div>
-        <div className="font-medium text-gray-900">LiquidUI Card</div>
-        <div className="text-sm text-gray-600">Beautiful glassmorphism</div>
+        <div className="font-medium text-gray-900 dark:text-white">LiquidUI Card</div>
+        <div className="text-sm text-gray-600 dark:text-gray-300">Beautiful glassmorphism</div>
       </div>
     </div>
-    <p className="text-sm text-gray-600 mb-4">
+    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
       Experience the future of UI design with our glassmorphism cards that adapt to any background.
     </p>
     <div className="flex items-center justify-between">
@@ -136,26 +183,26 @@ export const BasicCard = () => (
           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
         ))}
       </div>
-      <button className="px-4 py-2 rounded-xl text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+      <GlassButton variant="secondary" size="sm">
         Learn More
-      </button>
+      </GlassButton>
     </div>
-  </div>
+  </GlassCard>
 );
 
 // Interactive Card Example
 export const InteractiveCard = () => (
-  <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 max-w-sm hover:shadow-lg transition-all duration-300">
+  <GlassCard className="max-w-sm hover:shadow-lg transition-all duration-300">
     <div className="flex items-center space-x-3 mb-3">
       <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
         <Zap className="w-5 h-5 text-white" />
       </div>
       <div>
-        <div className="font-medium text-gray-900">Interactive Card</div>
-        <div className="text-sm text-gray-600">With physics effects</div>
+        <div className="font-medium text-gray-900 dark:text-white">Interactive Card</div>
+        <div className="text-sm text-gray-600 dark:text-gray-300">With physics effects</div>
       </div>
     </div>
-    <p className="text-sm text-gray-600 mb-4">
+    <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
       Experience cards that respond to user interaction with natural, fluid motion and adaptive styling.
     </p>
     <div className="flex items-center space-x-1">
@@ -163,7 +210,7 @@ export const InteractiveCard = () => (
         <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
       ))}
     </div>
-  </div>
+  </GlassCard>
 );
 
 // Badge Examples
