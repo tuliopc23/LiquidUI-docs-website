@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@tuliocunha23/liquidui";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye, ExternalLink } from "lucide-react";
+
+// Utility function for classname merging
+function cn(...classes: (string | undefined)[]) {
+  return classes.filter(Boolean).join(' ');
+}
 
 /**
  * Props for the ComponentShowcase component.

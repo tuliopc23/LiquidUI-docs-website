@@ -86,7 +86,7 @@
     --animation-curve: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-theme="light"] {
+.light {
     /* Apple-inspired Color System - Light Mode */
     --background: 0 0% 100%;
     --foreground: 0 0% 10%;
@@ -112,6 +112,34 @@
     /* Light theme glass adjustments */
     --glass-opacity: 0.12;
     --glass-border-opacity: 0.25;
+}
+
+.dark {
+    /* Apple-inspired Color System - Dark Mode */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 210 100% 56%;
+    --primary-rgb: 10 132 255;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 210 100% 56%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 22%;
+    --input: 0 0% 18%;
+    --ring: 204 100% 50%;
+
+    /* Dark theme glass adjustments */
+    --glass-opacity: 0.05;
+    --glass-border-opacity: 0.1;
 }
 
 * {
@@ -416,6 +444,26 @@ body[data-theme="dark"] {
     background: hsl(var(--background)) !important;
 }
 
+/* Fix Nextra sidebar theme consistency */
+:global(.dark) .nextra-sidebar {
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+}
+
+:global(.light) .nextra-sidebar {
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+}
+
+/* Ensure proper text colors for all elements */
+:global(.light) * {
+    color: hsl(var(--foreground));
+}
+
+:global(.dark) * {
+    color: hsl(var(--foreground));
+}
+
 /* Enhanced scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
@@ -445,10 +493,64 @@ body[data-theme="dark"] {
 @media (max-width: 768px) {
     .glass-card {
         @apply p-4;
+        margin: 1rem;
     }
     
     .glass-button {
         @apply px-4 py-2 text-sm;
+    }
+    
+    .liquid-glass {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    /* Hero section mobile optimization */
+    .hero-text {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .body-text {
+        font-size: 0.875rem !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* Mobile navigation improvements */
+    .nextra-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .nextra-sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 640px) {
+    /* Extra mobile optimizations */
+    .glass-card {
+        border-radius: 1rem;
+        padding: 0.75rem;
+        margin: 0.75rem;
+    }
+    
+    .liquid-glass {
+        border-radius: 1rem;
+        padding: 0.75rem;
+        margin: 0.5rem;
+    }
+    
+    /* Stack buttons on very small screens */
+    .button-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .button-group .glass-button,
+    .button-group .glass-button-primary {
+        width: 100%;
+        justify-content: center;
     }
 }
 

@@ -32,7 +32,7 @@ const config = {
   
   // Enhanced search configuration (FlexSearch equivalent)
   search: {
-    placeholder: "Search LiquidifUI docs...",
+    placeholder: "Search LiquidUI docs...",
     loading: "Loading...",
     emptyResult: "No results found.",
     error: "Failed to load search index."
@@ -68,7 +68,7 @@ const config = {
         <div className="flex items-center gap-2 mb-4">
           <div className="w-6 h-6 ios-logo apple-gradient-2 animate-liquid-morph"></div>
           <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text">
-            LiquidifUI
+            LiquidUI
           </span>
         </div>
         <div>
@@ -76,11 +76,11 @@ const config = {
             className="flex items-center gap-2 text-current hover:text-blue-600 transition-colors body-text"
             target="_blank"
             rel="noopener noreferrer"
-            title="LiquidifUI Documentation"
+            title="LiquidUI Documentation"
             href="https://docs-one-taupe.vercel.app"
           >
             <Sparkles className="w-4 h-4" />
-            Built with LiquidifUI
+            Built with LiquidUI
           </a>
         </div>
       </div>
@@ -88,7 +88,7 @@ const config = {
   },
   useNextSeoProps() {
     return {
-      titleTemplate: "%s | LiquidifUI Documentation",
+      titleTemplate: "%s | LiquidUI Documentation",
       description:
         "The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics.",
     };
@@ -96,7 +96,7 @@ const config = {
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="LiquidifUI" />
+      <meta property="og:title" content="LiquidUI" />
       <meta
         property="og:description"
         content="The future of UI design with glassmorphism components that flow like liquid glass"
@@ -104,7 +104,7 @@ const config = {
       <meta property="og:url" content="https://docs-one-taupe.vercel.app" />
       <meta
         name="description"
-        content="LiquidifUI - The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics."
+        content="LiquidUI - The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics."
       />
       <meta
         name="keywords"
@@ -186,7 +186,7 @@ const config = {
         whileTap={{ scale: 0.98 }}
       >
         <div className="w-5 h-5 ios-logo apple-gradient animate-liquid-morph"></div>
-        🎉 LiquidifUI v2.0 is released with liquid glass components. Get started
+        🎉 LiquidUI v0.17 is released with liquid glass components. Get started
         →
       </motion.a>
     ),
@@ -198,6 +198,11 @@ const config = {
   primarySaturation: {
     dark: 91,
     light: 91,
+  },
+  darkMode: true,
+  nextThemes: {
+    defaultTheme: 'system',
+    storageKey: 'liquidui-theme',
   },
 };
 

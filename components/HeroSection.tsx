@@ -5,10 +5,6 @@ import { Sparkles, ArrowRight, Github } from 'lucide-react';
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900">
-      {/* Subtle grid background */}
-      <div className="hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM5QzkyQUMiIGZpbGwtb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgydi00aDR2LTJoLTR6bTAtMzBWMGgtMnY0aC00djJoNHY0aDJWNmg0VjRoLTR6TTYgMzR2LTRINHY0SDB2Mmg0djRoMnYtNGg0di0ySDZ6TTYgNFYwSDR2NEgwdjJoNHY0aDJWNmg0VjRINnoiLz48L2c+PC9nPjwvc3ZnPg==')]" />
-      </div>
       
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-gray-800/50 dark:to-transparent" />
@@ -26,8 +22,8 @@ export function HeroSection() {
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
             <Sparkles className="w-4 h-4 text-blue-500" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Now available: LiquidUI v2.0</span>
-            <span className="px-2 py-0.5 text-xs font-medium bg-blue-500/10 text-blue-700 dark:text-blue-300 rounded-full">Beta</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Now available: LiquidUI v0.17</span>
+            <span className="px-2 py-0.5 text-xs font-medium bg-blue-500/10 text-blue-700 dark:text-blue-300 rounded-full">Stable</span>
           </motion.div>
           
           <div className="mb-12 max-w-4xl mx-auto">
@@ -38,9 +34,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.8 }}
             >
-              <span className="block mb-4">Liquid Glass</span>
+              <span className="block mb-4">LiquidUI</span>
               <span className="block bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-                Components
+                Component Library
               </span>
             </motion.h1>
             
@@ -50,26 +46,26 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              Beautiful, responsive UI components built with React and Tailwind CSS. 
-              Designed for developers who want to ship faster with better defaults.
+              A modern React component library with glassmorphism design and physics-based interactions. 
+              Build beautiful, accessible UIs with pre-built components and customizable themes.
             </motion.p>
           </div>
           
           <motion.div 
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row justify-center gap-4 mb-16 button-group"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             <a
-              href="/docs/getting-started"
+              href="/getting-started"
               className="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-white bg-blue-500 border border-transparent rounded-xl shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-0.5"
             >
               Get Started
               <ArrowRight className="w-4 h-4 ml-2 -mr-1" />
             </a>
             <a
-              href="https://github.com/"
+              href="https://github.com/tuliopc23/LiquidUI-docs-website"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-6 py-3.5 text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:-translate-y-0.5"
@@ -93,10 +89,10 @@ export function HeroSection() {
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
                     {[
-                      { label: 'Components', value: '70+' },
-                      { label: 'Custom Hooks', value: '30+' },
-                      { label: 'Themes', value: '5' },
-                      { label: 'Active Users', value: '10K+' },
+                      { label: 'Components', value: '30+' },
+                      { label: 'Themes', value: '3' },
+                      { label: 'TypeScript', value: '100%' },
+                      { label: 'Tree Shakable', value: 'Yes' },
                     ].map((stat, index) => (
                       <motion.div
                         key={stat.label}
