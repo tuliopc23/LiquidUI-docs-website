@@ -1,0 +1,77 @@
+{
+    "name": "@tuliocunha23/liquidui",
+    "version": "2.0.0",
+    "description": "Modern React component library with glassmorphism effects and liquid animations",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*",
+        "README.md",
+        "LICENSE"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.esm.js",
+            "require": "./dist/index.js"
+        },
+        "./css": "./dist/styles.css",
+        "./dist/styles.css": "./dist/styles.css"
+    },
+    "scripts": {
+        "build": "npm run build:js && npm run build:types && npm run build:css",
+        "build:js": "rollup -c",
+        "build:types": "tsc --emitDeclarationOnly --outDir dist",
+        "build:css": "tailwindcss -i ./src/styles/index.css -o ./dist/styles.css --minify",
+        "dev": "rollup -c -w",
+        "lint": "eslint src --ext .ts,.tsx",
+        "type-check": "tsc --noEmit",
+        "prepare": "npm run build",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "react",
+        "ui",
+        "components",
+        "glassmorphism",
+        "design-system",
+        "typescript",
+        "tailwind"
+    ],
+    "author": "Tulio Pinheiro Cunha",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tuliopc23/LiquidUI.git"
+    },
+    "homepage": "https://docs-one-taupe.vercel.app",
+    "bugs": {
+        "url": "https://github.com/tuliopc23/LiquidUI/issues"
+    },
+    "peerDependencies": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+    },
+    "dependencies": {
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.0.0",
+        "framer-motion": "^11.0.0",
+        "lucide-react": "^0.400.0",
+        "tailwind-merge": "^2.0.0"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.0",
+        "@rollup/plugin-node-resolve": "^15.0.0",
+        "@rollup/plugin-typescript": "^11.0.0",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "autoprefixer": "^10.4.0",
+        "eslint": "^8.0.0",
+        "postcss": "^8.4.0",
+        "rollup": "^4.0.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^4.0.2",
+        "tailwindcss": "^3.4.0",
+        "typescript": "^5.0.0"
+    }
+}
