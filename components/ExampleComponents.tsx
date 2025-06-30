@@ -28,57 +28,19 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-// Custom component implementations using CSS classes
-interface GlassButtonProps {
-  variant?: 'primary' | 'secondary' | 'destructive' | 'ghost' | 'tertiary';
-  size?: 'sm' | 'md' | 'lg' | 'icon';
-  children: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
-  onClick?: () => void;
-}
-
-const GlassButton = ({ variant = 'primary', size = 'md', children, className = '', disabled, onClick }: GlassButtonProps) => {
-  const baseClasses = 'inline-flex items-center justify-center rounded-2xl font-medium transition-all duration-300 hover:scale-105';
-  
-  const variantClasses = {
-    primary: 'glass-button-primary text-white',
-    secondary: 'glass-button text-gray-700 dark:text-gray-300',
-    destructive: 'bg-red-500 text-white hover:bg-red-600',
-    ghost: 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50',
-    tertiary: 'bg-gray-200/50 text-gray-700 dark:bg-gray-700/50 dark:text-gray-300'
-  };
-  
-  const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base',
-    icon: 'p-2'
-  };
-
-  return (
-    <button 
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
-
-interface GlassCardProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-const GlassCard = ({ children, className = '' }: GlassCardProps) => {
-  return (
-    <div className={`liquid-glass rounded-3xl p-6 border border-white/20 backdrop-blur-xl ${className}`}>
-      {children}
-    </div>
-  );
-};
+// Import LiquidUI components from local implementation
+import {
+  GlassButton,
+  GlassCard,
+  GlassInput,
+  GlassTextarea,
+  GlassSelect,
+  GlassProgress,
+  GlassSwitch,
+  GlassAvatar,
+  GlassCheckbox,
+  GlassSlider,
+} from "./GlassComponents";
 
 
 // Light mode wrapper component
@@ -242,24 +204,27 @@ export const InputExamples = () => (
 // Progress Examples
 export const ProgressExamples = () => (
   <LightModeShowcase>
-    <div className="space-y-4 max-w-md">
+    <div className="space-y-6 max-w-md">
       <div>
-        <div className="flex justify-between text-sm mb-2">
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
           <span>Loading...</span>
           <span>75%</span>
         </div>
-        <div className="w-full h-2 liquid-glass rounded-full border border-blue-200/30 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-300" style={{width: '75%'}}></div>
-        </div>
+        <GlassProgress value={75} showValue={false} />
       </div>
       <div>
-        <div className="flex justify-between text-sm mb-2">
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
           <span>Upload Progress</span>
           <span>45%</span>
         </div>
-        <div className="w-full h-2 liquid-glass rounded-full border border-blue-200/30 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-green-500 to-blue-600 rounded-full transition-all duration-300" style={{width: '45%'}}></div>
+        <GlassProgress value={45} showValue={false} />
+      </div>
+      <div>
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
+          <span>Download Complete</span>
+          <span>100%</span>
         </div>
+        <GlassProgress value={100} showValue={false} />
       </div>
     </div>
   </LightModeShowcase>
@@ -716,20 +681,18 @@ export const FeatureShowcaseExamples = () => (
 
 // Avatar Examples
 export const AvatarExamples = () => (
-  <div className="flex flex-wrap items-center gap-4">
-    <div className="w-12 h-12 liquid-glass rounded-full flex items-center justify-center border border-blue-200/30">
-      <User className="w-6 h-6 text-gray-700" />
+  <LightModeShowcase>
+    <div className="flex items-center space-x-4">
+      <GlassAvatar size="sm">JD</GlassAvatar>
+      <GlassAvatar size="md">AB</GlassAvatar>
+      <GlassAvatar size="lg">MK</GlassAvatar>
+      <GlassAvatar
+        size="md"
+        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+        alt="User avatar"
+      />
     </div>
-    <div className="w-12 h-12 ios-logo apple-gradient rounded-full flex items-center justify-center">
-      <span className="text-white font-semibold">JD</span>
-    </div>
-    <div className="w-12 h-12 ios-logo apple-gradient-2 rounded-full flex items-center justify-center">
-      <span className="text-white font-semibold">AB</span>
-    </div>
-    <div className="w-16 h-16 ios-logo apple-gradient-3 rounded-full flex items-center justify-center">
-      <span className="text-white font-bold text-lg">XL</span>
-    </div>
-  </div>
+  </LightModeShowcase>
 );
 
 
@@ -844,4 +807,108 @@ export const FloatingActionExamples = () => (
       </p>
     </div>
   </div>
+);
+
+// New Component Examples using actual GlassComponents
+
+// Switch Examples  
+export const NewSwitchExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-6 max-w-sm">
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-gray-700">Enable notifications</span>
+        <GlassSwitch checked={true} />
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-gray-700">Dark mode</span>
+        <GlassSwitch checked={false} />
+      </div>
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-gray-400">Disabled option</span>
+        <GlassSwitch checked={false} disabled={true} />
+      </div>
+    </div>
+  </LightModeShowcase>
+);
+
+// Checkbox Examples
+export const CheckboxExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-4 max-w-sm">
+      <div className="flex items-center space-x-3">
+        <GlassCheckbox checked={true} />
+        <span className="text-sm text-gray-700">Accept terms and conditions</span>
+      </div>
+      <div className="flex items-center space-x-3">
+        <GlassCheckbox checked={false} />
+        <span className="text-sm text-gray-700">Subscribe to newsletter</span>
+      </div>
+      <div className="flex items-center space-x-3">
+        <GlassCheckbox checked={false} disabled={true} />
+        <span className="text-sm text-gray-400">Disabled option</span>
+      </div>
+    </div>
+  </LightModeShowcase>
+);
+
+// Slider Examples
+export const SliderExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-6 max-w-sm">
+      <div>
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
+          <span>Volume</span>
+          <span>75%</span>
+        </div>
+        <GlassSlider value={75} />
+      </div>
+      <div>
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
+          <span>Brightness</span>
+          <span>45%</span>
+        </div>
+        <GlassSlider value={45} />
+      </div>
+      <div>
+        <div className="flex justify-between text-sm mb-2 text-gray-700">
+          <span>Temperature</span>
+          <span>22°C</span>
+        </div>
+        <GlassSlider value={22} min={16} max={30} />
+      </div>
+    </div>
+  </LightModeShowcase>
+);
+
+// Comprehensive Form Example
+export const FormExamples = () => (
+  <LightModeShowcase>
+    <div className="space-y-4 max-w-md">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <GlassInput type="email" placeholder="Enter your email" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
+        <GlassSelect>
+          <option>Select a country</option>
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+          <option>Australia</option>
+        </GlassSelect>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+        <GlassTextarea placeholder="Tell us about yourself..." />
+      </div>
+      <div className="flex items-center space-x-3">
+        <GlassCheckbox />
+        <span className="text-sm text-gray-700">I agree to the terms and conditions</span>
+      </div>
+      <GlassButton variant="primary" className="w-full">
+        Submit Form
+      </GlassButton>
+    </div>
+  </LightModeShowcase>
 );

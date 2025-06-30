@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* LiquidUI Base Styles */
+@layer base {
+    :root {
+        /* Glass effect variables */
+        --glass-opacity: 0.1;
+        --glass-blur: 20px;
+        --glass-border-opacity: 0.2;
+
+        /* Color variables */
+        --background: 0 0% 100%;
+        --foreground: 222.2 84% 4.9%;
+        --muted: 210 40% 98%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222.2 84% 4.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 222.2 84% 4.9%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --primary: 217.2 91.2% 59.8%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 210 40% 98%;
+        --secondary-foreground: 222.2 84% 4.9%;
+        --accent: 210 40% 98%;
+        --accent-foreground: 222.2 84% 4.9%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --ring: 217.2 91.2% 59.8%;
+        --radius: 0.5rem;
+
+        /* Animation variables */
+        --animation-slow: 1s;
+        --animation-normal: 0.5s;
+        --animation-fast: 0.3s;
+    }
+
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --primary: 217.2 91.2% 59.8%;
+        --primary-foreground: 222.2 84% 4.9%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --ring: 217.2 91.2% 59.8%;
+    }
+}
+
+/* Glass effect utility classes */
+@layer components {
+    .glass-effect {
+        @apply backdrop-blur-md bg-white/10 border border-white/20;
+    }
+
+    .glass-effect-subtle {
+        @apply backdrop-blur-sm bg-white/5 border border-white/10;
+    }
+
+    .glass-effect-strong {
+        @apply backdrop-blur-lg bg-white/20 border border-white/30;
+    }
+
+    .glass-card {
+        @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-lg;
+    }
+
+    .liquid-glass {
+        @apply backdrop-blur-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 border border-white/30 shadow-2xl;
+    }
+
+    .ios-logo {
+        @apply rounded-2xl shadow-lg;
+    }
+
+    .apple-gradient {
+        @apply bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500;
+    }
+
+    .apple-gradient-2 {
+        @apply bg-gradient-to-br from-green-400 via-blue-500 to-purple-600;
+    }
+
+    .apple-gradient-3 {
+        @apply bg-gradient-to-br from-pink-400 via-red-500 to-yellow-500;
+    }
+
+    .apple-gradient-4 {
+        @apply bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-500;
+    }
+}
+
+/* Animation classes */
+@layer utilities {
+    .animate-liquid-morph {
+        animation: liquid-morph 4s ease-in-out infinite;
+    }
+
+    .animate-glass-float {
+        animation: glass-float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-gentle {
+        animation: pulse-gentle 3s ease-in-out infinite;
+    }
+}
+
+/* Keyframe animations */
+@keyframes liquid-morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: rotate(0deg) scale(1);
+    }
+
+    25% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: rotate(90deg) scale(1.05);
+    }
+
+    50% {
+        border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%;
+        transform: rotate(180deg) scale(1);
+    }
+
+    75% {
+        border-radius: 60% 40% 60% 40% / 70% 30% 50% 60%;
+        transform: rotate(270deg) scale(1.05);
+    }
+}
+
+@keyframes glass-float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    33% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+
+    66% {
+        transform: translateY(-5px) rotate(-1deg);
+    }
+}
+
+@keyframes pulse-gentle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.02);
+    }
+}
+
+/* Focus styles */
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+/* Scrollbar styling */
+@layer utilities {
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
