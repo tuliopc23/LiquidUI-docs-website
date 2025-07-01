@@ -620,3 +620,6 @@ export const useToast = () => ({ toast: () => { } });
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => (
   <>{children}</>
 );
+
+// Re-exports
+export { GlassNavbar } from "./GlassNavbar";
