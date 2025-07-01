@@ -22,47 +22,36 @@ import {
       <GitBranch className="w-6 h-6 text-white" />
     </div>
     <div>
-      <h2 className="text-2xl font-bold text-foreground hero-text">Upgrade to LiquidUI v2.0</h2>
-      <p className="text-foreground/70 body-text">Smooth migration path from v1.x to v2.0</p>
+          <h2 className="text-2xl font-bold text-foreground hero-text">LiqUIdify v1.0.17 Guide</h2>
+    <p className="text-foreground/70 body-text">Getting started with LiqUIdify v1.0.17</p>
     </div>
   </div>
 </div>
 
 <Callout type="info" emoji="ℹ️">
-  LiquidUI v2.0 introduces significant improvements while maintaining backward compatibility for most features. This guide will help you upgrade smoothly.
+  LiqUIdify v1.0.17 is our first stable release with comprehensive glassmorphism components and modern React patterns.
 </Callout>
 
-## 📦 Package Changes
+## 📦 Installation
 
-### Old Package (v1.x)
-```bash
-npm uninstall @tuliocunha23/liquidui
-```
+Install LiqUIdify v1.0.17 in your project:
 
-### New Package (v2.0)
 ```bash
 npm install @tuliocunha23/liquidui
 ```
 
-<Callout type="warning" emoji="⚠️">
-  The package name has changed from `@tuliocunha23/liquidui` to `@tuliocunha23/liquidui`. Update all your imports accordingly.
+<Callout type="info" emoji="💡">
+  LiqUIdify v1.0.17 provides all components from a single package - no subpath imports needed!
 </Callout>
 
-## 🔄 Import Changes
+## 🔄 Import Examples
 
-### Before (v1.x)
-```typescript
-import { GlassButton, GlassCard } from '@tuliocunha23/liquidui';
-import { useTheme } from '@tuliocunha23/liquidui/hooks';
-import { cn } from '@tuliocunha23/liquidui/utils';
-```
-
-### After (v2.0)
+### Importing Components
 ```typescript
 import { GlassButton, GlassCard, useTheme, cn } from '@tuliocunha23/liquidui';
 ```
 
-All exports are now available from the main package - no need for subpath imports!
+All components, hooks, and utilities are available from the main package!
 
 ## 🎨 Component API Changes
 
@@ -111,7 +100,7 @@ All exports are now available from the main package - no need for subpath import
   
   The theme system has been completely redesigned:
   
-  **Before (v1.x):**
+  **Simple usage:**
   ```tsx
   import { ThemeProvider } from '@tuliocunha23/liquidui';
   
@@ -120,13 +109,13 @@ All exports are now available from the main package - no need for subpath import
   </ThemeProvider>
   ```
   
-  **After (v2.0):**
+  **Usage (v1.0.17):**
   ```tsx
   import { ThemeProvider } from '@tuliocunha23/liquidui';
   
   <ThemeProvider
     defaultTheme="system"
-    storageKey="liquidui-theme"
+          storageKey="liquIdify-theme"
     enableSystem
   >
     <App />
@@ -232,7 +221,7 @@ This will:
   Always commit your changes before running the codemod and review the changes afterward.
 </Callout>
 
-## 🆕 New Features in v2.0
+## 🆕 Key Features in v1.0.17
 
 ### 1. Enhanced Glassmorphism
 - Better contrast in light/dark modes
@@ -266,7 +255,7 @@ This will:
       </div>
       <h3 className="text-lg font-semibold text-foreground">Documentation</h3>
     </div>
-    <p className="text-sm text-foreground/70">Check our updated docs for v2.0</p>
+    <p className="text-sm text-foreground/70">Check our docs for v1.0.17</p>
     <a href="/components" className="text-sm text-blue-500 hover:text-blue-600 mt-2 inline-flex items-center gap-1">
       View Docs <ArrowRight className="w-3 h-3" />
     </a>
@@ -279,7 +268,7 @@ This will:
       </div>
       <h3 className="text-lg font-semibold text-foreground">Examples</h3>
     </div>
-    <p className="text-sm text-foreground/70">See v2.0 components in action</p>
+    <p className="text-sm text-foreground/70">See v1.0.17 components in action</p>
     <a href="/examples" className="text-sm text-blue-500 hover:text-blue-600 mt-2 inline-flex items-center gap-1">
       View Examples <ArrowRight className="w-3 h-3" />
     </a>
@@ -296,11 +285,11 @@ This will:
 
 | Version | Status | Support Until |
 |---------|--------|---------------|
-| v2.0.x | ✅ Current | Active |
+| v1.0.17 | ✅ Current | Active |
 | v1.5.x | ⚠️ Maintenance | Dec 2024 |
 | v1.4.x | ❌ Deprecated | June 2024 |
 | < v1.4 | ❌ Unsupported | - |
 
 <Callout type="success" emoji="🎉">
-  **Congratulations!** You've successfully migrated to LiquidUI v2.0. Enjoy the new features and improvements!
+  **Congratulations!** You're ready to use LiqUIdify v1.0.17. Enjoy building beautiful glassmorphism interfaces!
 </Callout>

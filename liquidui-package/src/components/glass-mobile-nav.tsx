@@ -25,11 +25,28 @@ export const GlassMobileNav: React.FC<GlassMobileNavProps> = ({
             />
             <nav
                 className={cn(
-                    "absolute top-0 left-0 w-full backdrop-blur-xl bg-white/20 border-b border-white/30 p-6",
+                    "absolute top-0 left-0 w-full backdrop-blur-xl bg-white/20 border-b border-white/30",
+                    "min-h-[64px]",
+                    "pt-[env(safe-area-inset-top)] pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] pb-6",
                     className
                 )}
+                style={{
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                }}
                 {...props}
             >
+                <div className="flex items-center justify-between min-h-[64px] mb-4">
+                    <div className="font-bold text-lg">Menu</div>
+                    <button
+                        onClick={onClose}
+                        className="p-2 backdrop-blur-md bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300"
+                        aria-label="Close navigation"
+                    >
+                        ✕
+                    </button>
+                </div>
+
                 <div className="space-y-4">
                     {links.map((link, index) => (
                         <a

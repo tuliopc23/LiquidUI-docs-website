@@ -5,7 +5,7 @@ import { ThemeProviderProps } from '../types';
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     children,
     defaultTheme = 'system',
-    storageKey = 'liquidui-theme',
+    storageKey = 'liquIdify-theme',
     enableSystem = true,
     disableTransitionOnChange = false,
 }) => {

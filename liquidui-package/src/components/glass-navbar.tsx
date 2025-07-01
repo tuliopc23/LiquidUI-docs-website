@@ -5,25 +5,43 @@ export interface GlassNavbarProps extends React.HTMLAttributes<HTMLElement> {
     brand?: React.ReactNode;
     links?: Array<{ label: string; href: string; icon?: React.ReactNode }>;
     actions?: React.ReactNode;
+    position?: "fixed" | "sticky" | "relative";
+    transparent?: boolean;
 }
 
 export const GlassNavbar: React.FC<GlassNavbarProps> = ({
     brand,
     links = [],
     actions,
+    position = "fixed",
+    transparent = false,
     className,
     children,
     ...props
 }) => {
+    const positionClasses = {
+        fixed: "fixed top-0 left-0 right-0 z-50",
+        sticky: "sticky top-0 z-40",
+        relative: "relative"
+    };
+
     return (
         <nav
             className={cn(
-                "backdrop-blur-xl bg-white/20 border-b border-white/30 px-6 py-4",
+                "backdrop-blur-xl bg-white/20 border-b border-white/30",
+                "min-h-[64px] flex items-center",
+                "pt-[env(safe-area-inset-top)] pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)] pb-2",
+                positionClasses[position],
+                transparent && "bg-transparent border-transparent",
                 className
             )}
+            style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+            }}
             {...props}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-6 py-4">
                 {brand && <div className="font-bold text-lg">{brand}</div>}
 
                 {links.length > 0 && (

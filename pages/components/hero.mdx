@@ -13,7 +13,7 @@ A stunning glassmorphism hero component with liquid effects and physics-based an
   code={`import { GlassHero } from '@tuliocunha23/liquidui';
 
 <GlassHero
-  title="Welcome to LiquidifUI"
+        title="Welcome to LiqUIdify"
   subtitle="The future of UI design with glassmorphism components that flow like liquid glass."
 />`}
 >
@@ -65,7 +65,7 @@ A stunning glassmorphism hero component with liquid effects and physics-based an
           Explore Components
         </div>
       </GlassButton>
-      <a href="#demo" className="text-gray-700 hover:text-blue-600 transition-colors body-text">
+      <a href="#demo" className="text-foreground hover:text-blue-600 transition-colors body-text">
         Watch Demo →
       </a>
     </div>
@@ -96,7 +96,7 @@ A stunning glassmorphism hero component with liquid effects and physics-based an
           Learn More
         </GlassButton>
       </div>
-      <div className="flex items-center justify-center gap-8 text-sm text-gray-600 body-text">
+      <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground body-text">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 ios-logo apple-gradient-2"></div>
           <span>30+ Components</span>
@@ -189,10 +189,10 @@ function ProductHero() {
         <div className="space-y-2">
           <div className="hero-text text-6xl font-bold">
             <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-              LiquidifUI
+              LiqUIdify
             </span>
           </div>
-          <div className="hero-text text-4xl font-semibold text-gray-800">
+          <div className="hero-text text-4xl font-semibold text-foreground">
             Liquid Glass Components
           </div>
         </div>
@@ -255,7 +255,7 @@ function SaaSHero() {
             {features.map((feature, index) => (
               <GlassCard key={index} className="p-4 text-center">
                 <feature.icon className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                <span className="text-sm text-gray-700 body-text">{feature.text}</span>
+                <span className="text-sm text-foreground body-text">{feature.text}</span>
               </GlassCard>
             ))}
           </div>
@@ -305,7 +305,7 @@ function AnimatedHero() {
       setStats(prev => ({
         users: Math.min(prev.users + 127, 10000),
         components: Math.min(prev.components + 1, 30),
-        downloads: Math.min(prev.downloads + 289, 25000)
+        downloads: Math.min(prev.downloads + 289, 0)
       }));
     }, 50);
 
@@ -315,7 +315,7 @@ function AnimatedHero() {
   return (
     <GlassHero
       title="Trusted by Developers Worldwide"
-      subtitle="Join thousands of developers building beautiful UIs with LiquidifUI"
+              subtitle="Join thousands of developers building beautiful UIs with LiqUIdify"
       background="waves"
       actions={
         <div className="space-y-8">
@@ -328,19 +328,19 @@ function AnimatedHero() {
               <div className="text-3xl font-bold text-blue-600 hero-text">
                 {stats.users.toLocaleString()}+
               </div>
-              <div className="text-sm text-gray-600 body-text">Active Users</div>
+              <div className="text-sm text-muted-foreground body-text">Active Users</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-green-600 hero-text">
                 {stats.components}+
               </div>
-              <div className="text-sm text-gray-600 body-text">Components</div>
+              <div className="text-sm text-muted-foreground body-text">Components</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600 hero-text">
-                {stats.downloads.toLocaleString()}+
+                Soon
               </div>
-              <div className="text-sm text-gray-600 body-text">Downloads</div>
+              <div className="text-sm text-muted-foreground body-text">Launch Day</div>
             </div>
           </div>
         </div>

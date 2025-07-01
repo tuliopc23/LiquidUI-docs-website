@@ -198,6 +198,7 @@ export interface GlassHeaderProps extends BaseGlassProps {
     subtitle?: string;
     actions?: React.ReactNode;
     navigation?: NavLink[];
+    position?: "fixed" | "sticky" | "relative";
 }
 
 export interface GlassFooterProps extends BaseGlassProps {
