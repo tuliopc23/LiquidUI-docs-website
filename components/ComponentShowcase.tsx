@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
-import { Copy, Check, Code, Eye, ExternalLink } from "lucide-react";
+import { Copy, Check, Code, Eye } from "lucide-react";
 import { LiquidifyLogo } from "./LiquidifyLogo";
+import { StorybookLogo } from "./StorybookLogo";
 
 // Utility function for classname merging
 function cn(...classes: (string | undefined)[]) {
@@ -153,13 +154,13 @@ export function ComponentShowcase({
 
               {/* Storybook Link */}
               <a
-                href="https://liquidui-storybook.vercel.app"
+                href="https://liquidify.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                 aria-label="View component in Storybook"
               >
-                <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                <StorybookLogo size={16} className="w-4 h-4" />
                 <span className="hidden sm:inline">Storybook</span>
               </a>
             </div>
