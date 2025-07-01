@@ -4,7 +4,7 @@ import {
   Heart,
   Trash2,
   Settings,
-  User,
+
   Mail,
   Phone,
   MapPin,
@@ -17,7 +17,7 @@ import {
   ArrowRight,
   Play,
   Zap,
-  Shield,
+
   Sparkles,
   Menu,
   Upload,
@@ -28,7 +28,8 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-// Import LiquidUI components from local implementation
+// Import LiqUIdify components from local implementation
+import { LiquidifyLogo } from "./LiquidifyLogo";
 import {
   GlassButton,
   GlassCard,
@@ -53,7 +54,7 @@ const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// Button Examples using actual LiquidUI components
+// Button Examples using actual LiqUIdify components
 export const ButtonVariants = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-4">
@@ -132,7 +133,7 @@ export const BasicCard = () => (
         <Sparkles className="w-5 h-5 text-white" />
       </div>
       <div>
-        <div className="font-medium text-gray-900 dark:text-white">LiquidUI Card</div>
+        <div className="font-medium text-gray-900 dark:text-white">LiqUIdify Card</div>
         <div className="text-sm text-gray-600 dark:text-gray-300">Beautiful glassmorphism</div>
       </div>
     </div>
@@ -278,8 +279,8 @@ export const CardWithActions = () => (
 export const ProfileCard = () => (
   <div className="liquid-glass rounded-3xl p-6 max-w-sm border border-purple-200/30">
     <div className="flex items-center space-x-4 mb-4">
-      <div className="w-12 h-12 ios-logo apple-gradient rounded-full flex items-center justify-center">
-        <User className="w-6 h-6 text-white" />
+      <div className="w-12 h-12 rounded-full flex items-center justify-center">
+        <LiquidifyLogo size={48} />
       </div>
       <div>
         <h3 className="text-lg font-semibold text-gray-900 hero-text">
@@ -309,8 +310,8 @@ export const SocialMediaCard = () => (
   <div className="liquid-glass rounded-3xl p-6 max-w-md border border-pink-200/30">
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 ios-logo apple-gradient-2 rounded-full flex items-center justify-center">
-          <User className="w-5 h-5 text-white" />
+        <div className="w-10 h-10 rounded-full flex items-center justify-center">
+          <LiquidifyLogo size={40} />
         </div>
         <div>
           <h4 className="font-semibold text-gray-900 hero-text">
@@ -403,7 +404,7 @@ export const HeaderExamples = () => (
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 ios-logo apple-gradient animate-liquid-morph"></div>
+            <LiquidifyLogo size={24} />
             <h3 className="text-lg font-semibold text-gray-900 hero-text">
               Dashboard
             </h3>
@@ -430,7 +431,7 @@ export const HeaderExamples = () => (
     <div className="liquid-glass rounded-3xl p-6 border border-green-200/30">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 ios-logo apple-gradient-2"></div>
+          <LiquidifyLogo size={32} />
           <div>
             <h3 className="text-lg font-semibold text-gray-900 hero-text">
               Analytics Hub
@@ -460,9 +461,9 @@ export const FooterExamples = () => (
     <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 backdrop-blur-xl">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 ios-logo apple-gradient-2 animate-liquid-morph"></div>
+          <LiquidifyLogo size={24} />
           <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent hero-text">
-            LiquidifUI
+            LiqUIdify
           </span>
         </div>
         <div className="flex items-center gap-6 text-sm">
@@ -494,7 +495,7 @@ export const FooterExamples = () => (
       </div>
       <div className="border-t border-white/20 mt-4 pt-4 text-center">
         <p className="text-gray-600 body-text text-sm">
-          © 2024 LiquidifUI. Built with liquid glass components.
+          © 2024 LiqUIdify. Built with liquid glass components.
         </p>
       </div>
     </div>
@@ -503,7 +504,7 @@ export const FooterExamples = () => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-5 h-5 ios-logo apple-gradient-3 animate-liquid-morph"></div>
+            <LiquidifyLogo size={20} />
             <span className="text-lg font-semibold text-gray-900 hero-text">
               Stay Connected
             </span>
@@ -570,14 +571,14 @@ export const HeroExamples = () => (
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-green-50/80"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <div className="w-8 h-8 ios-logo apple-gradient animate-liquid-morph"></div>
+          <LiquidifyLogo size={32} />
           <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-blue-200/30">
             v2.0
           </span>
         </div>
         <h1 className="text-4xl md:text-6xl font-bold mb-6 hero-text">
           <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-            Welcome to LiquidifUI
+            Welcome to LiqUIdify
           </span>
         </h1>
         <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto body-text">
@@ -617,15 +618,15 @@ export const HeroExamples = () => (
         </p>
         <div className="flex items-center justify-center gap-8 text-sm text-gray-600">
           <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-blue-200/30">
-            <div className="w-4 h-4 ios-logo apple-gradient-2"></div>
+            <LiquidifyLogo size={16} />
             <span>30+ Components</span>
           </div>
           <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-green-200/30">
-            <div className="w-4 h-4 ios-logo apple-gradient-3"></div>
+            <LiquidifyLogo size={16} />
             <span>TypeScript</span>
           </div>
           <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-purple-200/30">
-            <div className="w-4 h-4 ios-logo apple-gradient-4"></div>
+            <LiquidifyLogo size={16} />
             <span>Accessible</span>
           </div>
         </div>
@@ -640,32 +641,24 @@ export const FeatureShowcaseExamples = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {[
         {
-          icon: <Zap className="w-8 h-8 text-yellow-500" />,
           title: "Lightning Fast",
           description: "Optimized for performance with zero runtime overhead",
-          gradient: "apple-gradient",
         },
         {
-          icon: <Shield className="w-8 h-8 text-green-500" />,
           title: "Secure by Default",
           description: "Built with security best practices and safe defaults",
-          gradient: "apple-gradient-2",
         },
         {
-          icon: <Sparkles className="w-8 h-8 text-purple-500" />,
           title: "Liquid Animations",
           description: "Smooth, organic transitions that feel alive",
-          gradient: "apple-gradient-3",
         },
       ].map((feature, index) => (
         <div
           key={index}
           className="liquid-glass rounded-3xl p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300"
         >
-          <div
-            className={`w-12 h-12 ios-logo ${feature.gradient} flex items-center justify-center mb-4 mx-auto`}
-          >
-            {feature.icon}
+          <div className="w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+            <LiquidifyLogo size={48} />
           </div>
           <h3 className="text-lg font-semibold text-gray-900 mb-2 text-center hero-text">
             {feature.title}
@@ -703,8 +696,8 @@ export const AvatarExamples = () => (
 export const ToastExamples = () => (
   <div className="space-y-3">
     <div className="liquid-glass rounded-2xl p-4 border border-green-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
-      <div className="w-8 h-8 ios-logo apple-gradient-2 flex items-center justify-center animate-liquid-morph">
-        <Star className="w-4 h-4 text-white" />
+      <div className="w-8 h-8 flex items-center justify-center">
+        <LiquidifyLogo size={32} />
       </div>
       <div className="flex-1">
         <div className="text-sm font-medium text-gray-900 body-text">
@@ -716,8 +709,8 @@ export const ToastExamples = () => (
       </div>
     </div>
     <div className="liquid-glass rounded-2xl p-4 border border-blue-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
-      <div className="w-8 h-8 ios-logo apple-gradient-3 flex items-center justify-center animate-liquid-morph">
-        <Bell className="w-4 h-4 text-white" />
+      <div className="w-8 h-8 flex items-center justify-center">
+        <LiquidifyLogo size={32} />
       </div>
       <div className="flex-1">
         <div className="text-sm font-medium text-gray-900 body-text">

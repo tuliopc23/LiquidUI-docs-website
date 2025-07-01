@@ -7,19 +7,33 @@ export const GlassHeader: React.FC<GlassHeaderProps> = ({
     subtitle,
     actions,
     navigation,
+    position = "sticky",
     className,
     children,
     ...props
 }) => {
+    const positionClasses: Record<"fixed" | "sticky" | "relative", string> = {
+        fixed: "fixed top-0 left-0 right-0 z-50",
+        sticky: "sticky top-0 z-40",
+        relative: "relative"
+    };
+
     return (
         <header
             className={cn(
-                "backdrop-blur-xl bg-white/20 border-b border-white/30 px-6 py-4 sticky top-0 z-40",
+                "backdrop-blur-xl bg-white/20 border-b border-white/30",
+                "min-h-[64px] flex items-center",
+                "pt-[env(safe-area-inset-top)] pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)] pb-2",
+                positionClasses[position],
                 className
             )}
+            style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+            }}
             {...props}
         >
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto w-full px-6 py-4">
                 <div className="flex items-center justify-between">
                     <div className="flex-1">
                         {title && (

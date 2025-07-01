@@ -1,11 +1,219 @@
-
-import { Navbar } from "../../components/PlaceholderComponents";
+import { GlassNavbar } from "@tuliocunha23/liquidui";
+import { GlassButton } from "@tuliocunha23/liquidui";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { Home, Search, User, Menu, Github } from "lucide-react";
 
 # Navbar
 
-A navigation bar.
+A modern glassmorphism navigation bar with iOS safe area support and responsive design. Perfect for creating Apple-inspired navigation experiences.
 
-<ComponentShowcase>
-  <Navbar />
+## Features
+
+- ✨ **Glassmorphism Design** - Beautiful glass effect with backdrop blur
+- 📱 **iOS Safe Area Support** - Automatically handles device safe areas (notches, etc.)
+- 📍 **Flexible Positioning** - Fixed, sticky, or relative positioning
+- 🌙 **Dark Mode Support** - Seamlessly adapts to light/dark themes
+- 📱 **Mobile Responsive** - Optimized for all screen sizes
+- ♿ **Accessibility Ready** - ARIA labels and keyboard navigation
+
+## Basic Usage
+
+<ComponentShowcase
+  title="Default Navbar"
+  description="A simple navbar with brand and navigation links"
+  code={`import { GlassNavbar } from "@tuliocunha23/liquidui";
+import { Home, Search, User } from "lucide-react";
+
+export function MyNavbar() {
+  return (
+    <GlassNavbar
+      brand="LiqUIdify"
+      links={[
+        { label: "Home", href: "/", icon: <Home size={16} /> },
+        { label: "Search", href: "/search", icon: <Search size={16} /> },
+        { label: "Profile", href: "/profile", icon: <User size={16} /> }
+      ]}
+    />
+  );
+}`}
+>
+  <div className="relative h-16 border border-white/20 rounded-2xl overflow-hidden">
+    <GlassNavbar
+      brand="LiqUIdify"
+      position="relative"
+      links={[
+        { label: "Home", href: "#", icon: <Home size={16} /> },
+        { label: "Search", href: "#", icon: <Search size={16} /> },
+        { label: "Profile", href: "#", icon: <User size={16} /> }
+      ]}
+    />
+  </div>
 </ComponentShowcase>
+
+## With Actions
+
+<ComponentShowcase
+  title="Navbar with Actions"
+  description="Add action buttons like sign in, search, or menu toggles"
+  code={`import { GlassNavbar, GlassButton } from "@tuliocunha23/liquidui";
+import { Github, Menu } from "lucide-react";
+
+export function NavbarWithActions() {
+  return (
+    <GlassNavbar
+      brand="LiqUIdify"
+      links={[
+        { label: "Docs", href: "/docs" },
+        { label: "Examples", href: "/examples" },
+        { label: "Blog", href: "/blog" }
+      ]}
+      actions={
+        <div className="flex items-center gap-2">
+          <GlassButton variant="ghost" size="sm">
+            <Github size={16} />
+          </GlassButton>
+          <GlassButton variant="primary" size="sm">
+            Sign In
+          </GlassButton>
+        </div>
+      }
+    />
+  );
+}`}
+>
+  <div className="relative h-16 border border-white/20 rounded-2xl overflow-hidden">
+    <GlassNavbar
+      brand="LiqUIdify"
+      position="relative"
+      links={[
+        { label: "Docs", href: "#" },
+        { label: "Examples", href: "#" },
+        { label: "Blog", href: "#" }
+      ]}
+      actions={
+        <div className="flex items-center gap-2">
+          <GlassButton variant="ghost" size="sm">
+            <Github size={16} />
+          </GlassButton>
+          <GlassButton variant="primary" size="sm">
+            Sign In
+          </GlassButton>
+        </div>
+      }
+    />
+  </div>
+</ComponentShowcase>
+
+## Position Variants
+
+<ComponentShowcase
+  title="Positioning Options"
+  description="Choose from fixed, sticky, or relative positioning"
+  code={`// Fixed positioning (default) - stays at top of viewport
+<GlassNavbar position="fixed" brand="Fixed Navbar" />
+
+// Sticky positioning - scrolls with content until reaching top
+<GlassNavbar position="sticky" brand="Sticky Navbar" />
+
+// Relative positioning - flows with document
+<GlassNavbar position="relative" brand="Relative Navbar" />`}
+>
+  <div className="space-y-4">
+    <div className="relative h-16 border border-white/20 rounded-2xl overflow-hidden">
+      <GlassNavbar
+        brand="Fixed Style"
+        position="relative"
+        links={[{ label: "Always visible", href: "#" }]}
+      />
+    </div>
+    <div className="relative h-16 border border-white/20 rounded-2xl overflow-hidden">
+      <GlassNavbar
+        brand="Sticky Style"
+        position="relative"
+        links={[{ label: "Sticks to top", href: "#" }]}
+      />
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Transparent Variant
+
+<ComponentShowcase
+  title="Transparent Navbar"
+  description="Perfect for hero sections and overlay use cases"
+  code={`<GlassNavbar
+  transparent
+  brand="LiqUIdify"
+  links={[
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" }
+  ]}
+/>`}
+>
+  <div className="relative h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl overflow-hidden">
+    <GlassNavbar
+      transparent
+      brand="LiqUIdify"
+      position="relative"
+      links={[
+        { label: "Home", href: "#" },
+        { label: "About", href: "#" }
+      ]}
+    />
+  </div>
+</ComponentShowcase>
+
+## iOS Safe Area Support
+
+The navbar automatically handles iOS safe areas (device notches, dynamic islands, etc.) using CSS environment variables:
+
+- `env(safe-area-inset-top)` - Top safe area
+- `env(safe-area-inset-left)` - Left safe area  
+- `env(safe-area-inset-right)` - Right safe area
+
+This ensures your navbar content is never hidden behind device UI elements, especially on newer iPhones.
+
+```css
+/* Automatically applied */
+.glass-navbar {
+  padding-top: env(safe-area-inset-top);
+  padding-left: max(env(safe-area-inset-left), 1rem);
+  padding-right: max(env(safe-area-inset-right), 1rem);
+}
+```
+
+## API Reference
+
+### GlassNavbar Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `brand` | `React.ReactNode` | - | Brand content (logo, text, etc.) |
+| `links` | `NavLink[]` | `[]` | Navigation links array |
+| `actions` | `React.ReactNode` | - | Action buttons or content |
+| `position` | `"fixed" \| "sticky" \| "relative"` | `"fixed"` | Positioning behavior |
+| `transparent` | `boolean` | `false` | Removes background for overlay use |
+| `className` | `string` | - | Additional CSS classes |
+
+### NavLink Interface
+
+```typescript
+interface NavLink {
+  label: string;
+  href: string;
+  icon?: React.ReactNode;
+}
+```
+
+## Best Practices
+
+1. **Fixed Position**: Use for main site navigation that should always be accessible
+2. **Sticky Position**: Use for section headers or contextual navigation
+3. **Relative Position**: Use within containers or specific layouts
+4. **Transparent**: Use over hero images or gradient backgrounds
+5. **iOS Support**: No additional setup needed - safe areas are handled automatically
+6. **Accessibility**: Always provide meaningful link labels and icons
+
+## Mobile Considerations
+
+On mobile devices, consider using the `GlassMobileNav` component for better touch interaction and space utilization. The navbar automatically hides links on smaller screens (using `hidden md:flex` classes).
