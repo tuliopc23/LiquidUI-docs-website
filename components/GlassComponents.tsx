@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { cn } from "@tuliocunha23/liquidui";
 
 // Temporary local implementations until package exports are fixed
@@ -523,7 +524,7 @@ export const GlassAvatar = ({
       className
     )}>
       {src ? (
-        <img src={src} alt={alt} className="w-full h-full object-cover" />
+        <Image src={src} alt={alt || "Avatar"} fill className="object-cover" />
       ) : (
         <span className="font-medium text-gray-700 dark:text-gray-300">
           {children}
