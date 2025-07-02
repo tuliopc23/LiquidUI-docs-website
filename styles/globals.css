@@ -76,7 +76,7 @@
     }
     
     p {
-        @apply font-body;
+        font-family: var(--font-body);
         color: hsl(var(--foreground));
         font-size: var(--text-base);
         line-height: var(--leading-relaxed);
