@@ -1,0 +1,377 @@
+---
+title: "Interactive Playground - LiqUIdify"
+description: "Interactive playground featuring live code editing, API exploration, theme customization, and version management for the LiqUIdify component library."
+---
+
+import { CodePlayground } from "../components/CodePlayground";
+import { ApiExplorer } from "../components/ApiExplorer";
+import { ThemeCustomizer } from "../components/ThemeCustomizer";
+import { VersionSelector } from "../components/VersionSelector";
+import { GlassDropdown, GlassTable, GlassTabs, GlassTooltip } from "../components/PlaceholderComponents";
+import { ComponentShowcase } from "../components/ComponentShowcase";
+
+# Interactive Playground
+
+Welcome to the LiqUIdify Interactive Playground! This is where you can experiment with components, explore APIs, customize themes, and test different versions of the library.
+
+## Code Playground
+
+Experiment with live code examples and see real-time results:
+
+<CodePlayground
+  title="Interactive Button Example"
+  description="Try editing the code to see live changes"
+  code={`function ExampleButton() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <button 
+      onClick={() => setCount(count + 1)}
+      className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:scale-105 transition-transform shadow-lg"
+    >
+      Clicked {count} times
+    </button>
+  );
+}`}
+  preview={
+    <ComponentShowcase>
+      <button 
+        onClick={() => alert('Interactive playground!')}
+        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:scale-105 transition-transform shadow-lg"
+      >
+        Click me!
+      </button>
+    </ComponentShowcase>
+  }
+  editable
+/>
+
+## API Explorer
+
+Explore component APIs with interactive documentation:
+
+<ApiExplorer
+  componentName="GlassButton"
+  description="A beautiful glassmorphism button component with liquid-like animations and premium feel."
+  imports="import { GlassButton } from '@tuliocunha23/liquidui';"
+  props={[
+    {
+      name: "variant",
+      type: "'primary' | 'secondary' | 'destructive' | 'ghost'",
+      default: "'primary'",
+      description: "The visual style variant of the button"
+    },
+    {
+      name: "size",
+      type: "'sm' | 'md' | 'lg' | 'xl'",
+      default: "'md'",
+      description: "Controls the size and padding of the button"
+    },
+    {
+      name: "loading",
+      type: "boolean",
+      default: "false",
+      description: "Shows loading spinner and disables the button"
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      default: "false",
+      description: "Disables the button and applies disabled styling"
+    },
+    {
+      name: "children",
+      type: "React.ReactNode",
+      required: true,
+      description: "The content to display inside the button"
+    },
+    {
+      name: "onClick",
+      type: "(event: MouseEvent) => void",
+      description: "Function called when the button is clicked"
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional CSS classes to apply to the button"
+    }
+  ]}
+  methods={[
+    {
+      name: "focus",
+      description: "Programmatically focus the button element",
+      example: "buttonRef.current?.focus()"
+    },
+    {
+      name: "blur",
+      description: "Remove focus from the button element",
+      example: "buttonRef.current?.blur()"
+    }
+  ]}
+  examples={{
+    "Basic Usage": `<GlassButton variant="primary" size="md">
+  Click me
+</GlassButton>`,
+    "Loading State": `<GlassButton loading>
+  Loading...
+</GlassButton>`,
+    "Custom Styling": `<GlassButton 
+  variant="secondary" 
+  className="bg-gradient-to-r from-pink-500 to-violet-500"
+>
+  Custom Button
+</GlassButton>`
+  }}
+/>
+
+## Theme Customizer
+
+Customize the glassmorphism theme and export your settings:
+
+<ThemeCustomizer
+  previewComponent={
+    <div className="space-y-4">
+      <GlassDropdown
+        trigger={<button className="liquid-button">Dropdown</button>}
+        items={[
+          { id: "1", label: "Option 1" },
+          { id: "2", label: "Option 2" },
+          { id: "3", label: "Option 3" }
+        ]}
+      />
+      <div className="grid grid-cols-1 gap-4">
+        <GlassTooltip content="This is a tooltip">
+          <button className="liquid-button">Hover for tooltip</button>
+        </GlassTooltip>
+        <GlassTabs
+          tabs={[
+            { id: "tab1", label: "Tab 1", content: <div className="p-4">Tab 1 content</div> },
+            { id: "tab2", label: "Tab 2", content: <div className="p-4">Tab 2 content</div> }
+          ]}
+        />
+      </div>
+    </div>
+  }
+/>
+
+## Version Management
+
+Select different versions to see their specific documentation:
+
+<div className="flex items-center gap-4 my-6">
+  <VersionSelector
+    currentVersion="1.0.17"
+    onVersionChange={(version) => console.log('Version changed to:', version)}
+  />
+  <span className="text-sm text-gray-600 dark:text-gray-400">
+    Current documentation version
+  </span>
+</div>
+
+## Advanced Examples
+
+### Complex Component Showcase
+
+<CodePlayground
+  title="Glass Data Table"
+  description="A complete data table with glassmorphism styling"
+  code={`function GlassDataTable() {
+  const data = [
+    { name: "Alice Johnson", role: "Designer", status: "Active", email: "alice@example.com" },
+    { name: "Bob Smith", role: "Developer", status: "Active", email: "bob@example.com" },
+    { name: "Carol Davis", role: "Manager", status: "Inactive", email: "carol@example.com" }
+  ];
+
+  const columns = [
+    { key: "name", label: "Name", width: "30%" },
+    { key: "role", label: "Role", width: "25%" },
+    { key: "email", label: "Email", width: "30%" },
+    { key: "status", label: "Status", width: "15%" }
+  ];
+
+  return (
+    <GlassTable 
+      data={data} 
+      columns={columns} 
+      striped={true}
+    />
+  );
+}`}
+  preview={
+    <ComponentShowcase>
+      <GlassTable
+        data={[
+          { name: "Alice Johnson", role: "Designer", status: "Active", email: "alice@example.com" },
+          { name: "Bob Smith", role: "Developer", status: "Active", email: "bob@example.com" },
+          { name: "Carol Davis", role: "Manager", status: "Inactive", email: "carol@example.com" }
+        ]}
+        columns={[
+          { key: "name", label: "Name", width: "30%" },
+          { key: "role", label: "Role", width: "25%" },
+          { key: "email", label: "Email", width: "30%" },
+          { key: "status", label: "Status", width: "15%" }
+        ]}
+      />
+    </ComponentShowcase>
+  }
+/>
+
+### Interactive Form
+
+<CodePlayground
+  title="Glass Form Components"
+  description="Form built with glassmorphism components"
+  code={`function GlassForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  return (
+    <form className="glass-form space-y-4">
+      <div className="glass-input-group">
+        <label className="block text-sm font-medium mb-1">Name</label>
+        <input 
+          type="text" 
+          className="glass-input w-full px-3 py-2"
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
+        />
+      </div>
+      
+      <div className="glass-input-group">
+        <label className="block text-sm font-medium mb-1">Email</label>
+        <input 
+          type="email" 
+          className="glass-input w-full px-3 py-2"
+          value={formData.email}
+          onChange={(e) => setFormData({...formData, email: e.target.value})}
+        />
+      </div>
+      
+      <div className="glass-input-group">
+        <label className="block text-sm font-medium mb-1">Message</label>
+        <textarea 
+          className="glass-input w-full px-3 py-2 h-24"
+          value={formData.message}
+          onChange={(e) => setFormData({...formData, message: e.target.value})}
+        />
+      </div>
+      
+      <button type="submit" className="glass-button w-full">
+        Send Message
+      </button>
+    </form>
+  );
+}`}
+  preview={
+    <ComponentShowcase>
+      <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-1">Name</label>
+          <input 
+            type="text" 
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg"
+            placeholder="Enter your name"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium mb-1">Email</label>
+          <input 
+            type="email" 
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg"
+            placeholder="Enter your email"
+          />
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium mb-1">Message</label>
+          <textarea 
+            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg h-24"
+            placeholder="Enter your message"
+          />
+        </div>
+        
+        <button className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+          Send Message
+        </button>
+      </div>
+    </ComponentShowcase>
+  }
+/>
+
+## Performance Testing
+
+<CodePlayground
+  title="Animation Performance"
+  description="Test complex animations and performance optimizations"
+  code={`function PerformanceTest() {
+  const [itemCount, setItemCount] = useState(10);
+  
+  const items = Array.from({ length: itemCount }, (_, i) => ({
+    id: i,
+    title: \`Item \${i + 1}\`,
+    description: \`Description for item \${i + 1}\`
+  }));
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-4">
+        <label>Items: {itemCount}</label>
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value={itemCount}
+          onChange={(e) => setItemCount(parseInt(e.target.value))}
+          className="flex-1"
+        />
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="glass-card p-4 hover:scale-105 transition-transform"
+          >
+            <h3 className="font-semibold">{item.title}</h3>
+            <p className="text-sm opacity-70">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}`}
+  preview={
+    <ComponentShowcase>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {Array.from({ length: 6 }, (_, i) => (
+          <div
+            key={i}
+            className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-xl p-4 hover:scale-105 transition-transform cursor-pointer"
+          >
+            <h3 className="font-semibold">Item {i + 1}</h3>
+            <p className="text-sm opacity-70">Description for item {i + 1}</p>
+          </div>
+        ))}
+      </div>
+    </ComponentShowcase>
+  }
+/>
+
+## Tips for Using the Playground
+
+1. **Experiment Freely**: All code is editable - try changing values and see instant results
+2. **Export Themes**: Use the theme customizer to create your own glassmorphism style
+3. **API Reference**: Click on props in the API explorer to see detailed descriptions
+4. **Version Testing**: Switch between versions to test compatibility
+5. **Performance**: Monitor the animation performance when testing complex layouts
+
+## Next Steps
+
+- Explore the [Component Gallery](/components) for more examples
+- Check out the [Getting Started](/getting-started) guide for installation
+- Read the [Theming Guide](/theming) for advanced customization
+- Join our community for support and discussions
