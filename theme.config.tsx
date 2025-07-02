@@ -36,11 +36,7 @@ const config = {
   },
   logo: <Logo />,
   project: {
-    link: "https://github.com/tuliopc23/LiquidUI-docs-website",
-  },
-  chat: {
-    link: "https://discord.gg/liquidif-ui",
-    icon: <MessageCircle className="w-5 h-5 text-blue-500" />,
+    link: "https://github.com/tuliocunha23/liquidui",
   },
   navbar: {
     extraContent: (
@@ -56,7 +52,7 @@ const config = {
     ),
   },
   docsRepositoryBase:
-    "https://github.com/tuliopc23/LiquidUI-docs-website/tree/main",
+    "https://github.com/tuliocunha23/liquidui/tree/main",
   footer: {
     text: (
       <div className="flex w-full flex-col items-center sm:items-start">

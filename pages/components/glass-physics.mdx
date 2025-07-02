@@ -1,0 +1,614 @@
+# Glass Physics
+
+Advanced physics engine for liquid glass animations and interactions with realistic fluid dynamics, surface tension, and light refraction effects.
+
+## Overview
+
+The Glass Physics module provides a comprehensive physics simulation system for glassmorphism effects. It enables realistic liquid glass behaviors including ripple effects, wave animations, magnetic interactions, and morphing transitions with hardware-accelerated performance.
+
+## TypeScript Interface
+
+```tsx
+interface GlassPhysicsConfig {
+  viscosity?: number;        // Fluid thickness (0-1, default: 0.5)
+  surfaceTension?: number;   // Edge behavior (0-1, default: 0.3)
+  refraction?: number;       // Light bending (0.8-2.0, default: 1.2)
+  elasticity?: number;       // Bounce factor (0-1, default: 0.7)
+  friction?: number;         // Drag coefficient (0-1, default: 0.2)
+  gravity?: number;          // Gravitational pull (0-2, default: 0.5)
+  performance?: PerformanceConfig;
+  onAnimationStart?: () => void;
+  onAnimationEnd?: () => void;
+  onError?: (error: PhysicsError) => void;
+}
+
+interface PerformanceConfig {
+  enableHardwareAcceleration?: boolean; // default: true
+  maxConcurrentAnimations?: number;      // default: 5
+  targetFPS?: number;                    // default: 60
+  adaptiveQuality?: boolean;             // default: true
+}
+
+interface PhysicsError {
+  code: 'WEBGL_NOT_SUPPORTED' | 'ANIMATION_FAILED' | 'RESOURCE_LIMIT';
+  message: string;
+  context?: Record<string, any>;
+}
+
+interface UseGlassPhysicsReturn {
+  props: React.HTMLAttributes<HTMLElement>;
+  morphStyles: React.CSSProperties;
+  isAnimating: boolean;
+  createRipple: (origin: Point) => Promise<void>;
+  createWave: (config: WaveConfig) => Promise<void>;
+  createMagnetic: (config: MagneticConfig) => Promise<void>;
+  dispose: () => void;
+  error: PhysicsError | null;
+}
+```
+
+## Basic Usage
+
+```tsx
+import { GlassPhysics, useGlassPhysics } from 'liquidui-package';
+
+function PhysicsCard() {
+  const {
+    props,
+    morphStyles,
+    isAnimating,
+    createRipple,
+    error
+  } = useGlassPhysics({
+    viscosity: 0.8,
+    surfaceTension: 0.5,
+    refraction: 1.2,
+    onError: (err) => console.error('Physics error:', err)
+  });
+
+  if (error) {
+    return <div className="error-fallback">Physics not supported</div>;
+  }
+
+  return (
+    <div 
+      className="glass-card" 
+      {...props}
+      style={morphStyles}
+    >
+      {isAnimating && <div className="loading-indicator" />}
+      Content with physics
+    </div>
+  );
+}
+```
+
+## Error Handling
+
+### Common Error Scenarios
+
+```tsx
+function RobustPhysicsCard() {
+  const [fallbackMode, setFallbackMode] = useState(false);
+
+  const physics = useGlassPhysics({
+    viscosity: 0.8,
+    onError: (error) => {
+      switch (error.code) {
+        case 'WEBGL_NOT_SUPPORTED':
+          console.warn('WebGL not available, using CSS fallback');
+          setFallbackMode(true);
+          break;
+        case 'ANIMATION_FAILED':
+          console.error('Animation failed:', error.message);
+          // Retry with lower quality
+          break;
+        case 'RESOURCE_LIMIT':
+          console.warn('Performance limit reached');
+          // Reduce concurrent animations
+          break;
+      }
+    }
+  });
+
+  if (fallbackMode) {
+    return <div className="glass-card-fallback">Fallback content</div>;
+  }
+
+  return (
+    <div className="glass-card" {...physics.props}>
+      Physics-enabled content
+    </div>
+  );
+}
+```
+
+### Error Boundary Integration
+
+```tsx
+class PhysicsErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="physics-error-fallback">
+          <p>Glass physics unavailable. Using standard styles.</p>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Usage
+<PhysicsErrorBoundary>
+  <PhysicsCard />
+</PhysicsErrorBoundary>
+```
+
+## Performance Configuration
+
+### Optimization Settings
+
+```tsx
+const highPerformanceConfig: GlassPhysicsConfig = {
+  performance: {
+    enableHardwareAcceleration: true,
+    maxConcurrentAnimations: 3,
+    targetFPS: 60,
+    adaptiveQuality: true
+  }
+};
+
+const lowEndDeviceConfig: GlassPhysicsConfig = {
+  performance: {
+    enableHardwareAcceleration: false,
+    maxConcurrentAnimations: 1,
+    targetFPS: 30,
+    adaptiveQuality: true
+  }
+};
+
+function AdaptivePhysicsCard() {
+  const isLowEnd = useMemo(() => {
+    return navigator.hardwareConcurrency < 4 || 
+           /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }, []);
+
+  const physics = useGlassPhysics(
+    isLowEnd ? lowEndDeviceConfig : highPerformanceConfig
+  );
+
+  return <div {...physics.props}>Adaptive content</div>;
+}
+```
+
+## Animation Types
+
+### Fluid Ripple
+
+```tsx
+interface RippleConfig {
+  origin: Point;                    // { x: number, y: number } in percentages
+  intensity?: number;               // 0-1, default: 0.7
+  duration?: number;                // milliseconds, default: 2000
+  falloff?: 'linear' | 'exponential' | 'circular'; // default: 'exponential'
+  color?: string;                   // default: inherits from theme
+  onComplete?: () => void;
+}
+
+// Usage
+const { createRipple } = useGlassPhysics();
+
+const handleRipple = async (origin: Point) => {
+  try {
+    await createRipple({
+      origin,
+      intensity: 0.8,
+      duration: 1500,
+      falloff: 'exponential'
+    });
+  } catch (error) {
+    console.error('Ripple animation failed:', error);
+  }
+};
+```
+
+### Surface Wave
+
+```tsx
+interface WaveConfig {
+  direction: 'horizontal' | 'vertical' | 'diagonal';
+  amplitude?: number;               // 0-1, default: 0.3
+  frequency?: number;               // Hz, default: 2
+  phase?: number;                   // 0-2π, default: 0
+  speed?: number;                   // pixels/second, default: 100
+  damping?: number;                 // 0-1, default: 0.1
+}
+
+// Usage
+const { createWave } = useGlassPhysics();
+
+const triggerWave = async () => {
+  try {
+    await createWave({
+      direction: 'horizontal',
+      amplitude: 0.5,
+      frequency: 1.5,
+      speed: 150
+    });
+  } catch (error) {
+    console.error('Wave animation failed:', error);
+  }
+};
+```
+
+### Magnetic Field
+
+```tsx
+interface MagneticConfig {
+  strength?: number;                // 0-1, default: 0.5
+  radius?: number;                  // pixels, default: 100
+  attraction?: boolean;             // default: true
+  easing?: 'linear' | 'ease' | 'spring'; // default: 'spring'
+  threshold?: number;               // pixels, default: 10
+}
+
+// Usage
+const { createMagnetic } = useGlassPhysics();
+
+const enableMagnetism = async (config: MagneticConfig) => {
+  try {
+    await createMagnetic(config);
+  } catch (error) {
+    console.error('Magnetic effect failed:', error);
+  }
+};
+```
+
+## Advanced Examples
+
+### Interactive Ripples with Error Handling
+
+```tsx
+function RippleCard() {
+  const { createRipple, error } = useGlassPhysics({
+    onError: (err) => {
+      if (err.code === 'ANIMATION_FAILED') {
+        // Fallback to CSS animation
+        setUseCSSFallback(true);
+      }
+    }
+  });
+  
+  const [useCSSFallback, setUseCSSFallback] = useState(false);
+
+  const handleClick = async (event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const origin = {
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100
+    };
+    
+    if (useCSSFallback) {
+      // CSS fallback animation
+      event.currentTarget.classList.add('css-ripple');
+      setTimeout(() => {
+        event.currentTarget.classList.remove('css-ripple');
+      }, 600);
+      return;
+    }
+
+    try {
+      await createRipple({
+        origin,
+        intensity: 0.7,
+        duration: 800,
+        falloff: 'exponential'
+      });
+    } catch (err) {
+      console.error('Ripple failed:', err);
+      setUseCSSFallback(true);
+    }
+  };
+
+  return (
+    <div 
+      className={`glass-card physics-enabled ${useCSSFallback ? 'css-fallback' : ''}`}
+      onClick={handleClick}
+    >
+      {error && <div className="error-indicator">⚠️ Limited physics</div>}
+      Click for ripple effect
+    </div>
+  );
+}
+```
+
+### Responsive Magnetic Button
+
+```tsx
+function ResponsiveMagneticButton() {
+  const [screenSize, setScreenSize] = useState<'mobile' | 'desktop'>('desktop');
+  
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setScreenSize(window.innerWidth < 768 ? 'mobile' : 'desktop');
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const physics = useGlassPhysics({
+    magnetism: {
+      strength: screenSize === 'mobile' ? 0.2 : 0.5,
+      radius: screenSize === 'mobile' ? 30 : 80,
+      easing: 'spring'
+    },
+    performance: {
+      targetFPS: screenSize === 'mobile' ? 30 : 60
+    }
+  });
+
+  return (
+    <button 
+      className="glass-button magnetic"
+      {...physics.props}
+      disabled={physics.error?.code === 'WEBGL_NOT_SUPPORTED'}
+    >
+      {physics.error ? 'Standard Button' : 'Magnetic Button'}
+    </button>
+  );
+}
+```
+
+### Liquid Morphing with State Management
+
+```tsx
+interface MorphState {
+  shape: 'circle' | 'square' | 'rounded';
+  intensity: number;
+  isTransitioning: boolean;
+}
+
+function AdvancedMorphingCard() {
+  const [morphState, setMorphState] = useState<MorphState>({
+    shape: 'rounded',
+    intensity: 0.5,
+    isTransitioning: false
+  });
+  
+  const physics = useGlassPhysics({
+    morph: {
+      target: morphState.shape,
+      intensity: morphState.intensity,
+      duration: 1200,
+      easing: 'elastic'
+    },
+    onAnimationStart: () => {
+      setMorphState(prev => ({ ...prev, isTransitioning: true }));
+    },
+    onAnimationEnd: () => {
+      setMorphState(prev => ({ ...prev, isTransitioning: false }));
+    }
+  });
+
+  const morphTo = (shape: MorphState['shape']) => {
+    if (morphState.isTransitioning) return;
+    
+    setMorphState(prev => ({
+      ...prev,
+      shape,
+      intensity: shape === 'circle' ? 1 : 0.5
+    }));
+  };
+
+  return (
+    <div className="morph-container">
+      <div 
+        className="glass-card morphing"
+        style={physics.morphStyles}
+      >
+        <div className="content">
+          {morphState.isTransitioning && (
+            <div className="transition-indicator">Morphing...</div>
+          )}
+          Current shape: {morphState.shape}
+        </div>
+      </div>
+      
+      <div className="controls">
+        <button onClick={() => morphTo('circle')}>Circle</button>
+        <button onClick={() => morphTo('square')}>Square</button>
+        <button onClick={() => morphTo('rounded')}>Rounded</button>
+      </div>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+### Performance Optimization
+
+```tsx
+// ✅ Good: Dispose of physics when component unmounts
+useEffect(() => {
+  return () => {
+    physics.dispose();
+  };
+}, [physics]);
+
+// ✅ Good: Limit concurrent animations
+const MAX_CONCURRENT_RIPPLES = 3;
+let activeRipples = 0;
+
+const createRippleWithLimit = async (config: RippleConfig) => {
+  if (activeRipples >= MAX_CONCURRENT_RIPPLES) {
+    console.warn('Too many concurrent ripples, skipping');
+    return;
+  }
+  
+  activeRipples++;
+  try {
+    await createRipple(config);
+  } finally {
+    activeRipples--;
+  }
+};
+
+// ✅ Good: Use hardware acceleration hints
+const optimizedStyles = {
+  willChange: 'transform, opacity',
+  transform: 'translateZ(0)', // Force GPU layer
+  backfaceVisibility: 'hidden'
+};
+```
+
+### Error Handling Patterns
+
+```tsx
+// ✅ Good: Graceful degradation
+function PhysicsAwareComponent() {
+  const [fallbackMode, setFallbackMode] = useState(false);
+  
+  const physics = useGlassPhysics({
+    onError: (error) => {
+      // Log for debugging but don't crash
+      console.warn('Physics error:', error);
+      
+      if (error.code === 'WEBGL_NOT_SUPPORTED') {
+        setFallbackMode(true);
+      }
+    }
+  });
+
+  const className = fallbackMode 
+    ? 'glass-card fallback' 
+    : 'glass-card physics-enabled';
+
+  return <div className={className}>Content</div>;
+}
+
+// ✅ Good: Feature detection
+const isPhysicsSupported = () => {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    return !!gl;
+  } catch {
+    return false;
+  }
+};
+```
+
+### Common Pitfalls
+
+```tsx
+// ❌ Bad: Not cleaning up animations
+function BadComponent() {
+  const physics = useGlassPhysics();
+  // Missing cleanup - causes memory leaks
+}
+
+// ❌ Bad: Too many concurrent animations
+function BadRippleHandler() {
+  // Can cause performance issues
+  events.forEach(event => createRipple(event.origin));
+}
+
+// ❌ Bad: Not handling errors
+function BadPhysicsCard() {
+  const physics = useGlassPhysics();
+  // No error handling - can crash on unsupported devices
+  return <div {...physics.props}>Content</div>;
+}
+
+// ✅ Good: Proper implementation
+function GoodPhysicsCard() {
+  const physics = useGlassPhysics({
+    onError: handlePhysicsError
+  });
+  
+  useEffect(() => {
+    return () => physics.dispose();
+  }, [physics]);
+  
+  if (physics.error) {
+    return <FallbackComponent />;
+  }
+  
+  return <div {...physics.props}>Content</div>;
+}
+```
+
+## Performance Monitoring
+
+### Resource Management
+
+```tsx
+function MonitoredPhysicsCard() {
+  const [performanceMetrics, setPerformanceMetrics] = useState({
+    fps: 60,
+    memoryUsage: 0,
+    activeAnimations: 0
+  });
+
+  const physics = useGlassPhysics({
+    performance: {
+      targetFPS: 60,
+      maxConcurrentAnimations: 5,
+      adaptiveQuality: true
+    },
+    onAnimationStart: () => {
+      setPerformanceMetrics(prev => ({
+        ...prev,
+        activeAnimations: prev.activeAnimations + 1
+      }));
+    },
+    onAnimationEnd: () => {
+      setPerformanceMetrics(prev => ({
+        ...prev,
+        activeAnimations: prev.activeAnimations - 1
+      }));
+    }
+  });
+
+  // Monitor performance
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (performanceMetrics.fps < 30) {
+        console.warn('Low FPS detected, reducing quality');
+        // Implement quality reduction logic
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [performanceMetrics.fps]);
+
+  return (
+    <div {...physics.props}>
+      {process.env.NODE_ENV === 'development' && (
+        <div className="performance-debug">
+          FPS: {performanceMetrics.fps} | 
+          Animations: {performanceMetrics.activeAnimations}
+        </div>
+      )}
+      Physics content
+    </div>
+  );
+}
+```

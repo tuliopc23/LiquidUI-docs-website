@@ -1,0 +1,146 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Glass Shaders
+
+Advanced shader effects and WebGL utilities for LiquidUI glass components. Create stunning visual effects with GPU-accelerated rendering.
+
+## Overview
+
+Glass Shaders provide WebGL-based effects that enhance the glassmorphism aesthetic with advanced lighting, refraction, and surface effects that go beyond CSS capabilities.
+
+## Shader Types
+
+### Refraction Shaders
+
+```typescript
+import { useRefractionShader } from '@tuliocunha23/liquidui';
+
+function RefractionGlass() {
+  const shaderRef = useRefractionShader({
+    refractionIndex: 1.52, // Glass refraction index
+    distortion: 0.1,
+    chromatic: true // Chromatic aberration
+  });
+  
+  return (
+    <canvas
+      ref={shaderRef}
+      className="w-full h-64 rounded-xl"
+    />
+  );
+}
+```
+
+### Lighting Effects
+
+<ComponentShowcase>
+  <div className="space-y-4 p-6">
+    <div className="p-6 backdrop-blur-md bg-gradient-to-br from-white/30 to-white/10 border border-white/30 rounded-xl relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 via-transparent to-purple-400/20 animate-pulse"></div>
+      <h3 className="relative z-10 font-semibold">Shader-Enhanced Glass</h3>
+      <p className="relative z-10 text-sm text-gray-600 mt-2">Advanced lighting and refraction effects</p>
+    </div>
+  </div>
+</ComponentShowcase>
+
+### Caustics Simulation
+
+```typescript
+import { useCausticsShader } from '@tuliocunha23/liquidui';
+
+function CausticsBackground() {
+  const causticsRef = useCausticsShader({
+    intensity: 0.5,
+    speed: 1.0,
+    scale: 2.0
+  });
+  
+  return (
+    <div className="relative">
+      <canvas
+        ref={causticsRef}
+        className="absolute inset-0 w-full h-full opacity-30"
+      />
+      <div className="relative z-10 backdrop-blur-md bg-white/20 p-6 rounded-xl">
+        Content with caustics background
+      </div>
+    </div>
+  );
+}
+```
+
+## Performance Considerations
+
+### GPU Compatibility
+
+```typescript
+import { checkWebGLSupport } from '@tuliocunha23/liquidui';
+
+const webglSupport = checkWebGLSupport();
+if (!webglSupport.webgl2) {
+  // Fallback to CSS-only effects
+  console.warn('WebGL 2.0 not supported, using CSS fallback');
+}
+```
+
+### Adaptive Quality
+
+```tsx
+import { useAdaptiveShaders } from '@tuliocunha23/liquidui';
+
+function AdaptiveGlassEffect() {
+  const { shaderQuality } = useAdaptiveShaders();
+  
+  return (
+    <div className={
+      shaderQuality === 'high' 
+        ? "glass-shader-high" 
+        : "glass-shader-medium"
+    }>
+      Quality adapts to device performance
+    </div>
+  );
+}
+```
+
+## Shader Customization
+
+### Custom Fragment Shaders
+
+```glsl
+// custom-glass.frag
+uniform float time;
+uniform vec2 resolution;
+uniform float opacity;
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / resolution.xy;
+  
+  // Glass distortion effect
+  vec2 distortion = sin(uv * 10.0 + time) * 0.01;
+  vec3 color = texture2D(backBuffer, uv + distortion).rgb;
+  
+  // Add glass tint
+  color = mix(color, vec3(0.8, 0.9, 1.0), opacity * 0.2);
+  
+  gl_FragColor = vec4(color, opacity);
+}
+```
+
+## Browser Support
+
+Glass shaders gracefully degrade on unsupported browsers:
+
+```typescript
+const shaderSupport = {
+  webgl: 95%, // Chrome, Firefox, Safari, Edge
+  webgl2: 85%, // Modern browsers
+  shaders: 80% // Full shader support
+};
+```
+
+## Related
+
+- [`Glass Physics`](/components/glass-physics) - Physics simulation for shader effects
+- [`Glass Animations`](/components/glass-animations) - Animation integration with shaders
+- [`Glass Performance`](/components/glass-performance) - Performance monitoring for GPU effects

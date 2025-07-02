@@ -1,0 +1,1070 @@
+# Glass Utils
+
+Comprehensive utility functions for glassmorphism effects, liquid glass components, and performance optimization.
+
+## Overview
+
+A production-ready collection of helper functions for creating, manipulating, and optimizing glass effects in your applications. These utilities provide cross-browser compatibility, performance optimization, and responsive design support.
+
+## TypeScript Interfaces
+
+```tsx
+interface GlassColor {
+  rgba: string;
+  hex: string;
+  opacity: number;
+  isValid: boolean;
+}
+
+interface OptimalOpacityConfig {
+  backgroundColor: string;
+  lightThreshold?: number;  // default: 128
+  minOpacity?: number;     // default: 0.02
+  maxOpacity?: number;     // default: 0.15
+}
+
+interface TransitionConfig {
+  duration: number;
+  easing: string;
+  properties?: string[];
+  includeBackdrop?: boolean;
+}
+
+interface BlurCalculationOptions {
+  element: HTMLElement;
+  speed: 'slow' | 'medium' | 'fast';
+  quality?: 'low' | 'medium' | 'high';
+  devicePixelRatio?: number;
+}
+
+interface AdaptiveBlurConfig {
+  element: HTMLElement;
+  targetFPS: number;
+  maxBlur?: number;
+  minBlur?: number;
+  onUpdate?: (blur: number) => void;
+}
+
+interface GlassBounds {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+  borderRadius: string;
+  transform?: string;
+}
+
+interface OptimizationOptions {
+  hardware?: boolean;
+  willChange?: boolean;
+  containment?: 'none' | 'layout' | 'style' | 'paint' | 'strict';
+  isolation?: boolean;
+}
+
+interface GlassBreakpoint {
+  name: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  minWidth: number;
+  maxWidth: number;
+  glassFactor: number;
+}
+```
+
+## Color Utilities
+
+### glassColor(color, opacity)
+
+Create glass-compatible colors with proper transparency and validation.
+
+```tsx
+import { glassColor } from 'liquidui-package/utils';
+
+// Basic usage
+const glassBlue = glassColor('#3B82F6', 0.1);
+const glassWhite = glassColor('white', 0.05);
+
+// With error handling
+function createGlassBackground(color: string, opacity: number): GlassColor {
+  try {
+    const result = glassColor(color, opacity);
+    
+    if (!result.isValid) {
+      throw new Error(`Invalid color format: ${color}`);
+    }
+    
+    return result;
+  } catch (error) {
+    console.error('Glass color creation failed:', error);
+    // Return fallback color
+    return glassColor('rgba(255, 255, 255, 0.1)', 0.1);
+  }
+}
+
+// Advanced usage with validation
+const safeGlassColor = (color: string, opacity: number): GlassColor => {
+  // Validate opacity range
+  const clampedOpacity = Math.max(0, Math.min(1, opacity));
+  
+  // Handle various color formats
+  const normalizedColor = color.trim().toLowerCase();
+  
+  if (normalizedColor.startsWith('#')) {
+    // Hex color
+    return glassColor(normalizedColor, clampedOpacity);
+  } else if (normalizedColor.startsWith('rgb')) {
+    // RGB/RGBA color
+    return glassColor(normalizedColor, clampedOpacity);
+  } else if (normalizedColor.startsWith('hsl')) {
+    // HSL color
+    return glassColor(normalizedColor, clampedOpacity);
+  } else {
+    // Named color
+    return glassColor(normalizedColor, clampedOpacity);
+  }
+};
+```
+
+### getOptimalOpacity(backgroundColor, config?)
+
+Calculate optimal glass opacity based on background color with advanced configuration.
+
+```tsx
+// Basic usage
+const opacity = getOptimalOpacity('#1F2937'); // Returns 0.05 for dark
+const opacity = getOptimalOpacity('#FFFFFF'); // Returns 0.12 for light
+
+// Advanced configuration
+const advancedOpacity = getOptimalOpacity('#3B82F6', {
+  lightThreshold: 140,  // Custom light detection threshold
+  minOpacity: 0.03,     // Minimum opacity
+  maxOpacity: 0.18,     // Maximum opacity
+});
+
+// Error handling example
+function getSafeOpacity(backgroundColor: string): number {
+  try {
+    return getOptimalOpacity(backgroundColor);
+  } catch (error) {
+    console.warn(`Failed to calculate opacity for ${backgroundColor}:`, error);
+    return 0.1; // Fallback opacity
+  }
+}
+
+// Theme-aware opacity calculation
+function getThemeAwareOpacity(backgroundColor: string, isDarkMode: boolean): number {
+  const config: OptimalOpacityConfig = {
+    backgroundColor,
+    lightThreshold: isDarkMode ? 100 : 150,
+    minOpacity: isDarkMode ? 0.02 : 0.05,
+    maxOpacity: isDarkMode ? 0.12 : 0.18
+  };
+  
+  return getOptimalOpacity(backgroundColor, config);
+}
+```
+
+## Animation Utilities
+
+### createGlassTransition(config)
+
+Generate optimized CSS transitions for glass elements with comprehensive configuration.
+
+```tsx
+// Basic usage
+const transition = createGlassTransition({
+  duration: 300,
+  easing: 'ease-out'
+});
+// Returns: "all 300ms ease-out, backdrop-filter 300ms ease-out"
+
+// Advanced configuration
+const advancedTransition = createGlassTransition({
+  duration: 500,
+  easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  properties: ['opacity', 'transform', 'backdrop-filter'],
+  includeBackdrop: true
+});
+
+// Error handling and fallback
+function createSafeTransition(config: Partial<TransitionConfig>): string {
+  try {
+    return createGlassTransition({
+      duration: 300,
+      easing: 'ease-out',
+      includeBackdrop: true,
+      ...config
+    });
+  } catch (error) {
+    console.warn('Transition creation failed, using fallback:', error);
+    return `all ${config.duration || 300}ms ease-out`;
+  }
+}
+
+// Performance-optimized transitions
+const optimizedTransitions = {
+  fast: createGlassTransition({ duration: 150, easing: 'ease-out' }),
+  normal: createGlassTransition({ duration: 300, easing: 'ease-out' }),
+  slow: createGlassTransition({ duration: 500, easing: 'ease-in-out' }),
+  spring: createGlassTransition({ 
+    duration: 400, 
+    easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)' 
+  })
+};
+```
+
+### morphPath(from, to, progress, options?)
+
+Interpolate between border-radius values with advanced morphing capabilities.
+
+```tsx
+// Basic usage
+const currentRadius = morphPath('20px', '50px', 0.5); // Returns '35px'
+
+// Complex border-radius morphing
+const complexMorph = morphPath(
+  '10px 20px 30px 40px',
+  '50px 40px 30px 20px',
+  0.3
+); // Returns interpolated complex radius
+
+// With error handling
+function safeMorphPath(from: string, to: string, progress: number): string {
+  try {
+    // Clamp progress between 0 and 1
+    const clampedProgress = Math.max(0, Math.min(1, progress));
+    return morphPath(from, to, clampedProgress);
+  } catch (error) {
+    console.error('Morph path calculation failed:', error);
+    return from; // Return original value as fallback
+  }
+}
+
+// Easing function integration
+function morphPathWithEasing(
+  from: string, 
+  to: string, 
+  progress: number, 
+  easing: (t: number) => number = (t) => t
+): string {
+  const easedProgress = easing(progress);
+  return morphPath(from, to, easedProgress);
+}
+
+// Common easing functions
+const easingFunctions = {
+  easeInOut: (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t,
+  easeOut: (t: number) => t * (2 - t),
+  elastic: (t: number) => t === 0 || t === 1 ? t : -Math.pow(2, 10 * (t - 1)) * Math.sin((t - 1.1) * 5 * Math.PI)
+};
+```
+
+## Blur Utilities
+
+### calculateBlur(options)
+
+Calculate optimal blur amount based on element size, animation speed, and device capabilities.
+
+```tsx
+// Basic usage
+const blurAmount = calculateBlur({
+  element: elementRef.current,
+  speed: 'fast'
+});
+
+// Advanced configuration
+const advancedBlur = calculateBlur({
+  element: elementRef.current,
+  speed: 'medium',
+  quality: 'high',
+  devicePixelRatio: window.devicePixelRatio
+});
+
+// Error handling and fallback
+function getSafeBlurAmount(element: HTMLElement, speed: 'slow' | 'medium' | 'fast'): number {
+  try {
+    if (!element || !element.getBoundingClientRect) {
+      throw new Error('Invalid element provided');
+    }
+    
+    return calculateBlur({ element, speed });
+  } catch (error) {
+    console.warn('Blur calculation failed:', error);
+    
+    // Fallback blur values based on speed
+    const fallbackValues = { slow: 25, medium: 20, fast: 15 };
+    return fallbackValues[speed];
+  }
+}
+
+// Responsive blur calculation
+function getResponsiveBlur(element: HTMLElement): number {
+  const rect = element.getBoundingClientRect();
+  const area = rect.width * rect.height;
+  
+  // Adjust blur based on element size
+  if (area < 10000) { // Small elements
+    return calculateBlur({ element, speed: 'fast', quality: 'medium' });
+  } else if (area < 50000) { // Medium elements
+    return calculateBlur({ element, speed: 'medium', quality: 'high' });
+  } else { // Large elements
+    return calculateBlur({ element, speed: 'slow', quality: 'high' });
+  }
+}
+```
+
+### adaptiveBlur(config)
+
+Dynamically adjust blur based on content, performance, and device capabilities.
+
+```tsx
+// Basic usage
+useEffect(() => {
+  const blur = adaptiveBlur({
+    element: cardRef.current,
+    targetFPS: 60
+  });
+  setBlurValue(blur);
+}, []);
+
+// Advanced adaptive blur with monitoring
+function useAdaptiveBlur(element: HTMLElement | null, targetFPS: number = 60) {
+  const [blurValue, setBlurValue] = useState(20);
+  const [isAdapting, setIsAdapting] = useState(false);
+  
+  useEffect(() => {
+    if (!element) return;
+    
+    let animationId: number;
+    let frameCount = 0;
+    let lastTime = performance.now();
+    
+    const monitor = () => {
+      const currentTime = performance.now();
+      frameCount++;
+      
+      if (currentTime - lastTime >= 1000) { // Check every second
+        const fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+        
+        if (fps < targetFPS * 0.8) { // If FPS is below 80% of target
+          setIsAdapting(true);
+          const newBlur = adaptiveBlur({
+            element,
+            targetFPS,
+            maxBlur: blurValue,
+            onUpdate: (blur) => {
+              setBlurValue(blur);
+              setIsAdapting(false);
+            }
+          });
+        }
+      }
+      
+      animationId = requestAnimationFrame(monitor);
+    };
+    
+    monitor();
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [element, targetFPS, blurValue]);
+  
+  return { blurValue, isAdapting };
+}
+
+// Error handling for adaptive blur
+function safeAdaptiveBlur(config: AdaptiveBlurConfig): number {
+  try {
+    return adaptiveBlur(config);
+  } catch (error) {
+    console.error('Adaptive blur failed:', error);
+    return config.minBlur || 10; // Return minimum blur as fallback
+  }
+}
+```
+
+## Layout Utilities
+
+### getGlassBounds(element)
+
+Get optimized positioning for glass overlays with comprehensive boundary calculation.
+
+```tsx
+// Basic usage
+const bounds = getGlassBounds(parentElement);
+// Returns: { top, left, width, height, borderRadius }
+
+// Error handling
+function getSafeBounds(element: HTMLElement | null): GlassBounds | null {
+  try {
+    if (!element) {
+      throw new Error('Element is null or undefined');
+    }
+    
+    if (!element.getBoundingClientRect) {
+      throw new Error('Element does not support getBoundingClientRect');
+    }
+    
+    return getGlassBounds(element);
+  } catch (error) {
+    console.error('Failed to get glass bounds:', error);
+    return null;
+  }
+}
+
+// Responsive bounds calculation
+function getResponsiveGlassBounds(element: HTMLElement): GlassBounds {
+  const baseBounds = getGlassBounds(element);
+  const breakpoint = getGlassBreakpoint();
+  
+  // Adjust bounds based on breakpoint
+  switch (breakpoint.name) {
+    case 'xs':
+    case 'sm':
+      return {
+        ...baseBounds,
+        borderRadius: scaleGlass(baseBounds.borderRadius, breakpoint.name)
+      };
+    default:
+      return baseBounds;
+  }
+}
+```
+
+### isGlassSupported()
+
+Check browser support for backdrop-filter and related glass effect features.
+
+```tsx
+// Basic usage
+if (isGlassSupported()) {
+  // Use glass effects
+} else {
+  // Fallback to solid backgrounds
+}
+
+// Advanced feature detection
+interface GlassSupport {
+  backdropFilter: boolean;
+  webgl: boolean;
+  css3d: boolean;
+  willChange: boolean;
+  containment: boolean;
+}
+
+function getGlassSupport(): GlassSupport {
+  const support: GlassSupport = {
+    backdropFilter: CSS.supports('backdrop-filter', 'blur(1px)'),
+    webgl: (() => {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+      } catch {
+        return false;
+      }
+    })(),
+    css3d: CSS.supports('transform-style', 'preserve-3d'),
+    willChange: CSS.supports('will-change', 'transform'),
+    containment: CSS.supports('contain', 'layout')
+  };
+  
+  return support;
+}
+
+// Graceful degradation helper
+function useGlassWithFallback<T>(glassValue: T, fallbackValue: T): T {
+  return isGlassSupported() ? glassValue : fallbackValue;
+}
+```
+
+## Performance Utilities
+
+### optimizeGlass(element, options)
+
+Apply comprehensive performance optimizations to glass elements.
+
+```tsx
+// Basic optimization
+optimizeGlass(glassRef.current, {
+  hardware: true,          // Enable hardware acceleration
+  willChange: true,        // Set will-change properties
+  containment: 'layout'    // Apply CSS containment
+});
+
+// Advanced optimization with error handling
+function safeOptimizeGlass(element: HTMLElement | null, options: OptimizationOptions = {}) {
+  try {
+    if (!element) {
+      throw new Error('Element is required for optimization');
+    }
+    
+    const support = getGlassSupport();
+    
+    // Apply optimizations based on browser support
+    const safeOptions: OptimizationOptions = {
+      hardware: support.css3d && (options.hardware ?? true),
+      willChange: support.willChange && (options.willChange ?? true),
+      containment: support.containment ? (options.containment ?? 'layout') : 'none',
+      isolation: options.isolation ?? false
+    };
+    
+    optimizeGlass(element, safeOptions);
+    
+    return true;
+  } catch (error) {
+    console.warn('Glass optimization failed:', error);
+    return false;
+  }
+}
+
+// Batch optimization for multiple elements
+function optimizeGlassElements(elements: HTMLElement[], options: OptimizationOptions = {}) {
+  const results = elements.map(element => safeOptimizeGlass(element, options));
+  const successCount = results.filter(Boolean).length;
+  
+  console.log(`Optimized ${successCount}/${elements.length} glass elements`);
+  return results;
+}
+```
+
+### debounceGlass(callback, delay)
+
+Debounce function optimized for glass animations with frame-rate awareness.
+
+```tsx
+// Basic usage
+const debouncedUpdate = debounceGlass(() => {
+  updateGlassEffect();
+}, 16); // 60fps throttling
+
+// Advanced debouncing with performance monitoring
+function createPerformanceAwareDebounce<T extends (...args: any[]) => any>(
+  callback: T,
+  targetFPS: number = 60
+): T {
+  const frameTime = 1000 / targetFPS;
+  let lastCall = 0;
+  let timeoutId: number;
+  
+  return ((...args: Parameters<T>) => {
+    const now = performance.now();
+    const timeSinceLastCall = now - lastCall;
+    
+    clearTimeout(timeoutId);
+    
+    if (timeSinceLastCall >= frameTime) {
+      lastCall = now;
+      callback(...args);
+    } else {
+      timeoutId = setTimeout(() => {
+        lastCall = performance.now();
+        callback(...args);
+      }, frameTime - timeSinceLastCall);
+    }
+  }) as T;
+}
+
+// Error-safe debounce
+function safeDebounceGlass<T extends (...args: any[]) => any>(
+  callback: T,
+  delay: number
+): T {
+  return ((...args: Parameters<T>) => {
+    try {
+      return debounceGlass(callback, delay)(...args);
+    } catch (error) {
+      console.error('Debounced glass function failed:', error);
+    }
+  }) as T;
+}
+```
+
+## Responsive Utilities
+
+### getGlassBreakpoint()
+
+Get current breakpoint for responsive glass effects with detailed information.
+
+```tsx
+// Basic usage
+const breakpoint = getGlassBreakpoint();
+// Returns: { name: 'md', minWidth: 768, maxWidth: 1024, glassFactor: 1.0 }
+
+// Usage with effect
+function useGlassBreakpoint() {
+  const [breakpoint, setBreakpoint] = useState<GlassBreakpoint | null>(null);
+  
+  useEffect(() => {
+    const updateBreakpoint = () => {
+      try {
+        setBreakpoint(getGlassBreakpoint());
+      } catch (error) {
+        console.error('Failed to get breakpoint:', error);
+        setBreakpoint({
+          name: 'md',
+          minWidth: 768,
+          maxWidth: 1024,
+          glassFactor: 1.0
+        });
+      }
+    };
+    
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+    
+    return () => window.removeEventListener('resize', updateBreakpoint);
+  }, []);
+  
+  return breakpoint;
+}
+```
+
+### scaleGlass(value, breakpoint)
+
+Scale glass properties based on screen size with intelligent scaling algorithms.
+
+```tsx
+// Basic usage
+const blur = scaleGlass(20, 'xs'); // Reduces blur on mobile
+const opacity = scaleGlass(0.1, 'sm'); // Adjusts opacity for tablet
+
+// Advanced scaling with type safety
+function scaleGlassProperty<T extends number | string>(
+  value: T,
+  breakpoint: GlassBreakpoint['name'],
+  scalingMode: 'linear' | 'exponential' | 'adaptive' = 'adaptive'
+): T {
+  try {
+    return scaleGlass(value, breakpoint, { mode: scalingMode });
+  } catch (error) {
+    console.warn('Glass scaling failed, returning original value:', error);
+    return value;
+  }
+}
+
+// Responsive glass configuration
+interface ResponsiveGlassConfig {
+  blur: Record<GlassBreakpoint['name'], number>;
+  opacity: Record<GlassBreakpoint['name'], number>;
+  borderRadius: Record<GlassBreakpoint['name'], string>;
+}
+
+const responsiveGlassConfig: ResponsiveGlassConfig = {
+  blur: { xs: 10, sm: 15, md: 20, lg: 25, xl: 30 },
+  opacity: { xs: 0.05, sm: 0.08, md: 0.1, lg: 0.12, xl: 0.15 },
+  borderRadius: { xs: '8px', sm: '12px', md: '16px', lg: '20px', xl: '24px' }
+};
+
+function getResponsiveGlassStyles(breakpoint: GlassBreakpoint['name']) {
+  return {
+    backdropFilter: `blur(${responsiveGlassConfig.blur[breakpoint]}px)`,
+    backgroundColor: `rgba(255, 255, 255, ${responsiveGlassConfig.opacity[breakpoint]})`,
+    borderRadius: responsiveGlassConfig.borderRadius[breakpoint]
+  };
+}
+```
+
+## Best Practices & Common Pitfalls
+
+### Performance Best Practices
+
+```tsx
+// ✅ Good: Cache glass calculations
+const glassMemo = useMemo(() => {
+  return {
+    color: glassColor('#3B82F6', 0.1),
+    transition: createGlassTransition({ duration: 300, easing: 'ease-out' }),
+    blur: calculateBlur({ element: elementRef.current, speed: 'medium' })
+  };
+}, [elementRef.current]);
+
+// ✅ Good: Use error boundaries for glass effects
+function GlassErrorBoundary({ children }: { children: React.ReactNode }) {
+  return (
+    <ErrorBoundary
+      fallback={<div className="glass-fallback">Glass effects unavailable</div>}
+      onError={(error) => console.warn('Glass effect error:', error)}
+    >
+      {children}
+    </ErrorBoundary>
+  );
+}
+
+// ❌ Bad: Recalculating on every render
+function BadGlassComponent() {
+  const glassColor = glassColor('#3B82F6', 0.1); // Recalculated every render
+  return <div style={{ backgroundColor: glassColor.rgba }}>Content</div>;
+}
+
+// ❌ Bad: Not handling browser support
+function BadGlassComponent() {
+  return (
+    <div style={{ backdropFilter: 'blur(20px)' }}>
+      {/* No fallback for unsupported browsers */}
+    </div>
+  );
+}
+```
+
+### Error Handling Patterns
+
+```tsx
+// ✅ Good: Comprehensive error handling
+function RobustGlassComponent() {
+  const [glassSupported, setGlassSupported] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    try {
+      if (!isGlassSupported()) {
+        setGlassSupported(false);
+        setError('Glass effects not supported in this browser');
+      }
+    } catch (err) {
+      setError('Failed to check glass support');
+      setGlassSupported(false);
+    }
+  }, []);
+  
+  if (error) {
+    return <div className="error-fallback">{error}</div>;
+  }
+  
+  if (!glassSupported) {
+    return <div className="solid-fallback">Solid background fallback</div>;
+  }
+  
+  return <div className="glass-component">Glass effects enabled</div>;
+}
+```
+
+## Real-World Examples
+
+### Dynamic Glass Card with Full Error Handling
+
+```tsx
+import { 
+  glassColor, 
+  createGlassTransition, 
+  optimizeGlass,
+  isGlassSupported,
+  getGlassBreakpoint
+} from 'liquidui-package/utils';
+
+interface DynamicCardProps {
+  color: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+function DynamicCard({ color, children, className = '' }: DynamicCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isOptimized, setIsOptimized] = useState(false);
+  const [glassStyles, setGlassStyles] = useState<React.CSSProperties>({});
+  const [error, setError] = useState<string | null>(null);
+  
+  useEffect(() => {
+    try {
+      if (!isGlassSupported()) {
+        setError('Glass effects not supported');
+        return;
+      }
+
+      const breakpoint = getGlassBreakpoint();
+      const backgroundColor = glassColor(color, 0.1);
+      
+      if (!backgroundColor.isValid) {
+        throw new Error(`Invalid color: ${color}`);
+      }
+
+      const styles: React.CSSProperties = {
+        backgroundColor: backgroundColor.rgba,
+        transition: createGlassTransition({
+          duration: 300,
+          easing: 'ease-out',
+          includeBackdrop: true
+        }),
+        backdropFilter: `blur(${scaleGlass(20, breakpoint.name)}px)`,
+        border: `1px solid ${glassColor(color, 0.2).rgba}`
+      };
+
+      setGlassStyles(styles);
+
+      // Optimize performance
+      if (cardRef.current) {
+        const optimized = safeOptimizeGlass(cardRef.current, {
+          hardware: true,
+          willChange: true,
+          containment: 'layout'
+        });
+        setIsOptimized(optimized);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Glass setup failed');
+      // Fallback styles
+      setGlassStyles({
+        backgroundColor: `${color}20`,
+        transition: 'all 0.3s ease-out'
+      });
+    }
+  }, [color]);
+  
+  if (error && !isGlassSupported()) {
+    return (
+      <div 
+        ref={cardRef} 
+        className={`solid-card ${className}`}
+        style={{ backgroundColor: `${color}20` }}
+      >
+        {children}
+      </div>
+    );
+  }
+  
+  return (
+    <div 
+      ref={cardRef} 
+      className={`glass-card ${className} ${isOptimized ? 'optimized' : ''}`}
+      style={glassStyles}
+    >
+      {error && (
+        <div className="glass-warning">⚠️ Limited glass effects</div>
+      )}
+      {children}
+    </div>
+  );
+}
+```
+
+### Responsive Glass Navigation
+
+```tsx
+import { 
+  scaleGlass, 
+  getGlassBreakpoint, 
+  adaptiveBlur,
+  useGlassBreakpoint 
+} from 'liquidui-package/utils';
+
+function ResponsiveGlassNavigation() {
+  const navRef = useRef<HTMLElement>(null);
+  const breakpoint = useGlassBreakpoint();
+  const [adaptiveStyles, setAdaptiveStyles] = useState<React.CSSProperties>({});
+  
+  useEffect(() => {
+    if (!breakpoint || !navRef.current) return;
+    
+    try {
+      const blur = adaptiveBlur({
+        element: navRef.current,
+        targetFPS: 60,
+        maxBlur: scaleGlass(25, breakpoint.name),
+        minBlur: scaleGlass(10, breakpoint.name)
+      });
+      
+      const opacity = scaleGlass(0.1, breakpoint.name);
+      
+      setAdaptiveStyles({
+        backdropFilter: `blur(${blur}px)`,
+        backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+        borderRadius: scaleGlass('16px', breakpoint.name),
+        padding: breakpoint.name === 'xs' ? '0.5rem' : '1rem'
+      });
+    } catch (error) {
+      console.error('Failed to apply adaptive glass styles:', error);
+      // Fallback styles
+      setAdaptiveStyles({
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(10px)'
+      });
+    }
+  }, [breakpoint]);
+  
+  return (
+    <nav 
+      ref={navRef}
+      className="glass-navigation"
+      style={adaptiveStyles}
+    >
+      <div className="nav-content">
+        <div className="nav-brand">LiquidUI</div>
+        <div className="nav-links">
+          <a href="#home">Home</a>
+          <a href="#docs">Docs</a>
+          <a href="#examples">Examples</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+### Performance-Optimized Glass Grid
+
+```tsx
+import { 
+  optimizeGlass,
+  debounceGlass,
+  createGlassTransition,
+  glassColor
+} from 'liquidui-package/utils';
+
+interface GlassGridProps {
+  items: Array<{ id: string; color: string; content: React.ReactNode }>;
+}
+
+function PerformanceGlassGrid({ items }: GlassGridProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  
+  // Debounced optimization function
+  const debouncedOptimize = useMemo(
+    () => debounceGlass(() => {
+      const elements = Array.from(itemRefs.current.values());
+      optimizeGlassElements(elements, {
+        hardware: true,
+        willChange: true,
+        containment: 'layout'
+      });
+    }, 100),
+    []
+  );
+  
+  useEffect(() => {
+    debouncedOptimize();
+  }, [items, debouncedOptimize]);
+  
+  const setItemRef = useCallback((id: string) => (el: HTMLDivElement | null) => {
+    if (el) {
+      itemRefs.current.set(id, el);
+    } else {
+      itemRefs.current.delete(id);
+    }
+  }, []);
+  
+  return (
+    <div ref={gridRef} className="glass-grid">
+      {items.map((item, index) => (
+        <GlassGridItem
+          key={item.id}
+          ref={setItemRef(item.id)}
+          color={item.color}
+          index={index}
+        >
+          {item.content}
+        </GlassGridItem>
+      ))}
+    </div>
+  );
+}
+
+const GlassGridItem = React.forwardRef<
+  HTMLDivElement,
+  { 
+    color: string; 
+    children: React.ReactNode; 
+    index: number;
+  }
+>(({ color, children, index }, ref) => {
+  const [styles, setStyles] = useState<React.CSSProperties>({});
+  
+  useEffect(() => {
+    try {
+      const backgroundColor = glassColor(color, 0.08);
+      const borderColor = glassColor(color, 0.15);
+      
+      setStyles({
+        backgroundColor: backgroundColor.rgba,
+        border: `1px solid ${borderColor.rgba}`,
+        transition: createGlassTransition({
+          duration: 300 + (index * 50), // Staggered animations
+          easing: 'ease-out'
+        }),
+        backdropFilter: 'blur(15px)',
+        // Staggered animation delay
+        animationDelay: `${index * 100}ms`
+      });
+    } catch (error) {
+      console.error('Failed to create glass styles for grid item:', error);
+      setStyles({
+        backgroundColor: `${color}15`,
+        transition: 'all 0.3s ease-out'
+      });
+    }
+  }, [color, index]);
+  
+  return (
+    <div 
+      ref={ref}
+      className="glass-grid-item"
+      style={styles}
+    >
+      {children}
+    </div>
+  );
+});
+```
+
+### Browser Compatibility with Feature Detection
+
+```tsx
+import { isGlassSupported, getGlassSupport } from 'liquidui-package/utils';
+
+function AdaptiveGlassCard({ children }: { children: React.ReactNode }) {
+  const [support, setSupport] = useState<GlassSupport | null>(null);
+  const [fallbackMode, setFallbackMode] = useState(false);
+  
+  useEffect(() => {
+    try {
+      const glassSupport = getGlassSupport();
+      setSupport(glassSupport);
+      
+      // Use fallback if critical features are missing
+      const criticalFeaturesSupported = 
+        glassSupport.backdropFilter && glassSupport.willChange;
+      
+      if (!criticalFeaturesSupported) {
+        setFallbackMode(true);
+      }
+    } catch (error) {
+      console.error('Feature detection failed:', error);
+      setFallbackMode(true);
+    }
+  }, []);
+  
+  if (fallbackMode) {
+    return (
+      <div className="solid-card-fallback">
+        <div className="fallback-notice">
+          Glass effects unavailable - using solid styling
+        </div>
+        {children}
+      </div>
+    );
+  }
+  
+  const cardClasses = [
+    'glass-card',
+    support?.webgl ? 'webgl-enhanced' : '',
+    support?.containment ? 'with-containment' : '',
+    support?.css3d ? 'hardware-accelerated' : ''
+  ].filter(Boolean).join(' ');
+  
+  return (
+    <div className={cardClasses}>
+      {process.env.NODE_ENV === 'development' && support && (
+        <div className="debug-support-info">
+          <details>
+            <summary>Glass Support Debug</summary>
+            <pre>{JSON.stringify(support, null, 2)}</pre>
+          </details>
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+```

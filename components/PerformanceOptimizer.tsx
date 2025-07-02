@@ -1,7 +1,26 @@
-import React, { useEffect, memo } from 'react';
-import { motion, LazyMotion, domAnimation } from 'framer-motion';
+import React, { useEffect, memo, useCallback, useMemo } from 'react';
+import { motion, LazyMotion, domAnimation, type Variants, type Transition } from 'framer-motion';
 
-// Performance-optimized motion components
+// Performance-optimized transition presets
+const SPRING_CONFIGS = {
+  gentle: { type: "spring" as const, stiffness: 260, damping: 20, mass: 1 },
+  bouncy: { type: "spring" as const, stiffness: 400, damping: 10, mass: 0.7 },
+  snappy: { type: "spring" as const, stiffness: 600, damping: 15, mass: 0.5 },
+  smooth: { type: "spring" as const, stiffness: 100, damping: 15, mass: 1 },
+} as const;
+
+// Type-safe animation configurations
+type SpringConfig = typeof SPRING_CONFIGS[keyof typeof SPRING_CONFIGS];
+type AnimationDuration = number;
+type EasingFunction = string | number[];
+
+interface OptimizedTransition extends Transition {
+  config?: SpringConfig;
+  duration?: AnimationDuration;
+  ease?: EasingFunction;
+}
+
+// Performance-optimized motion components with proper typing
 export const OptimizedMotion = {
     div: memo(motion.div),
     section: memo(motion.section),
@@ -11,31 +30,41 @@ export const OptimizedMotion = {
     p: memo(motion.p),
     button: memo(motion.button),
     a: memo(motion.a),
-};
+    ul: memo(motion.ul),
+    li: memo(motion.li),
+    img: memo(motion.img),
+    span: memo(motion.span),
+} as const;
 
-// Optimized animation variants
-export const optimizedVariants = {
-    // Page transitions
+// Type-safe optimized animation variants
+export const optimizedVariants: Record<string, Variants> = {
+    // Enhanced page transitions with better performance
     pageTransition: {
-        initial: { opacity: 0, y: 20 },
+        initial: { 
+            opacity: 0, 
+            y: 20, 
+            scale: 0.95,
+            filter: "blur(4px)"
+        },
         animate: {
             opacity: 1,
             y: 0,
+            scale: 1,
+            filter: "blur(0px)",
             transition: {
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-                mass: 1,
+                ...SPRING_CONFIGS.gentle,
+                staggerChildren: 0.05,
+                delayChildren: 0.1,
             }
         },
         exit: {
             opacity: 0,
             y: -20,
+            scale: 0.95,
+            filter: "blur(2px)",
             transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-                mass: 0.8,
+                ...SPRING_CONFIGS.snappy,
+                duration: 0.2,
             }
         }
     },
@@ -66,37 +95,88 @@ export const optimizedVariants = {
         }
     },
 
-    // Hover animations (optimized)
+    // Enhanced hover animations with micro-interactions
     hoverScale: {
         whileHover: {
             scale: 1.05,
+            y: -2,
+            filter: "brightness(1.05)",
             transition: {
-                type: "spring",
-                stiffness: 400,
-                damping: 10,
-                mass: 0.7,
+                ...SPRING_CONFIGS.bouncy,
+                duration: 0.2,
             }
         },
         whileTap: {
             scale: 0.95,
+            y: 0,
+            filter: "brightness(0.95)",
             transition: {
-                type: "spring",
-                stiffness: 600,
-                damping: 15,
-                mass: 0.5,
+                ...SPRING_CONFIGS.snappy,
+                duration: 0.1,
+            }
+        }
+    },
+    
+    // Enhanced button interactions
+    buttonInteraction: {
+        initial: { scale: 1 },
+        whileHover: {
+            scale: 1.02,
+            y: -1,
+            boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)",
+            transition: {
+                ...SPRING_CONFIGS.gentle,
+                duration: 0.2,
+            }
+        },
+        whileTap: {
+            scale: 0.98,
+            y: 0,
+            transition: {
+                ...SPRING_CONFIGS.snappy,
+                duration: 0.1,
+            }
+        }
+    },
+    
+    // Card hover effects
+    cardHover: {
+        initial: { scale: 1, y: 0 },
+        whileHover: {
+            scale: 1.02,
+            y: -4,
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+            transition: {
+                ...SPRING_CONFIGS.gentle,
+                duration: 0.3,
             }
         }
     },
 
-    // Liquid glass morphing
+    // Enhanced liquid glass morphing with better performance
     liquidMorph: {
         animate: {
-            scale: [1, 1.02, 1],
-            rotate: [0, 1, 0],
+            scale: [1, 1.01, 1.02, 1],
+            rotate: [0, 0.5, 1, 0],
+            borderRadius: ["24px", "28px 16px 32px 20px", "20px 32px 16px 28px", "24px"],
             transition: {
-                duration: 4,
+                duration: 8,
                 repeat: Infinity,
                 repeatType: "reverse" as const,
+                ease: [0.4, 0.0, 0.2, 1],
+            }
+        }
+    },
+    
+    // Advanced glass morphing
+    glassMorphAdvanced: {
+        animate: {
+            scale: [1, 1.005, 1.01, 1.005, 1],
+            rotate: [0, 0.3, -0.2, 0.1, 0],
+            filter: ["blur(0px)", "blur(0.5px)", "blur(0.8px)", "blur(0.3px)", "blur(0px)"],
+            transition: {
+                duration: 12,
+                repeat: Infinity,
                 ease: "easeInOut",
             }
         }
@@ -116,25 +196,97 @@ export const optimizedVariants = {
         }
     },
 
-    // Fade in viewport
+    // Enhanced viewport animations
     fadeInViewport: {
-        initial: { opacity: 0, y: 50 },
+        initial: { 
+            opacity: 0, 
+            y: 50, 
+            scale: 0.95,
+            filter: "blur(4px)"
+        },
         whileInView: {
             opacity: 1,
             y: 0,
+            scale: 1,
+            filter: "blur(0px)",
             transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                mass: 1,
+                ...SPRING_CONFIGS.smooth,
+                duration: 0.6,
             }
         },
         viewport: { once: true, margin: "0px 0px -100px 0px" }
+    },
+    
+    // Slide in from left
+    slideInLeft: {
+        initial: { opacity: 0, x: -50 },
+        whileInView: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                ...SPRING_CONFIGS.gentle,
+                duration: 0.6,
+            }
+        },
+        viewport: { once: true, margin: "0px 0px -50px 0px" }
+    },
+    
+    // Slide in from right
+    slideInRight: {
+        initial: { opacity: 0, x: 50 },
+        whileInView: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                ...SPRING_CONFIGS.gentle,
+                duration: 0.6,
+            }
+        },
+        viewport: { once: true, margin: "0px 0px -50px 0px" }
+    },
+    
+    // Scale in animation
+    scaleIn: {
+        initial: { opacity: 0, scale: 0.8 },
+        whileInView: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                ...SPRING_CONFIGS.bouncy,
+                duration: 0.5,
+            }
+        },
+        viewport: { once: true }
     }
 };
 
-// Performance optimization hooks
+// Enhanced performance optimization with advanced techniques
 export const usePerformanceOptimization = () => {
+    const [isReducedMotion, setIsReducedMotion] = React.useState(false);
+    
+    // Check for reduced motion preference
+    React.useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        setIsReducedMotion(mediaQuery.matches);
+        
+        const handleChange = (e: MediaQueryListEvent) => setIsReducedMotion(e.matches);
+        mediaQuery.addEventListener('change', handleChange);
+        
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    }, []);
+    
+    const optimizeForDevice = useCallback(() => {
+        // Detect device capabilities and adjust animations
+        const hasReducedPerformance = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const hasLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
+        const isSlowConnection = (navigator as any).connection && (navigator as any).connection.effectiveType === 'slow-2g';
+        
+        if (hasReducedPerformance || hasLowMemory || isSlowConnection || isReducedMotion) {
+            // Reduce animation complexity
+            document.documentElement.style.setProperty('--animation-duration', '0.1s');
+            document.documentElement.style.setProperty('--animation-complexity', 'low');
+        }
+    }, [isReducedMotion]);
     useEffect(() => {
         // Enable hardware acceleration for all animated elements
         const optimizeAnimations = () => {
@@ -207,10 +359,13 @@ export const usePerformanceOptimization = () => {
             document.head.appendChild(style);
         };
 
-        // Debounced resize handler
+        // Enhanced resize optimization with RAF
         const debouncedResize = debounce(() => {
-            // Trigger re-layout optimizations on resize
-            window.dispatchEvent(new CustomEvent('optimizedResize'));
+            requestAnimationFrame(() => {
+                // Batch DOM operations
+                window.dispatchEvent(new CustomEvent('optimizedResize'));
+                optimizeForDevice();
+            });
         }, 100);
 
         // Optimize scroll performance
@@ -236,6 +391,7 @@ export const usePerformanceOptimization = () => {
         };
 
         optimizeAnimations();
+        optimizeForDevice();
         window.addEventListener('resize', debouncedResize);
         const cleanupScroll = optimizeScroll();
 
@@ -279,13 +435,142 @@ export const useIntersectionObserver = (
     return observer;
 };
 
-// Optimized lazy motion wrapper
-export const LazyOptimizedMotion: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+// Performance monitoring utilities
+interface PerformanceMetrics {
+    fps: number;
+    memoryUsage: number;
+    renderTime: number;
+    animationCount: number;
+}
+
+export const usePerformanceMonitor = () => {
+    const [metrics, setMetrics] = React.useState<PerformanceMetrics>({
+        fps: 60,
+        memoryUsage: 0,
+        renderTime: 0,
+        animationCount: 0
+    });
+    
+    React.useEffect(() => {
+        let frameCount = 0;
+        let lastTime = performance.now();
+        
+        const measurePerformance = () => {
+            frameCount++;
+            const currentTime = performance.now();
+            
+            if (currentTime - lastTime >= 1000) {
+                const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                const memory = (performance as any).memory?.usedJSHeapSize || 0;
+                
+                setMetrics(prev => ({
+                    ...prev,
+                    fps,
+                    memoryUsage: memory,
+                    renderTime: currentTime - lastTime
+                }));
+                
+                frameCount = 0;
+                lastTime = currentTime;
+            }
+            
+            requestAnimationFrame(measurePerformance);
+        };
+        
+        const rafId = requestAnimationFrame(measurePerformance);
+        return () => cancelAnimationFrame(rafId);
+    }, []);
+    
+    return metrics;
+};
+
+// Advanced animation controller
+export const useAnimationController = () => {
+    const [animationsEnabled, setAnimationsEnabled] = React.useState(true);
+    const [complexity, setComplexity] = React.useState<'low' | 'medium' | 'high'>('high');
+    
+    const toggleAnimations = useCallback(() => {
+        setAnimationsEnabled(prev => !prev);
+    }, []);
+    
+    const adjustComplexity = useCallback((level: 'low' | 'medium' | 'high') => {
+        setComplexity(level);
+        
+        // Apply complexity adjustments
+        const root = document.documentElement;
+        switch (level) {
+            case 'low':
+                root.style.setProperty('--animation-duration', '0.1s');
+                root.style.setProperty('--blur-intensity', '2px');
+                break;
+            case 'medium':
+                root.style.setProperty('--animation-duration', '0.2s');
+                root.style.setProperty('--blur-intensity', '8px');
+                break;
+            case 'high':
+                root.style.setProperty('--animation-duration', '0.3s');
+                root.style.setProperty('--blur-intensity', '20px');
+                break;
+        }
+    }, []);
+    
+    return {
+        animationsEnabled,
+        complexity,
+        toggleAnimations,
+        adjustComplexity
+    };
+};
+
+// Type-safe variant factory
+export const createVariant = <T extends Record<string, any>>(
+    variants: T
+): T => variants;
+
+// Optimized lazy motion wrapper with performance monitoring
+export const LazyOptimizedMotion: React.FC<{ 
+    children: React.ReactNode;
+    enablePerformanceMonitoring?: boolean;
+}> = memo(({ children, enablePerformanceMonitoring = false }) => {
+    const metrics = enablePerformanceMonitoring ? usePerformanceMonitor() : null;
+    
+    React.useEffect(() => {
+        if (enablePerformanceMonitoring && metrics) {
+            // Log performance warnings
+            if (metrics.fps < 30) {
+                console.warn('Low FPS detected:', metrics.fps);
+            }
+            if (metrics.memoryUsage > 100 * 1024 * 1024) { // 100MB
+                console.warn('High memory usage detected:', metrics.memoryUsage);
+            }
+        }
+    }, [metrics, enablePerformanceMonitoring]);
+    
     return (
         <LazyMotion features={domAnimation} strict>
             {children}
+            {enablePerformanceMonitoring && metrics && (
+                <div 
+                    style={{
+                        position: 'fixed',
+                        top: 10,
+                        right: 10,
+                        background: 'rgba(0,0,0,0.7)',
+                        color: 'white',
+                        padding: '8px',
+                        borderRadius: '4px',
+                        fontSize: '12px',
+                        zIndex: 10000,
+                        fontFamily: 'monospace'
+                    }}
+                >
+                    FPS: {metrics.fps} | Memory: {Math.round(metrics.memoryUsage / 1024 / 1024)}MB
+                </div>
+            )}
         </LazyMotion>
     );
-};
+});
 
-export default memo(LazyOptimizedMotion); 
+LazyOptimizedMotion.displayName = 'LazyOptimizedMotion';
+
+export default LazyOptimizedMotion; 

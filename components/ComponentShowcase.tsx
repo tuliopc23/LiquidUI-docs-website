@@ -1,14 +1,64 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useCallback, useMemo } from "react";
+import { motion, type Variants } from "framer-motion";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye } from "lucide-react";
 import { LiquidifyLogo } from "./LiquidifyLogo";
 import { StorybookLogo } from "./StorybookLogo";
 
 // Utility function for classname merging
-function cn(...classes: (string | undefined)[]) {
+function cn(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
 }
+
+// Animation variants for better performance
+const showcaseVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20,
+    scale: 0.95
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0.0, 0.2, 1],
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      delay: 0.2,
+      duration: 0.3,
+      ease: [0.4, 0.0, 0.2, 1]
+    }
+  }
+};
+
+const buttonVariants: Variants = {
+  idle: { scale: 1 },
+  hover: { 
+    scale: 1.05,
+    transition: {
+      duration: 0.2,
+      ease: [0.4, 0.0, 0.2, 1]
+    }
+  },
+  tap: { 
+    scale: 0.95,
+    transition: {
+      duration: 0.1,
+      ease: [0.4, 0.0, 0.2, 1]
+    }
+  }
+};
 
 /**
  * Props for the ComponentShowcase component.
@@ -51,20 +101,44 @@ export function ComponentShowcase({
   const [copied, setCopied] = useState(false);
   const [isCodeVisible, setIsCodeVisible] = useState(showCode);
 
-  const handleCopy = async () => {
-    if (code) {
+  const handleCopy = useCallback(async () => {
+    if (!code) return;
+    
+    try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.warn('Failed to copy to clipboard:', error);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = code;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  };
+  }, [code]);
+  
+  const toggleCodeVisibility = useCallback(() => {
+    setIsCodeVisible(prev => !prev);
+  }, []);
+  
+  // Memoize aria label for better accessibility
+  const ariaLabel = useMemo(() => {
+    return title ? `Component showcase for ${title}` : 'Component showcase';
+  }, [title]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={showcaseVariants}
+      initial="hidden"
+      animate="visible"
       className="component-showcase group relative overflow-hidden rounded-3xl my-8 glass-card border border-white/20"
+      role="region"
+      aria-label={ariaLabel}
     >
       {/* Animated background effect for better visibility */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 opacity-100 transition-opacity duration-500" />
