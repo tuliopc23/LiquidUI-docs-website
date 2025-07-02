@@ -1,0 +1,487 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Accessibility Testing
+
+Comprehensive accessibility testing utilities and guidelines for LiquidUI components. Ensure your glassmorphism interfaces are inclusive and meet WCAG standards.
+
+## Overview
+
+LiquidUI provides built-in accessibility testing utilities to help developers create inclusive interfaces. The library includes automated checks, manual testing guides, and component-specific accessibility patterns.
+
+## Testing Utilities
+
+### Automated Checks
+
+```typescript
+import { testAccessibility } from '@tuliocunha23/liquidui';
+
+// Test a component for accessibility issues
+const results = await testAccessibility(componentRef);
+
+console.log('Accessibility Score:', results.score);
+console.log('Issues Found:', results.issues);
+```
+
+### Manual Testing Checklist
+
+```typescript
+import { createAccessibilityChecklist } from '@tuliocunha23/liquidui';
+
+const checklist = createAccessibilityChecklist({
+  component: 'GlassButton',
+  level: 'AA' // WCAG compliance level
+});
+
+// Returns structured checklist for manual testing
+```
+
+## Common Accessibility Issues with Glass Effects
+
+### Contrast Problems
+
+Glass effects can reduce contrast, making text harder to read:
+
+<ComponentShowcase>
+  <div className="space-y-4 p-6">
+    {/* Poor contrast example */}
+    <div className="p-4 backdrop-blur-xl bg-white/10 border border-white/20 rounded-lg">
+      <span className="text-gray-400 text-sm">❌ Poor contrast (fails WCAG)</span>
+    </div>
+    
+    {/* Good contrast example */}
+    <div className="p-4 backdrop-blur-md bg-white/80 border border-white/40 rounded-lg">
+      <span className="text-gray-900 text-sm font-medium">✅ Good contrast (passes WCAG)</span>
+    </div>
+  </div>
+</ComponentShowcase>
+
+### Focus Visibility
+
+Glass components must maintain clear focus indicators:
+
+```tsx
+// Good: Clear focus indicator
+<GlassButton className="focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+  Accessible Button
+</GlassButton>
+
+// Poor: Invisible focus state
+<GlassButton className="backdrop-blur-xl bg-white/5">
+  Hard to focus
+</GlassButton>
+```
+
+## WCAG Compliance Testing
+
+### Level AA Requirements
+
+```typescript
+import { checkWCAG } from '@tuliocunha23/liquidui';
+
+const component = document.querySelector('#my-glass-component');
+const compliance = await checkWCAG(component, {
+  level: 'AA',
+  checks: [
+    'color-contrast',
+    'focus-visible',
+    'keyboard-navigation',
+    'screen-reader-support'
+  ]
+});
+
+if (compliance.passes) {
+  console.log('✅ WCAG AA compliant');
+} else {
+  console.log('❌ Issues found:', compliance.violations);
+}
+```
+
+### Level AAA Requirements
+
+```typescript
+// Stricter testing for AAA compliance
+const strictCompliance = await checkWCAG(component, {
+  level: 'AAA',
+  colorContrast: {
+    normal: 7, // 7:1 ratio for AAA
+    large: 4.5 // 4.5:1 for large text
+  }
+});
+```
+
+## Component-Specific Testing
+
+### Button Accessibility
+
+```typescript
+import { testButtonAccessibility } from '@tuliocunha23/liquidui';
+
+const buttonTests = await testButtonAccessibility(buttonRef, {
+  checkFor: [
+    'keyboard-navigation',
+    'screen-reader-labels',
+    'focus-management',
+    'loading-states',
+    'disabled-states'
+  ]
+});
+```
+
+### Form Field Accessibility
+
+```typescript
+import { testFormFieldAccessibility } from '@tuliocunha23/liquidui';
+
+const fieldTests = await testFormFieldAccessibility(inputRef, {
+  checkFor: [
+    'label-association',
+    'error-announcement',
+    'required-indication',
+    'help-text-association',
+    'placeholder-usage'
+  ]
+});
+```
+
+### Modal Accessibility
+
+```typescript
+import { testModalAccessibility } from '@tuliocunha23/liquidui';
+
+const modalTests = await testModalAccessibility(modalRef, {
+  checkFor: [
+    'focus-trapping',
+    'escape-key-handling',
+    'backdrop-click-handling',
+    'aria-modal-attribute',
+    'initial-focus-placement'
+  ]
+});
+```
+
+## Testing Strategies
+
+### Automated Testing Integration
+
+#### Jest Testing
+
+```typescript
+import { render } from '@testing-library/react';
+import { testAccessibility } from '@tuliocunha23/liquidui';
+import { GlassButton } from '@tuliocunha23/liquidui';
+
+describe('GlassButton Accessibility', () => {
+  test('should meet WCAG AA standards', async () => {
+    const { container } = render(
+      <GlassButton>Test Button</GlassButton>
+    );
+    
+    const results = await testAccessibility(container);
+    expect(results.score).toBeGreaterThanOrEqual(90);
+    expect(results.issues.filter(i => i.type === 'error')).toHaveLength(0);
+  });
+});
+```
+
+#### Cypress Testing
+
+```typescript
+// cypress/integration/accessibility.spec.ts
+describe('Accessibility Tests', () => {
+  it('should pass axe accessibility tests', () => {
+    cy.visit('/components/button');
+    cy.get('[data-testid="glass-button"]').should('be.visible');
+    cy.checkA11y('[data-testid="glass-button"]');
+  });
+  
+  it('should be keyboard navigable', () => {
+    cy.visit('/components/button');
+    cy.get('body').tab();
+    cy.focused().should('have.attr', 'data-testid', 'glass-button');
+    cy.focused().type('{enter}');
+  });
+});
+```
+
+### Manual Testing Guidelines
+
+#### Keyboard Navigation Testing
+
+1. **Tab Order**: Verify logical tab sequence
+2. **Enter/Space**: Confirm button activation
+3. **Escape**: Test modal/dropdown closing
+4. **Arrow Keys**: Check list/menu navigation
+
+```typescript
+// Test keyboard navigation
+const keyboardTest = {
+  tab: 'Move focus to next interactive element',
+  shiftTab: 'Move focus to previous interactive element',
+  enter: 'Activate buttons, links, and form submissions',
+  space: 'Activate buttons and checkboxes',
+  escape: 'Close modals, dropdowns, and overlays',
+  arrowKeys: 'Navigate within components (lists, menus, tabs)'
+};
+```
+
+#### Screen Reader Testing
+
+```typescript
+// Screen reader testing checklist
+const screenReaderChecklist = {
+  labels: 'All interactive elements have accessible names',
+  roles: 'Semantic roles are properly assigned',
+  states: 'Dynamic states are announced (loading, expanded, etc.)',
+  structure: 'Heading hierarchy is logical',
+  landmarks: 'Page regions are properly marked',
+  instructions: 'Complex interactions have clear instructions'
+};
+```
+
+## Accessibility Patterns
+
+### Glass Card with Proper Semantics
+
+```tsx
+<GlassCard
+  role="article"
+  aria-labelledby="card-title"
+  aria-describedby="card-description"
+  className="focus:ring-2 focus:ring-blue-500"
+  tabIndex={0}
+>
+  <h3 id="card-title" className="text-lg font-semibold">
+    Card Title
+  </h3>
+  <p id="card-description" className="text-gray-600 mt-2">
+    Card description that provides context
+  </p>
+</GlassCard>
+```
+
+### Accessible Glass Modal
+
+```tsx
+<GlassModal
+  isOpen={isOpen}
+  onClose={onClose}
+  aria-labelledby="modal-title"
+  aria-describedby="modal-description"
+  role="dialog"
+  aria-modal="true"
+>
+  <h2 id="modal-title" className="text-xl font-bold">
+    Modal Title
+  </h2>
+  <p id="modal-description" className="mt-2 text-gray-600">
+    Modal content description
+  </p>
+  
+  <div className="mt-6 flex justify-end gap-3">
+    <GlassButton 
+      onClick={onClose}
+      aria-label="Cancel and close modal"
+    >
+      Cancel
+    </GlassButton>
+    <GlassButton 
+      variant="primary"
+      onClick={onConfirm}
+      aria-label="Confirm action"
+    >
+      Confirm
+    </GlassButton>
+  </div>
+</GlassModal>
+```
+
+## Color Contrast Testing
+
+### Automated Contrast Checking
+
+```typescript
+import { checkColorContrast } from '@tuliocunha23/liquidui';
+
+const contrastResults = checkColorContrast({
+  foreground: '#374151', // text color
+  background: 'rgba(255, 255, 255, 0.8)', // glass background
+  size: 'normal' // or 'large'
+});
+
+console.log('Contrast Ratio:', contrastResults.ratio);
+console.log('WCAG AA Pass:', contrastResults.wcagAA);
+console.log('WCAG AAA Pass:', contrastResults.wcagAAA);
+```
+
+### Dynamic Contrast Adjustment
+
+```tsx
+import { useContrastAdjustment } from '@tuliocunha23/liquidui';
+
+function AccessibleGlassComponent() {
+  const { adjustedStyles, contrastRatio } = useContrastAdjustment({
+    baseStyles: 'backdrop-blur-md bg-white/20',
+    textColor: '#374151',
+    minRatio: 4.5 // WCAG AA requirement
+  });
+  
+  return (
+    <div className={adjustedStyles}>
+      <p>Text with guaranteed contrast ratio: {contrastRatio}</p>
+    </div>
+  );
+}
+```
+
+## Performance and Accessibility
+
+### Reduced Motion Support
+
+```tsx
+import { useReducedMotion } from '@tuliocunha23/liquidui';
+
+function AccessibleGlassButton() {
+  const prefersReducedMotion = useReducedMotion();
+  
+  return (
+    <GlassButton
+      className={
+        prefersReducedMotion 
+          ? "transition-none" 
+          : "transition-all duration-300"
+      }
+    >
+      Respects Motion Preferences
+    </GlassButton>
+  );
+}
+```
+
+### High Contrast Mode
+
+```tsx
+import { useHighContrast } from '@tuliocunha23/liquidui';
+
+function HighContrastGlassCard() {
+  const isHighContrast = useHighContrast();
+  
+  return (
+    <GlassCard
+      className={
+        isHighContrast
+          ? "bg-white border-2 border-black text-black"
+          : "backdrop-blur-md bg-white/20 border border-white/30"
+      }
+    >
+      Content adapts to high contrast mode
+    </GlassCard>
+  );
+}
+```
+
+## Testing Tools Integration
+
+### axe-core Integration
+
+```typescript
+import { configureAxe } from '@tuliocunha23/liquidui';
+
+// Configure axe for glass components
+const axeConfig = configureAxe({
+  rules: {
+    'color-contrast': {
+      enabled: true,
+      options: {
+        // Account for glass effect backgrounds
+        backgroundOpacity: 0.2
+      }
+    }
+  }
+});
+```
+
+### Lighthouse Integration
+
+```typescript
+// lighthouse-config.js
+module.exports = {
+  extends: 'lighthouse:default',
+  settings: {
+    onlyAudits: [
+      'accessibility',
+      'color-contrast',
+      'focus-traps',
+      'keyboard-navigation'
+    ]
+  }
+};
+```
+
+## Best Practices
+
+### Design Guidelines
+
+1. **Maintain Contrast**: Ensure 4.5:1 ratio for normal text, 3:1 for large text
+2. **Clear Focus States**: Make focus indicators visible against glass backgrounds
+3. **Semantic HTML**: Use proper HTML elements and ARIA attributes
+4. **Test Early**: Integrate accessibility testing in development workflow
+
+### Code Guidelines
+
+```tsx
+// Good: Accessible glass component
+<GlassButton
+  aria-label="Delete item"
+  className="focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+  onClick={handleDelete}
+>
+  <TrashIcon aria-hidden="true" />
+  Delete
+</GlassButton>
+
+// Poor: Inaccessible glass component
+<div className="backdrop-blur-xl bg-white/5 cursor-pointer" onClick={handleDelete}>
+  <TrashIcon />
+</div>
+```
+
+## Continuous Monitoring
+
+### CI/CD Integration
+
+```yaml
+# .github/workflows/accessibility.yml
+name: Accessibility Tests
+on: [push, pull_request]
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm install
+      - run: npm run test:a11y
+      - run: npm run build
+      - run: npm run lighthouse:a11y
+```
+
+### Automated Reporting
+
+```typescript
+import { generateAccessibilityReport } from '@tuliocunha23/liquidui';
+
+const report = await generateAccessibilityReport({
+  components: ['GlassButton', 'GlassCard', 'GlassModal'],
+  level: 'AA',
+  outputFormat: 'html'
+});
+
+// Generates comprehensive accessibility report
+```
+
+## Related
+
+- [`Glass Utils`](/components/glass-utils) - Utility functions including contrast helpers
+- [`Theme Provider`](/components/theme-provider) - Theme support for accessibility
+- [`Use Theme`](/components/use-theme) - Theme management hook

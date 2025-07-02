@@ -1,0 +1,393 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# useMediaQuery
+
+A React hook for responsive design that tracks CSS media query changes in real-time. Essential for creating adaptive glassmorphism interfaces across different devices and screen sizes.
+
+## Basic Usage
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function ResponsiveComponent() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
+  const isDesktop = useMediaQuery('(min-width: 1025px)');
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      {isMobile && <p>Mobile View</p>}
+      {isTablet && <p>Tablet View</p>}
+      {isDesktop && <p>Desktop View</p>}
+    </div>
+  );
+}
+```
+
+## TypeScript Interface
+
+```typescript
+function useMediaQuery(query: string): boolean;
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `query` | `string` | CSS media query string to track |
+
+## Return Value
+
+Returns a `boolean` indicating whether the media query currently matches.
+
+## Examples
+
+### Common Breakpoints
+
+<ComponentShowcase>
+  <div className="space-y-4 p-6">
+    <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-xl p-4">
+      <h3 className="font-semibold mb-2">Current Screen Information</h3>
+      <div className="text-sm space-y-1">
+        <div>Mobile (≤768px): <span className="font-mono">Check your browser</span></div>
+        <div>Tablet (769px-1024px): <span className="font-mono">Resize to test</span></div>
+        <div>Desktop (≥1025px): <span className="font-mono">Current view</span></div>
+      </div>
+    </div>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function BreakpointExample() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isTablet = useMediaQuery('(min-width: 769px) and (max-width: 1024px)');
+  const isDesktop = useMediaQuery('(min-width: 1025px)');
+  const isLargeScreen = useMediaQuery('(min-width: 1440px)');
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      <h3 className="text-lg font-semibold mb-4">Responsive Design</h3>
+      
+      {isMobile && (
+        <div className="text-center">
+          <h4 className="font-medium">📱 Mobile View</h4>
+          <p className="text-sm text-gray-600 mt-2">Optimized for touch interactions</p>
+        </div>
+      )}
+      
+      {isTablet && (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="text-center">
+            <h4 className="font-medium">📱 Tablet View</h4>
+            <p className="text-sm text-gray-600 mt-2">Hybrid layout</p>
+          </div>
+        </div>
+      )}
+      
+      {isDesktop && (
+        <div className="grid grid-cols-3 gap-4">
+          <div className="text-center">
+            <h4 className="font-medium">🖥️ Desktop View</h4>
+            <p className="text-sm text-gray-600 mt-2">Full feature set</p>
+          </div>
+        </div>
+      )}
+      
+      {isLargeScreen && (
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-800">✨ Large screen enhancements available</p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Orientation Detection
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function OrientationExample() {
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  const isLandscape = useMediaQuery('(orientation: landscape)');
+  
+  return (
+    <div className={`
+      backdrop-blur-md bg-white/20 p-6 rounded-xl
+      ${isPortrait ? 'flex-col' : 'flex-row'}
+    `}>
+      <h3 className="font-semibold mb-2">
+        Current Orientation: {isPortrait ? 'Portrait' : 'Landscape'}
+      </h3>
+      <p className="text-sm text-gray-600">
+        Layout adapts to device orientation
+      </p>
+    </div>
+  );
+}
+```
+
+### Dark Mode Preference
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function DarkModeExample() {
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersLight = useMediaQuery('(prefers-color-scheme: light)');
+  
+  return (
+    <div className={`
+      backdrop-blur-md p-6 rounded-xl border
+      ${prefersDark 
+        ? 'bg-gray-900/20 border-gray-600/30 text-white' 
+        : 'bg-white/20 border-white/30 text-gray-900'
+      }
+    `}>
+      <h3 className="font-semibold mb-2">
+        🎨 System Theme: {prefersDark ? 'Dark' : 'Light'}
+      </h3>
+      <p className="text-sm opacity-75">
+        Automatically adapts to system preferences
+      </p>
+    </div>
+  );
+}
+```
+
+### High Contrast Support
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function AccessibilityExample() {
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+  const prefersHighContrast = useMediaQuery('(prefers-contrast: high)');
+  
+  return (
+    <div className={`
+      backdrop-blur-md p-6 rounded-xl border
+      ${prefersHighContrast 
+        ? 'bg-white border-2 border-black text-black' 
+        : 'bg-white/20 border-white/30'
+      }
+      ${prefersReducedMotion ? '' : 'transition-all duration-300'}
+    `}>
+      <h3 className="font-semibold mb-2">♿ Accessibility Features</h3>
+      <ul className="text-sm space-y-1">
+        <li>Reduced Motion: {prefersReducedMotion ? 'Enabled' : 'Disabled'}</li>
+        <li>High Contrast: {prefersHighContrast ? 'Enabled' : 'Disabled'}</li>
+      </ul>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Custom Breakpoint System
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+// Define custom breakpoints
+const breakpoints = {
+  xs: '(max-width: 475px)',
+  sm: '(min-width: 476px) and (max-width: 640px)',
+  md: '(min-width: 641px) and (max-width: 768px)',
+  lg: '(min-width: 769px) and (max-width: 1024px)',
+  xl: '(min-width: 1025px) and (max-width: 1280px)',
+  '2xl': '(min-width: 1281px)'
+};
+
+function CustomBreakpoints() {
+  const isXS = useMediaQuery(breakpoints.xs);
+  const isSM = useMediaQuery(breakpoints.sm);
+  const isMD = useMediaQuery(breakpoints.md);
+  const isLG = useMediaQuery(breakpoints.lg);
+  const isXL = useMediaQuery(breakpoints.xl);
+  const is2XL = useMediaQuery(breakpoints['2xl']);
+  
+  const currentBreakpoint = isXS ? 'XS' : isSM ? 'SM' : isMD ? 'MD' : 
+                           isLG ? 'LG' : isXL ? 'XL' : '2XL';
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      <h3 className="font-semibold mb-2">Current Breakpoint: {currentBreakpoint}</h3>
+      <div className="grid gap-2 text-sm">
+        {Object.entries(breakpoints).map(([name, query]) => (
+          <div key={name} className="flex justify-between">
+            <span className="font-mono">{name.toUpperCase()}</span>
+            <span className={useMediaQuery(query) ? 'text-green-600' : 'text-gray-400'}>
+              {useMediaQuery(query) ? '✓ Active' : '○ Inactive'}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+### Conditional Component Loading
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { lazy, Suspense } from 'react';
+
+// Lazy load components based on screen size
+const DesktopChart = lazy(() => import('./DesktopChart'));
+const MobileChart = lazy(() => import('./MobileChart'));
+
+function ConditionalLoading() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      <h3 className="font-semibold mb-4">📊 Dynamic Chart Loading</h3>
+      
+      <Suspense fallback={
+        <div className="animate-pulse bg-gray-200 h-64 rounded-lg"></div>
+      }>
+        {isMobile ? <MobileChart /> : <DesktopChart />}
+      </Suspense>
+    </div>
+  );
+}
+```
+
+### Multiple Query Tracking
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+
+function MultipleQueries() {
+  // Track multiple conditions simultaneously
+  const queries = {
+    touch: useMediaQuery('(hover: none) and (pointer: coarse)'),
+    retina: useMediaQuery('(-webkit-min-device-pixel-ratio: 2)'),
+    widescreen: useMediaQuery('(min-aspect-ratio: 16/9)'),
+    print: useMediaQuery('print')
+  };
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      <h3 className="font-semibold mb-4">🔍 Device Capabilities</h3>
+      
+      <div className="grid grid-cols-2 gap-4 text-sm">
+        {Object.entries(queries).map(([name, isActive]) => (
+          <div key={name} className="flex items-center gap-2">
+            <div className={`w-2 h-2 rounded-full ${
+              isActive ? 'bg-green-500' : 'bg-gray-300'
+            }`} />
+            <span className="capitalize">{name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## SSR Considerations
+
+When using `useMediaQuery` with server-side rendering:
+
+```tsx
+import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useState, useEffect } from 'react';
+
+function SSRSafeComponent() {
+  const [mounted, setMounted] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+        <div className="animate-pulse">Loading...</div>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="backdrop-blur-md bg-white/20 p-6 rounded-xl">
+      <h3 className="font-semibold">
+        {isMobile ? '📱 Mobile' : '🖥️ Desktop'} View
+      </h3>
+    </div>
+  );
+}
+```
+
+## Performance Notes
+
+- The hook automatically handles listener cleanup to prevent memory leaks
+- Media queries are evaluated efficiently using the native `matchMedia` API
+- Multiple components can use the same query without performance impact
+- Consider debouncing rapid resize events for expensive operations
+
+## Browser Support
+
+- **Modern Browsers**: Full support (Chrome 9+, Firefox 6+, Safari 5.1+)
+- **IE11**: Supported with polyfill
+- **Mobile**: Excellent support across all major mobile browsers
+
+## Common Patterns
+
+### Responsive Navigation
+
+```tsx
+function ResponsiveNav() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
+  return isMobile ? <MobileNav /> : <DesktopNav />;
+}
+```
+
+### Conditional Styling
+
+```tsx
+function ResponsiveCard() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
+  return (
+    <div className={`
+      backdrop-blur-md bg-white/20 rounded-xl
+      ${isMobile ? 'p-4' : 'p-6'}
+    `}>
+      Content
+    </div>
+  );
+}
+```
+
+### Feature Detection
+
+```tsx
+function TouchOptimized() {
+  const supportsTouch = useMediaQuery('(hover: none) and (pointer: coarse)');
+  
+  return (
+    <button className={`
+      backdrop-blur-md bg-white/20 rounded-xl
+      ${supportsTouch ? 'p-4 text-lg' : 'p-2 text-sm'}
+    `}>
+      {supportsTouch ? 'Touch Optimized' : 'Mouse Optimized'}
+    </button>
+  );
+}
+```
+
+## Related Hooks
+
+- [`useMobile`](/components/use-mobile) - Simplified mobile detection hook
+- [`useTheme`](/components/use-theme) - Theme-aware responsive design
+- [`usePerformanceMonitor`](/components/use-performance-monitor) - Performance tracking across devices

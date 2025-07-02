@@ -1,0 +1,107 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Glass Animations
+
+Advanced animation utilities and patterns for LiquidUI glassmorphism components. Create smooth, physics-based animations that enhance the glass aesthetic.
+
+## Overview
+
+Glass Animations provide a comprehensive set of animation utilities specifically designed for glassmorphism interfaces. These animations maintain the liquid, smooth feel while being performant and accessible.
+
+## Animation Types
+
+### Entrance Animations
+
+```typescript
+import { glassAnimations } from '@tuliocunha23/liquidui';
+
+// Fade in with blur
+const fadeInBlur = glassAnimations.entrance.fadeInBlur({
+  duration: 300,
+  easing: 'ease-out'
+});
+
+// Scale in with glass effect
+const scaleInGlass = glassAnimations.entrance.scaleInGlass({
+  duration: 400,
+  scale: 0.9
+});
+```
+
+### Morphing Animations
+
+<ComponentShowcase>
+  <div className="space-y-4 p-6">
+    <button className="px-6 py-3 backdrop-blur-md bg-white/20 border border-white/30 rounded-xl transition-all duration-300 hover:bg-white/30 hover:scale-105">
+      Hover to morph
+    </button>
+    
+    <div className="p-4 backdrop-blur-md bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/30 rounded-xl transition-all duration-500 hover:from-purple-500/20 hover:to-pink-500/20">
+      Gradient morphing
+    </div>
+  </div>
+</ComponentShowcase>
+
+### Blur Transitions
+
+```tsx
+import { useBlurTransition } from '@tuliocunha23/liquidui';
+
+function BlurTransition() {
+  const [isBlurred, setIsBlurred] = useState(false);
+  const blurClass = useBlurTransition(isBlurred, {
+    from: 'backdrop-blur-none',
+    to: 'backdrop-blur-xl',
+    duration: 600
+  });
+  
+  return (
+    <div className={`${blurClass} bg-white/20 p-6 rounded-xl`}>
+      <button onClick={() => setIsBlurred(!isBlurred)}>
+        Toggle Blur
+      </button>
+    </div>
+  );
+}
+```
+
+## Performance Optimizations
+
+### GPU Acceleration
+
+All glass animations are optimized for GPU acceleration:
+
+```css
+.glass-animate {
+  transform: translateZ(0);
+  will-change: transform, opacity, backdrop-filter;
+  backface-visibility: hidden;
+}
+```
+
+### Reduced Motion Support
+
+```tsx
+import { useReducedMotion } from '@tuliocunha23/liquidui';
+
+function AccessibleAnimation() {
+  const prefersReducedMotion = useReducedMotion();
+  
+  return (
+    <div
+      className={
+        prefersReducedMotion 
+          ? "transition-none" 
+          : "transition-all duration-300 ease-out"
+      }
+    >
+      Respects user preferences
+    </div>
+  );
+}
+```
+
+## Related
+
+- [`Glass Physics`](/components/glass-physics) - Physics simulation for animations
+- [`Glass Utils`](/components/glass-utils) - Animation utility functions

@@ -2,10 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Apple System Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-@import url('https://fonts.cdnfonts.com/css/sf-mono');
+/* Enhanced Apple System Fonts with better fallbacks */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Base styles */
 @layer base {
@@ -23,14 +22,81 @@
         color: hsl(var(--foreground));
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1 {
         @apply font-heading font-bold tracking-tight;
         color: hsl(var(--foreground));
+        font-size: var(--text-5xl);
+        line-height: var(--leading-tight);
+        margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+        @apply font-heading font-bold tracking-tight;
+        color: hsl(var(--foreground));
+        font-size: var(--text-4xl);
+        line-height: var(--leading-tight);
+        margin-bottom: 1.25rem;
+        margin-top: 2rem;
+    }
+    
+    h3 {
+        @apply font-heading font-semibold tracking-tight;
+        color: hsl(var(--foreground));
+        font-size: var(--text-3xl);
+        line-height: var(--leading-snug);
+        margin-bottom: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    h4 {
+        @apply font-heading font-semibold tracking-tight;
+        color: hsl(var(--foreground));
+        font-size: var(--text-2xl);
+        line-height: var(--leading-snug);
+        margin-bottom: 0.75rem;
+        margin-top: 1.25rem;
+    }
+    
+    h5 {
+        @apply font-heading font-medium tracking-tight;
+        color: hsl(var(--foreground));
+        font-size: var(--text-xl);
+        line-height: var(--leading-normal);
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    h6 {
+        @apply font-heading font-medium tracking-tight;
+        color: hsl(var(--foreground));
+        font-size: var(--text-lg);
+        line-height: var(--leading-normal);
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    p {
+        @apply font-body;
+        color: hsl(var(--foreground));
+        font-size: var(--text-base);
+        line-height: var(--leading-relaxed);
+        margin-bottom: 1rem;
+        font-weight: 400;
+    }
+    
+    /* Enhanced link styles */
+    a {
+        color: hsl(var(--primary));
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+    
+    a:hover {
+        color: hsl(var(--primary) / 0.8);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        text-decoration-thickness: 1px;
     }
 
     ::selection {
@@ -71,10 +137,29 @@
     --info: 217.2 91.2% 59.8%;
     --info-foreground: 210 40% 98%;
 
-    /* Typography Variables */
-    --font-heading: "Cal Sans", "Inter", system-ui, sans-serif;
-    --font-body: "Inter", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", "Fira Code", "Consolas", monospace;
+    /* Enhanced Typography Variables */
+    --font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    
+    /* Line Heights */
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
 
     /* Spacing and Sizing */
     --content-width: 1200px;
@@ -196,9 +281,11 @@ body[data-theme="dark"] {
     }
 
     .glass-button {
-        @apply backdrop-blur-lg border border-white/30 rounded-2xl shadow-lg transition-all duration-300 relative overflow-hidden;
+        @apply backdrop-blur-lg border border-white/30 rounded-2xl shadow-lg relative overflow-hidden;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: transform, box-shadow, filter;
     }
 
     .dark .glass-button {
@@ -214,8 +301,9 @@ body[data-theme="dark"] {
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.8s ease;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        will-change: left;
     }
 
     .glass-button:hover::before {
@@ -223,14 +311,20 @@ body[data-theme="dark"] {
     }
 
     .glass-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(31, 38, 135, 0.4);
-        border-color: rgba(255, 255, 255, 0.4);
+        transform: translate3d(0, -3px, 0) scale(1.02);
+        box-shadow: 0 16px 48px rgba(31, 38, 135, 0.5);
+        border-color: rgba(255, 255, 255, 0.5);
+        filter: brightness(1.1);
     }
 
     .dark .glass-button:hover {
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .glass-button:active {
+        transform: translate3d(0, -1px, 0) scale(0.98);
+        transition-duration: 0.1s;
     }
 
     .glass-button-primary {
@@ -348,15 +442,48 @@ body[data-theme="dark"] {
 
     /* Enhanced typography with better readability */
     .hero-text {
-        font-weight: 700;
-        letter-spacing: -0.025em;
-        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: var(--leading-tight);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1.5rem;
+        text-wrap: balance;
     }
 
     .body-text {
+        font-weight: 400;
+        line-height: var(--leading-relaxed);
+        letter-spacing: -0.005em;
+        font-size: var(--text-lg);
+        text-wrap: pretty;
+    }
+    
+    .subtitle-text {
         font-weight: 500;
-        line-height: 1.6;
-        letter-spacing: -0.01em;
+        line-height: var(--leading-normal);
+        font-size: var(--text-xl);
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 2rem;
+        text-wrap: balance;
+    }
+    
+    .caption-text {
+        font-weight: 500;
+        line-height: var(--leading-normal);
+        font-size: var(--text-sm);
+        color: hsl(var(--muted-foreground));
+        letter-spacing: 0.025em;
+        text-transform: uppercase;
+    }
+    
+    .code-text {
+        font-family: var(--font-mono);
+        font-weight: 500;
+        font-size: var(--text-sm);
+        background: hsl(var(--muted));
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.375rem;
+        border: 1px solid hsl(var(--border));
     }
 }
 
@@ -612,26 +739,69 @@ body[data-theme="dark"] {
     @apply outline-none ring-2 ring-primary/60 ring-offset-2 ring-offset-background;
 }
 
-/* Responsive design */
+/* Skip link for accessibility - visually hidden but accessible */
+.skip-link {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.skip-link:focus {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+}
+
+/* Enhanced Mobile Responsiveness */
 @media (max-width: 768px) {
     .glass-card {
         @apply p-4;
         margin: 1rem;
+        border-radius: 1rem;
+        /* Reduce backdrop blur on mobile for performance */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
     }
 
     .glass-button {
         @apply px-4 py-2 text-sm;
+        /* Larger touch targets for mobile */
+        min-height: 44px;
+        min-width: 44px;
     }
 
     .liquid-glass {
         margin: 0.5rem;
         padding: 1rem;
+        border-radius: 1rem;
+        /* Performance optimization for mobile */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 
     /* Hero section mobile optimization */
     .hero-text {
         font-size: 2rem !important;
         line-height: 1.2 !important;
+        /* Prevent text overflow on small screens */
+        word-break: break-word;
+        hyphens: auto;
     }
 
     .body-text {
@@ -643,26 +813,59 @@ body[data-theme="dark"] {
     .nextra-sidebar {
         transform: translateX(-100%);
         transition: transform 0.3s ease;
+        /* Full screen on mobile */
+        width: 100vw !important;
+        height: 100vh !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
 
     .nextra-sidebar.open {
         transform: translateX(0);
     }
+
+    /* Mobile-specific navbar optimizations */
+    .navbar-mobile {
+        padding: 0.75rem 1rem;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        /* iOS safe area support */
+        padding-top: calc(0.75rem + env(safe-area-inset-top));
+        padding-left: calc(1rem + env(safe-area-inset-left));
+        padding-right: calc(1rem + env(safe-area-inset-right));
+    }
+
+    /* Touch-friendly button sizing */
+    .mobile-touch-target {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.75rem;
+    }
+
+    /* Reduce animation complexity on mobile */
+    .reduced-motion-mobile {
+        animation: none;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
 }
 
 @media (max-width: 640px) {
-
-    /* Extra mobile optimizations */
+    /* Extra small mobile optimizations */
     .glass-card {
         border-radius: 1rem;
         padding: 0.75rem;
         margin: 0.75rem;
+        /* Further reduce blur on very small screens */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
     .liquid-glass {
         border-radius: 1rem;
         padding: 0.75rem;
         margin: 0.5rem;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
     }
 
     /* Stack buttons on very small screens */
@@ -675,6 +878,74 @@ body[data-theme="dark"] {
     .button-group .glass-button-primary {
         width: 100%;
         justify-content: center;
+        min-height: 48px; /* Larger touch targets */
+    }
+
+    /* Hero section extra small screen adjustments */
+    .hero-text {
+        font-size: 1.75rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1rem;
+    }
+
+    /* Improved text spacing on small screens */
+    .text-spacing-mobile {
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+
+    /* Dropdown positioning fixes for mobile */
+    .mobile-dropdown {
+        position: fixed !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        top: auto !important;
+        bottom: 1rem !important;
+        width: auto !important;
+        border-radius: 1rem;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+}
+
+/* Landscape orientation optimizations */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .hero-text {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-section {
+        min-height: 100vh;
+        padding: 1rem 0;
+    }
+    
+    /* Reduce vertical spacing in landscape */
+    .section-spacing {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+/* iOS specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safari specific fixes */
+    .ios-blur-fix {
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+    }
+    
+    /* Fix iOS viewport height issues */
+    .ios-viewport-fix {
+        min-height: -webkit-fill-available;
+    }
+    
+    /* iOS safe area optimizations */
+    .ios-safe-area {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
     }
 }
 
@@ -727,27 +998,91 @@ html,
 body {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    /* Critical rendering path optimization */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-/* Fix text cut-off issues with better line height and spacing */
+/* Critical performance improvements */
+.performance-critical {
+    contain: layout style paint;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Lazy loading optimization */
+.lazy-load {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 200px;
+}
+
+/* Intersection observer performance */
+.viewport-optimized {
+    contain: layout style;
+    will-change: auto;
+}
+
+/* Critical path CSS for above-the-fold content */
+@layer critical {
+    /* Hero section critical styles */
+    .hero-critical {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Navigation critical styles */
+    .nav-critical {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+}
+
+/* Font display optimization */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('/fonts/inter-var.woff2') format('woff2');
+}
+
+/* Professional typography with enhanced readability */
 .hero-text {
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    line-height: var(--leading-tight);
+    letter-spacing: -0.03em;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Prevent text overflow */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 0;
+    /* Enhanced text wrapping */
     overflow-wrap: break-word;
     word-wrap: break-word;
+    text-wrap: balance;
+    hyphens: manual;
 }
 
 .body-text {
-    line-height: 1.6;
+    line-height: var(--leading-relaxed);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Better text spacing */
-    letter-spacing: 0.01em;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+    /* Enhanced text spacing */
+    letter-spacing: -0.005em;
+    text-wrap: pretty;
+    orphans: 2;
+    widows: 2;
 }
 
 /* GPU acceleration for all animations */
@@ -848,27 +1183,68 @@ body {
     contain-intrinsic-size: 1px 200px;
 }
 
-/* Enhanced floating animations */
+/* Enhanced floating animations with better fluidity */
 @keyframes enhanced-float {
-
-    0%,
-    100% {
-        transform: translateY(0px) rotate(0deg) scale(1);
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
     }
-
-    33% {
-        transform: translateY(-10px) rotate(1deg) scale(1.02);
+    25% {
+        transform: translate3d(0, -8px, 0) rotate(0.5deg) scale(1.01);
     }
-
-    66% {
-        transform: translateY(-5px) rotate(-0.5deg) scale(0.98);
+    50% {
+        transform: translate3d(0, -12px, 0) rotate(0deg) scale(1.02);
+    }
+    75% {
+        transform: translate3d(0, -6px, 0) rotate(-0.3deg) scale(1.01);
     }
 }
 
 .enhanced-float {
-    animation: enhanced-float 6s ease-in-out infinite;
+    animation: enhanced-float 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
     will-change: transform;
     transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Smooth glass morphing animation */
+@keyframes glass-morph {
+    0%, 100% {
+        border-radius: 24px;
+        transform: rotate(0deg) scale(1);
+        filter: blur(0px);
+    }
+    25% {
+        border-radius: 32px 16px 28px 20px;
+        transform: rotate(0.5deg) scale(1.01);
+        filter: blur(0.5px);
+    }
+    50% {
+        border-radius: 20px 30px 16px 32px;
+        transform: rotate(-0.3deg) scale(0.99);
+        filter: blur(0.8px);
+    }
+    75% {
+        border-radius: 28px 20px 24px 18px;
+        transform: rotate(0.2deg) scale(1.005);
+        filter: blur(0.3px);
+    }
+}
+
+.glass-morph-animation {
+    animation: glass-morph 12s ease-in-out infinite;
+    will-change: transform, border-radius, filter;
+}
+
+/* Fluid hover transitions */
+.fluid-hover {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform, box-shadow, filter;
+}
+
+.fluid-hover:hover {
+    transform: translate3d(0, -4px, 0) scale(1.02);
+    filter: brightness(1.1) saturate(1.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* Fluid scroll indicator */

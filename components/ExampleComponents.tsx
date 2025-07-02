@@ -543,10 +543,10 @@ export const FooterExamples = () => (
           <ul className="space-y-2 text-sm">
             <li>
               <a
-                href="#"
+                href="https://github.com/tuliocunha23/liquidui/issues"
                 className="text-gray-600 hover:text-blue-600 transition-colors hover:scale-105 duration-200 inline-block"
               >
-                Discord
+                GitHub Issues
               </a>
             </li>
             <li>

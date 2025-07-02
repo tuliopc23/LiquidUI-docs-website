@@ -1,19 +1,653 @@
 
-import { GlassTooltip } from "../../components/PlaceholderComponents";
+import { GlassTooltip } from "@tuliocunha23/liquidui";
 import { ComponentShowcase } from "../../components/ComponentShowcase";
+import { Info, Help, Warning, Settings, User, Calendar, Heart, Star } from "lucide-react";
 
 # Tooltip
 
-A tooltip is a small pop-up that displays information about an element.
+A beautiful glassmorphism tooltip component that displays contextual information when hovering over elements. Features smooth animations, multiple positioning options, and elegant glass styling.
+
+## Basic Usage
 
 <ComponentShowcase>
-  <GlassTooltip content="This is a tooltip">
-    <span>Hover me</span>
-  </GlassTooltip>
+  <div className="flex items-center gap-6 p-8">
+    <GlassTooltip content="This is a basic tooltip">
+      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+        Hover me
+      </button>
+    </GlassTooltip>
+    
+    <GlassTooltip content="Tooltip with an icon">
+      <Info className="w-5 h-5 text-blue-500 cursor-help" />
+    </GlassTooltip>
+  </div>
 </ComponentShowcase>
+
+## TypeScript Interface
+
+```typescript
+interface GlassTooltipProps {
+  content: string;
+  children: React.ReactNode;
+  position?: "top" | "bottom" | "left" | "right";
+  className?: string;
+}
+```
 
 ## Props
 
 | Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `content` | `React.ReactNode` | `undefined` | The content of the tooltip. |
+|------|------|---------|-------------|
+| `content` | `string` | - | The text content to display in the tooltip |
+| `children` | `React.ReactNode` | - | The element that triggers the tooltip on hover |
+| `position` | `"top" \| "bottom" \| "left" \| "right"` | `"top"` | Position of the tooltip relative to the trigger element |
+| `className` | `string` | - | Additional CSS classes for custom styling |
+
+## Examples
+
+### Position Variants
+
+<ComponentShowcase>
+  <div className="grid grid-cols-2 gap-8 p-8">
+    <div className="text-center">
+      <GlassTooltip content="Top tooltip" position="top">
+        <button className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
+          Top
+        </button>
+      </GlassTooltip>
+    </div>
+    
+    <div className="text-center">
+      <GlassTooltip content="Bottom tooltip" position="bottom">
+        <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+          Bottom
+        </button>
+      </GlassTooltip>
+    </div>
+    
+    <div className="text-center">
+      <GlassTooltip content="Left tooltip" position="left">
+        <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+          Left
+        </button>
+      </GlassTooltip>
+    </div>
+    
+    <div className="text-center">
+      <GlassTooltip content="Right tooltip" position="right">
+        <button className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+          Right
+        </button>
+      </GlassTooltip>
+    </div>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function PositionExample() {
+  return (
+    <div className="flex gap-4">
+      <GlassTooltip content="Top tooltip" position="top">
+        <button className="btn">Top</button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Bottom tooltip" position="bottom">
+        <button className="btn">Bottom</button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Left tooltip" position="left">
+        <button className="btn">Left</button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Right tooltip" position="right">
+        <button className="btn">Right</button>
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+### Icon Tooltips
+
+<ComponentShowcase>
+  <div className="flex items-center gap-6 p-8">
+    <GlassTooltip content="Get help and support">
+      <Help className="w-6 h-6 text-blue-500 cursor-help hover:text-blue-600 transition-colors" />
+    </GlassTooltip>
+    
+    <GlassTooltip content="Warning: This action cannot be undone" position="bottom">
+      <Warning className="w-6 h-6 text-amber-500 cursor-help hover:text-amber-600 transition-colors" />
+    </GlassTooltip>
+    
+    <GlassTooltip content="Open settings panel" position="right">
+      <Settings className="w-6 h-6 text-gray-500 cursor-help hover:text-gray-600 transition-colors" />
+    </GlassTooltip>
+    
+    <GlassTooltip content="View user profile" position="left">
+      <User className="w-6 h-6 text-green-500 cursor-help hover:text-green-600 transition-colors" />
+    </GlassTooltip>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+import { Help, Warning, Settings, User } from 'lucide-react';
+
+function IconTooltips() {
+  return (
+    <div className="flex gap-4">
+      <GlassTooltip content="Get help and support">
+        <Help className="w-6 h-6 text-blue-500 cursor-help" />
+      </GlassTooltip>
+      
+      <GlassTooltip content="Warning: This action cannot be undone" position="bottom">
+        <Warning className="w-6 h-6 text-amber-500 cursor-help" />
+      </GlassTooltip>
+      
+      <GlassTooltip content="Open settings panel" position="right">
+        <Settings className="w-6 h-6 text-gray-500 cursor-help" />
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+### Interactive Elements
+
+<ComponentShowcase>
+  <div className="flex flex-col gap-6 p-8">
+    <div className="flex items-center gap-4">
+      <GlassTooltip content="Click to save your changes">
+        <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+          Save
+        </button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Discard all changes" position="bottom">
+        <button className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+          Cancel
+        </button>
+      </GlassTooltip>
+    </div>
+    
+    <div className="flex items-center gap-4">
+      <label className="flex items-center gap-2">
+        <GlassTooltip content="Enable notifications for important updates">
+          <input type="checkbox" className="w-4 h-4" />
+        </GlassTooltip>
+        <span>Enable notifications</span>
+      </label>
+    </div>
+    
+    <div className="flex items-center gap-4">
+      <GlassTooltip content="Enter your full name as it appears on official documents">
+        <input
+          type="text"
+          placeholder="Full name"
+          className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </GlassTooltip>
+    </div>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function InteractiveTooltips() {
+  return (
+    <div className="space-y-4">
+      {/* Button tooltips */}
+      <div className="flex gap-4">
+        <GlassTooltip content="Click to save your changes">
+          <button className="px-6 py-2 bg-blue-500 text-white rounded-lg">
+            Save
+          </button>
+        </GlassTooltip>
+        
+        <GlassTooltip content="Discard all changes" position="bottom">
+          <button className="px-6 py-2 bg-gray-500 text-white rounded-lg">
+            Cancel
+          </button>
+        </GlassTooltip>
+      </div>
+      
+      {/* Form element tooltips */}
+      <GlassTooltip content="Enter your full name as it appears on official documents">
+        <input
+          type="text"
+          placeholder="Full name"
+          className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+### Status and Feedback Tooltips
+
+<ComponentShowcase>
+  <div className="flex items-center gap-8 p-8">
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-gray-600">Status:</span>
+      <GlassTooltip content="System is running normally">
+        <div className="w-3 h-3 bg-green-500 rounded-full cursor-help"></div>
+      </GlassTooltip>
+    </div>
+    
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-gray-600">Connection:</span>
+      <GlassTooltip content="Connected to server (latency: 45ms)" position="bottom">
+        <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse cursor-help"></div>
+      </GlassTooltip>
+    </div>
+    
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-gray-600">Storage:</span>
+      <GlassTooltip content="85% of available storage used (850MB / 1GB)" position="right">
+        <div className="w-3 h-3 bg-amber-500 rounded-full cursor-help"></div>
+      </GlassTooltip>
+    </div>
+    
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-gray-600">Sync:</span>
+      <GlassTooltip content="Last sync failed - click to retry" position="left">
+        <div className="w-3 h-3 bg-red-500 rounded-full cursor-help"></div>
+      </GlassTooltip>
+    </div>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function StatusTooltips() {
+  return (
+    <div className="flex gap-6">
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-gray-600">Status:</span>
+        <GlassTooltip content="System is running normally">
+          <div className="w-3 h-3 bg-green-500 rounded-full cursor-help"></div>
+        </GlassTooltip>
+      </div>
+      
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-gray-600">Connection:</span>
+        <GlassTooltip content="Connected to server (latency: 45ms)" position="bottom">
+          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse cursor-help"></div>
+        </GlassTooltip>
+      </div>
+    </div>
+  );
+}
+```
+
+### Action Tooltips
+
+<ComponentShowcase>
+  <div className="flex items-center gap-4 p-8">
+    <GlassTooltip content="Add to favorites">
+      <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+        <Heart className="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors" />
+      </button>
+    </GlassTooltip>
+    
+    <GlassTooltip content="Rate this item" position="bottom">
+      <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+        <Star className="w-5 h-5 text-gray-600 hover:text-yellow-500 transition-colors" />
+      </button>
+    </GlassTooltip>
+    
+    <GlassTooltip content="Schedule for later" position="right">
+      <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+        <Calendar className="w-5 h-5 text-gray-600 hover:text-blue-500 transition-colors" />
+      </button>
+    </GlassTooltip>
+  </div>
+</ComponentShowcase>
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+import { Heart, Star, Calendar } from 'lucide-react';
+
+function ActionTooltips() {
+  return (
+    <div className="flex gap-2">
+      <GlassTooltip content="Add to favorites">
+        <button className="p-2 rounded-lg hover:bg-gray-100">
+          <Heart className="w-5 h-5 text-gray-600" />
+        </button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Rate this item" position="bottom">
+        <button className="p-2 rounded-lg hover:bg-gray-100">
+          <Star className="w-5 h-5 text-gray-600" />
+        </button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Schedule for later" position="right">
+        <button className="p-2 rounded-lg hover:bg-gray-100">
+          <Calendar className="w-5 h-5 text-gray-600" />
+        </button>
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Custom Styling
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function CustomStyledTooltip() {
+  return (
+    <GlassTooltip
+      content="Custom styled tooltip"
+      className="bg-gradient-to-r from-blue-500/90 to-purple-500/90 text-white border-blue-300/30"
+    >
+      <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg">
+        Custom Style
+      </button>
+    </GlassTooltip>
+  );
+}
+```
+
+### Conditional Tooltips
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+import { useState } from 'react';
+
+function ConditionalTooltip() {
+  const [showTooltip, setShowTooltip] = useState(true);
+  
+  const TooltipWrapper = ({ children }: { children: React.ReactNode }) => {
+    if (showTooltip) {
+      return (
+        <GlassTooltip content="This tooltip can be toggled">
+          {children}
+        </GlassTooltip>
+      );
+    }
+    return <>{children}</>;
+  };
+  
+  return (
+    <div className="space-y-4">
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={showTooltip}
+          onChange={(e) => setShowTooltip(e.target.checked)}
+        />
+        Show tooltip
+      </label>
+      
+      <TooltipWrapper>
+        <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+          Hover me
+        </button>
+      </TooltipWrapper>
+    </div>
+  );
+}
+```
+
+### Responsive Tooltips
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+import { useMobile } from '@tuliocunha23/liquidui';
+
+function ResponsiveTooltip() {
+  const isMobile = useMobile();
+  
+  // On mobile, you might want to use a different approach
+  if (isMobile) {
+    return (
+      <button 
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+        onClick={() => alert('Tooltip content would be shown here')}
+      >
+        Tap for info
+      </button>
+    );
+  }
+  
+  return (
+    <GlassTooltip content="This tooltip adapts to screen size">
+      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+        Hover for info
+      </button>
+    </GlassTooltip>
+  );
+}
+```
+
+## Accessibility
+
+The GlassTooltip component provides basic accessibility features:
+
+- **Hover Activation**: Uses standard mouse hover events
+- **Screen Reader Support**: Content is announced when tooltip appears
+- **Keyboard Navigation**: Works with keyboard focus on interactive elements
+
+### Enhanced Accessibility Implementation
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function AccessibleTooltip() {
+  return (
+    <GlassTooltip content="This tooltip provides additional context">
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+        aria-describedby="tooltip-description"
+      >
+        Accessible Button
+      </button>
+    </GlassTooltip>
+  );
+}
+```
+
+### Tooltip Best Practices
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function TooltipBestPractices() {
+  return (
+    <div className="space-y-4">
+      {/* Keep content concise */}
+      <GlassTooltip content="Save changes">
+        <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+          Save
+        </button>
+      </GlassTooltip>
+      
+      {/* Provide helpful context */}
+      <GlassTooltip content="This will permanently delete the item">
+        <button className="px-4 py-2 bg-red-500 text-white rounded-lg">
+          Delete
+        </button>
+      </GlassTooltip>
+      
+      {/* Avoid redundant information */}
+      <GlassTooltip content="Additional options">
+        <button className="px-4 py-2 bg-gray-500 text-white rounded-lg">
+          Options
+        </button>
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+## Styling
+
+The GlassTooltip component uses glassmorphism design with these default styles:
+
+- **Container**: `backdrop-blur-xl bg-black/80 border border-white/20 rounded-lg`
+- **Typography**: `text-sm text-white`
+- **Padding**: `px-3 py-2`
+- **Positioning**: Absolute positioning with transform for centering
+- **Z-Index**: `z-50` to appear above other content
+
+### Custom Styling
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+
+function CustomStyledTooltips() {
+  return (
+    <div className="flex gap-4">
+      {/* Light theme tooltip */}
+      <GlassTooltip
+        content="Light theme tooltip"
+        className="bg-white/90 text-gray-900 border-gray-200/50 shadow-lg"
+      >
+        <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+          Light Theme
+        </button>
+      </GlassTooltip>
+      
+      {/* Colored tooltip */}
+      <GlassTooltip
+        content="Success message"
+        className="bg-green-500/90 text-white border-green-400/30"
+      >
+        <button className="px-4 py-2 bg-green-500 text-white rounded-lg">
+          Success
+        </button>
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+## Common Patterns
+
+### Information Tooltips
+
+```tsx
+function InfoTooltips() {
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-2">
+        <label>Password</label>
+        <GlassTooltip content="Must be at least 8 characters with one uppercase, one lowercase, and one number">
+          <Info className="w-4 h-4 text-gray-400 cursor-help" />
+        </GlassTooltip>
+      </div>
+    </div>
+  );
+}
+```
+
+### Action Confirmation Tooltips
+
+```tsx
+function ActionTooltips() {
+  return (
+    <div className="flex gap-2">
+      <GlassTooltip content="This will save your changes">
+        <button className="px-4 py-2 bg-green-500 text-white rounded-lg">
+          Save
+        </button>
+      </GlassTooltip>
+      
+      <GlassTooltip content="This will discard your changes">
+        <button className="px-4 py-2 bg-red-500 text-white rounded-lg">
+          Cancel
+        </button>
+      </GlassTooltip>
+    </div>
+  );
+}
+```
+
+### Status Indicator Tooltips
+
+```tsx
+function StatusTooltips() {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
+        <span>Server Status</span>
+        <GlassTooltip content="All systems operational">
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+        </GlassTooltip>
+      </div>
+    </div>
+  );
+}
+```
+
+## Limitations
+
+The current implementation has some limitations:
+
+1. **Content Type**: Only supports string content, not rich HTML/React nodes
+2. **No Delay Configuration**: No built-in delay settings for show/hide
+3. **Limited Trigger Events**: Only supports hover, no click or focus triggers
+4. **No Animation Control**: Fixed transition timing and style
+
+### Workarounds
+
+```tsx
+import { GlassTooltip } from '@tuliocunha23/liquidui';
+import { useState } from 'react';
+
+// Custom delay implementation
+function DelayedTooltip({ children, content, delay = 500 }: {
+  children: React.ReactNode;
+  content: string;
+  delay?: number;
+}) {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  
+  const handleMouseEnter = () => {
+    const id = setTimeout(() => setShowTooltip(true), delay);
+    setTimeoutId(id);
+  };
+  
+  const handleMouseLeave = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
+    setShowTooltip(false);
+  };
+  
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {showTooltip ? (
+        <GlassTooltip content={content}>
+          {children}
+        </GlassTooltip>
+      ) : (
+        children
+      )}
+    </div>
+  );
+}
+```
+
+## Related Components
+
+- [`Button`](/components/button) - For tooltip trigger elements
+- [`Modal`](/components/modal) - For more complex contextual information
+- [`Popover`](/components/popover) - For interactive contextual content
+- [`Badge`](/components/badge) - For status indicators with tooltips

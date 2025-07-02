@@ -1,0 +1,87 @@
+import { ComponentShowcase } from "../../components/ComponentShowcase";
+
+# Glass Performance
+
+Performance optimization utilities and monitoring for LiquidUI glass components. Ensure smooth 60fps animations and efficient rendering.
+
+## Overview
+
+Glass Performance provides tools to monitor, optimize, and maintain high performance in glassmorphism interfaces, especially with complex backdrop filters and animations.
+
+## Performance Monitoring
+
+### FPS Monitoring
+
+```typescript
+import { usePerformanceMonitor } from '@tuliocunha23/liquidui';
+
+function PerformanceAwareComponent() {
+  const { fps, renderTime, memoryUsage } = usePerformanceMonitor();
+  
+  // Automatically reduce glass effects if performance drops
+  const glassIntensity = fps > 50 ? 'backdrop-blur-xl' : 'backdrop-blur-md';
+  
+  return (
+    <div className={`${glassIntensity} bg-white/20 p-6 rounded-xl`}>
+      <p>FPS: {fps}</p>
+      <p>Render Time: {renderTime}ms</p>
+      <p>Memory: {memoryUsage}MB</p>
+    </div>
+  );
+}
+```
+
+### Optimization Strategies
+
+<ComponentShowcase>
+  <div className="space-y-4 p-6">
+    <div className="p-4 backdrop-blur-md bg-white/20 border border-white/30 rounded-xl">
+      <h3 className="font-semibold mb-2">Optimized Glass Component</h3>
+      <p className="text-sm text-gray-600">Uses efficient backdrop-filter and GPU acceleration</p>
+    </div>
+  </div>
+</ComponentShowcase>
+
+## Best Practices
+
+### GPU Acceleration
+
+```css
+.glass-optimized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+```
+
+### Efficient Blur Usage
+
+```tsx
+// Good: Reuse blur classes
+const BlurLevels = {
+  subtle: 'backdrop-blur-sm',
+  medium: 'backdrop-blur-md',
+  strong: 'backdrop-blur-lg'
+};
+
+// Poor: Inline blur values
+style={{ backdropFilter: 'blur(12px)' }}
+```
+
+## Performance Budgets
+
+Set performance budgets for glass components:
+
+```typescript
+const performanceBudget = {
+  maxBlurElements: 10,
+  targetFPS: 60,
+  maxRenderTime: 16, // ms
+  memoryLimit: 100 // MB
+};
+```
+
+## Related
+
+- [`Use Performance Monitor`](/components/use-performance-monitor) - Performance monitoring hook
+- [`Glass Physics`](/components/glass-physics) - Optimized physics calculations

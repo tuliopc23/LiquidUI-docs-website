@@ -65,6 +65,7 @@
     "title": "Hooks"
   },
   "use-liquid-glass": "🌊 useLiquidGlass",
+  "use-media-query": "📺 useMediaQuery",
   "use-mobile": "📱 useMobile",
   "use-performance-monitor": "⚡ usePerformanceMonitor",
   "use-theme": "🎨 useTheme",

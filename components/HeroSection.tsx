@@ -68,7 +68,7 @@ export function HeroSection() {
             {...optimizedVariants.hoverScale}
           >
             <Sparkles className="w-3 sm:w-4 h-3 sm:h-4 text-blue-500" />
-            <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 body-text">Launching Tomorrow: LiqUIdify v1.0.17</span>
+            <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 body-text">Now Available: LiqUIdify v1.1.0</span>
             <span className="px-2 py-0.5 text-xs font-medium bg-blue-500/10 text-blue-700 dark:text-blue-300 rounded-full">Stable</span>
           </OptimizedMotion.div>
 
