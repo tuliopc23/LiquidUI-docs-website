@@ -671,31 +671,36 @@ body[data-theme="dark"] {
     color: hsl(var(--accent));
 }
 
-/* Override problematic text colors in dark mode */
-.dark .text-gray-900,
-.dark .text-gray-800,
-.dark .text-gray-700,
-.dark .text-gray-600,
-.dark .text-gray-500 {
-    color: hsl(var(--foreground)) !important;
+/* Standardized text color system */
+.text-primary {
+    color: hsl(var(--foreground));
 }
 
-.dark .text-gray-400,
-.dark .text-gray-300 {
-    color: hsl(var(--muted-foreground)) !important;
+.text-secondary {
+    color: hsl(var(--muted-foreground));
 }
 
-/* Light mode text colors */
-.light .text-gray-900 {
-    color: hsl(220 8.9% 9%) !important;
+.text-accent {
+    color: hsl(var(--accent-foreground));
 }
 
-.light .text-gray-800 {
-    color: hsl(220 8.9% 20%) !important;
+/* Consistent glass effect opacity */
+.glass-subtle {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.light .text-gray-700 {
-    color: hsl(220 8.9% 30%) !important;
+.glass-medium {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glass-strong {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.20);
 }
 
 .light .text-gray-600 {
