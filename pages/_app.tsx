@@ -4,6 +4,8 @@ import { ThemeProvider } from 'next-themes'
 import '../styles/globals.css'
 import { SmoothScroll } from '../components/SmoothScroll'
 import { LazyOptimizedMotion, usePerformanceOptimization } from '../components/PerformanceOptimizer'
+import { WebVitalsMonitor } from '../components/WebVitalsMonitor'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 function AppContent({ Component, pageProps }: AppProps) {
     usePerformanceOptimization();
@@ -28,7 +30,10 @@ function AppContent({ Component, pageProps }: AppProps) {
                         </a>
 
                         <div id="main-content" tabIndex={-1}>
-                            <Component {...pageProps} />
+                            <ErrorBoundary>
+                                <Component {...pageProps} />
+                            </ErrorBoundary>
+                            <WebVitalsMonitor />
                         </div>
                     </div>
                 </SmoothScroll>
