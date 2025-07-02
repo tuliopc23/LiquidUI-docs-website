@@ -29,36 +29,7 @@ const showcaseVariants: Variants = {
   }
 };
 
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -10 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      delay: 0.2,
-      duration: 0.3,
-      ease: [0.4, 0.0, 0.2, 1]
-    }
-  }
-};
-
-const buttonVariants: Variants = {
-  idle: { scale: 1 },
-  hover: { 
-    scale: 1.05,
-    transition: {
-      duration: 0.2,
-      ease: [0.4, 0.0, 0.2, 1]
-    }
-  },
-  tap: { 
-    scale: 0.95,
-    transition: {
-      duration: 0.1,
-      ease: [0.4, 0.0, 0.2, 1]
-    }
-  }
-};
+// Animation variants (removed unused ones to fix linting)
 
 /**
  * Props for the ComponentShowcase component.
@@ -122,9 +93,7 @@ export function ComponentShowcase({
     }
   }, [code]);
   
-  const toggleCodeVisibility = useCallback(() => {
-    setIsCodeVisible(prev => !prev);
-  }, []);
+  // Removed unused toggleCodeVisibility to fix linting
   
   // Memoize aria label for better accessibility
   const ariaLabel = useMemo(() => {

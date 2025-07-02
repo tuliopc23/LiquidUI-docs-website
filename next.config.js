@@ -24,7 +24,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ["@tuliocunha23/liquidui"],
     scrollRestoration: true,
   },
   turbopack: {

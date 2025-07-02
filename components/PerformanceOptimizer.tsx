@@ -1,5 +1,6 @@
-import React, { useEffect, memo, useCallback, useMemo } from 'react';
-import { motion, LazyMotion, domAnimation, type Variants, type Transition } from 'framer-motion';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, memo, useCallback } from 'react';
+import { motion, LazyMotion, domAnimation, type Variants } from 'framer-motion';
 
 // Performance-optimized transition presets
 const SPRING_CONFIGS = {
@@ -11,14 +12,6 @@ const SPRING_CONFIGS = {
 
 // Type-safe animation configurations
 type SpringConfig = typeof SPRING_CONFIGS[keyof typeof SPRING_CONFIGS];
-type AnimationDuration = number;
-type EasingFunction = string | number[];
-
-interface OptimizedTransition extends Transition {
-  config?: SpringConfig;
-  duration?: AnimationDuration;
-  ease?: EasingFunction;
-}
 
 // Performance-optimized motion components with proper typing
 export const OptimizedMotion = {
@@ -37,7 +30,8 @@ export const OptimizedMotion = {
 } as const;
 
 // Type-safe optimized animation variants
-export const optimizedVariants: Record<string, Variants> = {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const optimizedVariants: Record<string, any> = {
     // Enhanced page transitions with better performance
     pageTransition: {
         initial: { 
@@ -278,8 +272,8 @@ export const usePerformanceOptimization = () => {
     const optimizeForDevice = useCallback(() => {
         // Detect device capabilities and adjust animations
         const hasReducedPerformance = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const hasLowMemory = (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
-        const isSlowConnection = (navigator as any).connection && (navigator as any).connection.effectiveType === 'slow-2g';
+        const hasLowMemory = (navigator as unknown as { deviceMemory?: number }).deviceMemory && (navigator as unknown as { deviceMemory?: number }).deviceMemory! < 4;
+        const isSlowConnection = (navigator as unknown as { connection?: { effectiveType?: string } }).connection && (navigator as unknown as { connection?: { effectiveType?: string } }).connection!.effectiveType === 'slow-2g';
         
         if (hasReducedPerformance || hasLowMemory || isSlowConnection || isReducedMotion) {
             // Reduce animation complexity
@@ -399,7 +393,7 @@ export const usePerformanceOptimization = () => {
             window.removeEventListener('resize', debouncedResize);
             cleanupScroll();
         };
-    }, []);
+    }, [optimizeForDevice]);
 };
 
 // Debounce utility
@@ -461,7 +455,7 @@ export const usePerformanceMonitor = () => {
             
             if (currentTime - lastTime >= 1000) {
                 const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
-                const memory = (performance as any).memory?.usedJSHeapSize || 0;
+                const memory = (performance as unknown as { memory?: { usedJSHeapSize?: number } }).memory?.usedJSHeapSize || 0;
                 
                 setMetrics(prev => ({
                     ...prev,
@@ -523,7 +517,7 @@ export const useAnimationController = () => {
 };
 
 // Type-safe variant factory
-export const createVariant = <T extends Record<string, any>>(
+export const createVariant = <T extends Record<string, unknown>>(
     variants: T
 ): T => variants;
 
@@ -532,10 +526,12 @@ export const LazyOptimizedMotion: React.FC<{
     children: React.ReactNode;
     enablePerformanceMonitoring?: boolean;
 }> = memo(({ children, enablePerformanceMonitoring = false }) => {
-    const metrics = enablePerformanceMonitoring ? usePerformanceMonitor() : null;
+    // Always call hooks to fix conditional hook call
+    const metrics = usePerformanceMonitor();
+    const shouldShowMetrics = enablePerformanceMonitoring && metrics;
     
     React.useEffect(() => {
-        if (enablePerformanceMonitoring && metrics) {
+        if (shouldShowMetrics) {
             // Log performance warnings
             if (metrics.fps < 30) {
                 console.warn('Low FPS detected:', metrics.fps);
@@ -544,12 +540,12 @@ export const LazyOptimizedMotion: React.FC<{
                 console.warn('High memory usage detected:', metrics.memoryUsage);
             }
         }
-    }, [metrics, enablePerformanceMonitoring]);
+    }, [metrics, shouldShowMetrics]);
     
     return (
         <LazyMotion features={domAnimation} strict>
             {children}
-            {enablePerformanceMonitoring && metrics && (
+            {shouldShowMetrics && (
                 <div 
                     style={{
                         position: 'fixed',

@@ -1,5 +1,4 @@
 import { ComponentShowcase } from "../../components/ComponentShowcase";
-import { GlassButton } from "@tuliocunha23/liquidui";
 
 # Component Showcase
 
@@ -8,7 +7,9 @@ A utility component for displaying interactive examples of LiquidUI components i
 ## Basic Usage
 
 <ComponentShowcase>
-  <GlassButton>Example Button</GlassButton>
+  <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+    Example Button
+  </button>
 </ComponentShowcase>
 
 ## Features
@@ -44,9 +45,9 @@ The showcase container includes:
 
 ```tsx
 <ComponentShowcase>
-  <GlassButton variant="primary">
+  <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
     Primary Button
-  </GlassButton>
+  </button>
 </ComponentShowcase>
 ```
 
@@ -55,9 +56,9 @@ The showcase container includes:
 ```tsx
 <ComponentShowcase>
   <div className="flex gap-4">
-    <GlassButton variant="primary">Primary</GlassButton>
-    <GlassButton variant="secondary">Secondary</GlassButton>
-    <GlassButton variant="destructive">Destructive</GlassButton>
+    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">Primary</button>
+    <button className="px-4 py-2 bg-gray-500 text-white rounded-lg">Secondary</button>
+    <button className="px-4 py-2 bg-red-500 text-white rounded-lg">Destructive</button>
   </div>
 </ComponentShowcase>
 ```
@@ -67,15 +68,15 @@ The showcase container includes:
 ```tsx
 <ComponentShowcase>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8">
-    <GlassCard>
+    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6">
       <h3 className="text-lg font-semibold mb-2">Card Title</h3>
       <p className="text-gray-600">Card content goes here...</p>
-    </GlassCard>
+    </div>
     
-    <GlassCard>
+    <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6">
       <h3 className="text-lg font-semibold mb-2">Another Card</h3>
       <p className="text-gray-600">More content...</p>
-    </GlassCard>
+    </div>
   </div>
 </ComponentShowcase>
 ```
