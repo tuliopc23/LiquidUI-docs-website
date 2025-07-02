@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Sparkles, MessageCircle } from "lucide-react";
 import { LiquidifyLogo } from "./components/LiquidifyLogo";
 import { StorybookLogo } from "./components/StorybookLogo";
+import { VersionSelector } from "./components/VersionSelector";
 
 const Logo = () => (
   <motion.div
@@ -40,15 +41,21 @@ const config = {
   },
   navbar: {
     extraContent: (
-      <a
-        href="https://liquidify.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-      >
-        <StorybookLogo size={16} className="w-4 h-4" />
-        Storybook
-      </a>
+      <div className="flex items-center gap-3">
+        <VersionSelector
+          currentVersion="1.0.17"
+          className="hidden sm:block"
+        />
+        <a
+          href="https://liquidify.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
+          <StorybookLogo size={16} className="w-4 h-4" />
+          Storybook
+        </a>
+      </div>
     ),
   },
   docsRepositoryBase:
