@@ -27,7 +27,8 @@
       "Bash(claude config list)",
       "Bash(cat:*)",
       "Bash(claude mcp add:*)",
-      "Bash(claude mcp:*)"
+      "Bash(claude mcp:*)",
+      "Bash(npm show:*)"
     ],
     "deny": []
   }
