@@ -1,0 +1,177 @@
+# useGlassEffectPerformance
+
+A hook for monitoring and optimizing glass effect performance in real-time, automatically adjusting quality based on device capabilities.
+
+## Usage
+
+```tsx
+import { useGlassEffectPerformance } from 'liquidify'
+
+function PerformanceAwareComponent() {
+  const { 
+    performanceLevel, 
+    adjustedBlur, 
+    frameRate, 
+    optimizations 
+  } = useGlassEffectPerformance({
+    targetFPS: 60,
+    autoOptimize: true
+  })
+
+  return (
+    <div 
+      className="glass-card"
+      style={{ 
+        backdropFilter: `blur(${adjustedBlur}px)`,
+        '--performance-level': performanceLevel 
+      }}
+    >
+      <p>Performance Level: {performanceLevel}</p>
+      <p>Current FPS: {frameRate}</p>
+      <p>Blur: {adjustedBlur}px</p>
+    </div>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `targetFPS` | `number` | `60` | Target frame rate for optimization |
+| `autoOptimize` | `boolean` | `true` | Enable automatic performance adjustments |
+| `monitorInterval` | `number` | `1000` | Performance monitoring interval (ms) |
+| `quality` | `'low' \| 'medium' \| 'high' \| 'auto'` | `'auto'` | Base quality level |
+
+## Return Values
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `performanceLevel` | `'low' \| 'medium' \| 'high'` | Current performance classification |
+| `adjustedBlur` | `number` | Optimized blur value |
+| `frameRate` | `number` | Current frame rate |
+| `optimizations` | `object` | Applied optimization details |
+| `metrics` | `object` | Performance metrics |
+
+## Performance Levels
+
+### High Performance
+- Full blur effects (16-24px)
+- Complex animations enabled
+- All visual enhancements active
+
+### Medium Performance  
+- Reduced blur effects (8-16px)
+- Simplified animations
+- Some visual optimizations applied
+
+### Low Performance
+- Minimal blur effects (2-8px)
+- Basic animations only
+- Maximum optimizations enabled
+
+## Examples
+
+### Adaptive Blur
+
+```tsx
+function AdaptiveBlurCard() {
+  const { adjustedBlur, performanceLevel } = useGlassEffectPerformance()
+
+  return (
+    <div 
+      className="glass-card"
+      style={{ 
+        backdropFilter: `blur(${adjustedBlur}px) saturate(180%)`,
+        transition: 'backdrop-filter 0.3s ease'
+      }}
+    >
+      <h3>Adaptive Glass Card</h3>
+      <p>Performance: {performanceLevel}</p>
+    </div>
+  )
+}
+```
+
+### Performance Dashboard
+
+```tsx
+function PerformanceDashboard() {
+  const { 
+    frameRate, 
+    metrics, 
+    optimizations 
+  } = useGlassEffectPerformance({
+    monitorInterval: 500
+  })
+
+  return (
+    <div className="performance-dashboard">
+      <h3>Performance Metrics</h3>
+      <p>FPS: {frameRate}</p>
+      <p>GPU Usage: {metrics.gpuUsage}%</p>
+      <p>Memory: {metrics.memoryUsage}MB</p>
+      
+      <h4>Active Optimizations:</h4>
+      <ul>
+        {Object.entries(optimizations).map(([key, value]) => (
+          <li key={key}>{key}: {value ? '✓' : '✗'}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+### Conditional Rendering
+
+```tsx
+function ConditionalEffects() {
+  const { performanceLevel } = useGlassEffectPerformance()
+
+  return (
+    <div className="glass-container">
+      {performanceLevel === 'high' && (
+        <div className="complex-animation">
+          High-quality effects
+        </div>
+      )}
+      
+      {performanceLevel === 'medium' && (
+        <div className="medium-animation">
+          Balanced effects
+        </div>
+      )}
+      
+      {performanceLevel === 'low' && (
+        <div className="simple-animation">
+          Simplified effects
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+## Optimization Strategies
+
+The hook automatically applies these optimizations based on performance:
+
+- **Blur Reduction**: Reduces backdrop-filter blur intensity
+- **Animation Throttling**: Limits animation complexity
+- **Effect Fallbacks**: Switches to CSS-only effects when needed
+- **GPU Acceleration**: Manages hardware acceleration usage
+- **Memory Management**: Monitors and optimizes memory usage
+
+## Best Practices
+
+1. **Monitor in Development**: Use the performance dashboard during development
+2. **Test on Various Devices**: Especially lower-end mobile devices
+3. **Gradual Degradation**: Design for graceful fallbacks
+4. **Custom Thresholds**: Adjust targetFPS based on your app's needs
+
+## Related Hooks
+
+- [useContentAwareGlass](/components/use-content-aware-glass)
+- [useMagneticHover](/components/use-magnetic-hover)
+- [usePerformanceMonitor](/components/use-performance-monitor)

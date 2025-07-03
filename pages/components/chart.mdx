@@ -1,31 +1,201 @@
+# Chart Components
 
-import { GlassChart } from "../../components/PlaceholderComponents";
-import { ComponentShowcase } from "../../components/ComponentShowcase";
+Interactive chart components with glassmorphism design and smooth animations.
 
-# Chart
+## Available Charts
 
-A chart is a graphical representation of data.
+### BarChart
 
-<ComponentShowcase>
-  <GlassChart
-    data={[
-      { name: "Jan", value: 4000 },
-      { name: "Feb", value: 3000 },
-      { name: "Mar", value: 2000 },
-      { name: "Apr", value: 2780 },
-      { name: "May", value: 1890 },
-      { name: "Jun", value: 2390 },
-      { name: "Jul", value: 3490 },
-    ]}
-    dataKey="value"
-    xAxisKey="name"
-  />
-</ComponentShowcase>
+Vertical bar chart with glass morphism effects.
 
-## Props
+```tsx
+import { BarChart } from 'liquidify'
+
+function BarChartExample() {
+  const data = [
+    { name: 'Jan', value: 30 },
+    { name: 'Feb', value: 45 },
+    { name: 'Mar', value: 25 },
+    { name: 'Apr', value: 60 },
+    { name: 'May', value: 40 }
+  ]
+  
+  return (
+    <BarChart
+      data={data}
+      height={300}
+      className="glass-card p-6"
+      animated={true}
+    />
+  )
+}
+```
+
+### DonutChart
+
+Circular donut chart with liquid glass styling.
+
+```tsx
+import { DonutChart } from 'liquidify'
+
+function DonutExample() {
+  const data = [
+    { name: 'Design', value: 40, color: '#8B5CF6' },
+    { name: 'Development', value: 35, color: '#3B82F6' },
+    { name: 'Marketing', value: 25, color: '#EC4899' }
+  ]
+  
+  return (
+    <DonutChart
+      data={data}
+      size={200}
+      innerRadius={0.6}
+      showLabels={true}
+      className="glass-card p-6"
+    />
+  )
+}
+```
+
+### LineChart
+
+Smooth line chart with gradient fills.
+
+```tsx
+import { LineChart } from 'liquidify'
+
+function LineExample() {
+  const data = [
+    { x: 'Jan', y: 10 },
+    { x: 'Feb', y: 25 },
+    { x: 'Mar', y: 15 },
+    { x: 'Apr', y: 40 },
+    { x: 'May', y: 35 },
+    { x: 'Jun', y: 60 }
+  ]
+  
+  return (
+    <LineChart
+      data={data}
+      height={250}
+      smooth={true}
+      showGrid={true}
+      gradient={true}
+      className="glass-card p-6"
+    />
+  )
+}
+```
+
+## Common Props
 
 | Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `data` | `any[]` | `[]` | The data for the chart. |
-| `dataKey` | `string` | `undefined` | The key for the data to be displayed on the y-axis. |
-| `xAxisKey` | `string` | `undefined` | The key for the data to be displayed on the x-axis. |
+|------|------|---------|-------------|
+| `data` | `Array` | `[]` | Chart data array |
+| `height` | `number` | `300` | Chart height in pixels |
+| `width` | `number` | `'100%'` | Chart width |
+| `animated` | `boolean` | `true` | Enable animations |
+| `className` | `string` | `''` | Additional CSS classes |
+| `theme` | `'light' \| 'dark'` | `'auto'` | Color theme |
+
+## Chart-Specific Props
+
+### BarChart Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `barRadius` | `number` | `4` | Bar border radius |
+| `spacing` | `number` | `0.1` | Space between bars (0-1) |
+| `showValues` | `boolean` | `false` | Show values on bars |
+
+### DonutChart Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `number` | `200` | Chart diameter |
+| `innerRadius` | `number` | `0.5` | Inner radius ratio (0-1) |
+| `showLabels` | `boolean` | `true` | Show segment labels |
+| `labelPosition` | `'inside' \| 'outside'` | `'outside'` | Label positioning |
+
+### LineChart Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `smooth` | `boolean` | `true` | Smooth curve lines |
+| `showGrid` | `boolean` | `true` | Show background grid |
+| `gradient` | `boolean` | `false` | Fill area with gradient |
+| `strokeWidth` | `number` | `2` | Line thickness |
+
+## Advanced Examples
+
+### Interactive Dashboard
+
+```tsx
+import { BarChart, LineChart, DonutChart } from 'liquidify'
+
+function Dashboard() {
+  const salesData = [
+    { month: 'Jan', sales: 4000, users: 2400 },
+    { month: 'Feb', sales: 3000, users: 1398 },
+    { month: 'Mar', sales: 2000, users: 9800 },
+    { month: 'Apr', sales: 2780, users: 3908 }
+  ]
+
+  const categoryData = [
+    { name: 'Mobile', value: 45, color: '#8B5CF6' },
+    { name: 'Desktop', value: 35, color: '#3B82F6' },
+    { name: 'Tablet', value: 20, color: '#EC4899' }
+  ]
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="col-span-2">
+        <LineChart
+          data={salesData.map(d => ({ x: d.month, y: d.sales }))}
+          height={300}
+          smooth={true}
+          gradient={true}
+          className="glass-card p-6"
+        />
+      </div>
+      
+      <DonutChart
+        data={categoryData}
+        size={200}
+        className="glass-card p-6"
+      />
+      
+      <div className="col-span-3">
+        <BarChart
+          data={salesData.map(d => ({ name: d.month, value: d.users }))}
+          height={250}
+          showValues={true}
+          className="glass-card p-6"
+        />
+      </div>
+    </div>
+  )
+}
+```
+
+## Styling
+
+Charts inherit glassmorphism styling and support:
+
+- Glass card containers
+- Responsive design
+- Dark/light theme adaptation
+- Custom color schemes
+- Smooth animations
+
+## Performance
+
+- Charts are optimized for 60fps animations
+- Use `useGlassEffectPerformance` for monitoring
+- Consider data pagination for large datasets
+- GPU acceleration enabled by default
+
+## Related Components
+
+- [Glass Performance](/components/glass-performance)
+- [useGlassEffectPerformance](/components/use-glass-effect-performance)

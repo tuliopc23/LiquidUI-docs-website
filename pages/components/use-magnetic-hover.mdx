@@ -1,0 +1,114 @@
+# useMagneticHover
+
+A hook that creates magnetic hover effects where elements are attracted to the cursor with physics-based animations.
+
+## Usage
+
+```tsx
+import { useMagneticHover } from 'liquidify'
+
+function MagneticButton() {
+  const { ref, style } = useMagneticHover({
+    strength: 0.15,
+    maxDistance: 100
+  })
+
+  return (
+    <button ref={ref} style={style} className="glass-button">
+      Magnetic Button
+    </button>
+  )
+}
+```
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `strength` | `number` | `0.1` | Magnetic force strength (0-1) |
+| `maxDistance` | `number` | `150` | Maximum attraction distance in pixels |
+| `returnSpeed` | `number` | `0.15` | Speed of return to original position |
+| `enabled` | `boolean` | `true` | Enable/disable magnetic effect |
+| `axis` | `'both' \| 'x' \| 'y'` | `'both'` | Constraint axis for movement |
+
+## Return Values
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `ref` | `RefObject` | Ref to attach to target element |
+| `style` | `CSSProperties` | Dynamic transform styles |
+| `isHovered` | `boolean` | Current hover state |
+| `distance` | `number` | Current distance from cursor |
+
+## Examples
+
+### Basic Magnetic Card
+
+```tsx
+function MagneticCard() {
+  const { ref, style, isHovered } = useMagneticHover({
+    strength: 0.2,
+    maxDistance: 120
+  })
+
+  return (
+    <div 
+      ref={ref} 
+      style={style}
+      className={`glass-card ${isHovered ? 'elevated' : ''}`}
+    >
+      <h3>Magnetic Card</h3>
+      <p>Follows your cursor naturally</p>
+    </div>
+  )
+}
+```
+
+### Constrained Movement
+
+```tsx
+function VerticalMagnetic() {
+  const { ref, style } = useMagneticHover({
+    strength: 0.3,
+    axis: 'y', // Only vertical movement
+    maxDistance: 80
+  })
+
+  return (
+    <div ref={ref} style={style}>
+      Vertical magnetic movement only
+    </div>
+  )
+}
+```
+
+### Performance Optimized
+
+```tsx
+function OptimizedMagnetic() {
+  const { ref, style } = useMagneticHover({
+    strength: 0.1,
+    maxDistance: 100,
+    returnSpeed: 0.2 // Faster return for performance
+  })
+
+  return (
+    <div ref={ref} style={style} className="will-change-transform">
+      Performance optimized magnetic element
+    </div>
+  )
+}
+```
+
+## Performance Tips
+
+- Keep `strength` values between 0.05-0.3 for best performance
+- Use `will-change: transform` CSS for GPU acceleration
+- Consider reducing `maxDistance` on mobile devices
+- Monitor performance with `useGlassEffectPerformance`
+
+## Related Hooks
+
+- [useRepulsionEffect](/components/use-repulsion-effect)
+- [useGlassEffectPerformance](/components/use-glass-effect-performance)
+- [Physics System](/components/physics-system)
