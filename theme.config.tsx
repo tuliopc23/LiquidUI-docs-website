@@ -179,16 +179,20 @@ const config = {
   banner: {
     key: "liquidif-ui-v2",
     text: (
-      <motion.a
+      <a
         href="/getting-started"
-        className="liquid-glass px-6 py-3 rounded-2xl border border-white/20 hover:scale-105 transition-all duration-300 body-text flex items-center gap-3"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        className="liquid-glass px-6 py-3 rounded-2xl border border-white/20 transition-all duration-200 body-text flex items-center gap-3 hover:shadow-lg hover:border-white/30 enhanced-button"
+        style={{
+          textDecoration: 'none',
+          color: 'inherit',
+          willChange: 'transform, box-shadow',
+          transform: 'translateZ(0)', // Force GPU acceleration
+        }}
       >
         <LiquidifyLogo size={20} />
         🎉 LiqUIdify v1.0.21 is now live with production-ready liquid glass components!
         →
-      </motion.a>
+      </a>
     ),
   },
   primaryHue: {
