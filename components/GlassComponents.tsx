@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { cn } from "@tuliocunha23/liquidui";
+import { cn } from "liquidify";
 
 // Temporary local implementations until package exports are fixed
-// These provide the same API as the @tuliocunha23/liquidui components
+// These provide the same API as the liquidify components
 
 interface GlassButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

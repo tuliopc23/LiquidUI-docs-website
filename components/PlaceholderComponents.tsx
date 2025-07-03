@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@tuliocunha23/liquidui";
+import { cn } from "liquidify";
 import { ClassValue } from "clsx";
 import { 
   ChevronDown, 

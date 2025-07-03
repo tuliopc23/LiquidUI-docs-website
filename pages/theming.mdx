@@ -340,7 +340,7 @@ const creativeTheme = {
 ### Automatic Detection
 
 ```tsx
-import { ThemeProvider } from '@tuliocunha23/liquidui'
+import { ThemeProvider } from 'liquidify'
 
 function App() {
   return (
@@ -359,7 +359,7 @@ function App() {
 ### Manual Control
 
 ```tsx
-import { useTheme } from '@tuliocunha23/liquidui'
+import { useTheme } from 'liquidify'
 
 function ThemeControls() {
   const { theme, setTheme } = useTheme()
@@ -472,7 +472,7 @@ function applyTheme(themeName: keyof typeof themes) {
 
 ```tsx
 import { useState } from 'react'
-import { GlassButton, GlassCard } from '@tuliocunha23/liquidui'
+import { GlassButton, GlassCard } from 'liquidify'
 
 function ThemeSelector() {
   const [activeTheme, setActiveTheme] = useState('default')

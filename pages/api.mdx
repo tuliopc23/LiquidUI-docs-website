@@ -36,22 +36,22 @@ import {
 <Tabs items={['npm', 'yarn', 'pnpm', 'bun']}>
   <Tab>
     ```bash
-    npm install @tuliocunha23/liquidui
+    npm install liquidify
     ```
   </Tab>
   <Tab>
     ```bash
-    yarn add @tuliocunha23/liquidui
+    yarn add liquidify
     ```
   </Tab>
   <Tab>
     ```bash
-    pnpm add @tuliocunha23/liquidui
+    pnpm add liquidify
     ```
   </Tab>
   <Tab>
     ```bash
-    bun add @tuliocunha23/liquidui
+    bun add liquidify
     ```
   </Tab>
 </Tabs>
@@ -111,7 +111,7 @@ import {
   // Theme Components
   ThemeProvider,
   ThemeToggle
-} from '@tuliocunha23/liquidui';
+} from 'liquidify';
 ```
 
 ### Hooks
@@ -128,7 +128,7 @@ import {
   useClickOutside,
   useScrollLock,
   useAnimation
-} from '@tuliocunha23/liquidui';
+} from 'liquidify';
 ```
 
 ### Utilities
@@ -143,7 +143,7 @@ import {
   generateId,
   hexToRgba,
   rgbaToHex
-} from '@tuliocunha23/liquidui';
+} from 'liquidify';
 ```
 
 ## 🎯 Component APIs
@@ -274,7 +274,7 @@ const isMobile = useMobile();
 ### ThemeProvider Setup
 
 ```tsx
-import { ThemeProvider } from '@tuliocunha23/liquidui';
+import { ThemeProvider } from 'liquidify';
 
 function App() {
   return (
@@ -317,7 +317,7 @@ function App() {
 ### cn (Class Names)
 
 ```typescript
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 const className = cn(
   'base-class',
@@ -333,7 +333,7 @@ const className = cn(
 ### Date Formatting
 
 ```typescript
-import { formatDate } from '@tuliocunha23/liquidui';
+import { formatDate } from 'liquidify';
 
 formatDate(new Date()); // "Jan 1, 2024"
 formatDate(new Date(), 'full'); // "Monday, January 1, 2024"
@@ -344,7 +344,7 @@ formatDate(new Date(), 'datetime'); // "Jan 1, 2024 at 12:00 PM"
 ### Debounce & Throttle
 
 ```typescript
-import { debounce, throttle } from '@tuliocunha23/liquidui';
+import { debounce, throttle } from 'liquidify';
 
 // Debounce - delays execution until after wait time
 const debouncedSearch = debounce((query: string) => {
@@ -369,7 +369,7 @@ import type {
   Theme,
   ToastOptions,
   AnimationVariant
-} from '@tuliocunha23/liquidui';
+} from 'liquidify';
 ```
 
 ## 🎯 Best Practices
@@ -379,16 +379,16 @@ import type {
 1. **Tree Shaking**: Import only what you need
    ```typescript
    // ✅ Good
-   import { GlassButton, GlassCard } from '@tuliocunha23/liquidui';
+   import { GlassButton, GlassCard } from 'liquidify';
    
    // ❌ Avoid
-       import * as LiqUIdify from '@tuliocunha23/liquidui';
+       import * as LiqUIdify from 'liquidify';
    ```
 
 2. **Lazy Loading**: Use dynamic imports for heavy components
    ```typescript
    const GlassChart = dynamic(() => 
-     import('@tuliocunha23/liquidui').then(mod => mod.GlassChart)
+     import('liquidify').then(mod => mod.GlassChart)
    );
    ```
 

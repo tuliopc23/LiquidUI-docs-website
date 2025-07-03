@@ -37,7 +37,7 @@ import {
 Install LiqUIdify v1.1.0 in your project:
 
 ```bash
-npm install @tuliocunha23/liquidui
+npm install liquidify
 ```
 
 <Callout type="info" emoji="💡">
@@ -48,7 +48,7 @@ npm install @tuliocunha23/liquidui
 
 ### Importing Components
 ```typescript
-import { GlassButton, GlassCard, useTheme, cn } from '@tuliocunha23/liquidui';
+import { GlassButton, GlassCard, useTheme, cn } from 'liquidify';
 ```
 
 All components, hooks, and utilities are available from the main package!
@@ -102,7 +102,7 @@ All components, hooks, and utilities are available from the main package!
   
   **Simple usage:**
   ```tsx
-  import { ThemeProvider } from '@tuliocunha23/liquidui';
+  import { ThemeProvider } from 'liquidify';
   
   <ThemeProvider theme="dark">
     <App />
@@ -111,7 +111,7 @@ All components, hooks, and utilities are available from the main package!
   
   **Usage (v1.1.0):**
   ```tsx
-  import { ThemeProvider } from '@tuliocunha23/liquidui';
+  import { ThemeProvider } from 'liquidify';
   
   <ThemeProvider
     defaultTheme="system"
@@ -126,7 +126,7 @@ All components, hooks, and utilities are available from the main package!
 ## 🚨 Breaking Changes Summary
 
 ### 1. Package Name
-- `@tuliocunha23/liquidui` → `@tuliocunha23/liquidui`
+- `liquidify` → `liquidify`
 
 ### 2. Import Paths
 - All imports now from main package
@@ -158,16 +158,16 @@ The following experimental components have been removed:
 ### Step 1: Update Package
 ```bash
 # Remove old package
-npm uninstall @tuliocunha23/liquidui
+npm uninstall liquidify
 
 # Install new package
-npm install @tuliocunha23/liquidui
+npm install liquidify
 ```
 
 ### Step 2: Update Imports
 Use find and replace in your IDE:
-- Find: `@tuliocunha23/liquidui`
-- Replace: `@tuliocunha23/liquidui`
+- Find: `liquidify`
+- Replace: `liquidify`
 
 ### Step 3: Update Component Props
 ```tsx
@@ -208,7 +208,7 @@ Use find and replace in your IDE:
 We provide a codemod to help automate the migration:
 
 ```bash
-npx @tuliocunha23/liquidui-codemods migrate-v2
+npx liquidify-codemods migrate-v2
 ```
 
 This will:

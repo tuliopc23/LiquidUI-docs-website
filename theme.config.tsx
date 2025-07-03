@@ -37,13 +37,13 @@ const config = {
   },
   logo: <Logo />,
   project: {
-    link: "https://github.com/tuliocunha23/liquidui",
+    link: "https://github.com/tuliopc23/Liquidify",
   },
   navbar: {
     extraContent: (
       <div className="flex items-center gap-3">
         <VersionSelector
-          currentVersion="1.0.17"
+          currentVersion="1.0.21"
           className="hidden sm:block"
         />
         <a
@@ -59,7 +59,7 @@ const config = {
     ),
   },
   docsRepositoryBase:
-    "https://github.com/tuliocunha23/liquidui/tree/main",
+    "https://github.com/tuliopc23/Liquidify-docs/tree/main",
   footer: {
     text: (
       <div className="flex w-full flex-col items-center sm:items-start">
@@ -186,7 +186,7 @@ const config = {
         whileTap={{ scale: 0.98 }}
       >
         <LiquidifyLogo size={20} />
-        🎉 LiqUIdify v1.0.17 launches tomorrow with liquid glass components. Get ready
+        🎉 LiqUIdify v1.0.21 is now live with production-ready liquid glass components!
         →
       </motion.a>
     ),

@@ -10,7 +10,7 @@ A glassmorphism floating action button with liquid effects and physics-based int
 <ComponentShowcase
   title="Basic Floating Action"
   description="Simple floating action button with glassmorphism effects"
-  code={`import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+  code={`import { GlassFloatingAction } from 'liquidify';
 
 <GlassFloatingAction
   icon={<Plus className="w-6 h-6" />}
@@ -170,7 +170,7 @@ The GlassFloatingAction includes advanced interactive features:
 ### Content Creation FAB
 
 ```tsx
-import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { GlassFloatingAction } from 'liquidify';
 import { Plus, FileText, Image, Video, Music } from 'lucide-react';
 
 function ContentCreationFAB() {
@@ -217,7 +217,7 @@ function ContentCreationFAB() {
 ### Social Media FAB
 
 ```tsx
-import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { GlassFloatingAction } from 'liquidify';
 import { Heart, Share2, Bookmark, MessageCircle, Send } from 'lucide-react';
 
 function SocialMediaFAB({ postId }: { postId: string }) {
@@ -264,9 +264,9 @@ function SocialMediaFAB({ postId }: { postId: string }) {
 ### Quick Settings FAB
 
 ```tsx
-import { GlassFloatingAction } from '@tuliocunha23/liquidui';
+import { GlassFloatingAction } from 'liquidify';
 import { Settings, Moon, Sun, Volume2, VolumeX, Wifi } from 'lucide-react';
-import { useTheme } from '@tuliocunha23/liquidui';
+import { useTheme } from 'liquidify';
 
 function QuickSettingsFAB() {
   const { theme, toggleTheme } = useTheme();
@@ -310,8 +310,8 @@ function QuickSettingsFAB() {
 ### Mobile-Optimized FAB
 
 ```tsx
-import { GlassFloatingAction } from '@tuliocunha23/liquidui';
-import { useMobile } from '@tuliocunha23/liquidui';
+import { GlassFloatingAction } from 'liquidify';
+import { useMobile } from 'liquidify';
 import { Menu, Home, Search, User, Bell } from 'lucide-react';
 
 function MobileFAB() {

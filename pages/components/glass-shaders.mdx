@@ -13,7 +13,7 @@ Glass Shaders provide WebGL-based effects that enhance the glassmorphism aesthet
 ### Refraction Shaders
 
 ```typescript
-import { useRefractionShader } from '@tuliocunha23/liquidui';
+import { useRefractionShader } from 'liquidify';
 
 function RefractionGlass() {
   const shaderRef = useRefractionShader({
@@ -46,7 +46,7 @@ function RefractionGlass() {
 ### Caustics Simulation
 
 ```typescript
-import { useCausticsShader } from '@tuliocunha23/liquidui';
+import { useCausticsShader } from 'liquidify';
 
 function CausticsBackground() {
   const causticsRef = useCausticsShader({
@@ -74,7 +74,7 @@ function CausticsBackground() {
 ### GPU Compatibility
 
 ```typescript
-import { checkWebGLSupport } from '@tuliocunha23/liquidui';
+import { checkWebGLSupport } from 'liquidify';
 
 const webglSupport = checkWebGLSupport();
 if (!webglSupport.webgl2) {
@@ -86,7 +86,7 @@ if (!webglSupport.webgl2) {
 ### Adaptive Quality
 
 ```tsx
-import { useAdaptiveShaders } from '@tuliocunha23/liquidui';
+import { useAdaptiveShaders } from 'liquidify';
 
 function AdaptiveGlassEffect() {
   const { shaderQuality } = useAdaptiveShaders();

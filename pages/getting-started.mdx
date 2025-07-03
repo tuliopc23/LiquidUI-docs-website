@@ -39,19 +39,19 @@ Welcome to LiqUIdify! Get up and running with our physics-based glassmorphism co
 ### Using npm
 
 ```bash
-npm install @tuliocunha23/liquidui
+npm install liquidify
 ```
 
 ### Using yarn
 
 ```bash
-yarn add @tuliocunha23/liquidui
+yarn add liquidify
 ```
 
 ### Using pnpm
 
 ```bash
-pnpm add @tuliocunha23/liquidui
+pnpm add liquidify
 ```
 
 ## Setup
@@ -61,7 +61,7 @@ pnpm add @tuliocunha23/liquidui
 Add the LiqUIdify CSS to your project. In your main CSS file or `_app.tsx`:
 
 ```tsx
-import '@tuliocunha23/liquidui/css'
+import 'liquidify/css'
 ```
 
 ### 2. Configure Tailwind CSS
@@ -74,7 +74,7 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@tuliocunha23/liquidui/**/*.{js,ts,jsx,tsx}',
+    './node_modules/liquidify/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {},
@@ -88,7 +88,7 @@ module.exports = {
 For better theme support, wrap your app with the theme provider:
 
 ```tsx
-import { ThemeProvider } from '@tuliocunha23/liquidui'
+import { ThemeProvider } from 'liquidify'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -106,7 +106,7 @@ Let's create your first LiqUIdify component:
 <ComponentShowcase
   title="Your First LiqUIdify Component"
   description="A simple button with glassmorphism effect"
-  code={`import { GlassButton } from '@tuliocunha23/liquidui'
+  code={`import { GlassButton } from 'liquidify'
 
 function MyComponent() {
   return (
@@ -132,7 +132,7 @@ Here's a more complete example showing multiple components:
 <ComponentShowcase
   title="Complete Example"
   description="Card with button and content"
-  code={`import { GlassCard, GlassButton, GlassBadge } from '@tuliocunha23/liquidui'
+  code={`import { GlassCard, GlassButton, GlassBadge } from 'liquidify'
 
 function WelcomeCard() {
   return (
@@ -197,7 +197,7 @@ Built with accessibility as a core principle:
 LiquidiUI is built with TypeScript and provides full type safety:
 
 ```tsx
-import { GlassButtonProps } from '@tuliocunha23/liquidui'
+import { GlassButtonProps } from 'liquidify'
 
 interface MyButtonProps extends GlassButtonProps {
   customProp?: string

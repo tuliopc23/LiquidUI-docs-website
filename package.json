@@ -1,15 +1,15 @@
 {
-  "name": "liquidui-docs-website",
+  "name": "liquidify-docs-website",
   "version": "1.1.0",
   "private": true,
-  "description": "Documentation site for LiquidUI component library",
-  "homepage": "https://docs-one-taupe.vercel.app",
+  "description": "Documentation site for Liquidify component library",
+  "homepage": "https://liquidify-docs.vercel.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tuliopc23/LiquidUI-docs-website.git"
+    "url": "https://github.com/tuliopc23/Liquidify-docs.git"
   },
   "bugs": {
-    "url": "https://github.com/tuliopc23/LiquidUI-docs-website/issues"
+    "url": "https://github.com/tuliopc23/Liquidify-docs/issues"
   },
   "main": "index.js",
   "scripts": {
@@ -29,11 +29,12 @@
     "test:all": "npm run type-check && npm run lint && npm run test:ci"
   },
   "keywords": [
-    "liquidi-ui",
+    "liquidify",
     "component-library",
     "documentation",
     "react",
-    "ui"
+    "ui",
+    "glassmorphism"
   ],
   "author": "Tulio Pinheiro Cunha",
   "license": "MIT",
@@ -42,8 +43,8 @@
     "@ibm-cloud/watsonx-ai": "^1.6.8",
     "@modelcontextprotocol/sdk": "^1.13.2",
     "@smithery/sdk": "^1.5.2",
-    "@tuliocunha23/liquidui": "^1.0.17",
     "framer-motion": "^11.0.0",
+    "liquidify": "^1.0.21",
     "lucide-react": "^0.400.0",
     "next": "^15.3.4",
     "next-themes": "^0.4.6",

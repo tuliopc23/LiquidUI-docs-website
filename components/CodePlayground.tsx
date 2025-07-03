@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, Code2, Eye, RotateCcw } from 'lucide-react';
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 interface CodePlaygroundProps {
   code: string;

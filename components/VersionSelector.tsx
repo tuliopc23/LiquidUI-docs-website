@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check, Tag, Clock, ExternalLink } from 'lucide-react';
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 interface Version {
   version: string;
