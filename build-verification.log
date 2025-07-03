@@ -1,0 +1,93 @@
+
+> liquidify-docs-website@1.1.0 build
+> next build
+
+   ▲ Next.js 15.3.4
+   - Experiments (use with caution):
+     ✓ scrollRestoration
+
+   Linting and checking validity of types ...
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 6.0s
+   Collecting page data ...
+   Generating static pages (0/61) ...
+   Generating static pages (15/61) 
+   Generating static pages (30/61) 
+   Generating static pages (45/61) 
+ ✓ Generating static pages (61/61)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                                      Size  First Load JS
+┌ ○ /                                           6.83 kB        1.31 MB
+├   /_app                                           0 B        1.29 MB
+├ ○ /404                                          198 B        1.29 MB
+├ ƒ /api                                            0 B        1.29 MB
+├ ○ /components (630 ms)                        7.51 kB        1.31 MB
+├ ○ /components/accessibility-testing (612 ms)  9.93 kB        1.32 MB
+├ ○ /components/avatar (612 ms)                 3.31 kB        1.31 MB
+├ ○ /components/badge (612 ms)                  3.26 kB        1.31 MB
+├ ○ /components/button                          5.43 kB        1.31 MB
+├ ○ /components/card (611 ms)                   6.59 kB        1.31 MB
+├ ○ /components/chart (612 ms)                  3.33 kB        1.31 MB
+├ ○ /components/checkbox                        3.29 kB        1.31 MB
+├ ○ /components/command (615 ms)                3.21 kB        1.31 MB
+├ ○ /components/component-showcase (612 ms)     5.01 kB        1.31 MB
+├ ○ /components/dropdown                        9.56 kB        1.32 MB
+├ ○ /components/feature-showcase (612 ms)       5.33 kB        1.31 MB
+├ ○ /components/floating-action                 7.61 kB        1.31 MB
+├ ○ /components/footer                          7.16 kB        1.31 MB
+├ ○ /components/glass-animations                4.79 kB        1.31 MB
+├ ○ /components/glass-gestures                   4.5 kB        1.31 MB
+├ ○ /components/glass-performance               4.64 kB        1.31 MB
+├ ○ /components/glass-physics (629 ms)          11.7 kB        1.32 MB
+├ ○ /components/glass-shaders                   5.44 kB        1.31 MB
+├ ○ /components/glass-utils                     18.9 kB        1.32 MB
+├ ○ /components/header                          5.73 kB        1.31 MB
+├ ○ /components/hero                            7.85 kB        1.31 MB
+├ ○ /components/input                           6.43 kB        1.31 MB
+├ ○ /components/liquid-glass-tokens             8.02 kB        1.31 MB
+├ ○ /components/loading (629 ms)                   3 kB        1.31 MB
+├ ○ /components/mobile-nav (629 ms)                3 kB        1.31 MB
+├ ○ /components/modal                           7.95 kB        1.31 MB
+├ ○ /components/navbar (629 ms)                 5.75 kB        1.31 MB
+├ ○ /components/notification (629 ms)           3.23 kB        1.31 MB
+├ ○ /components/popover (629 ms)                3.23 kB        1.31 MB
+├ ○ /components/progress                        7.49 kB        1.31 MB
+├ ○ /components/responsive-button                  3 kB        1.31 MB
+├ ○ /components/responsive-card                 3.09 kB        1.31 MB
+├ ○ /components/search                             3 kB        1.31 MB
+├ ○ /components/select                          8.18 kB        1.31 MB
+├ ○ /components/sidebar (629 ms)                   3 kB        1.31 MB
+├ ○ /components/slider                          3.36 kB        1.31 MB
+├ ○ /components/switch                          3.28 kB        1.31 MB
+├ ○ /components/table (678 ms)                    13 kB        1.32 MB
+├ ○ /components/tabs (678 ms)                   11.8 kB        1.32 MB
+├ ○ /components/textarea                        6.74 kB        1.31 MB
+├ ○ /components/theme-provider                  3.02 kB        1.31 MB
+├ ○ /components/theme-toggle                    3.01 kB        1.31 MB
+├ ○ /components/toast                           7.75 kB        1.31 MB
+├ ○ /components/tooltip (678 ms)                9.86 kB        1.32 MB
+├ ○ /components/use-liquid-glass (678 ms)       7.92 kB        1.31 MB
+├ ○ /components/use-media-query (679 ms)        8.69 kB        1.31 MB
+├ ○ /components/use-mobile                       9.9 kB        1.32 MB
+├ ○ /components/use-performance-monitor         13.6 kB        1.32 MB
+├ ○ /components/use-theme                       11.9 kB        1.32 MB
+├ ○ /components/use-toast                       18.4 kB        1.32 MB
+├ ○ /contributing (678 ms)                      7.86 kB        1.31 MB
+├ ○ /examples (678 ms)                          7.24 kB        1.31 MB
+├ ○ /faq                                        6.51 kB        1.31 MB
+├ ○ /getting-started (678 ms)                   6.62 kB        1.31 MB
+├ ○ /migration                                  6.93 kB        1.31 MB
+├ ○ /playground                                 9.89 kB        1.32 MB
+└ ○ /theming                                    9.39 kB        1.32 MB
++ First Load JS shared by all                   1.33 MB
+  ├ chunks/framework-f0f34dd321686665.js        44.9 kB
+  ├ chunks/lib-bafd442a197f7eb4.js              1.24 MB
+  ├ css/37beeeee73684c02.css                    15.5 kB
+  ├ css/bd6bac1265b1a634.css                    25.2 kB
+  └ other shared chunks (total)                 5.25 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
