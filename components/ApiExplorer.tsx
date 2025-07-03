@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronRight, Code2, FileText, Package, Hash } from 'lucide-react';
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 interface PropType {
   name: string;

@@ -23,7 +23,11 @@
       "Bash(/dev/null)",
       "Bash(npm install:*)",
       "Bash(git checkout:*)",
-      "WebFetch(domain:mui.com)"
+      "WebFetch(domain:mui.com)",
+      "Bash(claude config list)",
+      "Bash(cat:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp:*)"
     ],
     "deny": []
   }

@@ -215,13 +215,13 @@ import {
   colorTokens, 
   typographyTokens, 
   spacingTokens 
-} from '@tuliocunha23/liquidui';
+} from 'liquidify';
 ```
 
 ### Using in Components
 
 ```tsx
-import { glassTokens, colorTokens } from '@tuliocunha23/liquidui';
+import { glassTokens, colorTokens } from 'liquidify';
 
 function CustomGlassComponent() {
   return (
@@ -270,7 +270,7 @@ The tokens are also available as CSS custom properties:
 ### Dynamic Token Generation
 
 ```typescript
-import { generateGlassVariant } from '@tuliocunha23/liquidui';
+import { generateGlassVariant } from 'liquidify';
 
 // Generate custom glass variant
 const customGlass = generateGlassVariant({
@@ -312,7 +312,7 @@ const darkThemeTokens = {
 ### Extending Default Tokens
 
 ```typescript
-import { glassTokens } from '@tuliocunha23/liquidui';
+import { glassTokens } from 'liquidify';
 
 const customTokens = {
   ...glassTokens,

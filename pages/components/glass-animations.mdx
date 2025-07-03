@@ -13,7 +13,7 @@ Glass Animations provide a comprehensive set of animation utilities specifically
 ### Entrance Animations
 
 ```typescript
-import { glassAnimations } from '@tuliocunha23/liquidui';
+import { glassAnimations } from 'liquidify';
 
 // Fade in with blur
 const fadeInBlur = glassAnimations.entrance.fadeInBlur({
@@ -45,7 +45,7 @@ const scaleInGlass = glassAnimations.entrance.scaleInGlass({
 ### Blur Transitions
 
 ```tsx
-import { useBlurTransition } from '@tuliocunha23/liquidui';
+import { useBlurTransition } from 'liquidify';
 
 function BlurTransition() {
   const [isBlurred, setIsBlurred] = useState(false);
@@ -82,7 +82,7 @@ All glass animations are optimized for GPU acceleration:
 ### Reduced Motion Support
 
 ```tsx
-import { useReducedMotion } from '@tuliocunha23/liquidui';
+import { useReducedMotion } from 'liquidify';
 
 function AccessibleAnimation() {
   const prefersReducedMotion = useReducedMotion();

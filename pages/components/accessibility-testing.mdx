@@ -13,7 +13,7 @@ LiquidUI provides built-in accessibility testing utilities to help developers cr
 ### Automated Checks
 
 ```typescript
-import { testAccessibility } from '@tuliocunha23/liquidui';
+import { testAccessibility } from 'liquidify';
 
 // Test a component for accessibility issues
 const results = await testAccessibility(componentRef);
@@ -25,7 +25,7 @@ console.log('Issues Found:', results.issues);
 ### Manual Testing Checklist
 
 ```typescript
-import { createAccessibilityChecklist } from '@tuliocunha23/liquidui';
+import { createAccessibilityChecklist } from 'liquidify';
 
 const checklist = createAccessibilityChecklist({
   component: 'GlassButton',
@@ -76,7 +76,7 @@ Glass components must maintain clear focus indicators:
 ### Level AA Requirements
 
 ```typescript
-import { checkWCAG } from '@tuliocunha23/liquidui';
+import { checkWCAG } from 'liquidify';
 
 const component = document.querySelector('#my-glass-component');
 const compliance = await checkWCAG(component, {
@@ -114,7 +114,7 @@ const strictCompliance = await checkWCAG(component, {
 ### Button Accessibility
 
 ```typescript
-import { testButtonAccessibility } from '@tuliocunha23/liquidui';
+import { testButtonAccessibility } from 'liquidify';
 
 const buttonTests = await testButtonAccessibility(buttonRef, {
   checkFor: [
@@ -130,7 +130,7 @@ const buttonTests = await testButtonAccessibility(buttonRef, {
 ### Form Field Accessibility
 
 ```typescript
-import { testFormFieldAccessibility } from '@tuliocunha23/liquidui';
+import { testFormFieldAccessibility } from 'liquidify';
 
 const fieldTests = await testFormFieldAccessibility(inputRef, {
   checkFor: [
@@ -146,7 +146,7 @@ const fieldTests = await testFormFieldAccessibility(inputRef, {
 ### Modal Accessibility
 
 ```typescript
-import { testModalAccessibility } from '@tuliocunha23/liquidui';
+import { testModalAccessibility } from 'liquidify';
 
 const modalTests = await testModalAccessibility(modalRef, {
   checkFor: [
@@ -167,8 +167,8 @@ const modalTests = await testModalAccessibility(modalRef, {
 
 ```typescript
 import { render } from '@testing-library/react';
-import { testAccessibility } from '@tuliocunha23/liquidui';
-import { GlassButton } from '@tuliocunha23/liquidui';
+import { testAccessibility } from 'liquidify';
+import { GlassButton } from 'liquidify';
 
 describe('GlassButton Accessibility', () => {
   test('should meet WCAG AA standards', async () => {
@@ -300,7 +300,7 @@ const screenReaderChecklist = {
 ### Automated Contrast Checking
 
 ```typescript
-import { checkColorContrast } from '@tuliocunha23/liquidui';
+import { checkColorContrast } from 'liquidify';
 
 const contrastResults = checkColorContrast({
   foreground: '#374151', // text color
@@ -316,7 +316,7 @@ console.log('WCAG AAA Pass:', contrastResults.wcagAAA);
 ### Dynamic Contrast Adjustment
 
 ```tsx
-import { useContrastAdjustment } from '@tuliocunha23/liquidui';
+import { useContrastAdjustment } from 'liquidify';
 
 function AccessibleGlassComponent() {
   const { adjustedStyles, contrastRatio } = useContrastAdjustment({
@@ -338,7 +338,7 @@ function AccessibleGlassComponent() {
 ### Reduced Motion Support
 
 ```tsx
-import { useReducedMotion } from '@tuliocunha23/liquidui';
+import { useReducedMotion } from 'liquidify';
 
 function AccessibleGlassButton() {
   const prefersReducedMotion = useReducedMotion();
@@ -360,7 +360,7 @@ function AccessibleGlassButton() {
 ### High Contrast Mode
 
 ```tsx
-import { useHighContrast } from '@tuliocunha23/liquidui';
+import { useHighContrast } from 'liquidify';
 
 function HighContrastGlassCard() {
   const isHighContrast = useHighContrast();
@@ -384,7 +384,7 @@ function HighContrastGlassCard() {
 ### axe-core Integration
 
 ```typescript
-import { configureAxe } from '@tuliocunha23/liquidui';
+import { configureAxe } from 'liquidify';
 
 // Configure axe for glass components
 const axeConfig = configureAxe({
@@ -469,7 +469,7 @@ jobs:
 ### Automated Reporting
 
 ```typescript
-import { generateAccessibilityReport } from '@tuliocunha23/liquidui';
+import { generateAccessibilityReport } from 'liquidify';
 
 const report = await generateAccessibilityReport({
   components: ['GlassButton', 'GlassCard', 'GlassModal'],

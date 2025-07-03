@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Palette, Download, RotateCcw, Eye, Code2, Sliders } from 'lucide-react';
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 interface ThemeConfig {
   primary: string;

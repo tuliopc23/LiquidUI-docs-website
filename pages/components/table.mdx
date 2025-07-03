@@ -79,7 +79,7 @@ interface GlassTableProps extends React.TableHTMLAttributes<HTMLTableElement> {
 </ComponentShowcase>
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function ProductTable() {
   const productData = [
@@ -117,7 +117,7 @@ function ProductTable() {
 </ComponentShowcase>
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function EmployeeTable() {
   const employees = [
@@ -156,7 +156,7 @@ function EmployeeTable() {
 </ComponentShowcase>
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function MetricsTable() {
   return (
@@ -204,7 +204,7 @@ function MetricsTable() {
 </ComponentShowcase>
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function CustomTable() {
   return (
@@ -233,7 +233,7 @@ function CustomTable() {
 ### Dynamic Data Loading
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 import { useState, useEffect } from 'react';
 
 interface User {
@@ -296,8 +296,8 @@ function UserTable() {
 ### Responsive Table Pattern
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
-import { useMobile } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
+import { useMobile } from 'liquidify';
 
 function ResponsiveTable() {
   const isMobile = useMobile();
@@ -340,7 +340,7 @@ function ResponsiveTable() {
 ### Table with Actions
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 import { Edit, Trash2, Eye } from 'lucide-react';
 
 interface TableItem {
@@ -430,7 +430,7 @@ function ActionTable() {
 ### Empty State Handling
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 import { Database } from 'lucide-react';
 
 function EmptyStateTable() {
@@ -478,7 +478,7 @@ The GlassTable component uses glassmorphism design with these default styles:
 ### Custom Styling
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function CustomStyledTable() {
   return (
@@ -506,7 +506,7 @@ The GlassTable component includes accessibility features:
 ### Accessibility Best Practices
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 
 function AccessibleTable() {
   return (
@@ -530,7 +530,7 @@ The current GlassTable implementation is focused on display. For advanced featur
 ### Manual Sorting Implementation
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 import { useState } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 
@@ -605,7 +605,7 @@ function SortableTable() {
 ### Manual Pagination Implementation
 
 ```tsx
-import { GlassTable } from '@tuliocunha23/liquidui';
+import { GlassTable } from 'liquidify';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { cn } from '@tuliocunha23/liquidui';
+import { cn } from 'liquidify';
 
 // Magnetic button effect
 export function MagneticButton({ 

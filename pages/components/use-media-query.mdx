@@ -7,7 +7,7 @@ A React hook for responsive design that tracks CSS media query changes in real-t
 ## Basic Usage
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function ResponsiveComponent() {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -58,7 +58,7 @@ Returns a `boolean` indicating whether the media query currently matches.
 </ComponentShowcase>
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function BreakpointExample() {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -108,7 +108,7 @@ function BreakpointExample() {
 ### Orientation Detection
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function OrientationExample() {
   const isPortrait = useMediaQuery('(orientation: portrait)');
@@ -133,7 +133,7 @@ function OrientationExample() {
 ### Dark Mode Preference
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function DarkModeExample() {
   const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
@@ -161,7 +161,7 @@ function DarkModeExample() {
 ### High Contrast Support
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function AccessibilityExample() {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
@@ -191,7 +191,7 @@ function AccessibilityExample() {
 ### Custom Breakpoint System
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 // Define custom breakpoints
 const breakpoints = {
@@ -235,7 +235,7 @@ function CustomBreakpoints() {
 ### Conditional Component Loading
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 import { lazy, Suspense } from 'react';
 
 // Lazy load components based on screen size
@@ -262,7 +262,7 @@ function ConditionalLoading() {
 ### Multiple Query Tracking
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 
 function MultipleQueries() {
   // Track multiple conditions simultaneously
@@ -297,7 +297,7 @@ function MultipleQueries() {
 When using `useMediaQuery` with server-side rendering:
 
 ```tsx
-import { useMediaQuery } from '@tuliocunha23/liquidui';
+import { useMediaQuery } from 'liquidify';
 import { useState, useEffect } from 'react';
 
 function SSRSafeComponent() {
