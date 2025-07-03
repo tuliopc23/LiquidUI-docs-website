@@ -43,7 +43,7 @@ const config = {
     extraContent: (
       <div className="flex items-center gap-3">
         <VersionSelector
-          currentVersion="1.0.21"
+          currentVersion="1.0.22"
           className="hidden sm:block"
         />
         <a
@@ -190,7 +190,7 @@ const config = {
         }}
       >
         <LiquidifyLogo size={20} />
-        🎉 LiqUIdify v1.0.21 is now live with production-ready liquid glass components!
+        🚀 LiqUIdify v1.0.22 is now live with physics system and new components!
         →
       </a>
     ),
