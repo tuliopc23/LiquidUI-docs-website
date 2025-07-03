@@ -75,7 +75,7 @@ const config = {
             target="_blank"
             rel="noopener noreferrer"
             title="LiqUIdify Documentation"
-            href="https://docs-one-taupe.vercel.app"
+            href="https://liquidify-docs.vercel.app"
           >
             <Sparkles className="w-4 h-4" />
             Built with LiqUIdify
@@ -99,7 +99,7 @@ const config = {
         property="og:description"
         content="The future of UI design with glassmorphism components that flow like liquid glass"
       />
-      <meta property="og:url" content="https://docs-one-taupe.vercel.app" />
+      <meta property="og:url" content="https://liquidify-docs.vercel.app" />
       <meta
         name="description"
         content="LiqUIdify - The future of UI design with glassmorphism components that flow like liquid glass. Build beautiful, responsive interfaces with Apple-inspired aesthetics."

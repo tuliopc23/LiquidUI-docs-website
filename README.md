@@ -1,12 +1,12 @@
-# LiquidUI Documentation
+# Liquidify Documentation
 
-Professional documentation site for **LiquidUI** - A React component library with glassmorphism design and physics-based interactions.
+Professional documentation site for **Liquidify** - A production-ready React component library with glassmorphism design and physics-based interactions.
 
-🌐 **Live Site**: [docs-one-taupe.vercel.app](https://docs-one-taupe.vercel.app)
+🌐 **Live Site**: [liquidify-docs.vercel.app](https://liquidify-docs.vercel.app)
 
 ## ✨ Features
 
-- **30+ Components** with glassmorphism design
+- **40+ Components** with glassmorphism design
 - **Interactive Examples** with live previews
 - **Comprehensive API Documentation**
 - **Real-world Patterns** and use cases
@@ -88,10 +88,12 @@ This documentation site includes:
 
 ## 🔗 Links
 
-- **Live Documentation**: [docs-one-taupe.vercel.app](https://docs-one-taupe.vercel.app)
-- **Repository**: [github.com/tuliopc23/LiquidUI-docs-website](https://github.com/tuliopc23/LiquidUI-docs-website)
-- **Component Library**: `glass-ui-tulio` (npm package)
+- **Live Documentation**: [liquidify-docs.vercel.app](https://liquidify-docs.vercel.app)
+- **Documentation Repository**: [github.com/tuliopc23/Liquidify-docs](https://github.com/tuliopc23/Liquidify-docs)
+- **Component Library**: [github.com/tuliopc23/Liquidify](https://github.com/tuliopc23/Liquidify)
+- **NPM Package**: [`liquidify`](https://www.npmjs.com/package/liquidify)
+- **Storybook**: [liquidify.vercel.app](https://liquidify.vercel.app)
 
 ---
 
-Built with ❤️ using **LiquidUI** components and glassmorphism design principles.
+Built with ❤️ using **Liquidify** components and glassmorphism design principles.
