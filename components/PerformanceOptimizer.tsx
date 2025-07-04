@@ -2,12 +2,72 @@
 import React, { useEffect, memo, useCallback } from 'react';
 import { motion, LazyMotion, domAnimation, type Variants } from 'framer-motion';
 
-// Performance-optimized transition presets
+// Custom shouldReduceMotion function
+function shouldReduceMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Performance-optimized transition presets with mobile optimizations
 const SPRING_CONFIGS = {
   gentle: { type: "spring" as const, stiffness: 260, damping: 20, mass: 1 },
   bouncy: { type: "spring" as const, stiffness: 400, damping: 10, mass: 0.7 },
   snappy: { type: "spring" as const, stiffness: 600, damping: 15, mass: 0.5 },
   smooth: { type: "spring" as const, stiffness: 100, damping: 15, mass: 1 },
+  // Mobile-optimized configs with lower values for performance
+  gentleMobile: { type: "spring" as const, stiffness: 200, damping: 25, mass: 0.8 },
+  snappyMobile: { type: "spring" as const, stiffness: 400, damping: 20, mass: 0.4 },
+} as const;
+
+// Mobile blur optimization - reduce blur intensity on mobile devices
+const MOBILE_BLUR_REDUCTION = 0.4; // Reduce blur by 60% on mobile
+
+// Shared animation constants (moved from animations.ts)
+export const ANIMATION_CONSTANTS = {
+  // Duration scales (in seconds for Framer Motion)
+  duration: {
+    fast: 0.15,      // 0.15s - for immediate feedback
+    normal: 0.25,    // 0.25s - standard interactions
+    slow: 0.4,       // 0.4s - complex transitions
+    slowest: 0.6,    // 0.6s - page transitions
+  },
+  
+  // Easing curves optimized for spring physics
+  easing: {
+    // Standard material design easing
+    standard: [0.4, 0.0, 0.2, 1] as const,
+    // Decelerate - entering elements
+    decelerate: [0.0, 0.0, 0.2, 1] as const,
+    // Accelerate - exiting elements  
+    accelerate: [0.4, 0.0, 1, 1] as const,
+    // Sharp - attention-grabbing
+    sharp: [0.4, 0.0, 0.6, 1] as const,
+  },
+  
+  // Scale values for hover effects
+  scale: {
+    subtle: 1.02,   // Cards, large components
+    normal: 1.05,   // Buttons, interactive elements
+    strong: 1.1,    // Icons, small elements
+  },
+  
+  // Glass effect blur values with mobile optimization
+  blur: {
+    light: 10,      // Subtle glass effect
+    medium: 15,     // Standard glass effect
+    heavy: 20,      // Strong glass effect
+    // Mobile optimized values
+    lightMobile: 4,
+    mediumMobile: 6,
+    heavyMobile: 8,
+  },
+  
+  // Viewport margins for intersection observer
+  viewport: {
+    default: '0px 0px -100px 0px',
+    lazy: '0px 0px -50px 0px',
+    eager: '50px 50px -50px -50px',
+  }
 } as const;
 
 // Type-safe animation configurations
@@ -147,45 +207,45 @@ export const optimizedVariants: Record<string, any> = {
         }
     },
 
-    // Enhanced liquid glass morphing with better performance
+    // Enhanced liquid glass morphing with spring transitions (replaces keyframes)
     liquidMorph: {
         animate: {
-            scale: [1, 1.01, 1.02, 1],
-            rotate: [0, 0.5, 1, 0],
-            borderRadius: ["24px", "28px 16px 32px 20px", "20px 32px 16px 28px", "24px"],
+            scale: 1.01,
+            rotate: 0.5,
+            borderRadius: "28px 16px 32px 20px",
             transition: {
-                duration: 8,
+                ...SPRING_CONFIGS.gentle,
                 repeat: Infinity,
                 repeatType: "reverse" as const,
-                ease: [0.4, 0.0, 0.2, 1],
+                duration: 6, // Reduced duration for better performance
             }
         }
     },
     
-    // Advanced glass morphing
+    // Advanced glass morphing with spring transitions (replaces keyframes)
     glassMorphAdvanced: {
         animate: {
-            scale: [1, 1.005, 1.01, 1.005, 1],
-            rotate: [0, 0.3, -0.2, 0.1, 0],
-            filter: ["blur(0px)", "blur(0.5px)", "blur(0.8px)", "blur(0.3px)", "blur(0px)"],
+            scale: 1.005,
+            rotate: 0.2,
             transition: {
-                duration: 12,
+                ...SPRING_CONFIGS.smooth,
                 repeat: Infinity,
-                ease: "easeInOut",
+                repeatType: "reverse" as const,
+                duration: 8, // Reduced from 12s for better performance
             }
         }
     },
 
-    // Floating animations
+    // Floating animations with spring physics (replaces keyframes)
     float: {
         animate: {
-            y: [0, -10, 0],
-            rotate: [0, 2, 0],
+            y: -8,
+            rotate: 1.5,
             transition: {
-                duration: 6,
+                ...SPRING_CONFIGS.gentle,
                 repeat: Infinity,
                 repeatType: "reverse" as const,
-                ease: "easeInOut",
+                duration: 5, // Reduced duration
             }
         }
     },
@@ -257,16 +317,32 @@ export const optimizedVariants: Record<string, any> = {
 // Enhanced performance optimization with advanced techniques
 export const usePerformanceOptimization = () => {
     const [isReducedMotion, setIsReducedMotion] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(false);
     
-    // Check for reduced motion preference
+    // Check for reduced motion preference and mobile device
     React.useEffect(() => {
-        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        setIsReducedMotion(mediaQuery.matches);
+        const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const mobileQuery = window.matchMedia('(max-width: 768px)');
         
-        const handleChange = (e: MediaQueryListEvent) => setIsReducedMotion(e.matches);
-        mediaQuery.addEventListener('change', handleChange);
+        // Use Framer Motion's shouldReduceMotion for consistency
+        setIsReducedMotion(shouldReduceMotion() || reducedMotionQuery.matches);
+        setIsMobile(mobileQuery.matches);
         
-        return () => mediaQuery.removeEventListener('change', handleChange);
+        const handleReducedMotionChange = (e: MediaQueryListEvent) => {
+            setIsReducedMotion(shouldReduceMotion() || e.matches);
+        };
+        
+        const handleMobileChange = (e: MediaQueryListEvent) => {
+            setIsMobile(e.matches);
+        };
+        
+        reducedMotionQuery.addEventListener('change', handleReducedMotionChange);
+        mobileQuery.addEventListener('change', handleMobileChange);
+        
+        return () => {
+            reducedMotionQuery.removeEventListener('change', handleReducedMotionChange);
+            mobileQuery.removeEventListener('change', handleMobileChange);
+        };
     }, []);
     
     const optimizeForDevice = useCallback(() => {
@@ -276,11 +352,21 @@ export const usePerformanceOptimization = () => {
         const isSlowConnection = (navigator as unknown as { connection?: { effectiveType?: string } }).connection && (navigator as unknown as { connection?: { effectiveType?: string } }).connection!.effectiveType === 'slow-2g';
         
         if (hasReducedPerformance || hasLowMemory || isSlowConnection || isReducedMotion) {
-            // Reduce animation complexity
+            // Reduce animation complexity for better performance
             document.documentElement.style.setProperty('--animation-duration', '0.1s');
             document.documentElement.style.setProperty('--animation-complexity', 'low');
+            
+            // Reduce blur effects on mobile for paint performance
+            if (isMobile) {
+                document.documentElement.style.setProperty('--mobile-blur-reduction', String(MOBILE_BLUR_REDUCTION));
+            }
         }
-    }, [isReducedMotion]);
+        
+        // Disable complex animations if reduced motion is preferred
+        if (isReducedMotion) {
+            document.documentElement.style.setProperty('--disable-complex-animations', '1');
+        }
+    }, [isReducedMotion, isMobile]);
     useEffect(() => {
         // Enable hardware acceleration for all animated elements
         const optimizeAnimations = () => {
@@ -295,7 +381,7 @@ export const usePerformanceOptimization = () => {
           perspective: 1000px;
         }
         
-        /* Optimize glassmorphism effects */
+        /* Optimize glassmorphism effects with mobile blur reduction */
         .liquid-glass,
         .glass-card,
         .glass-button,
@@ -303,6 +389,36 @@ export const usePerformanceOptimization = () => {
           will-change: transform, backdrop-filter;
           transform: translateZ(0);
           contain: layout style paint;
+        }
+        
+        /* Mobile blur optimizations */
+        @media (max-width: 768px) {
+          .liquid-glass,
+          .glass-card,
+          .glass-button,
+          .glass-button-primary {
+            backdrop-filter: blur(calc(var(--blur-amount, 10px) * var(--mobile-blur-reduction, 1)));
+          }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+          
+          .motion-element {
+            transform: none !important;
+          }
+          
+          [data-framer-motion-element] {
+            transform: none !important;
+          }
         }
         
         /* Reduce repaints on hover */
@@ -427,6 +543,127 @@ export const useIntersectionObserver = (
     }, [callback, options]);
 
     return observer;
+};
+
+// Viewport-aware motion wrapper that only renders heavy animations when in view
+export const ViewportMotion: React.FC<{
+    children: React.ReactNode;
+    variants?: Variants;
+    className?: string;
+    threshold?: number;
+    rootMargin?: string;
+    once?: boolean;
+}> = memo(({ 
+    children, 
+    variants = optimizedVariants.fadeInViewport, 
+    className, 
+    threshold = 0.1, 
+    rootMargin = '0px 0px -100px 0px',
+    once = true 
+}) => {
+    const [isInView, setIsInView] = React.useState(false);
+    const [hasAnimated, setHasAnimated] = React.useState(false);
+    const ref = React.useRef<HTMLDivElement>(null);
+    
+    const isReducedMotion = shouldReduceMotion();
+    
+    React.useEffect(() => {
+        const element = ref.current;
+        if (!element) return;
+        
+        // Skip intersection observer if reduced motion is preferred
+        if (isReducedMotion) {
+            setIsInView(true);
+            return;
+        }
+        
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const inView = entry.isIntersecting;
+                setIsInView(inView);
+                
+                if (inView && once && !hasAnimated) {
+                    setHasAnimated(true);
+                }
+            },
+            { threshold, rootMargin }
+        );
+        
+        observer.observe(element);
+        
+        return () => observer.disconnect();
+    }, [threshold, rootMargin, once, hasAnimated, isReducedMotion]);
+    
+    // Don't animate if reduced motion is preferred
+    if (isReducedMotion) {
+        return (
+            <div ref={ref} className={className}>
+                {children}
+            </div>
+        );
+    }
+    
+    // Only render motion.div when in viewport or has animated (for once)
+    const shouldAnimate = isInView || (once && hasAnimated);
+    
+    return (
+        <OptimizedMotion.div
+            ref={ref}
+            className={className}
+            variants={variants}
+            initial="initial"
+            animate={shouldAnimate ? "whileInView" : "initial"}
+            viewport={{ once }}
+        >
+            {children}
+        </OptimizedMotion.div>
+    );
+});
+
+ViewportMotion.displayName = 'ViewportMotion';
+
+// Utility functions for animation migration and optimization
+export const getOptimizedTransition = (isMobile = false, complexity: 'low' | 'medium' | 'high' = 'medium') => {
+    const baseConfig = isMobile ? SPRING_CONFIGS.gentleMobile : SPRING_CONFIGS.gentle;
+    
+    switch (complexity) {
+        case 'low':
+            return { ...baseConfig, stiffness: baseConfig.stiffness * 0.7 };
+        case 'high':
+            return isMobile ? SPRING_CONFIGS.snappyMobile : SPRING_CONFIGS.bouncy;
+        default:
+            return baseConfig;
+    }
+};
+
+// Convert keyframe arrays to spring-based single values
+export const optimizeKeyframes = (keyframes: number[], targetIndex = 1) => {
+    // Return the middle value or specified target for spring animations
+    if (keyframes.length === 0) return 0;
+    if (keyframes.length === 1) return keyframes[0];
+    
+    const index = Math.min(targetIndex, keyframes.length - 1);
+    return keyframes[index];
+};
+
+// Check if device should use reduced animations
+export const shouldUseReducedAnimations = () => {
+    if (typeof window === 'undefined') return false;
+    
+    return (
+        shouldReduceMotion() ||
+        // Check for low-end mobile devices
+        (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+         (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4) ||
+        // Check for slow connections
+        ((navigator as any).connection && (navigator as any).connection.effectiveType === 'slow-2g')
+    );
+};
+
+// Get optimized blur value for current device
+export const getOptimizedBlur = (baseBlur: number, isMobile?: boolean) => {
+    const mobile = isMobile ?? window.matchMedia('(max-width: 768px)').matches;
+    return mobile ? Math.round(baseBlur * MOBILE_BLUR_REDUCTION) : baseBlur;
 };
 
 // Performance monitoring utilities

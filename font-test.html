@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Loading Test - Inter with font-display: swap</title>
+    
+    <!-- Preload Inter Variable font (this should match what's in _document.tsx) -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    
+    <!-- Google Fonts with display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS for testing -->
+    <style>
+        /* Apply Inter with fallbacks */
+        body {
+            font-family: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fafafa;
+            color: #333;
+        }
+        
+        /* Typography scale similar to what's in the Tailwind config */
+        .hero-text {
+            font-size: 3.75rem; /* 60px */
+            line-height: 1;
+            letter-spacing: -0.025em;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+        
+        .subtitle-text {
+            font-size: 1.875rem; /* 30px */
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .body-text {
+            font-size: 1rem; /* 16px */
+            line-height: 1.5;
+            letter-spacing: 0;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        
+        .caption-text {
+            font-size: 0.875rem; /* 14px */
+            line-height: 1.4;
+            letter-spacing: 0.01em;
+            font-weight: 400;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Test section styling */
+        .test-section {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Font loading indicator */
+        .font-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background: #333;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .font-loaded { background: #22c55e; }
+        .font-loading { background: #f59e0b; }
+        .font-error { background: #ef4444; }
+        
+        /* Text wrapping utilities test */
+        .text-balance {
+            text-wrap: balance;
+        }
+        
+        .text-pretty {
+            text-wrap: pretty;
+        }
+        
+        /* Color contrast test */
+        .text-foreground { color: hsl(222.2, 84%, 4.9%); }
+        .text-muted { color: hsl(215.4, 16.3%, 46.9%); }
+        .text-muted-foreground { color: hsl(215.4, 16.3%, 46.9%); }
+        
+        /* Dark mode test */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #111;
+                color: #fafafa;
+            }
+            
+            .test-section {
+                background: #222;
+            }
+            
+            .text-foreground { color: hsl(210, 40%, 98%); }
+            .text-muted { color: hsl(215.4, 16.3%, 56.9%); }
+            .text-muted-foreground { color: hsl(215.4, 16.3%, 56.9%); }
+        }
+        
+        /* Font feature settings test */
+        .font-features {
+            font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv11" on;
+        }
+    </style>
+</head>
+<body>
+    <div class="font-status" id="fontStatus">Font Loading...</div>
+    
+    <header class="test-section">
+        <h1 class="hero-text text-foreground text-balance">Inter Font Loading Test</h1>
+        <p class="subtitle-text text-muted-foreground text-pretty">Verifying font-display: swap and preloading functionality</p>
+    </header>
+    
+    <main>
+        <section class="test-section">
+            <h2 class="subtitle-text text-foreground">Typography Scale Test</h2>
+            
+            <div class="hero-text text-foreground text-balance">Hero Text (60px)</div>
+            <div class="subtitle-text text-muted-foreground text-pretty">Subtitle Text (30px)</div>
+            <div class="body-text text-foreground">Body Text (16px) - This is the standard paragraph text that should be highly readable with good contrast ratios.</div>
+            <div class="caption-text text-muted">Caption Text (14px) - Smaller text for captions and secondary information.</div>
+        </section>
+        
+        <section class="test-section">
+            <h2 class="subtitle-text text-foreground">Text Wrapping Test</h2>
+            
+            <h3 class="body-text text-foreground">Text Balance:</h3>
+            <p class="body-text text-balance">This text uses text-wrap: balance to ensure more balanced line breaks in headings and short paragraphs, preventing awkward single words on the last line.</p>
+            
+            <h3 class="body-text text-foreground">Text Pretty:</h3>
+            <p class="body-text text-pretty">This text uses text-wrap: pretty to improve the overall appearance of text wrapping by considering the entire paragraph when determining line breaks, resulting in more visually pleasing typography.</p>
+        </section>
+        
+        <section class="test-section">
+            <h2 class="subtitle-text text-foreground">Font Features Test</h2>
+            <p class="body-text font-features">This text demonstrates Inter's advanced OpenType features like stylistic sets and character variants: 0123456789 &amp; @ # $ % ^ * ( ) - + = [ ] { } | \ : ; " ' &lt; &gt; , . ? / ~</p>
+        </section>
+        
+        <section class="test-section">
+            <h2 class="subtitle-text text-foreground">Color Contrast Test</h2>
+            <p class="body-text text-foreground">Foreground text should have high contrast (≥4.5:1) against the background.</p>
+            <p class="body-text text-muted-foreground">Muted foreground text should still maintain adequate contrast.</p>
+            <p class="caption-text text-muted">Muted text for less important information.</p>
+        </section>
+        
+        <section class="test-section">
+            <h2 class="subtitle-text text-foreground">Performance Test</h2>
+            <p class="body-text">Font load time: <span id="loadTime">Measuring...</span></p>
+            <p class="body-text">Layout shift prevention: <span id="layoutShift">Testing...</span></p>
+            <p class="caption-text">This test verifies that font-display: swap prevents invisible text during font swap period and that preloading improves performance.</p>
+        </section>
+    </main>
+    
+    <script>
+        // Font loading detection and performance measurement
+        const fontStatus = document.getElementById('fontStatus');
+        const loadTimeElement = document.getElementById('loadTime');
+        const layoutShiftElement = document.getElementById('layoutShift');
+        const startTime = performance.now();
+        
+        // Test font loading
+        function testFontLoading() {
+            if (document.fonts && document.fonts.ready) {
+                fontStatus.textContent = 'Checking fonts...';
+                fontStatus.className = 'font-status font-loading';
+                
+                document.fonts.ready.then(() => {
+                    const loadTime = Math.round(performance.now() - startTime);
+                    
+                    // Check if Inter is loaded
+                    const interLoaded = document.fonts.check('16px Inter');
+                    
+                    if (interLoaded) {
+                        fontStatus.textContent = `Inter loaded in ${loadTime}ms`;
+                        fontStatus.className = 'font-status font-loaded';
+                        loadTimeElement.textContent = `${loadTime}ms`;
+                    } else {
+                        fontStatus.textContent = 'Inter failed to load';
+                        fontStatus.className = 'font-status font-error';
+                        loadTimeElement.textContent = 'Failed';
+                    }
+                }).catch(() => {
+                    fontStatus.textContent = 'Font loading error';
+                    fontStatus.className = 'font-status font-error';
+                    loadTimeElement.textContent = 'Error';
+                });
+            } else {
+                fontStatus.textContent = 'Font API not supported';
+                fontStatus.className = 'font-status font-error';
+            }
+        }
+        
+        // Measure layout shift
+        function measureLayoutShift() {
+            if ('PerformanceObserver' in window) {
+                const observer = new PerformanceObserver((list) => {
+                    let cls = 0;
+                    for (const entry of list.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            cls += entry.value;
+                        }
+                    }
+                    layoutShiftElement.textContent = cls > 0.1 ? `${cls.toFixed(4)} (Poor)` : `${cls.toFixed(4)} (Good)`;
+                });
+                
+                observer.observe({type: 'layout-shift', buffered: true});
+                
+                // Stop observing after 3 seconds
+                setTimeout(() => observer.disconnect(), 3000);
+            } else {
+                layoutShiftElement.textContent = 'Not supported';
+            }
+        }
+        
+        // Run tests
+        testFontLoading();
+        measureLayoutShift();
+        
+        // Test font features
+        if ('fontVariationSettings' in document.body.style || 'fontFeatureSettings' in document.body.style) {
+            console.log('Advanced font features supported');
+        }
+        
+        // Log font loading events
+        if (document.fonts) {
+            document.fonts.addEventListener('loading', (event) => {
+                console.log('Font loading:', event.fontface.family);
+            });
+            
+            document.fonts.addEventListener('loadingdone', (event) => {
+                console.log('Font loaded:', event.fontface.family);
+            });
+            
+            document.fonts.addEventListener('loadingerror', (event) => {
+                console.error('Font loading error:', event.fontface.family);
+            });
+        }
+    </script>
+</body>
+</html>

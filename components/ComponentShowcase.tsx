@@ -4,13 +4,20 @@ import { motion, type Variants } from "framer-motion";
 import { Copy, Check, Code, Eye } from "lucide-react";
 import { LiquidifyLogo } from "./LiquidifyLogo";
 import { StorybookLogo } from "./StorybookLogo";
+import { ViewportMotion, ANIMATION_CONSTANTS } from "./PerformanceOptimizer";
 
 // Utility function for classname merging
 function cn(...classes: (string | undefined)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
-// Animation variants for better performance
+// Custom shouldReduceMotion function
+function shouldReduceMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Animation variants optimized with spring physics
 const showcaseVariants: Variants = {
   hidden: { 
     opacity: 0, 
@@ -22,8 +29,10 @@ const showcaseVariants: Variants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
-      ease: [0.4, 0.0, 0.2, 1],
+      type: "spring",
+      stiffness: 260,
+      damping: 20,
+      mass: 1,
       staggerChildren: 0.1
     }
   }
@@ -101,14 +110,17 @@ export function ComponentShowcase({
   }, [title]);
 
   return (
-    <motion.div
+    <ViewportMotion
       variants={showcaseVariants}
-      initial="hidden"
-      animate="visible"
       className="component-showcase group relative overflow-hidden rounded-3xl my-8 glass-card border border-white/20"
-      role="region"
-      aria-label={ariaLabel}
+      threshold={0.2}
+      rootMargin={ANIMATION_CONSTANTS.viewport.lazy}
+      once={true}
     >
+      <div
+        role="region"
+        aria-label={ariaLabel}
+      >
       {/* Animated background effect for better visibility */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 opacity-100 transition-opacity duration-500" />
       <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-transparent to-purple-100/30 dark:from-blue-400/10 dark:via-transparent dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -160,7 +172,7 @@ export function ComponentShowcase({
                         ? `code-${title.replace(/\s+/g, "-").toLowerCase()}`
                         : "code-section"
                     }
-                    className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
+                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
                     type="button"
                   >
                     {isCodeVisible ? (
@@ -177,7 +189,7 @@ export function ComponentShowcase({
                         ? "Code copied to clipboard"
                         : "Copy code to clipboard"
                     }
-                    className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
+                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
                     type="button"
                   >
                     {copied ? (
@@ -200,7 +212,7 @@ export function ComponentShowcase({
                     href="https://lib.useliquidify.dev/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                 aria-label="View component in Storybook"
               >
                 <StorybookLogo size={16} className="w-4 h-4" />
@@ -249,32 +261,35 @@ export function ComponentShowcase({
 
       {/* Enhanced floating particles effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full"
-            style={{
-              background:
-                i % 2 === 0
-                  ? "linear-gradient(135deg, #3b82f6, #10b981)"
-                  : "linear-gradient(135deg, #06b6d4, #34d399)",
-              left: `${15 + i * 20}%`,
-              top: `${30 + i * 15}%`,
-            }}
-            animate={{
-              x: [0, 60, 0],
-              y: [0, -40, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.8,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+            {!shouldReduceMotion() && [...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full"
+                style={{
+                  background:
+                    i % 2 === 0
+                      ? "linear-gradient(135deg, #3b82f6, #10b981)"
+                      : "linear-gradient(135deg, #06b6d4, #34d399)",
+                  left: `${15 + i * 20}%`,
+                  top: `${30 + i * 15}%`,
+                }}
+                animate={{
+                  x: 45,
+                  y: -30,
+                  opacity: 0.5,
+                  scale: 0.8,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 15,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  duration: 3 + i * 0.3, // Reduced duration
+                  delay: i * 0.6, // Reduced delay
+                }}
+              />
+            ))}
 
         {/* Background glass orbs */}
         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-400/10 rounded-full animate-glass-float"></div>
@@ -283,6 +298,7 @@ export function ComponentShowcase({
           style={{ animationDelay: "2s" }}
         ></div>
       </div>
-    </motion.div>
+      </div>
+    </ViewportMotion>
   );
 }

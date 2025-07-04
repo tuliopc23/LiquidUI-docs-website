@@ -180,8 +180,8 @@ export const InteractiveCard = () => (
 export const BadgeExamples = () => (
   <LightModeShowcase>
     <div className="flex flex-wrap gap-3">
-      <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">Default</span>
-      <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">Secondary</span>
+      <span className="min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">Default</span>
+      <span className="min-w-[44px] min-h-[44px] glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">Secondary</span>
       <span className="px-3 py-1 rounded-full text-sm text-red-700 bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Destructive</span>
       <span className="px-3 py-1 rounded-full text-sm text-gray-700 bg-transparent border border-gray-300 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Outline</span>
     </div>
@@ -196,7 +196,7 @@ export const InputExamples = () => (
       <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
       <div className="flex items-center space-x-2">
         <input className="flex-1 px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Username" />
-        <button className="px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
+        <button className="min-w-[44px] min-h-[44px] px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
       </div>
     </div>
   </LightModeShowcase>
@@ -266,10 +266,10 @@ export const CardWithActions = () => (
       Card with action buttons and interactive elements.
     </p>
     <div className="flex gap-2">
-      <button className="glass-button-primary px-4 py-2 rounded-2xl text-white text-sm font-medium">
+      <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-2xl text-white text-sm font-medium">
         Action
       </button>
-      <button className="glass-button px-4 py-2 rounded-2xl text-gray-700 text-sm font-medium">
+      <button className="min-w-[44px] min-h-[44px] glass-button px-4 py-2 rounded-2xl text-gray-700 text-sm font-medium">
         Cancel
       </button>
     </div>
@@ -320,7 +320,7 @@ export const SocialMediaCard = () => (
           <p className="text-sm text-gray-600 body-text">2 hours ago</p>
         </div>
       </div>
-      <button className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+      <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
         <Heart className="w-4 h-4 text-gray-700" />
       </button>
     </div>
@@ -391,7 +391,7 @@ export const NestedCards = () => (
 
 export const ModalExample = () => (
   <div className="p-4">
-    <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
+    <button className="min-w-[44px] min-h-[44px] glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
       Open Modal
     </button>
   </div>
@@ -414,13 +414,13 @@ export const HeaderExamples = () => (
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
             <Search className="w-4 h-4 text-gray-700" />
           </button>
-          <button className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
             <Bell className="w-4 h-4 text-gray-700" />
           </button>
-          <button className="glass-button-primary px-4 py-2 rounded-2xl text-white hover:scale-105 transition-all duration-300 flex items-center gap-2">
+          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-2xl text-white hover:scale-105 transition-all duration-300 flex items-center gap-2">
             <Plus className="w-4 h-4" />
             New Project
           </button>
@@ -446,7 +446,7 @@ export const HeaderExamples = () => (
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-sm text-gray-700">Live</span>
           </div>
-          <button className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
             <Settings className="w-4 h-4 text-gray-700" />
           </button>
         </div>
@@ -501,7 +501,7 @@ export const FooterExamples = () => (
     </div>
 
     <div className="liquid-glass rounded-3xl p-6 border border-purple-200/30 backdrop-blur-xl">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-4">
             <LiquidifyLogo size={20} />
@@ -572,7 +572,7 @@ export const HeroExamples = () => (
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-4">
           <LiquidifyLogo size={32} />
-          <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-blue-200/30">
+          <span className="min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-blue-200/30">
             v2.0
           </span>
         </div>
@@ -586,13 +586,13 @@ export const HeroExamples = () => (
           liquid glass.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="glass-button-primary px-8 py-4 rounded-2xl text-white hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-8 py-4 rounded-2xl text-white hover:scale-105 transition-all duration-300">
             <div className="flex items-center gap-2">
               Get Started
               <ArrowRight className="w-5 h-5" />
             </div>
           </button>
-          <button className="glass-button px-8 py-4 rounded-2xl text-gray-700 hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button px-8 py-4 rounded-2xl text-gray-700 hover:scale-105 transition-all duration-300">
             <div className="flex items-center gap-2">
               <Play className="w-5 h-5" />
               Watch Demo
@@ -617,15 +617,15 @@ export const HeroExamples = () => (
           interactions.
         </p>
         <div className="flex items-center justify-center gap-8 text-sm text-gray-600">
-          <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-blue-200/30">
+          <div className="flex items-center gap-2 min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full border border-blue-200/30">
             <LiquidifyLogo size={16} />
             <span>30+ Components</span>
           </div>
-          <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-green-200/30">
+          <div className="flex items-center gap-2 min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full border border-green-200/30">
             <LiquidifyLogo size={16} />
             <span>TypeScript</span>
           </div>
-          <div className="flex items-center gap-2 glass-button px-3 py-1 rounded-full border border-purple-200/30">
+          <div className="flex items-center gap-2 min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full border border-purple-200/30">
             <LiquidifyLogo size={16} />
             <span>Accessible</span>
           </div>
@@ -638,7 +638,7 @@ export const HeroExamples = () => (
 // Feature Showcase Examples
 export const FeatureShowcaseExamples = () => (
   <div className="w-full space-y-6">
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
         {
           title: "Lightning Fast",

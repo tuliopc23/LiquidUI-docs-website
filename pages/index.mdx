@@ -25,21 +25,21 @@ import {
 } from "lucide-react";
 
 {/* Hero Section */}
-<section className="min-h-screen flex items-center justify-center relative overflow-hidden py-12 sm:py-24 px-4">
+<section className="min-h-screen flex items-center justify-center relative overflow-hidden py-12 sm:py-24 px-4 pt-[calc(var(--total-header-height)+2rem)]">
   {/* Rounded Background Container with better responsive spacing */}
   <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-white via-blue-50/30 to-white dark:from-gray-900 dark:via-blue-950/20 dark:to-gray-900 rounded-2xl sm:rounded-3xl"></div>
   
-  {/* Improved Floating Elements with better responsive positioning */}
+  {/* Improved Floating Elements with better responsive positioning and CTA constraints */}
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {/* Top left floating element - better positioned for mobile */}
-    <div className="absolute top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/5 rounded-2xl sm:rounded-3xl blur-3xl animate-pulse"></div>
+    {/* Top left floating element - constrained away from CTA areas */}
+    <div className="absolute inset-8 sm:inset-12 lg:inset-16 top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/5 rounded-2xl sm:rounded-3xl blur-3xl animate-pulse pointer-events-none"></div>
     
-    {/* Bottom right floating element - adjusted for mobile */}
-    <div className="absolute bottom-16 sm:bottom-24 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/5 rounded-2xl sm:rounded-3xl blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+    {/* Bottom right floating element - constrained away from CTA areas */}
+    <div className="absolute inset-8 sm:inset-12 lg:inset-16 bottom-32 sm:bottom-40 lg:bottom-48 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/5 rounded-2xl sm:rounded-3xl blur-3xl animate-pulse pointer-events-none" style={{ animationDelay: '1s' }}></div>
     
-    {/* Additional subtle floating element for larger screens */}
-    <div className="hidden lg:block absolute top-1/2 left-8 w-20 h-20 bg-green-400/3 rounded-2xl blur-2xl animate-pulse" style={{ animationDelay: '2.5s' }}></div>
-    <div className="hidden lg:block absolute top-1/3 right-8 w-16 h-16 bg-yellow-400/3 rounded-xl blur-2xl animate-pulse" style={{ animationDelay: '3.5s' }}></div>
+    {/* Additional subtle floating element for larger screens - constrained */}
+    <div className="hidden lg:block absolute inset-16 top-1/2 left-8 w-20 h-20 bg-green-400/3 rounded-2xl blur-2xl animate-pulse pointer-events-none" style={{ animationDelay: '2.5s' }}></div>
+    <div className="hidden lg:block absolute inset-16 top-1/3 right-8 w-16 h-16 bg-yellow-400/3 rounded-xl blur-2xl animate-pulse pointer-events-none" style={{ animationDelay: '3.5s' }}></div>
   </div>
 
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -47,14 +47,14 @@ import {
       {/* Badge with better spacing */}
       <div className="inline-flex items-center space-x-2 glass-card px-3 sm:px-4 py-2 mb-6 sm:mb-8 animate-glass-float rounded-xl sm:rounded-2xl">
         <Sparkles className="w-4 h-4 text-blue-400" />
-        <span className="text-xs sm:text-sm font-medium text-foreground body-text">
+        <span className="caption-text text-foreground">
           Now Live: LiqUIdify v1.0.21
         </span>
       </div>
 
-      {/* Main Heading with dramatic impact and emphasis */}
-      <div className="mb-8 sm:mb-12 max-w-6xl mx-auto px-4">
-        <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-foreground leading-[0.9] sm:leading-[0.95] tracking-tight" style={{ letterSpacing: '-0.04em', fontWeight: '900' }}>
+      {/* Main Heading - Tighter messaging with max 12 words */}
+      <div className="mb-8 sm:mb-12 max-w-6xl mx-auto px-4 overflow-hidden">
+        <h1 className="text-balance text-foreground" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 'clamp(1.1, 1.2, 1.3)' }}>
           <span className="block mb-3 sm:mb-6 drop-shadow-2xl" style={{ 
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%)',
             backgroundClip: 'text',
@@ -62,7 +62,7 @@ import {
             color: 'transparent',
             backgroundSize: '400% 400%',
             animation: 'gradient 8s ease infinite'
-          }}>Liquid Glass</span>
+          }}>Beautiful Glass UI</span>
           <span 
             className="block font-extrabold" 
             style={{ 
@@ -81,61 +81,114 @@ import {
         </h1>
       </div>
 
-      {/* Subheading with dramatic emphasis and better typography */}
-      <div className="mb-8 sm:mb-12 max-w-4xl mx-auto px-4">
-        <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-foreground/90 leading-relaxed tracking-wide mb-4" style={{ 
-          fontWeight: '500',
-          letterSpacing: '-0.01em',
-          lineHeight: '1.4'
-        }}>
-          Experience the <span className="font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">future of UI design</span> with our glassmorphism component library.
-        </p>
-        <p className="text-lg sm:text-xl md:text-2xl text-foreground/70 font-light leading-relaxed" style={{
-          fontWeight: '300',
-          letterSpacing: '0.01em'
-        }}>
-          Fluid animations, liquid interactions, and cutting-edge aesthetics that feel <em className="not-italic font-medium text-blue-600">alive</em>.
+      {/* Subheading - Max 18 words with clear value proposition */}
+      <div className="mb-8 sm:mb-12 max-w-4xl mx-auto px-4 overflow-hidden">
+        <p className="text-balance text-foreground/90 mb-4" style={{ fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)', lineHeight: 'clamp(1.4, 1.5, 1.6)' }}>
+          Ship <span className="font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">stunning glassmorphism interfaces</span> 10x faster with pre-built components.
         </p>
       </div>
 
-      {/* CTA Buttons with proper navigation links */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-12 sm:mb-16 px-4">
-        <a href="/components" className="group glass-button-primary px-8 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-bold hover:scale-105 transition-all duration-300 flex items-center space-x-3 rounded-xl sm:rounded-2xl w-full sm:w-auto justify-center shadow-2xl hover:shadow-blue-500/25">
-          <span>Explore Components</span>
+      {/* CTA Buttons - Primary left/top position on desktop, stacked on mobile with button-group class */}
+      <div className="button-group flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4 sm:gap-6 mb-12 sm:mb-16 px-4 max-w-4xl mx-auto">
+        <a 
+          href="/components" 
+          className="group glass-button-primary min-w-[44px] min-h-[44px] px-8 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-bold hover:scale-105 transition-all duration-300 flex items-center space-x-3 rounded-xl sm:rounded-2xl w-full sm:w-auto justify-center shadow-2xl hover:shadow-blue-500/25 focus:outline-none focus:ring-4 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-background"
+          aria-label="Explore our glassmorphism component library"
+        >
+          <span>Start Building</span>
           <ArrowRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
         </a>
         
-        <a href="/getting-started" className="glass-button px-8 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold text-foreground transition-all duration-300 rounded-xl sm:rounded-2xl w-full sm:w-auto justify-center flex items-center space-x-2 hover:scale-105 shadow-xl hover:shadow-gray-400/20">
+        <a 
+          href="/getting-started" 
+          className="glass-button min-w-[44px] min-h-[44px] px-8 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-semibold text-foreground transition-all duration-300 rounded-xl sm:rounded-2xl w-full sm:w-auto justify-center flex items-center space-x-2 hover:scale-105 shadow-xl hover:shadow-gray-400/20 focus:outline-none focus:ring-4 focus:ring-gray-500/50 focus:ring-offset-2 focus:ring-offset-background"
+          aria-label="View documentation and getting started guide"
+        >
           <Play className="w-5 h-5" />
-          <span>View Documentation</span>
+          <span>View Docs</span>
         </a>
       </div>
 
-      {/* Feature Highlights with improved responsive grid */}
+      {/* Feature Highlights - Value-oriented with specific benefits */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mt-12 sm:mt-16 px-4">
         <div className="liquid-glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:scale-105 transition-all duration-500 group shadow-2xl hover:shadow-blue-500/20 border border-blue-200/30">
           <div className="w-12 sm:w-16 h-12 sm:h-16 mx-auto mb-4 sm:mb-6 ios-logo apple-gradient-2 flex items-center justify-center group-hover:animate-liquid-morph rounded-xl sm:rounded-2xl shadow-lg">
             <Zap className="w-6 sm:w-8 h-6 sm:h-8 text-white drop-shadow-lg" />
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 body-text bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Lightning Fast</h3>
-          <p className="text-base sm:text-lg text-foreground/80 body-text leading-relaxed">Optimized for performance with zero runtime overhead and instant interactions</p>
+          <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 body-text bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Load 30% Faster</h3>
+          <p className="text-base sm:text-lg text-foreground/80 body-text leading-relaxed">Zero runtime overhead with tree-shaking and optimized bundle size</p>
         </div>
 
         <div className="liquid-glass rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:scale-105 transition-all duration-500 group motion-element hover-optimized" style={{ animationDelay: '0.2s' }}>
           <div className="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-3 sm:mb-4 ios-logo apple-gradient-3 flex items-center justify-center group-hover:animate-liquid-morph rounded-xl sm:rounded-2xl enhanced-float">
             <Layers className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
           </div>
-          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 body-text leading-tight">Modular Design</h3>
-          <p className="text-sm sm:text-base text-foreground/70 body-text leading-relaxed">Tree-shakable components for minimal bundle size</p>
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 body-text leading-tight">Ship 10x Faster</h3>
+          <p className="text-sm sm:text-base text-foreground/70 body-text leading-relaxed">Pre-built components reduce development time from weeks to hours</p>
         </div>
 
         <div className="liquid-glass rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:scale-105 transition-all duration-500 group sm:col-span-2 lg:col-span-1 motion-element hover-optimized" style={{ animationDelay: '0.4s' }}>
           <div className="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-3 sm:mb-4 ios-logo apple-gradient-4 flex items-center justify-center group-hover:animate-liquid-morph rounded-xl sm:rounded-2xl enhanced-float">
             <Sparkles className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
           </div>
-          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 body-text leading-tight">Liquid Animations</h3>
-          <p className="text-sm sm:text-base text-foreground/70 body-text leading-relaxed">Smooth, organic transitions that feel alive</p>
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 body-text leading-tight">100% Accessible</h3>
+          <p className="text-sm sm:text-base text-foreground/70 body-text leading-relaxed">WCAG 2.1 compliant with keyboard navigation and screen reader support</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Testimonial and Logos Strip */}
+<section className="py-16 sm:py-20 relative overflow-hidden px-4">
+  <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/30 via-white/50 to-purple-50/30 dark:from-blue-950/20 dark:via-gray-900/50 dark:to-purple-950/20 rounded-2xl sm:rounded-3xl"></div>
+  
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    {/* Testimonial Quote */}
+    <div className="text-center mb-12 sm:mb-16">
+      <div className="inline-flex items-center space-x-2 glass-card px-3 sm:px-4 py-2 mb-6 sm:mb-8 rounded-xl sm:rounded-2xl">
+        <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+        <span className="caption-text text-foreground/70">Loved by Developers</span>
+      </div>
+      
+      <blockquote className="text-xl sm:text-2xl lg:text-3xl font-medium text-foreground/90 mb-6 max-w-4xl mx-auto leading-relaxed">
+        "LiqUIdify transformed our design system. We shipped our new interface 
+        <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold"> 60% faster</span> with stunning glassmorphism effects."
+      </blockquote>
+      
+      <div className="flex items-center justify-center space-x-4">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <span className="text-white font-bold text-lg">JD</span>
+        </div>
+        <div className="text-left">
+          <div className="font-semibold text-foreground">Jordan Davis</div>
+          <div className="text-sm text-foreground/60">Lead Designer, TechFlow</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Company Logos Strip */}
+    <div className="text-center">
+      <p className="text-sm sm:text-base text-foreground/60 mb-8 uppercase tracking-wider font-medium">Trusted by industry leaders</p>
+      
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-8 sm:gap-12 items-center opacity-60 hover:opacity-80 transition-opacity duration-300">
+        {/* Placeholder logos with glassmorphism effect */}
+        {[
+          { name: "TechFlow", gradient: "from-blue-500 to-cyan-500" },
+          { name: "DataSync", gradient: "from-purple-500 to-pink-500" },
+          { name: "CloudWave", gradient: "from-green-500 to-blue-500" },
+          { name: "NextGen", gradient: "from-orange-500 to-red-500" },
+          { name: "FutureLabs", gradient: "from-indigo-500 to-purple-500" },
+          { name: "InnovateCo", gradient: "from-teal-500 to-green-500" }
+        ].map((company, index) => (
+          <div key={index} className="flex items-center justify-center">
+            <div className="liquid-glass rounded-xl p-4 hover:scale-105 transition-all duration-300 group">
+              <div className={`w-16 h-10 rounded-lg bg-gradient-to-r ${company.gradient} flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity`}>
+                <span className="text-white font-bold text-xs truncate px-2">{company.name}</span>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </div>
@@ -152,17 +205,17 @@ import {
     {/* Section Header with better responsive spacing */}
     <div className="text-center mb-12 sm:mb-16">
       <div className="inline-flex items-center space-x-2 glass-card px-3 sm:px-4 py-2 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl">
-        <span className="text-xs sm:text-sm font-medium text-foreground/70 body-text">Why Choose LiqUIdify</span>
+        <span className="caption-text text-foreground/70">Why Choose LiqUIdify</span>
       </div>
       
-      <h2 className="hero-text text-3xl sm:text-4xl md:text-5xl text-foreground mb-4 sm:mb-6 leading-tight">
+      <h2 className="text-h2 text-balance text-foreground mb-4 sm:mb-6">
         Built for Modern
         <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mt-2">
           Development
         </span>
       </h2>
       
-      <p className="body-text text-lg sm:text-xl text-foreground/70 max-w-3xl mx-auto px-4 leading-relaxed">
+      <p className="body-text text-pretty text-foreground/70 max-w-3xl mx-auto px-4">
         Every component is crafted with attention to detail, performance, and user experience. 
         From design to deployment, we've got you covered.
       </p>
@@ -170,7 +223,7 @@ import {
 
     {/* Features Grid with improved responsive layout */}
     <ScrollStagger staggerDelay={0.15}>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 overflow-hidden">
       {[
         {
           icon: <Settings className="w-6 sm:w-8 h-6 sm:h-8 text-white" />,
@@ -238,7 +291,7 @@ import {
     </ScrollStagger>
 
     {/* Stats Section with improved responsive layout */}
-    <div className="mt-16 sm:mt-20 lg:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+    <div className="mt-16 sm:mt-20 lg:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 overflow-hidden">
       {[
         { number: "40+", label: "Components" },
         { number: "100%", label: "TypeScript" },
@@ -295,7 +348,7 @@ import {
       title="Liquid Glass Cards"
       description="Content-aware glassmorphism that adapts to your background and content"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full max-w-6xl overflow-hidden">
         <BasicCard />
         <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30">
           <div className="flex items-center space-x-3 mb-3">
@@ -319,10 +372,14 @@ import {
 
     {/* CTA Section */}
     <div className="text-center mt-16">
-      <button className="group glass-button-primary px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto body-text rounded-2xl">
+      <a 
+        href="/components"
+        className="group glass-button-primary min-w-[44px] min-h-[44px] px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto body-text rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-background"
+        aria-label="Explore all glassmorphism components in our library"
+      >
         <span>Explore All Components</span>
         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-      </button>
+      </a>
     </div>
   </div>
 </section>
@@ -349,12 +406,20 @@ import {
         Join thousands of developers creating beautiful, accessible, and performant UIs with LiqUIdify.
       </p>
       
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/getting-started" className="glass-button-primary px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 rounded-2xl">
+      <div className="button-group flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/getting-started" 
+          className="glass-button-primary min-w-[44px] min-h-[44px] px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-background"
+          aria-label="Start building with LiqUIdify glassmorphism components"
+        >
           <Rocket className="w-5 h-5" />
           <span>Start Building</span>
         </a>
-        <a href="/components" className="glass-button px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 rounded-2xl">
+        <a 
+          href="/components" 
+          className="glass-button min-w-[44px] min-h-[44px] px-8 py-4 text-lg font-semibold hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2 rounded-2xl focus:outline-none focus:ring-4 focus:ring-gray-500/50 focus:ring-offset-2 focus:ring-offset-background"
+          aria-label="Browse all available glassmorphism components"
+        >
           <Code className="w-5 h-5" />
           <span>Browse Components</span>
         </a>
@@ -377,7 +442,7 @@ import {
     </div>
   </div>
   
-  {/* Background decoration with rounded corners */}
-  <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-400/5 rounded-3xl blur-3xl"></div>
-  <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-green-400/5 rounded-3xl blur-3xl"></div>
+  {/* Background decoration with rounded corners - constrained and pointer-events-none */}
+  <div className="absolute inset-8 sm:inset-12 lg:inset-16 top-1/4 left-1/4 w-64 h-64 bg-blue-400/5 rounded-3xl blur-3xl pointer-events-none"></div>
+  <div className="absolute inset-8 sm:inset-12 lg:inset-16 bottom-1/4 right-1/4 w-48 h-48 bg-green-400/5 rounded-3xl blur-3xl pointer-events-none"></div>
 </section>

@@ -17,6 +17,8 @@ module.exports = {
         'ios-logo',
         'hero-text',
         'body-text',
+        'subtitle-text',
+        'caption-text',
         'animate-liquid-morph',
         
         // Glass effect classes
@@ -49,6 +51,12 @@ module.exports = {
         'text-gradient',
         'text-gradient-primary',
         'text-gradient-rainbow',
+        
+        // Text wrapping utilities
+        'text-balance',
+        'text-pretty',
+        'text-wrap',
+        'text-nowrap',
         
         // Layout utilities
         'content-container',
@@ -83,6 +91,7 @@ module.exports = {
                 heading: ['SF Pro Display', 'Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
             },
             fontSize: {
+                // Base scale
                 '2xs': ['0.75rem', { lineHeight: '1rem' }],
                 '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.01em' }],
                 '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.02em' }],
@@ -90,6 +99,20 @@ module.exports = {
                 '6xl': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
                 '7xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
                 '8xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+                
+                // Semantic headline scale (h1-h6)
+                'h1': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '800' }],
+                'h2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '700' }],
+                'h3': ['1.875rem', { lineHeight: '1.25', letterSpacing: '-0.015em', fontWeight: '600' }],
+                'h4': ['1.5rem', { lineHeight: '1.3', letterSpacing: '-0.01em', fontWeight: '600' }],
+                'h5': ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.005em', fontWeight: '500' }],
+                'h6': ['1.125rem', { lineHeight: '1.4', letterSpacing: '0em', fontWeight: '500' }],
+                
+                // Semantic utilities
+                'hero-text': ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.03em', fontWeight: '800' }],
+                'body-text': ['1rem', { lineHeight: '1.6', letterSpacing: '-0.005em', fontWeight: '400' }],
+                'subtitle-text': ['1.25rem', { lineHeight: '1.5', letterSpacing: '-0.01em', fontWeight: '500' }],
+                'caption-text': ['0.875rem', { lineHeight: '1.4', letterSpacing: '0.025em', fontWeight: '500' }],
             },
             colors: {
                 border: 'hsl(var(--border))',
@@ -530,6 +553,20 @@ module.exports = {
                 },
                 '.scroll-padding': {
                     scrollPaddingTop: 'var(--header-height, 64px)',
+                },
+
+                // Text Wrapping Utilities
+                '.text-balance': {
+                    textWrap: 'balance',
+                },
+                '.text-pretty': {
+                    textWrap: 'pretty',
+                },
+                '.text-nowrap': {
+                    textWrap: 'nowrap',
+                },
+                '.text-wrap': {
+                    textWrap: 'wrap',
                 },
             }
 

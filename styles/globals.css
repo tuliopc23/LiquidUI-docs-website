@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 /* Enhanced Apple System Fonts with better fallbacks */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 /* Base styles */
@@ -106,26 +106,26 @@
 }
 
 :root {
-    /* Apple-inspired Color System - Dark Mode Default */
-    --background: 0 0% 8%;
+    /* Apple-inspired Color System - Dark Mode Default with enhanced contrast */
+    --background: 0 0% 4%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 11%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
     --primary: 210 100% 56%;
     --primary-rgb: 10 132 255;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 75%;
     --accent: 210 100% 56%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 22%;
-    --input: 0 0% 18%;
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
     --ring: 204 100% 50%;
     --radius: 0.75rem;
 
@@ -177,26 +177,26 @@
 }
 
 .light {
-    /* Apple-inspired Color System - Light Mode */
+    /* Apple-inspired Color System - Light Mode with enhanced contrast */
     --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
+    --foreground: 0 0% 6%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
+    --card-foreground: 0 0% 6%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 210 100% 56%;
+    --popover-foreground: 0 0% 6%;
+    --primary: 210 100% 50%;
     --primary-rgb: 10 132 255;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 97%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 6%;
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 210 100% 56%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 210 100% 50%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 89%;
-    --input: 0 0% 95%;
+    --border: 0 0% 86%;
+    --input: 0 0% 94%;
     --ring: 204 100% 50%;
 
     /* Light theme glass adjustments */
@@ -205,26 +205,26 @@
 }
 
 .dark {
-    /* Apple-inspired Color System - Dark Mode */
-    --background: 0 0% 8%;
+    /* Apple-inspired Color System - Dark Mode with enhanced contrast */
+    --background: 0 0% 4%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 11%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 100%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
     --primary: 210 100% 56%;
     --primary-rgb: 10 132 255;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 75%;
     --accent: 210 100% 56%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 22%;
-    --input: 0 0% 18%;
+    --border: 0 0% 18%;
+    --input: 0 0% 12%;
     --ring: 204 100% 50%;
 
     /* Dark theme glass adjustments */
@@ -440,7 +440,7 @@ body[data-theme="dark"] {
                 rgba(0, 0, 0, 0.05) 100%);
     }
 
-    /* Enhanced typography with better readability */
+    /* Enhanced typography with better readability and proper contrast */
     .hero-text {
         font-weight: 800;
         letter-spacing: -0.03em;
@@ -448,14 +448,16 @@ body[data-theme="dark"] {
         font-size: clamp(2.5rem, 5vw, 4rem);
         margin-bottom: 1.5rem;
         text-wrap: balance;
+        color: hsl(var(--foreground));
     }
 
     .body-text {
         font-weight: 400;
         line-height: var(--leading-relaxed);
         letter-spacing: -0.005em;
-        font-size: var(--text-lg);
+        font-size: var(--text-base);
         text-wrap: pretty;
+        color: hsl(var(--foreground));
     }
     
     .subtitle-text {
@@ -481,6 +483,7 @@ body[data-theme="dark"] {
         font-weight: 500;
         font-size: var(--text-sm);
         background: hsl(var(--muted));
+        color: hsl(var(--foreground));
         padding: 0.125rem 0.375rem;
         border-radius: 0.375rem;
         border: 1px solid hsl(var(--border));
@@ -948,6 +951,40 @@ body:has([data-nextra-banner]:not([style*="display: none"])) {
         justify-content: center;
         min-height: 48px; /* Larger touch targets */
     }
+}
+
+/* Enhanced button-group for all screen sizes */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+}
+
+@media (min-width: 640px) {
+    .button-group {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+    
+    .button-group .glass-button,
+    .button-group .glass-button-primary {
+        width: auto;
+        flex-shrink: 0;
+    }
+}
+
+/* Enhanced focus styles for all buttons */
+.glass-button:focus-visible,
+.glass-button-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px) scale(1.02);
+}
+
+@media (max-width: 639px) {
 
     /* Hero section extra small screen adjustments */
     .hero-text {
@@ -1116,13 +1153,23 @@ body {
     }
 }
 
-/* Font display optimization */
+/* Font display optimization with variable font support */
 @font-face {
-    font-family: 'Inter';
+    font-family: 'Inter Variable';
     font-style: normal;
-    font-weight: 300 700;
+    font-weight: 100 900;
     font-display: swap;
-    src: url('/fonts/inter-var.woff2') format('woff2');
+    src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400 600;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* Professional typography with enhanced readability */
@@ -1372,6 +1419,27 @@ body {
 
 .text-spacing {
     margin-bottom: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* Responsive text sizing utilities with clamp() */
+.text-h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: clamp(1.1, 1.2, 1.3);
+}
+
+.text-h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: clamp(1.2, 1.3, 1.4);
+}
+
+.text-subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    line-height: clamp(1.4, 1.5, 1.6);
+}
+
+.text-body-large {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: clamp(1.5, 1.6, 1.7);
 }
 
 /* Performance-optimized gradients */

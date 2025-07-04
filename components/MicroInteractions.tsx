@@ -2,6 +2,12 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { cn } from 'liquidify';
 
+// Custom shouldReduceMotion function
+function shouldReduceMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 // Magnetic button effect
 export function MagneticButton({ 
   children, 
@@ -157,19 +163,16 @@ export function FloatingActionButton({
         )}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        animate={{
-          boxShadow: [
-            "0 4px 20px rgba(59, 130, 246, 0.3)",
-            "0 4px 40px rgba(59, 130, 246, 0.6)",
-            "0 4px 20px rgba(59, 130, 246, 0.3)",
-          ]
+        animate={shouldReduceMotion() ? {} : {
+          boxShadow: "0 4px 30px rgba(59, 130, 246, 0.5)"
         }}
         transition={{
-          boxShadow: {
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+          repeat: shouldReduceMotion() ? 0 : Infinity,
+          repeatType: "reverse",
+          duration: 3
         }}
         {...props}
       >
