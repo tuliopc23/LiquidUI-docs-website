@@ -1,0 +1,303 @@
+# useScrollLock
+
+A React hook that prevents body scrolling when modals or overlays are open.
+
+## Usage
+
+```tsx
+import { useScrollLock } from 'liquidify';
+
+function Modal({ isOpen, onClose, children }) {
+  useScrollLock(isOpen);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg max-w-md w-full">
+        <button onClick={onClose} className="float-right">×</button>
+        {children}
+      </div>
+    </div>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `isLocked` | `boolean` | Whether to lock scrolling |
+
+### Returns
+
+This hook returns nothing - it only manages the side effect.
+
+## Features
+
+- 🚫 Prevents background scrolling
+- 🔄 Automatic cleanup on unmount
+- 💾 Preserves original overflow style
+- 🎯 Works with any overlay component
+
+## Examples
+
+### Modal with Scroll Lock
+
+```tsx
+function ScrollableModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Lock scroll when modal is open
+  useScrollLock(isOpen);
+
+  return (
+    <>
+      <div style={{ height: '200vh', padding: '20px' }}>
+        <h1>Scrollable Page Content</h1>
+        <p>This page is tall enough to scroll...</p>
+        
+        <button 
+          onClick={() => setIsOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Open Modal
+        </button>
+      </div>
+      
+      {isOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4 max-h-96 overflow-y-auto">
+            <h2 className="text-xl font-bold mb-4">Scrollable Modal</h2>
+            
+            <div className="space-y-4">
+              {Array.from({ length: 20 }, (_, i) => (
+                <p key={i}>
+                  This is paragraph {i + 1}. The modal content is scrollable,
+                  but the background page scroll is locked.
+                </p>
+              ))}
+            </div>
+            
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="mt-4 bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Close Modal
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+```
+
+### Drawer Component
+
+```tsx
+function SideDrawer() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Lock scroll when drawer is open
+  useScrollLock(isOpen);
+
+  return (
+    <>
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="bg-green-500 text-white px-4 py-2 rounded"
+      >
+        Open Drawer
+      </button>
+      
+      {/* Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+      
+      {/* Drawer */}
+      <div className={`
+        fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 transform transition-transform duration-300
+        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+      `}>
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold">Navigation</h2>
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+          </div>
+          
+          <nav className="space-y-4">
+            <a href="#" className="block py-2 px-4 hover:bg-gray-100 rounded">
+              Home
+            </a>
+            <a href="#" className="block py-2 px-4 hover:bg-gray-100 rounded">
+              About
+            </a>
+            <a href="#" className="block py-2 px-4 hover:bg-gray-100 rounded">
+              Services
+            </a>
+            <a href="#" className="block py-2 px-4 hover:bg-gray-100 rounded">
+              Contact
+            </a>
+          </nav>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+### Full-Screen Loading
+
+```tsx
+function App() {
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Lock scroll during loading
+  useScrollLock(isLoading);
+
+  const simulateLoading = async () => {
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    
+    setIsLoading(false);
+  };
+
+  return (
+    <div>
+      <div className="p-8">
+        <h1>Application Content</h1>
+        <button 
+          onClick={simulateLoading}
+          disabled={isLoading}
+          className="bg-purple-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          {isLoading ? 'Loading...' : 'Start Loading'}
+        </button>
+      </div>
+      
+      {/* Full-screen loading overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+            <p className="text-lg text-gray-600">Loading...</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Multi-Modal Management
+
+```tsx
+function MultiModalExample() {
+  const [activeModal, setActiveModal] = useState(null);
+  
+  // Lock scroll when any modal is open
+  useScrollLock(activeModal !== null);
+
+  const openModal = (modalName) => {
+    setActiveModal(modalName);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+  };
+
+  return (
+    <>
+      <div className="p-8 space-x-4">
+        <button 
+          onClick={() => openModal('confirm')}
+          className="bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Confirmation
+        </button>
+        
+        <button 
+          onClick={() => openModal('form')}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Form Modal
+        </button>
+        
+        <button 
+          onClick={() => openModal('info')}
+          className="bg-green-500 text-white px-4 py-2 rounded"
+        >
+          Info Modal
+        </button>
+      </div>
+      
+      {/* Confirmation Modal */}
+      {activeModal === 'confirm' && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg">
+            <h3>Confirm Action</h3>
+            <p>Are you sure you want to proceed?</p>
+            <div className="mt-4 space-x-2">
+              <button onClick={closeModal} className="px-4 py-2 bg-gray-300 rounded">
+                Cancel
+              </button>
+              <button onClick={closeModal} className="px-4 py-2 bg-red-500 text-white rounded">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Form Modal */}
+      {activeModal === 'form' && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-full max-w-md">
+            <h3 className="mb-4">Contact Form</h3>
+            <form className="space-y-4">
+              <input type="text" placeholder="Name" className="w-full p-2 border rounded" />
+              <input type="email" placeholder="Email" className="w-full p-2 border rounded" />
+              <textarea placeholder="Message" className="w-full p-2 border rounded" rows="3"></textarea>
+              <div className="flex gap-2">
+                <button type="button" onClick={closeModal} className="px-4 py-2 bg-gray-300 rounded">
+                  Cancel
+                </button>
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      
+      {/* Info Modal */}
+      {activeModal === 'info' && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg">
+            <h3>Information</h3>
+            <p>This is an informational modal.</p>
+            <button onClick={closeModal} className="mt-4 px-4 py-2 bg-green-500 text-white rounded">
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+```

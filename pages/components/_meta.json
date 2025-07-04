@@ -64,10 +64,16 @@
     "type": "separator",
     "title": "Hooks"
   },
+  "use-animation": "🎬 useAnimation",
+  "use-click-outside": "👆 useClickOutside",
+  "use-debounce": "⏱️ useDebounce",
   "use-liquid-glass": "🌊 useLiquidGlass",
+  "use-local-storage": "💾 useLocalStorage",
   "use-media-query": "📺 useMediaQuery",
   "use-mobile": "📱 useMobile",
+  "use-modal": "🔳 useModal",
   "use-performance-monitor": "⚡ usePerformanceMonitor",
+  "use-scroll-lock": "🚫 useScrollLock",
   "use-theme": "🎨 useTheme",
   "use-toast": "🍞 useToast",
   "---utilities": {

@@ -1,11 +1,6 @@
 import React from "react";
 import { cn } from "../lib/utils";
-
-interface GlassFloatingActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    icon: React.ReactNode;
-    position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
-    size?: "sm" | "md" | "lg";
-}
+import { GlassFloatingActionProps } from "../types";
 
 export const GlassFloatingAction: React.FC<GlassFloatingActionProps> = ({
     icon,

@@ -85,6 +85,13 @@ export type {
     GlassModalProps,
     GlassToastProps,
     GlassTabsProps,
+    GlassHeaderProps,
+    GlassFooterProps,
+    GlassHeroProps,
+    GlassFeatureShowcaseProps,
+    GlassFloatingActionProps,
     ThemeProviderProps,
-    ComponentShowcaseProps
-} from './types'; 
+    ComponentShowcaseProps,
+    NavLink,
+    Feature
+} from './types';

@@ -1,0 +1,193 @@
+# useDebounce
+
+A React hook that delays updating a value until after a specified delay period.
+
+## Usage
+
+```tsx
+import { useDebounce } from 'liquidify';
+
+function SearchComponent() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // Perform search API call
+      console.log('Searching for:', debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
+
+  return (
+    <input
+      type="text"
+      placeholder="Search..."
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `value` | `T` | The value to debounce |
+| `delay` | `number` | Delay in milliseconds |
+
+### Returns
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `debouncedValue` | `T` | The debounced value |
+
+## Features
+
+- 🚀 Prevents excessive API calls
+- ⏱️ Configurable delay timing
+- 🔧 TypeScript generic support
+- 🧹 Automatic cleanup
+
+## Examples
+
+### Search Input
+
+```tsx
+function SearchInput() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const debouncedQuery = useDebounce(query, 500);
+
+  useEffect(() => {
+    const searchAPI = async () => {
+      if (debouncedQuery.length > 2) {
+        const response = await fetch(`/api/search?q=${debouncedQuery}`);
+        const data = await response.json();
+        setResults(data.results);
+      } else {
+        setResults([]);
+      }
+    };
+
+    searchAPI();
+  }, [debouncedQuery]);
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="w-full p-2 border rounded"
+      />
+      
+      <div className="mt-2">
+        {results.map((result, index) => (
+          <div key={index} className="p-2 border-b">
+            {result.title}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+### Form Validation
+
+```tsx
+function ValidatedForm() {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState<string[]>([]);
+  const debouncedEmail = useDebounce(email, 300);
+
+  useEffect(() => {
+    const validateEmail = () => {
+      const newErrors = [];
+      
+      if (debouncedEmail && !debouncedEmail.includes('@')) {
+        newErrors.push('Invalid email format');
+      }
+      
+      if (debouncedEmail.length > 0 && debouncedEmail.length < 3) {
+        newErrors.push('Email too short');
+      }
+      
+      setErrors(newErrors);
+    };
+
+    validateEmail();
+  }, [debouncedEmail]);
+
+  return (
+    <div>
+      <input
+        type="email"
+        placeholder="Enter email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className={`p-2 border rounded ${
+          errors.length > 0 ? 'border-red-500' : 'border-gray-300'
+        }`}
+      />
+      
+      {errors.map((error, index) => (
+        <div key={index} className="text-red-500 text-sm mt-1">
+          {error}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Auto-save Feature
+
+```tsx
+function AutoSaveEditor() {
+  const [content, setContent] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+  const debouncedContent = useDebounce(content, 1000);
+
+  useEffect(() => {
+    const autoSave = async () => {
+      if (debouncedContent && debouncedContent.length > 0) {
+        setIsSaving(true);
+        
+        try {
+          await fetch('/api/autosave', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ content: debouncedContent })
+          });
+        } catch (error) {
+          console.error('Auto-save failed:', error);
+        } finally {
+          setIsSaving(false);
+        }
+      }
+    };
+
+    autoSave();
+  }, [debouncedContent]);
+
+  return (
+    <div>
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        placeholder="Start typing... auto-saves after 1 second"
+        className="w-full h-32 p-2 border rounded"
+      />
+      
+      <div className="mt-2 text-sm text-gray-500">
+        {isSaving ? '💾 Saving...' : '✅ Saved'}
+      </div>
+    </div>
+  );
+}
+```

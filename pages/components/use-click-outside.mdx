@@ -1,0 +1,127 @@
+# useClickOutside
+
+A React hook that triggers a callback when clicking outside a referenced element.
+
+## Usage
+
+```tsx
+import { useClickOutside } from 'liquidify';
+
+function DropdownMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useClickOutside<HTMLDivElement>(() => {
+    setIsOpen(false);
+  });
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button onClick={() => setIsOpen(!isOpen)}>
+        Menu
+      </button>
+      
+      {isOpen && (
+        <div className="absolute top-full left-0 bg-white shadow-lg">
+          <a href="#" className="block px-4 py-2">Item 1</a>
+          <a href="#" className="block px-4 py-2">Item 2</a>
+          <a href="#" className="block px-4 py-2">Item 3</a>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `callback` | `() => void` | Function called when clicking outside |
+
+### Returns
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `ref` | `RefObject<T>` | Ref to attach to the target element |
+
+## Features
+
+- 🎯 Precise outside click detection
+- 🔧 TypeScript generic support
+- 🚀 Lightweight and performant
+- ♿ Accessible event handling
+
+## Examples
+
+### Modal Dialog
+
+```tsx
+function Modal({ isOpen, onClose, children }) {
+  const modalRef = useClickOutside<HTMLDivElement>(onClose);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div 
+        ref={modalRef}
+        className="bg-white p-6 rounded-lg max-w-md w-full"
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+```
+
+### Popover Component
+
+```tsx
+function Popover({ children, content }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const popoverRef = useClickOutside<HTMLDivElement>(() => {
+    setIsVisible(false);
+  });
+
+  return (
+    <div ref={popoverRef} className="relative inline-block">
+      <button onClick={() => setIsVisible(!isVisible)}>
+        {children}
+      </button>
+      
+      {isVisible && (
+        <div className="absolute z-10 mt-2 p-3 bg-white border rounded shadow-lg">
+          {content}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Custom Element Type
+
+```tsx
+function CustomButton() {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const buttonRef = useClickOutside<HTMLButtonElement>(() => {
+    setShowTooltip(false);
+  });
+
+  return (
+    <button 
+      ref={buttonRef}
+      onClick={() => setShowTooltip(true)}
+      className="relative"
+    >
+      Click me
+      {showTooltip && (
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2">
+          Tooltip content
+        </div>
+      )}
+    </button>
+  );
+}
+```

@@ -1,0 +1,105 @@
+# useAnimation
+
+A React hook for managing animation states with timing control.
+
+## Usage
+
+```tsx
+import { useAnimation } from 'liquidify';
+
+function AnimatedComponent() {
+  const [isVisible, setIsVisible] = useState(false);
+  const { isAnimating, shouldRender } = useAnimation(isVisible, 300);
+
+  return (
+    <div>
+      <button onClick={() => setIsVisible(!isVisible)}>
+        Toggle Animation
+      </button>
+      
+      {shouldRender && (
+        <div className={`transition-opacity duration-300 ${
+          isAnimating ? 'opacity-100' : 'opacity-0'
+        }`}>
+          Animated Content
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `trigger` | `boolean` | - | When `true`, starts the animation |
+| `duration` | `number` | `300` | Animation duration in milliseconds |
+
+### Returns
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `isAnimating` | `boolean` | Whether the animation is currently active |
+| `shouldRender` | `boolean` | Whether the component should be rendered |
+
+## Features
+
+- ✨ Smooth enter/exit animations
+- ⏱️ Configurable duration
+- 🎯 Automatic cleanup
+- 📱 Works with any animation library
+
+## Examples
+
+### Fade Animation
+
+```tsx
+function FadeExample() {
+  const [show, setShow] = useState(false);
+  const { isAnimating, shouldRender } = useAnimation(show);
+
+  return (
+    <>
+      <button onClick={() => setShow(!show)}>
+        {show ? 'Hide' : 'Show'}
+      </button>
+      
+      {shouldRender && (
+        <div className={`transition-all duration-300 ${
+          isAnimating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}>
+          Fade content
+        </div>
+      )}
+    </>
+  );
+}
+```
+
+### Custom Duration
+
+```tsx
+function SlowAnimation() {
+  const [trigger, setTrigger] = useState(false);
+  const { isAnimating, shouldRender } = useAnimation(trigger, 1000);
+
+  return (
+    <>
+      <button onClick={() => setTrigger(!trigger)}>
+        Slow Animation
+      </button>
+      
+      {shouldRender && (
+        <div className={`transition-all duration-1000 ${
+          isAnimating ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+          Slow sliding content
+        </div>
+      )}
+    </>
+  );
+}
+```

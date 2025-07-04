@@ -223,6 +223,12 @@ export interface GlassFeatureShowcaseProps extends BaseGlassProps {
     columns?: 1 | 2 | 3 | 4;
 }
 
+export interface GlassFloatingActionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    icon: React.ReactNode;
+    position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+    size?: "sm" | "md" | "lg";
+}
+
 // Accessibility types
 export interface AccessibilityIssue {
     type: 'error' | 'warning' | 'notice';

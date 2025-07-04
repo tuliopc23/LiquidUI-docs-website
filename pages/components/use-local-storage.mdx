@@ -1,0 +1,266 @@
+# useLocalStorage
+
+A React hook for managing localStorage with automatic state synchronization.
+
+## Usage
+
+```tsx
+import { useLocalStorage } from 'liquidify';
+
+function SettingsComponent() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [preferences, setPreferences] = useLocalStorage('preferences', {
+    notifications: true,
+    autoSave: false
+  });
+
+  return (
+    <div>
+      <h3>Theme: {theme}</h3>
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+      
+      <h3>Preferences</h3>
+      <label>
+        <input
+          type="checkbox"
+          checked={preferences.notifications}
+          onChange={(e) => setPreferences(prev => ({
+            ...prev,
+            notifications: e.target.checked
+          }))}
+        />
+        Enable notifications
+      </label>
+    </div>
+  );
+}
+```
+
+## API
+
+### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `key` | `string` | localStorage key |
+| `initialValue` | `T` | Default value if no stored value exists |
+
+### Returns
+
+| Index | Type | Description |
+|-------|------|-------------|
+| `[0]` | `T` | Current stored value |
+| `[1]` | `(value: T \| ((val: T) => T)) => void` | Function to update the value |
+
+## Features
+
+- 💾 Persistent state across browser sessions
+- 🔄 Cross-tab synchronization
+- 🛡️ Error handling for invalid JSON
+- 🔧 TypeScript generic support
+- ⚡ Function updater support
+
+## Examples
+
+### User Preferences
+
+```tsx
+interface UserPreferences {
+  language: string;
+  darkMode: boolean;
+  fontSize: number;
+}
+
+function UserSettings() {
+  const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
+    'userPreferences', 
+    {
+      language: 'en',
+      darkMode: false,
+      fontSize: 16
+    }
+  );
+
+  const updateLanguage = (language: string) => {
+    setPreferences(prev => ({ ...prev, language }));
+  };
+
+  const toggleDarkMode = () => {
+    setPreferences(prev => ({ ...prev, darkMode: !prev.darkMode }));
+  };
+
+  return (
+    <div className={preferences.darkMode ? 'dark' : 'light'}>
+      <select 
+        value={preferences.language}
+        onChange={(e) => updateLanguage(e.target.value)}
+      >
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+      </select>
+      
+      <button onClick={toggleDarkMode}>
+        {preferences.darkMode ? '☀️' : '🌙'} Toggle Theme
+      </button>
+      
+      <input
+        type="range"
+        min="12"
+        max="24"
+        value={preferences.fontSize}
+        onChange={(e) => setPreferences(prev => ({
+          ...prev,
+          fontSize: parseInt(e.target.value)
+        }))}
+      />
+    </div>
+  );
+}
+```
+
+### Shopping Cart
+
+```tsx
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+function ShoppingCart() {
+  const [cart, setCart] = useLocalStorage<CartItem[]>('shoppingCart', []);
+
+  const addItem = (item: Omit<CartItem, 'quantity'>) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i => 
+          i.id === item.id 
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  };
+
+  const removeItem = (id: string) => {
+    setCart(prev => prev.filter(item => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  return (
+    <div>
+      <h2>Shopping Cart ({cart.length} items)</h2>
+      
+      {cart.map(item => (
+        <div key={item.id} className="flex justify-between items-center p-2">
+          <span>{item.name} x {item.quantity}</span>
+          <span>${(item.price * item.quantity).toFixed(2)}</span>
+          <button onClick={() => removeItem(item.id)}>Remove</button>
+        </div>
+      ))}
+      
+      <div className="border-t pt-2">
+        <strong>Total: ${total.toFixed(2)}</strong>
+      </div>
+      
+      <button onClick={clearCart} disabled={cart.length === 0}>
+        Clear Cart
+      </button>
+    </div>
+  );
+}
+```
+
+### Form Draft Saving
+
+```tsx
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+function ContactForm() {
+  const [formData, setFormData] = useLocalStorage<FormData>('contactFormDraft', {
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const updateField = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const clearDraft = () => {
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const submitForm = async () => {
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      clearDraft();
+      alert('Message sent successfully!');
+    } catch (error) {
+      alert('Failed to send message');
+    }
+  };
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); submitForm(); }}>
+      <div>
+        <input
+          type="text"
+          placeholder="Name"
+          value={formData.name}
+          onChange={(e) => updateField('name', e.target.value)}
+        />
+      </div>
+      
+      <div>
+        <input
+          type="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => updateField('email', e.target.value)}
+        />
+      </div>
+      
+      <div>
+        <textarea
+          placeholder="Message"
+          value={formData.message}
+          onChange={(e) => updateField('message', e.target.value)}
+          rows={4}
+        />
+      </div>
+      
+      <div className="flex gap-2">
+        <button type="submit">Send Message</button>
+        <button type="button" onClick={clearDraft}>
+          Clear Draft
+        </button>
+      </div>
+      
+      <small className="text-gray-500">
+        Draft automatically saved to localStorage
+      </small>
+    </form>
+  );
+}
+```
