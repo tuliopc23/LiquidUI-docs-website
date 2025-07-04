@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles, ArrowRight, Github } from "lucide-react";
 import { LiquidifyLogo } from "./LiquidifyLogo";
+import { LiquidTitle } from "./LiquidTitle";
 import {
   OptimizedMotion,
   optimizedVariants,
@@ -119,8 +120,11 @@ export function HeroSection() {
                 <LiquidifyLogo size={80} className="mx-auto enhanced-float" />
               </OptimizedMotion.div>
 
-              <OptimizedMotion.h1
-                className="hero-text text-5xl sm:text-6xl lg:text-7xl font-extrabold text-center text-gray-900 dark:text-white drop-shadow-lg text-balance motion-element"
+              <LiquidTitle
+                as="h1"
+                tiltX={8}
+                tiltY={-6}
+                className="text-display-4xl text-gradient-primary text-glow-strong animate-gradient-slow hero-text text-5xl sm:text-6xl lg:text-7xl font-extrabold text-center text-gray-900 dark:text-white drop-shadow-lg text-balance motion-element"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.8 }}
@@ -131,7 +135,7 @@ export function HeroSection() {
                 <span className="block bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 bg-clip-text text-transparent gradient-text text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide mt-2">
                   Component Library
                 </span>
-              </OptimizedMotion.h1>
+              </LiquidTitle>
             </div>
 
             <OptimizedMotion.p
@@ -183,7 +187,7 @@ export function HeroSection() {
             <div className="p-1">
               <div className="relative aspect-video bg-gray-50/50 dark:bg-gray-900/50 rounded-xl sm:rounded-2xl overflow-hidden flex items-center justify-center">
                 <div className="text-center p-4 sm:p-8">
-                  <div className="subtitle-text text-gray-400 dark:text-gray-600 mb-2 sm:mb-3">
+                  <div className="text-liquid-glass subtitle-text text-gray-400 dark:text-gray-600 mb-2 sm:mb-3">
                     Component Showcase
                   </div>
                   <p className="body-text text-pretty text-gray-500 dark:text-gray-500 mb-4 sm:mb-8">

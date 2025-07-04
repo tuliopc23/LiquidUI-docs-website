@@ -43,6 +43,10 @@ module.exports = {
         'animate-shimmer',
         'animate-glass-expand',
         'animate-liquid-morph',
+        'animate-liquid-wave',
+        'animate-gradient-slow',
+        'animate-gradient-shift-x',
+        'animate-gradient-shift-y',
         'hover-lift',
         'hover-glow',
         'hover-scale',
@@ -51,6 +55,36 @@ module.exports = {
         'text-gradient',
         'text-gradient-primary',
         'text-gradient-rainbow',
+        
+        // Liquid-glass text utilities
+        'text-liquid-glass',
+        'text-glow-strong',
+        'text-depth',
+        
+        // Display type scale classes
+        'text-display-5xl',
+        'text-display-4xl',
+        'text-display-3xl',
+        'text-display-2xl',
+        'text-display-xl',
+        'text-display-lg',
+        'text-display-md',
+        'text-display-sm',
+        
+        // Subtitle type scale classes
+        'text-subtitle-2xl',
+        'text-subtitle-xl',
+        'text-subtitle-lg',
+        'text-subtitle-md',
+        'text-subtitle-sm',
+        
+        // Body type scale classes
+        'text-body-2xl',
+        'text-body-xl',
+        'text-body-lg',
+        'text-body-md',
+        'text-body-sm',
+        'text-body-xs',
         
         // Text wrapping utilities
         'text-balance',
@@ -102,6 +136,31 @@ module.exports = {
                 '7xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
                 '8xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
                 
+                // Dramatic Display Type Scale (Fluid & Bold)
+                'display-5xl': ['var(--display-5xl)', { lineHeight: '0.9', letterSpacing: 'var(--display-tracking-tightest)', fontWeight: 'var(--display-weight-black)' }],
+                'display-4xl': ['var(--display-4xl)', { lineHeight: '0.95', letterSpacing: 'var(--display-tracking-tighter)', fontWeight: 'var(--display-weight-extrabold)' }],
+                'display-3xl': ['var(--display-3xl)', { lineHeight: '1.0', letterSpacing: 'var(--display-tracking-tighter)', fontWeight: 'var(--display-weight-extrabold)' }],
+                'display-2xl': ['var(--display-2xl)', { lineHeight: '1.05', letterSpacing: 'var(--display-tracking-tight)', fontWeight: 'var(--display-weight-bold)' }],
+                'display-xl': ['var(--display-xl)', { lineHeight: '1.1', letterSpacing: 'var(--display-tracking-tight)', fontWeight: 'var(--display-weight-bold)' }],
+                'display-lg': ['var(--display-lg)', { lineHeight: '1.1', letterSpacing: 'var(--display-tracking-normal)', fontWeight: 'var(--display-weight-bold)' }],
+                'display-md': ['var(--display-md)', { lineHeight: '1.15', letterSpacing: 'var(--display-tracking-normal)', fontWeight: 'var(--display-weight-bold)' }],
+                'display-sm': ['var(--display-sm)', { lineHeight: '1.2', letterSpacing: 'var(--display-tracking-normal)', fontWeight: 'var(--display-weight-bold)' }],
+                
+                // Subtitle Type Scale (Pairs well with display)
+                'subtitle-2xl': ['var(--subtitle-2xl)', { lineHeight: '1.3', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '600' }],
+                'subtitle-xl': ['var(--subtitle-xl)', { lineHeight: '1.4', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '600' }],
+                'subtitle-lg': ['var(--subtitle-lg)', { lineHeight: '1.4', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
+                'subtitle-md': ['var(--subtitle-md)', { lineHeight: '1.5', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
+                'subtitle-sm': ['var(--subtitle-sm)', { lineHeight: '1.5', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
+                
+                // Body Type Scale (Readable & Fluid)
+                'body-2xl': ['var(--body-2xl)', { lineHeight: '1.5', letterSpacing: 'var(--body-tracking-tight)', fontWeight: '400' }],
+                'body-xl': ['var(--body-xl)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-tight)', fontWeight: '400' }],
+                'body-lg': ['var(--body-lg)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-normal)', fontWeight: '400' }],
+                'body-md': ['var(--body-md)', { lineHeight: '1.65', letterSpacing: 'var(--body-tracking-normal)', fontWeight: '400' }],
+                'body-sm': ['var(--body-sm)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-relaxed)', fontWeight: '400' }],
+                'body-xs': ['var(--body-xs)', { lineHeight: '1.5', letterSpacing: 'var(--body-tracking-relaxed)', fontWeight: '400' }],
+                
                 // Semantic headline scale (h1-h6)
                 'h1': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '800' }],
                 'h2': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.02em', fontWeight: '700' }],
@@ -110,7 +169,7 @@ module.exports = {
                 'h5': ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.005em', fontWeight: '500' }],
                 'h6': ['1.125rem', { lineHeight: '1.4', letterSpacing: '0em', fontWeight: '500' }],
                 
-                // Semantic utilities
+                // Legacy semantic utilities (for backward compatibility)
                 'hero-text': ['clamp(2.5rem, 5vw, 4rem)', { lineHeight: '1.1', letterSpacing: '-0.03em', fontWeight: '800' }],
                 'body-text': ['1rem', { lineHeight: '1.6', letterSpacing: '-0.005em', fontWeight: '400' }],
                 'subtitle-text': ['1.25rem', { lineHeight: '1.5', letterSpacing: '-0.01em', fontWeight: '500' }],
@@ -253,6 +312,12 @@ module.exports = {
                 // Text animations
                 'text-shimmer': 'textShimmer 3s ease-in-out infinite',
                 'type-writer': 'typeWriter 4s steps(40, end) infinite',
+
+                // Liquid morph animations
+                'liquid-wave': 'liquidWave 4s ease-in-out infinite',
+                'gradient-slow': 'gradientShiftX 20s ease infinite',
+                'gradient-shift-x': 'gradientShiftX 15s ease infinite',
+                'gradient-shift-y': 'gradientShiftY 15s ease infinite',
             },
             keyframes: {
                 // Core animations
@@ -390,6 +455,42 @@ module.exports = {
                     '0%': { width: '0' },
                     '50%': { width: '100%' },
                     '100%': { width: '0' },
+                },
+
+                // Liquid morph animations
+                liquidWave: {
+                    '0%, 100%': { 
+                        transform: 'skewY(0deg)',
+                        filter: 'blur(0px)'
+                    },
+                    '25%': { 
+                        transform: 'skewY(0.5deg)',
+                        filter: 'blur(0.5px)'
+                    },
+                    '50%': { 
+                        transform: 'skewY(1deg)',
+                        filter: 'blur(1px)'
+                    },
+                    '75%': { 
+                        transform: 'skewY(0.5deg)',
+                        filter: 'blur(0.5px)'
+                    },
+                },
+                gradientShiftX: {
+                    '0%, 100%': {
+                        backgroundPosition: '0% 50%'
+                    },
+                    '50%': {
+                        backgroundPosition: '100% 50%'
+                    }
+                },
+                gradientShiftY: {
+                    '0%, 100%': {
+                        backgroundPosition: '50% 0%'
+                    },
+                    '50%': {
+                        backgroundPosition: '50% 100%'
+                    }
                 },
             },
             boxShadow: {
@@ -569,6 +670,54 @@ module.exports = {
                 },
                 '.text-wrap': {
                     textWrap: 'wrap',
+                },
+
+                // Prefers-reduced-motion variants
+                '@media (prefers-reduced-motion: reduce)': {
+                    '.animate-liquid-wave': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-slow': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-shift-x': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-shift-y': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-x': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-y': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-xy': {
+                        animation: 'none',
+                    },
+                    '.animate-gradient-conic': {
+                        animation: 'none',
+                    },
+                },
+                
+                // Liquid-glass text utilities
+                '.text-liquid-glass': {
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(30px)',
+                    WebkitBackdropFilter: 'blur(30px)',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    position: 'relative',
+                },
+                '.text-glow-strong': {
+                    textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)',
+                    filter: 'drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 25px rgba(255, 255, 255, 0.3))',
+                },
+                '.text-depth': {
+                    textShadow: '0 1px 0 rgba(0, 0, 0, 0.8), 0 2px 0 rgba(0, 0, 0, 0.7), 0 3px 0 rgba(0, 0, 0, 0.6), 0 4px 0 rgba(0, 0, 0, 0.5), 0 5px 0 rgba(0, 0, 0, 0.4), 0 6px 0 rgba(0, 0, 0, 0.3), 0 7px 0 rgba(0, 0, 0, 0.2), 0 8px 0 rgba(0, 0, 0, 0.1), 0 9px 10px rgba(0, 0, 0, 0.3)',
+                    position: 'relative',
+                    zIndex: '1',
                 },
             }
 

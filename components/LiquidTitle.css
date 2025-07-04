@@ -1,0 +1,80 @@
+/* LiquidTitle Component Styles */
+
+.liquid-title {
+  /* Enable 3D transforms and preserve perspective */
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  perspective: 1000px;
+  
+  /* Smooth cursor transition on hover */
+  cursor: pointer;
+  
+  /* Add subtle depth with text shadow for enhanced 3D effect */
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 2px 4px rgba(0, 0, 0, 0.05);
+  
+  /* Ensure smooth transitions for all transform properties */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced depth effect when hovering */
+.liquid-title:hover {
+  /* Add subtle glow for interactive feedback */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* For dark theme compatibility */
+@media (prefers-color-scheme: dark) {
+  .liquid-title {
+    text-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .liquid-title:hover {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  }
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-title {
+    transition: none;
+    transform: none !important;
+  }
+  
+  .liquid-title:hover {
+    filter: none;
+  }
+}
+
+/* Variants for different title sizes and contexts */
+.liquid-title--hero {
+  /* Enhanced effects for hero titles */
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.05),
+    0 8px 16px rgba(0, 0, 0, 0.03);
+}
+
+.liquid-title--subtle {
+  /* Minimal effects for subtle titles */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.liquid-title--static {
+  /* No 3D effects for accessibility */
+  transform: none !important;
+  transition: none;
+  text-shadow: none;
+  cursor: default;
+}
+
+/* Performance optimization: Use GPU acceleration */
+.liquid-title {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

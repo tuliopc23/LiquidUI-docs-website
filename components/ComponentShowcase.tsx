@@ -140,7 +140,7 @@ export function ComponentShowcase({
                 <div className="flex items-center gap-3">
                   <LiquidifyLogo size={24} />
                   <h3
-                    className="text-lg font-semibold text-gray-900 mb-1 hero-text"
+                    className={cn("text-lg font-semibold text-gray-900 mb-1 hero-text", className?.includes('text-liquid-glass') ? 'text-liquid-glass' : '')}
                     id={`showcase-${title.replace(/\s+/g, "-").toLowerCase()}`}
                   >
                     {title}

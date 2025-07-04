@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animations for testing */
+        @keyframes liquidWave {
+            0%, 100% { 
+                transform: skewY(0deg);
+                filter: blur(0px);
+            }
+            25% { 
+                transform: skewY(0.5deg);
+                filter: blur(0.5px);
+            }
+            50% { 
+                transform: skewY(1deg);
+                filter: blur(1px);
+            }
+            75% { 
+                transform: skewY(0.5deg);
+                filter: blur(0.5px);
+            }
+        }
+        
+        @keyframes gradientShiftX {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes gradientShiftY {
+            0%, 100% {
+                background-position: 50% 0%;
+            }
+            50% {
+                background-position: 50% 100%;
+            }
+        }
+        
+        .animate-liquid-wave {
+            animation: liquidWave 4s ease-in-out infinite;
+        }
+        
+        .animate-gradient-slow {
+            animation: gradientShiftX 20s ease infinite;
+        }
+        
+        .animate-gradient-shift-x {
+            animation: gradientShiftX 15s ease infinite;
+        }
+        
+        .animate-gradient-shift-y {
+            animation: gradientShiftY 15s ease infinite;
+        }
+        
+        /* Prefers-reduced-motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .animate-liquid-wave,
+            .animate-gradient-slow,
+            .animate-gradient-shift-x,
+            .animate-gradient-shift-y {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <h1 class="text-3xl font-bold mb-8">Animation Test</h1>
+    
+    <div class="space-y-8">
+        <!-- Liquid Wave Test -->
+        <div class="bg-blue-500 h-20 w-64 rounded-lg animate-liquid-wave">
+            <div class="p-4 text-center">Liquid Wave Animation</div>
+        </div>
+        
+        <!-- Gradient Shift X Test -->
+        <div class="h-20 w-64 rounded-lg animate-gradient-shift-x bg-gradient-to-r from-purple-500 to-pink-500" style="background-size: 200% 100%;">
+            <div class="p-4 text-center">Gradient Shift X</div>
+        </div>
+        
+        <!-- Gradient Shift Y Test -->
+        <div class="h-20 w-64 rounded-lg animate-gradient-shift-y bg-gradient-to-b from-green-500 to-blue-500" style="background-size: 100% 200%;">
+            <div class="p-4 text-center">Gradient Shift Y</div>
+        </div>
+        
+        <!-- Gradient Slow Test -->
+        <div class="h-20 w-64 rounded-lg animate-gradient-slow bg-gradient-to-r from-orange-500 to-red-500" style="background-size: 200% 100%;">
+            <div class="p-4 text-center">Gradient Slow</div>
+        </div>
+    </div>
+    
+    <div class="mt-8 text-sm text-gray-400">
+        <p>Note: If you have "prefers-reduced-motion" enabled, animations will be disabled.</p>
+    </div>
+</body>
+</html>
