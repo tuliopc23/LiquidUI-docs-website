@@ -2,9 +2,11 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Enhanced Apple System Fonts with better fallbacks */
+/* Premium Typography System for Industry-Leading UI Library */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satoshi:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* Base styles */
 @layer base {
@@ -23,20 +25,34 @@
     }
 
     h1 {
-        @apply font-heading font-bold tracking-tight;
+        @apply font-display font-bold tracking-tight;
         color: hsl(var(--foreground));
-        font-size: var(--text-5xl);
-        line-height: var(--leading-tight);
-        margin-bottom: 1.5rem;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        line-height: clamp(1.1, 1.15, 1.2);
+        margin-bottom: clamp(1rem, 3vw, 2rem);
+        letter-spacing: -0.02em;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: 'liga' 1, 'kern' 1;
+        /* Premium text shadow for depth */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+                     0 8px 16px rgba(0, 0, 0, 0.05);
+        /* Subtle glow effect */
+        filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.15));
     }
     
     h2 {
-        @apply font-heading font-bold tracking-tight;
+        @apply font-display font-bold tracking-tight;
         color: hsl(var(--foreground));
-        font-size: var(--text-4xl);
-        line-height: var(--leading-tight);
-        margin-bottom: 1.25rem;
-        margin-top: 2rem;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: clamp(1.15, 1.25, 1.3);
+        margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+        margin-top: clamp(1.5rem, 4vw, 3rem);
+        letter-spacing: -0.015em;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: 'liga' 1, 'kern' 1;
+        /* Marketing-friendly text shadow */
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+                     0 4px 12px rgba(0, 0, 0, 0.04);
     }
     
     h3 {
@@ -442,13 +458,24 @@ body[data-theme="dark"] {
 
     /* Enhanced typography with better readability and proper contrast */
     .hero-text {
+        font-family: var(--font-display), 'Satoshi', 'Cal Sans', 'SF Pro Display', 'Inter', 'system-ui', 'sans-serif';
         font-weight: 800;
         letter-spacing: -0.03em;
-        line-height: var(--leading-tight);
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        margin-bottom: 1.5rem;
+        line-height: clamp(1.05, 1.15, 1.25);
+        font-size: clamp(3rem, 8vw, 6rem);
+        margin-bottom: clamp(1.5rem, 4vw, 3rem);
         text-wrap: balance;
         color: hsl(var(--foreground));
+        text-rendering: optimizeLegibility;
+        font-feature-settings: 'liga' 1, 'kern' 1, 'ss01' 1;
+        /* Premium hero text effects */
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12),
+                     0 12px 24px rgba(0, 0, 0, 0.08),
+                     0 0 40px rgba(59, 130, 246, 0.2);
+        filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.15));
+        /* Subtle animation readiness */
+        will-change: transform, filter;
+        transform: translateZ(0);
     }
 
     .body-text {
@@ -1440,6 +1467,208 @@ body {
 .text-body-large {
     font-size: clamp(1rem, 2vw, 1.25rem);
     line-height: clamp(1.5, 1.6, 1.7);
+}
+
+/* Apple-Inspired Typography Utilities */
+.text-display-large {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'ss01' 1;
+}
+
+.text-display-medium {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+}
+
+.text-title-large {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-rendering: optimizeLegibility;
+}
+
+.text-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.text-subheadline {
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.4;
+    color: hsl(var(--foreground) / 0.8);
+}
+
+.text-body-emphasized {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.text-caption {
+    font-family: var(--font-body);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-weight: 400;
+    line-height: 1.3;
+    color: hsl(var(--foreground) / 0.6);
+}
+
+/* Apple-style text effects */
+.text-gradient-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #10b981 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 6s ease infinite;
+}
+
+.text-gradient-premium {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: 400% 400%;
+    animation: gradient 8s ease infinite;
+}
+
+.text-shadow-soft {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+                 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.text-shadow-strong {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.12),
+                 0 12px 24px rgba(0, 0, 0, 0.08),
+                 0 0 40px rgba(59, 130, 246, 0.2);
+}
+
+.text-glow {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
+}
+
+/* Performance-optimized gradients */
+.performance-gradient {
+    background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Critical Performance Optimizations */
+/* Improve font loading and rendering */
+html {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1, 'pnum' 1, 'tnum' 0, 'onum' 1, 'lnum' 0, 'dlig' 0;
+}
+
+/* GPU acceleration for animations */
+.motion-element,
+.hover-optimized,
+.enhanced-button,
+.enhanced-float {
+    will-change: transform, opacity, filter;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Reduce layout shifts */
+.aspect-preserve {
+    contain: layout style paint;
+}
+
+/* Optimize liquid glass effects */
+.liquid-glass {
+    contain: layout style;
+    will-change: backdrop-filter, transform;
+    isolation: isolate;
+}
+
+/* Optimize gradients for better performance */
+.gradient-optimized {
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Preload critical animations */
+@keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Industry-leading button interactions */
+.premium-button {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-button:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
+                0 4px 16px rgba(59, 130, 246, 0.2);
+}
+
+.premium-button:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+}
+
+/* Apple-style focus states */
+.focus-ring:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+/* Accessibility improvements */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .motion-element {
+        transform: none !important;
+    }
 }
 
 /* Performance-optimized gradients */
