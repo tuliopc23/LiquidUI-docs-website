@@ -197,7 +197,7 @@ export function ComponentShowcase({
 
               {/* Storybook Link */}
               <a
-                href="https://liquidify.vercel.app"
+                    href="https://lib.useliquidify.dev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300"

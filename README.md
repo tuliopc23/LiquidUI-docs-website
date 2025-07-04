@@ -92,7 +92,7 @@ This documentation site includes:
 - **Documentation Repository**: [github.com/tuliopc23/Liquidify-docs](https://github.com/tuliopc23/Liquidify-docs)
 - **Component Library**: [github.com/tuliopc23/Liquidify](https://github.com/tuliopc23/Liquidify)
 - **NPM Package**: [`liquidify`](https://www.npmjs.com/package/liquidify)
-- **Storybook**: [liquidify.vercel.app](https://liquidify.vercel.app)
+- **Storybook**: [lib.useliquidify.dev](https://lib.useliquidify.dev/)
 
 ---
 

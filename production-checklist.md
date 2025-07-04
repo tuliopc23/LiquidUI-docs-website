@@ -16,7 +16,7 @@
 - ✅ **Navigation** - All links working, proper organization
 
 ### 🔗 Links & URLs
-- ✅ **Storybook URL** - Points to liquidify.vercel.app
+- ✅ **Storybook URL** - Points to lib.useliquidify.dev
 - ✅ **Documentation URL** - liquidify-docs.vercel.app
 - ✅ **GitHub repositories** - Correct Liquidify repo links
 - ✅ **NPM package** - Links to npmjs.com/package/liquidify
