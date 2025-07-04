@@ -30,12 +30,16 @@ A stunning glassmorphism hero component with liquid effects and physics-based an
   subtitle="Experience the magic of liquid glass components with physics-based interactions."
   actions={
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      <GlassButton variant="primary" size="lg">
-        Get Started
-      </GlassButton>
-      <GlassButton variant="secondary" size="lg">
-        View Components
-      </GlassButton>
+      <a href="/getting-started">
+        <GlassButton variant="primary" size="lg">
+          Get Started
+        </GlassButton>
+      </a>
+      <a href="/components">
+        <GlassButton variant="secondary" size="lg">
+          View Components
+        </GlassButton>
+      </a>
     </div>
   }
 />`}
@@ -59,13 +63,15 @@ A stunning glassmorphism hero component with liquid effects and physics-based an
   background="gradient"
   actions={
     <div className="flex items-center gap-6">
-      <GlassButton variant="primary" size="lg">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 ios-logo apple-gradient"></div>
-          Explore Components
-        </div>
-      </GlassButton>
-      <a href="#demo" className="text-foreground hover:text-blue-600 transition-colors body-text">
+      <a href="/components">
+        <GlassButton variant="primary" size="lg">
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 ios-logo apple-gradient"></div>
+            Explore Components
+          </div>
+        </GlassButton>
+      </a>
+      <a href="/demo" className="text-foreground hover:text-blue-600 transition-colors body-text">
         Watch Demo →
       </a>
     </div>
@@ -202,18 +208,22 @@ function ProductHero() {
       background="particles"
       actions={
         <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <GlassButton variant="primary" size="lg" className="px-8 py-4">
-            <div className="flex items-center gap-2">
-              Get Started
-              <ArrowRight className="w-5 h-5" />
-            </div>
-          </GlassButton>
-          <GlassButton variant="ghost" size="lg" className="px-8 py-4">
-            <div className="flex items-center gap-2">
-              <Play className="w-5 h-5" />
-              Watch Demo
-            </div>
-          </GlassButton>
+          <a href="/getting-started">
+            <GlassButton variant="primary" size="lg" className="px-8 py-4">
+              <div className="flex items-center gap-2">
+                Get Started
+                <ArrowRight className="w-5 h-5" />
+              </div>
+            </GlassButton>
+          </a>
+          <a href="/demo">
+            <GlassButton variant="ghost" size="lg" className="px-8 py-4">
+              <div className="flex items-center gap-2">
+                <Play className="w-5 h-5" />
+                Watch Demo
+              </div>
+            </GlassButton>
+          </a>
         </div>
       }
     />
@@ -243,12 +253,16 @@ function SaaSHero() {
       actions={
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row gap-4">
-            <GlassButton variant="primary" size="lg">
-              Start Free Trial
-            </GlassButton>
-            <GlassButton variant="secondary" size="lg">
-              Schedule Demo
-            </GlassButton>
+            <a href="/signup">
+              <GlassButton variant="primary" size="lg">
+                Start Free Trial
+              </GlassButton>
+            </a>
+            <a href="/demo">
+              <GlassButton variant="secondary" size="lg">
+                Schedule Demo
+              </GlassButton>
+            </a>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto">
@@ -281,9 +295,11 @@ function MinimalHero() {
       alignment="left"
       className="py-20"
       actions={
-        <GlassButton variant="primary">
-          Get Started
-        </GlassButton>
+        <a href="/getting-started">
+          <GlassButton variant="primary">
+            Get Started
+          </GlassButton>
+        </a>
       }
     />
   );
@@ -319,9 +335,11 @@ function AnimatedHero() {
       background="waves"
       actions={
         <div className="space-y-8">
-          <GlassButton variant="primary" size="lg">
-            Join the Community
-          </GlassButton>
+          <a href="/community">
+            <GlassButton variant="primary" size="lg">
+              Join the Community
+            </GlassButton>
+          </a>
           
           <div className="grid grid-cols-3 gap-8 text-center">
             <div>

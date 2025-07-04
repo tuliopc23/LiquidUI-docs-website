@@ -374,11 +374,9 @@ Advanced interactive components with physics-based behaviors.
         ))}
       </div>
       
-      <button className="w-full glass-button-primary py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300">
-        <a href={`/components/${category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`}>
-          Explore {category.category}
-        </a>
-      </button>
+      <a href={`/components/${category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} className="w-full glass-button-primary py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300 block text-center">
+        Explore {category.category}
+      </a>
     </motion.div>
   ))}
 </div>
@@ -505,9 +503,9 @@ Advanced hooks and utility functions for enhanced functionality.
     <p className="text-muted-foreground mb-4 body-text">
       Get started with LiqUIdify in your project with our quick installation guide.
     </p>
-    <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300">
-      <a href="/getting-started">Getting Started →</a>
-    </button>
+    <a href="/getting-started" className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300 block text-center">
+      Getting Started →
+    </a>
   </div>
   
   <div className="liquid-glass rounded-3xl p-6 border border-green-200/30">
@@ -520,9 +518,9 @@ Advanced hooks and utility functions for enhanced functionality.
     <p className="text-muted-foreground mb-4 body-text">
       Learn about our design principles, theming system, and customization options.
     </p>
-    <button className="glass-button px-6 py-3 rounded-2xl text-foreground font-medium body-text hover:scale-105 transition-all duration-300">
-      <a href="/theming">Design Guide →</a>
-    </button>
+    <a href="/theming" className="glass-button px-6 py-3 rounded-2xl text-foreground font-medium body-text hover:scale-105 transition-all duration-300 block text-center">
+      Design Guide →
+    </a>
   </div>
 </div>
 
@@ -596,11 +594,11 @@ Advanced hooks and utility functions for enhanced functionality.
     Ready to start building beautiful interfaces with liquid glass components?
   </p>
   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-    <button className="glass-button-primary px-8 py-4 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
-      <a href="/getting-started">Get Started →</a>
-    </button>
-    <button className="glass-button px-8 py-4 rounded-2xl text-foreground font-medium hover:scale-105 transition-all duration-300">
-      <a href="/components">Browse Components →</a>
-    </button>
+    <a href="/getting-started" className="glass-button-primary px-8 py-4 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300 block text-center">
+      Get Started →
+    </a>
+    <a href="/components" className="glass-button px-8 py-4 rounded-2xl text-foreground font-medium hover:scale-105 transition-all duration-300 block text-center">
+      Browse Components →
+    </a>
   </div>
 </div>
