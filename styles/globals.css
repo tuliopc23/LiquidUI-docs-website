@@ -1,19 +1,15 @@
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import './type-scale.css';
 
+/* Design System Utilities */
+.rounded-ds {
+    @apply rounded-3xl;
+}
+
 /* Apple Design Language Typography System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -153,7 +149,7 @@ body[data-theme="dark"] {
 /* Shimmer UI Styles */
 @layer components {
     .glass-card {
-        @apply backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl;
+        @apply backdrop-blur-xl border border-white/20 rounded-ds shadow-2xl;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     }
 
@@ -165,7 +161,7 @@ body[data-theme="dark"] {
     }
 
     .glass-button {
-        @apply backdrop-blur-lg border border-white/30 rounded-2xl shadow-lg relative overflow-hidden;
+        @apply backdrop-blur-lg border border-white/30 rounded-ds shadow-lg relative overflow-hidden;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
         box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
         transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -212,7 +208,7 @@ body[data-theme="dark"] {
     }
 
     .glass-button-primary {
-        @apply bg-blue-500/80 text-white border-blue-400/50 backdrop-blur-lg rounded-2xl;
+        @apply bg-blue-500/80 text-white border-blue-400/50 backdrop-blur-lg rounded-ds;
         box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
     }
 
@@ -233,7 +229,7 @@ body[data-theme="dark"] {
     }
 
     .liquid-glass {
-        @apply backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl transition-all duration-300;
+        @apply backdrop-blur-xl border border-white/20 rounded-ds shadow-xl transition-all duration-300;
         background: linear-gradient(135deg,
                 rgba(255, 255, 255, 0.1),
                 rgba(255, 255, 255, 0.05));
@@ -267,23 +263,23 @@ body[data-theme="dark"] {
 
     /* Rounded Corner Standards */
     .bg-section {
-        @apply rounded-3xl;
+        @apply rounded-ds;
     }
 
     .bg-container {
-        @apply rounded-3xl;
+        @apply rounded-ds;
     }
 
     .bg-card {
-        @apply rounded-2xl;
+        @apply rounded-ds;
     }
 
     .bg-button {
-        @apply rounded-2xl;
+        @apply rounded-ds;
     }
 
     .bg-input {
-        @apply rounded-xl;
+        @apply rounded-ds;
     }
 
     .bg-badge {
@@ -292,7 +288,7 @@ body[data-theme="dark"] {
 
     /* iOS-style icons with rounded corners */
     .ios-logo {
-        @apply rounded-2xl relative overflow-hidden transition-all duration-300;
+        @apply rounded-ds relative overflow-hidden transition-all duration-300;
         aspect-ratio: 1;
         display: inline-flex;
         align-items: center;
@@ -978,15 +974,7 @@ body:has([data-nextra-banner]:not([style*="display: none"])) {
     }
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
+/* Reduced motion - handled by comprehensive block below */
 
 /* Enhanced performance optimizations for launch */
 * {

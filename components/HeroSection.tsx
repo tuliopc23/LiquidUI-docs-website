@@ -14,14 +14,14 @@ export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-12 sm:py-20 px-4 section-spacing">
       {/* Rounded gradient overlay container with responsive spacing */}
-      <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-gray-800/50 dark:to-transparent rounded-2xl sm:rounded-3xl" />
+      <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-gray-800/50 dark:to-transparent rounded-ds" />
 
       {/* Floating Elements for visual depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Top left floating element - optimized with spring */}
         <ViewportMotion threshold={0.2} once>
           <motion.div
-            className="absolute top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
+            className="absolute top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/8 rounded-ds blur-3xl enhanced-float"
             animate={{
               scale: 1.05,
               opacity: 0.5,
@@ -40,7 +40,7 @@ export function HeroSection() {
         {/* Bottom right floating element - optimized with spring */}
         <ViewportMotion threshold={0.2} once>
           <motion.div
-            className="absolute bottom-16 sm:bottom-24 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
+            className="absolute bottom-16 sm:bottom-24 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/8 rounded-ds blur-3xl enhanced-float"
             animate={{
               scale: 1.1,
               opacity: 0.6,
@@ -60,7 +60,7 @@ export function HeroSection() {
         {/* Additional elements for larger screens - optimized with spring */}
         <ViewportMotion threshold={0.2} once>
           <motion.div
-            className="hidden lg:block absolute top-1/3 right-12 w-20 h-20 bg-green-400/5 rounded-2xl blur-2xl enhanced-float"
+            className="hidden lg:block absolute top-1/3 right-12 w-20 h-20 bg-green-400/5 rounded-ds blur-2xl enhanced-float"
             animate={{
               y: -15,
               opacity: 0.4,
@@ -86,7 +86,7 @@ export function HeroSection() {
           once={true}
         >
           <OptimizedMotion.div
-            className="inline-flex items-center space-x-2 enhanced-glass px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl border border-gray-200/70 dark:border-gray-700/50 mb-6 sm:mb-8 shadow-sm motion-element hover-optimized enhanced-button"
+            className="inline-flex items-center space-x-2 enhanced-glass px-3 sm:px-4 py-2 sm:py-2.5 rounded-ds border border-gray-200/70 dark:border-gray-700/50 mb-6 sm:mb-8 shadow-sm motion-element hover-optimized enhanced-button"
             {...optimizedVariants.hoverScale}
           >
             <Sparkles className="w-3 sm:w-4 h-3 sm:h-4 text-blue-500" />
@@ -113,12 +113,12 @@ export function HeroSection() {
                 as="h1"
                 tiltX={8}
                 tiltY={-6}
-                className="text-display-4xl text-gradient-primary text-glow-strong animate-gradient-slow hero-text text-5xl sm:text-6xl lg:text-7xl font-extrabold text-center text-gray-900 dark:text-white drop-shadow-lg text-balance motion-element"
+                className="text-center text-gray-900 dark:text-white motion-element"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.8 }}
               >
-                <span className="block mb-2 sm:mb-4 tracking-tight text-[2.8rem] sm:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 gradient-text drop-shadow-lg">
+                <span className="block text-[2.8rem] sm:text-6xl lg:text-7xl tracking-tight font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 gradient-text drop-shadow-lg mb-2 sm:mb-4">
                   LiqUIdify
                 </span>
                 <span className="block bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 bg-clip-text text-transparent gradient-text text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide mt-2">
@@ -151,7 +151,7 @@ export function HeroSection() {
           >
             <a
               href="/getting-started"
-              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-blue-500 border border-transparent rounded-xl sm:rounded-2xl shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
+              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-blue-500 border border-transparent rounded-ds shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
             >
               Get Started
               <ArrowRight className="w-4 h-4 ml-2 -mr-1" />
@@ -160,7 +160,7 @@ export function HeroSection() {
               href="https://github.com/tuliopc23/LiquidUI-docs-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
+              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-ds shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
             >
               <Github className="w-4 h-4 mr-2" />
               View on GitHub
@@ -168,13 +168,13 @@ export function HeroSection() {
           </OptimizedMotion.div>
 
           <OptimizedMotion.div
-            className="relative w-full max-w-6xl mx-auto enhanced-glass backdrop-blur-lg rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden border border-gray-200/70 dark:border-gray-700/50 motion-element layout-stable"
+            className="relative w-full max-w-6xl mx-auto enhanced-glass backdrop-blur-lg rounded-ds shadow-xl overflow-hidden border border-gray-200/70 dark:border-gray-700/50 motion-element layout-stable"
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
           >
             <div className="p-1">
-              <div className="relative aspect-video bg-gray-50/50 dark:bg-gray-900/50 rounded-xl sm:rounded-2xl overflow-hidden flex items-center justify-center">
+              <div className="relative aspect-video bg-gray-50/50 dark:bg-gray-900/50 rounded-ds overflow-hidden flex items-center justify-center">
                 <div className="text-center p-4 sm:p-8">
                   <div className="text-liquid-glass subtitle-text text-gray-400 dark:text-gray-600 mb-2 sm:mb-3">
                     Component Showcase

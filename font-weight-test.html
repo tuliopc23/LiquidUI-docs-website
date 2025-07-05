@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Weight 900 Test</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 40px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .font-test {
+            margin: 20px 0;
+            font-size: 48px;
+            text-align: center;
+        }
+        
+        .weight-400 { font-weight: 400; }
+        .weight-500 { font-weight: 500; }
+        .weight-700 { font-weight: 700; }
+        .weight-900 { font-weight: 900; }
+        
+        .label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Font Weight Test - Inter Font</h1>
+        <p>Testing if font-weight: 900 is properly loaded from Google Fonts</p>
+        
+        <div class="label">Font Weight 400 (Regular)</div>
+        <div class="font-test weight-400">LiqUIdify</div>
+        
+        <div class="label">Font Weight 500 (Medium)</div>
+        <div class="font-test weight-500">LiqUIdify</div>
+        
+        <div class="label">Font Weight 700 (Bold)</div>
+        <div class="font-test weight-700">LiqUIdify</div>
+        
+        <div class="label">Font Weight 900 (Black) - The Target Weight</div>
+        <div class="font-test weight-900 gradient-text">LiqUIdify</div>
+        
+        <hr style="margin: 40px 0;">
+        
+        <h2>Visual Comparison</h2>
+        <p>If weight 900 is working correctly, the last "LiqUIdify" should appear significantly bolder than the others.</p>
+        
+        <div style="font-size: 24px; line-height: 1.5;">
+            <div>Regular (400): <span class="weight-400">LiqUIdify Component Library</span></div>
+            <div>Medium (500): <span class="weight-500">LiqUIdify Component Library</span></div>
+            <div>Bold (700): <span class="weight-700">LiqUIdify Component Library</span></div>
+            <div>Black (900): <span class="weight-900">LiqUIdify Component Library</span></div>
+        </div>
+        
+        <script>
+            // Check if the font is loaded correctly
+            document.fonts.ready.then(() => {
+                console.log('✅ All fonts loaded');
+                
+                // Check available font weights
+                const testElement = document.createElement('div');
+                testElement.style.fontFamily = 'Inter';
+                testElement.style.fontSize = '48px';
+                testElement.textContent = 'Test';
+                document.body.appendChild(testElement);
+                
+                [400, 500, 700, 900].forEach(weight => {
+                    testElement.style.fontWeight = weight;
+                    const computedWeight = window.getComputedStyle(testElement).fontWeight;
+                    console.log(`Font weight ${weight} computed as: ${computedWeight}`);
+                });
+                
+                document.body.removeChild(testElement);
+            });
+        </script>
+    </div>
+</body>
+</html>

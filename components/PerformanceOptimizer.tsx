@@ -20,7 +20,7 @@ const SPRING_CONFIGS = {
 } as const;
 
 // Mobile blur optimization - reduce blur intensity on mobile devices
-const MOBILE_BLUR_REDUCTION = 0.4; // Reduce blur by 60% on mobile
+const MOBILE_BLUR_REDUCTION = 0.7; // Reduce blur by 30% on mobile (less aggressive)
 
 // Shared animation constants (moved from animations.ts)
 export const ANIMATION_CONSTANTS = {
@@ -209,6 +209,11 @@ export const optimizedVariants: Record<string, any> = {
 
     // Enhanced liquid glass morphing with spring transitions (replaces keyframes)
     liquidMorph: {
+        initial: {
+            scale: 1,
+            rotate: 0,
+            borderRadius: "24px"
+        },
         animate: {
             scale: 1.01,
             rotate: 0.5,
@@ -238,6 +243,10 @@ export const optimizedVariants: Record<string, any> = {
 
     // Floating animations with spring physics (replaces keyframes)
     float: {
+        initial: {
+            y: 0,
+            rotate: 0
+        },
         animate: {
             y: -8,
             rotate: 1.5,
@@ -315,6 +324,11 @@ export const optimizedVariants: Record<string, any> = {
 
     // Glass float animation
     glassFloat: {
+        initial: {
+            scale: 1,
+            opacity: 1,
+            filter: 'blur(0px)'
+        },
         animate: {
             scale: 1.02,
             opacity: 0.9,
@@ -366,15 +380,9 @@ export const usePerformanceOptimization = () => {
         const hasLowMemory = (navigator as unknown as { deviceMemory?: number }).deviceMemory && (navigator as unknown as { deviceMemory?: number }).deviceMemory! < 4;
         const isSlowConnection = (navigator as unknown as { connection?: { effectiveType?: string } }).connection && (navigator as unknown as { connection?: { effectiveType?: string } }).connection!.effectiveType === 'slow-2g';
         
-        if (hasReducedPerformance || hasLowMemory || isSlowConnection || isReducedMotion) {
-            // Reduce animation complexity for better performance
-            document.documentElement.style.setProperty('--animation-duration', '0.1s');
-            document.documentElement.style.setProperty('--animation-complexity', 'low');
-            
-            // Reduce blur effects on mobile for paint performance
-            if (isMobile) {
-                document.documentElement.style.setProperty('--mobile-blur-reduction', String(MOBILE_BLUR_REDUCTION));
-            }
+        // Reduce blur effects on mobile for paint performance
+        if (isMobile) {
+            document.documentElement.style.setProperty('--mobile-blur-reduction', String(MOBILE_BLUR_REDUCTION));
         }
         
         // Disable complex animations if reduced motion is preferred
@@ -627,7 +635,7 @@ export const ViewportMotion: React.FC<{
             className={className}
             variants={variants}
             initial="initial"
-            animate={shouldAnimate ? "whileInView" : "initial"}
+            animate={shouldAnimate ? (variants.whileInView ? "whileInView" : variants.animate ? "animate" : "initial") : "initial"}
             viewport={{ once }}
         >
             {children}

@@ -243,6 +243,7 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)',
                 '4xl': '2rem',
                 '5xl': '2.5rem',
+                ds: '1.5rem',
             },
             backdropBlur: {
                 xs: '2px',

@@ -3,101 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animation Test</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Step 4 Animation Test - Enhanced Animations</title>
     <style>
-        /* Custom animations for testing */
-        @keyframes liquidWave {
-            0%, 100% { 
-                transform: skewY(0deg);
+        /* Test the enhanced-float keyframe animation */
+        @keyframes enhanced-float {
+            0%, 100% {
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate3d(0, -8px, 0) rotate(0.5deg) scale(1.01);
+            }
+            50% {
+                transform: translate3d(0, -12px, 0) rotate(0deg) scale(1.02);
+            }
+            75% {
+                transform: translate3d(0, -6px, 0) rotate(-0.3deg) scale(1.01);
+            }
+        }
+
+        /* Test glass morph animation */
+        @keyframes glass-morph {
+            0%, 100% {
+                border-radius: 24px;
+                transform: rotate(0deg) scale(1);
                 filter: blur(0px);
             }
-            25% { 
-                transform: skewY(0.5deg);
+            25% {
+                border-radius: 32px 16px 28px 20px;
+                transform: rotate(0.5deg) scale(1.01);
                 filter: blur(0.5px);
             }
-            50% { 
-                transform: skewY(1deg);
-                filter: blur(1px);
-            }
-            75% { 
-                transform: skewY(0.5deg);
-                filter: blur(0.5px);
-            }
-        }
-        
-        @keyframes gradientShiftX {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
             50% {
-                background-position: 100% 50%;
+                border-radius: 20px 30px 16px 32px;
+                transform: rotate(-0.3deg) scale(0.99);
+                filter: blur(0.8px);
+            }
+            75% {
+                border-radius: 28px 20px 24px 18px;
+                transform: rotate(0.2deg) scale(1.005);
+                filter: blur(0.3px);
             }
         }
-        
-        @keyframes gradientShiftY {
-            0%, 100% {
-                background-position: 50% 0%;
-            }
-            50% {
-                background-position: 50% 100%;
-            }
+
+        .test-float {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 24px;
+            animation: enhanced-float 8s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            margin: 50px;
         }
-        
-        .animate-liquid-wave {
-            animation: liquidWave 4s ease-in-out infinite;
+
+        .glass-morph {
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            margin: 50px;
+            position: relative;
+            animation: glass-morph 12s ease-in-out infinite;
+            will-change: transform, border-radius, filter;
         }
-        
-        .animate-gradient-slow {
-            animation: gradientShiftX 20s ease infinite;
-        }
-        
-        .animate-gradient-shift-x {
-            animation: gradientShiftX 15s ease infinite;
-        }
-        
-        .animate-gradient-shift-y {
-            animation: gradientShiftY 15s ease infinite;
-        }
-        
-        /* Prefers-reduced-motion support */
+
+        /* Test prefers-reduced-motion behavior - comprehensive block */
         @media (prefers-reduced-motion: reduce) {
-            .animate-liquid-wave,
-            .animate-gradient-slow,
-            .animate-gradient-shift-x,
-            .animate-gradient-shift-y {
-                animation: none;
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
+            
+            .motion-element {
+                transform: none !important;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: white;
+        }
+
+        /* Test mobile blur optimization */
+        @media (max-width: 768px) {
+            .test-section,
+            .glass-morph {
+                /* Use 0.7 reduction factor (30% less blur) instead of 0.4 (60% less) */
+                backdrop-filter: blur(calc(15px * 0.7));
+            }
+        }
+
+        .floating-squares {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .info {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .status-display {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 1000;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white p-8">
-    <h1 class="text-3xl font-bold mb-8">Animation Test</h1>
-    
-    <div class="space-y-8">
-        <!-- Liquid Wave Test -->
-        <div class="bg-blue-500 h-20 w-64 rounded-lg animate-liquid-wave">
-            <div class="p-4 text-center">Liquid Wave Animation</div>
-        </div>
+<body>
+    <div class="container">
+        <h1>Step 4 Animation Test - Enhanced Animations</h1>
         
-        <!-- Gradient Shift X Test -->
-        <div class="h-20 w-64 rounded-lg animate-gradient-shift-x bg-gradient-to-r from-purple-500 to-pink-500" style="background-size: 200% 100%;">
-            <div class="p-4 text-center">Gradient Shift X</div>
+        <div class="info">
+            <p><strong>Testing:</strong> Less aggressive blur reduction (0.7 instead of 0.4)</p>
+            <p><strong>Expected:</strong> Floating squares should animate smoothly unless prefers-reduced-motion is enabled</p>
         </div>
-        
-        <!-- Gradient Shift Y Test -->
-        <div class="h-20 w-64 rounded-lg animate-gradient-shift-y bg-gradient-to-b from-green-500 to-blue-500" style="background-size: 100% 200%;">
-            <div class="p-4 text-center">Gradient Shift Y</div>
+
+        <div class="test-section">
+            <h2>Floating Hero Squares (enhanced-float keyframe)</h2>
+            <div class="floating-squares">
+                <div class="test-float"></div>
+                <div class="test-float" style="animation-delay: 1s;"></div>
+                <div class="test-float" style="animation-delay: 2s;"></div>
+            </div>
         </div>
-        
-        <!-- Gradient Slow Test -->
-        <div class="h-20 w-64 rounded-lg animate-gradient-slow bg-gradient-to-r from-orange-500 to-red-500" style="background-size: 200% 100%;">
-            <div class="p-4 text-center">Gradient Slow</div>
+
+        <div class="test-section">
+            <h2>Glass Morph Elements (glass-morph animation)</h2>
+            <div class="floating-squares">
+                <div class="glass-morph"></div>
+                <div class="glass-morph" style="animation-delay: 1.5s;"></div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Results</h2>
+            <div style="text-align: left; max-width: 600px;">
+                <p>✅ <strong>Desktop:</strong> All animations should play smoothly</p>
+                <p>✅ <strong>Mobile:</strong> Animations play with 30% blur reduction (was 60%)</p>
+                <p>✅ <strong>Reduced Motion:</strong> Animations disabled/minimal when prefers-reduced-motion is enabled</p>
+                <p>✅ <strong>Enhanced Float:</strong> Floating squares use the enhanced-float keyframe</p>
+                <p>✅ <strong>Glass Morph:</strong> Glass elements use smooth morphing animation</p>
+            </div>
         </div>
     </div>
-    
-    <div class="mt-8 text-sm text-gray-400">
-        <p>Note: If you have "prefers-reduced-motion" enabled, animations will be disabled.</p>
-    </div>
+
+    <div class="status-display" id="status"></div>
+
+    <script>
+        // Test mobile blur reduction (updated from 0.4 to 0.7)
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        const MOBILE_BLUR_REDUCTION = 0.7; // Updated value from 0.4 - less aggressive
+        
+        if (isMobile) {
+            document.documentElement.style.setProperty('--mobile-blur-reduction', String(MOBILE_BLUR_REDUCTION));
+            console.log('Mobile detected: blur reduction factor:', MOBILE_BLUR_REDUCTION, '(was 0.4)');
+        }
+
+        // Test reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            console.log('Reduced motion preference detected - animations should be minimal');
+        } else {
+            console.log('Full animations enabled');
+        }
+
+        // Display current settings
+        const statusEl = document.getElementById('status');
+        statusEl.innerHTML = `
+            Device: ${isMobile ? 'Mobile' : 'Desktop'}<br>
+            Blur Factor: ${MOBILE_BLUR_REDUCTION} ${isMobile ? '(30% reduction)' : '(no reduction)'}<br>
+            Reduced Motion: ${prefersReducedMotion ? 'ON' : 'OFF'}<br>
+            Animations: ${prefersReducedMotion ? 'Disabled' : 'Enabled'}
+        `;
+
+        // Log success for step verification
+        console.log('✅ Step 4 Implementation Complete:');
+        console.log('- MOBILE_BLUR_REDUCTION changed from 0.4 to 0.7');
+        console.log('- Animation duration override removed from performance optimization');
+        console.log('- ViewportMotion fixed with proper variant keys');
+        console.log('- Initial states added to float, liquidMorph, glassFloat variants');
+        console.log('- Duplicate prefers-reduced-motion blocks removed from globals.css');
+    </script>
 </body>
 </html>

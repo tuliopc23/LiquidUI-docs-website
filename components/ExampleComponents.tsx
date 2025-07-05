@@ -46,7 +46,7 @@ import {
 
 // Light mode wrapper component
 const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
-  <div className="min-h-[200px] p-6 rounded-3xl bg-gradient-to-br from-blue-50 via-white to-green-50 border border-blue-200/50 relative overflow-hidden">
+  <div className="min-h-[200px] p-6 rounded-ds bg-gradient-to-br from-blue-50 via-white to-green-50 border border-blue-200/50 relative overflow-hidden">
     {/* Background decoration */}
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] pointer-events-none"></div>
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.1),transparent_50%)] pointer-events-none"></div>
@@ -192,11 +192,11 @@ export const BadgeExamples = () => (
 export const InputExamples = () => (
   <LightModeShowcase>
     <div className="space-y-4 max-w-md">
-      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Enter your email" type="email" />
-      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-ds border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Enter your email" type="email" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-ds border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
       <div className="flex items-center space-x-2">
-        <input className="flex-1 px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Username" />
-        <button className="min-w-[44px] min-h-[44px] px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
+        <input className="flex-1 px-4 py-3 liquid-glass rounded-ds border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Username" />
+        <button className="min-w-[44px] min-h-[44px] px-4 py-3 glass-button-primary rounded-ds text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
       </div>
     </div>
   </LightModeShowcase>
@@ -258,7 +258,7 @@ export const SwitchExamples = () => (
 );
 
 export const CardWithActions = () => (
-  <div className="liquid-glass rounded-3xl p-6 max-w-md border border-green-200/30">
+  <div className="liquid-glass rounded-ds p-6 max-w-md border border-green-200/30">
     <h3 className="text-lg font-semibold mb-2 text-gray-900 hero-text">
       Interactive Card
     </h3>
@@ -266,10 +266,10 @@ export const CardWithActions = () => (
       Card with action buttons and interactive elements.
     </p>
     <div className="flex gap-2">
-      <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-2xl text-white text-sm font-medium">
+      <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-ds text-white text-sm font-medium">
         Action
       </button>
-      <button className="min-w-[44px] min-h-[44px] glass-button px-4 py-2 rounded-2xl text-gray-700 text-sm font-medium">
+      <button className="min-w-[44px] min-h-[44px] glass-button px-4 py-2 rounded-ds text-gray-700 text-sm font-medium">
         Cancel
       </button>
     </div>
@@ -277,7 +277,7 @@ export const CardWithActions = () => (
 );
 
 export const ProfileCard = () => (
-  <div className="liquid-glass rounded-3xl p-6 max-w-sm border border-purple-200/30">
+  <div className="liquid-glass rounded-ds p-6 max-w-sm border border-purple-200/30">
     <div className="flex items-center space-x-4 mb-4">
       <div className="w-12 h-12 rounded-full flex items-center justify-center">
         <LiquidifyLogo size={48} />
@@ -307,7 +307,7 @@ export const ProfileCard = () => (
 );
 
 export const SocialMediaCard = () => (
-  <div className="liquid-glass rounded-3xl p-6 max-w-md border border-pink-200/30">
+  <div className="liquid-glass rounded-ds p-6 max-w-md border border-pink-200/30">
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center space-x-3">
         <div className="w-10 h-10 rounded-full flex items-center justify-center">
@@ -320,7 +320,7 @@ export const SocialMediaCard = () => (
           <p className="text-sm text-gray-600 body-text">2 hours ago</p>
         </div>
       </div>
-      <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+      <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300">
         <Heart className="w-4 h-4 text-gray-700" />
       </button>
     </div>
@@ -345,12 +345,12 @@ export const SocialMediaCard = () => (
 );
 
 export const NestedCards = () => (
-  <div className="liquid-glass rounded-3xl p-6 max-w-lg border border-blue-200/30">
+  <div className="liquid-glass rounded-ds p-6 max-w-lg border border-blue-200/30">
     <h3 className="text-lg font-semibold mb-4 text-gray-900 hero-text">
       Project Dashboard
     </h3>
     <div className="space-y-4">
-      <div className="liquid-glass rounded-2xl p-4 border border-green-200/30">
+      <div className="liquid-glass rounded-ds p-4 border border-green-200/30">
         <div className="flex items-center justify-between">
           <h4 className="font-medium text-gray-900 body-text">
             Website Redesign
@@ -368,7 +368,7 @@ export const NestedCards = () => (
         </div>
       </div>
 
-      <div className="liquid-glass rounded-2xl p-4 border border-blue-200/30">
+      <div className="liquid-glass rounded-ds p-4 border border-blue-200/30">
         <div className="flex items-center justify-between">
           <h4 className="font-medium text-gray-900 body-text">Mobile App</h4>
           <span className="text-sm bg-blue-100/80 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
@@ -391,7 +391,7 @@ export const NestedCards = () => (
 
 export const ModalExample = () => (
   <div className="p-4">
-    <button className="min-w-[44px] min-h-[44px] glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
+    <button className="min-w-[44px] min-h-[44px] glass-button-primary px-6 py-3 rounded-ds text-white font-medium hover:scale-105 transition-all duration-300">
       Open Modal
     </button>
   </div>
@@ -400,7 +400,7 @@ export const ModalExample = () => (
 // Header Examples
 export const HeaderExamples = () => (
   <div className="w-full space-y-6">
-    <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30">
+    <div className="liquid-glass rounded-ds p-6 border border-blue-200/30">
       <div className="flex items-center justify-between mb-4">
         <div>
           <div className="flex items-center gap-3">
@@ -414,13 +414,13 @@ export const HeaderExamples = () => (
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300">
             <Search className="w-4 h-4 text-gray-700" />
           </button>
-          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300">
             <Bell className="w-4 h-4 text-gray-700" />
           </button>
-          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-2xl text-white hover:scale-105 transition-all duration-300 flex items-center gap-2">
+          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-4 py-2 rounded-ds text-white hover:scale-105 transition-all duration-300 flex items-center gap-2">
             <Plus className="w-4 h-4" />
             New Project
           </button>
@@ -428,7 +428,7 @@ export const HeaderExamples = () => (
       </div>
     </div>
 
-    <div className="liquid-glass rounded-3xl p-6 border border-green-200/30">
+    <div className="liquid-glass rounded-ds p-6 border border-green-200/30">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <LiquidifyLogo size={32} />
@@ -446,7 +446,7 @@ export const HeaderExamples = () => (
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-sm text-gray-700">Live</span>
           </div>
-          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300">
             <Settings className="w-4 h-4 text-gray-700" />
           </button>
         </div>
@@ -458,7 +458,7 @@ export const HeaderExamples = () => (
 // Footer Examples
 export const FooterExamples = () => (
   <div className="w-full space-y-6">
-    <div className="liquid-glass rounded-3xl p-6 border border-blue-200/30 backdrop-blur-xl">
+    <div className="liquid-glass rounded-ds p-6 border border-blue-200/30 backdrop-blur-xl">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <LiquidifyLogo size={24} />
@@ -500,7 +500,7 @@ export const FooterExamples = () => (
       </div>
     </div>
 
-    <div className="liquid-glass rounded-3xl p-6 border border-purple-200/30 backdrop-blur-xl">
+    <div className="liquid-glass rounded-ds p-6 border border-purple-200/30 backdrop-blur-xl">
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-4">
@@ -567,7 +567,7 @@ export const FooterExamples = () => (
 // Hero Examples
 export const HeroExamples = () => (
   <div className="w-full space-y-8">
-    <div className="liquid-glass rounded-3xl p-12 border border-blue-200/30 text-center relative overflow-hidden backdrop-blur-xl">
+    <div className="liquid-glass rounded-ds p-12 border border-blue-200/30 text-center relative overflow-hidden backdrop-blur-xl">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-green-50/80"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-4">
@@ -586,13 +586,13 @@ export const HeroExamples = () => (
           liquid glass.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-8 py-4 rounded-2xl text-white hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button-primary px-8 py-4 rounded-ds text-white hover:scale-105 transition-all duration-300">
             <div className="flex items-center gap-2">
               Get Started
               <ArrowRight className="w-5 h-5" />
             </div>
           </button>
-          <button className="min-w-[44px] min-h-[44px] glass-button px-8 py-4 rounded-2xl text-gray-700 hover:scale-105 transition-all duration-300">
+          <button className="min-w-[44px] min-h-[44px] glass-button px-8 py-4 rounded-ds text-gray-700 hover:scale-105 transition-all duration-300">
             <div className="flex items-center gap-2">
               <Play className="w-5 h-5" />
               Watch Demo
@@ -607,7 +607,7 @@ export const HeroExamples = () => (
       ></div>
     </div>
 
-    <div className="liquid-glass rounded-3xl p-10 border border-purple-200/30 text-center backdrop-blur-xl">
+    <div className="liquid-glass rounded-ds p-10 border border-purple-200/30 text-center backdrop-blur-xl">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold mb-4 hero-text text-gray-900">
           Build Beautiful UIs
@@ -655,7 +655,7 @@ export const FeatureShowcaseExamples = () => (
       ].map((feature, index) => (
         <div
           key={index}
-          className="liquid-glass rounded-3xl p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300"
+          className="liquid-glass rounded-ds p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300"
         >
           <div className="w-12 h-12 flex items-center justify-center mb-4 mx-auto">
             <LiquidifyLogo size={48} />
@@ -695,7 +695,7 @@ export const AvatarExamples = () => (
 // Toast Examples
 export const ToastExamples = () => (
   <div className="space-y-3">
-    <div className="liquid-glass rounded-2xl p-4 border border-green-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
+    <div className="liquid-glass rounded-ds p-4 border border-green-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
       <div className="w-8 h-8 flex items-center justify-center">
         <LiquidifyLogo size={32} />
       </div>
@@ -708,7 +708,7 @@ export const ToastExamples = () => (
         </div>
       </div>
     </div>
-    <div className="liquid-glass rounded-2xl p-4 border border-blue-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
+    <div className="liquid-glass rounded-ds p-4 border border-blue-200/30 flex items-center gap-3 backdrop-blur-xl hover:scale-102 transition-all duration-300">
       <div className="w-8 h-8 flex items-center justify-center">
         <LiquidifyLogo size={32} />
       </div>
@@ -765,7 +765,7 @@ export const FloatingActionExamples = () => (
     </div>
 
     {/* Expandable FAB Preview */}
-    <div className="liquid-glass rounded-3xl p-8 border border-blue-200/30">
+    <div className="liquid-glass rounded-ds p-8 border border-blue-200/30">
       <h4 className="text-lg font-semibold text-gray-900 mb-4 text-center hero-text">
         Expandable Actions Preview
       </h4>
