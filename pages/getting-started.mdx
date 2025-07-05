@@ -8,29 +8,36 @@ import { Package, Download, Code, Rocket, CheckCircle } from "lucide-react";
 
 # Getting Started
 
-<p className="text-subheadline mb-6">Welcome to LiqUIdify! Get up and running with our physics-based liquid glass component library in minutes.</p>
-
-<div className="glass-card p-6 my-6">
-  <div className="flex items-center gap-3 mb-4">
-    <Rocket className="w-6 h-6 text-primary" />
-    <h2 className="text-headline m-0">Quick Start</h2>
-  </div>
-  <p className="text-body-emphasized mb-4 text-foreground/80">
-    LiqUIdify is a modern React component library that brings physics-based interactions and stunning liquid glass design to your applications.
-  </p>
-  <div className="flex flex-wrap gap-2">
-    <span className="min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full text-sm text-foreground border border-gray-200/50 hover:scale-105 transition-all duration-200 flex items-center">
-      <Package className="w-3 h-3 mr-1" />
-      React 18+
-    </span>
-    <span className="min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full text-sm text-foreground border border-gray-200/50 hover:scale-105 transition-all duration-200 flex items-center">
-      <Code className="w-3 h-3 mr-1" />
-      TypeScript Ready
-    </span>
-    <span className="min-w-[44px] min-h-[44px] glass-button px-3 py-1 rounded-full text-sm text-foreground border border-gray-200/50 hover:scale-105 transition-all duration-200 flex items-center">
-      <CheckCircle className="w-3 h-3 mr-1" />
-      Accessible
-    </span>
+<div className="py-16">
+  <div className="mx-auto max-w-4xl text-center">
+    <div className="mb-8">
+      <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+        🚀 Quick Start
+      </span>
+    </div>
+    
+    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl mb-6">
+      Get up and running in minutes
+    </h1>
+    
+    <p className="text-lg leading-8 text-gray-600 max-w-2xl mx-auto mb-10">
+      LiqUIdify is a modern React component library that brings physics-based interactions and stunning liquid glass design to your applications.
+    </p>
+    
+    <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
+      <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+        <Package className="w-4 h-4 text-blue-600" />
+        <span>React 18+</span>
+      </div>
+      <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+        <Code className="w-4 h-4 text-green-600" />
+        <span>TypeScript Ready</span>
+      </div>
+      <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200">
+        <CheckCircle className="w-4 h-4 text-purple-600" />
+        <span>Accessible</span>
+      </div>
+    </div>
   </div>
 </div>
 

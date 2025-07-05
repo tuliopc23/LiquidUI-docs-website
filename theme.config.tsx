@@ -6,23 +6,12 @@ import { StorybookLogo } from "./components/StorybookLogo";
 import { VersionSelector } from "./components/VersionSelector";
 
 const Logo = () => (
-  <motion.div
-    className="flex items-center gap-3"
-    whileHover={{ scale: 1.02 }}
-    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-    role="img"
-    aria-label="LiqUIdify logo"
-  >
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-    >
-      <LiquidifyLogo size={32} className="shadow-lg" />
-    </motion.div>
-    <span className="text-xl font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 bg-clip-text text-transparent tracking-tight">
+  <div className="flex items-center gap-3">
+    <LiquidifyLogo size={28} />
+    <span className="text-xl font-semibold text-gray-900 dark:text-white">
       LiqUIdify
     </span>
-  </motion.div>
+  </div>
 );
 
 const config = {

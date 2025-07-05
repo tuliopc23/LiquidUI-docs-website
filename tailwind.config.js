@@ -120,11 +120,9 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'system-ui', 'sans-serif'],
+                sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
                 mono: ['SF Mono', 'JetBrains Mono', 'Consolas', 'monospace'],
-                heading: ['SF Pro Display', 'Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
-                display: ['Satoshi', 'Cal Sans', 'SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
-                body: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                display: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             },
             fontSize: {
                 // Base scale
