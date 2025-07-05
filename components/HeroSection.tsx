@@ -9,11 +9,6 @@ import {
   ViewportMotion,
 } from "./PerformanceOptimizer";
 
-// Custom shouldReduceMotion function
-function shouldReduceMotion(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
 
 export function HeroSection() {
   return (
@@ -24,69 +19,63 @@ export function HeroSection() {
       {/* Floating Elements for visual depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Top left floating element - optimized with spring */}
-        <motion.div
-          className="absolute top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
-          animate={
-            shouldReduceMotion()
-              ? {}
-              : {
-                  scale: 1.05,
-                  opacity: 0.5,
-                }
-          }
-          transition={{
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-            duration: 6, // Reduced from 8s
-          }}
-        />
+        <ViewportMotion threshold={0.2} once>
+          <motion.div
+            className="absolute top-16 sm:top-24 left-8 sm:left-16 lg:left-24 w-32 sm:w-48 lg:w-64 h-32 sm:h-48 lg:h-64 bg-blue-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
+            animate={{
+              scale: 1.05,
+              opacity: 0.5,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 20,
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 6, // Reduced from 8s
+            }}
+          />
+        </ViewportMotion>
 
         {/* Bottom right floating element - optimized with spring */}
-        <motion.div
-          className="absolute bottom-16 sm:bottom-24 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
-          animate={
-            shouldReduceMotion()
-              ? {}
-              : {
-                  scale: 1.1,
-                  opacity: 0.6,
-                }
-          }
-          transition={{
-            type: "spring",
-            stiffness: 80,
-            damping: 25,
-            repeat: Infinity,
-            repeatType: "reverse",
-            duration: 8, // Reduced from 10s
-            delay: 2,
-          }}
-        />
+        <ViewportMotion threshold={0.2} once>
+          <motion.div
+            className="absolute bottom-16 sm:bottom-24 right-8 sm:right-16 lg:right-24 w-24 sm:w-36 lg:w-48 h-24 sm:h-36 lg:h-48 bg-purple-400/8 rounded-2xl sm:rounded-3xl blur-3xl enhanced-float"
+            animate={{
+              scale: 1.1,
+              opacity: 0.6,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 80,
+              damping: 25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 8, // Reduced from 10s
+              delay: 2,
+            }}
+          />
+        </ViewportMotion>
 
         {/* Additional elements for larger screens - optimized with spring */}
-        <motion.div
-          className="hidden lg:block absolute top-1/3 right-12 w-20 h-20 bg-green-400/5 rounded-2xl blur-2xl enhanced-float"
-          animate={
-            shouldReduceMotion()
-              ? {}
-              : {
-                  y: -15,
-                  opacity: 0.4,
-                }
-          }
-          transition={{
-            type: "spring",
-            stiffness: 120,
-            damping: 15,
-            repeat: Infinity,
-            repeatType: "reverse",
-            duration: 5, // Reduced from 6s
-            delay: 4,
-          }}
-        />
+        <ViewportMotion threshold={0.2} once>
+          <motion.div
+            className="hidden lg:block absolute top-1/3 right-12 w-20 h-20 bg-green-400/5 rounded-2xl blur-2xl enhanced-float"
+            animate={{
+              y: -15,
+              opacity: 0.4,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 120,
+              damping: 15,
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 5, // Reduced from 6s
+              delay: 4,
+            }}
+          />
+        </ViewportMotion>
       </div>
 
       <div className="relative z-10 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -225,22 +214,22 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator with responsive positioning - optimized with spring */}
-      <motion.div
-        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 motion-element enhanced-float"
-        animate={shouldReduceMotion() ? {} : { y: 6 }}
-        transition={{
-          type: "spring",
-          stiffness: 150,
-          damping: 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          duration: 2,
-        }}
-      >
-        <div className="w-5 sm:w-6 h-8 sm:h-10 border-2 border-gray-400/50 rounded-full flex justify-center hover-optimized">
-          <div className="w-0.5 sm:w-1 h-2 sm:h-3 bg-gray-400/50 rounded-full mt-1.5 sm:mt-2" />
-        </div>
-      </motion.div>
+        <motion.div
+          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 motion-element enhanced-float"
+          animate={{ y: 6 }}
+          transition={{
+            type: "spring",
+            stiffness: 150,
+            damping: 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+            duration: 2,
+          }}
+        >
+          <div className="w-5 sm:w-6 h-8 sm:h-10 border-2 border-gray-400/50 rounded-full flex justify-center hover-optimized">
+            <div className="w-0.5 sm:w-1 h-2 sm:h-3 bg-gray-400/50 rounded-full mt-1.5 sm:mt-2" />
+          </div>
+        </motion.div>
     </section>
   );
 }

@@ -1,39 +1,45 @@
-// Import and re-export animation constants from PerformanceOptimizer for backward compatibility
-// @deprecated - Use ANIMATION_CONSTANTS from PerformanceOptimizer instead
+import { useReducedMotion } from 'framer-motion';
+import { usePrefersReducedMotion } from '../hooks/use-prefers-reduced-motion';
 import { ANIMATION_CONSTANTS } from '../PerformanceOptimizer';
+
 export { ANIMATION_CONSTANTS };
 
-// Legacy constants _LEGACY_ANIMATION_CONSTANTS removed as they are no longer in use.
+export const useAnimation = () => {
+  const systemPrefersReducedMotion = usePrefersReducedMotion();
+  const framerPrefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = systemPrefersReducedMotion || framerPrefersReducedMotion;
 
-// Framer Motion variants with consistent timing
-export const fadeInVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { 
-      duration: ANIMATION_CONSTANTS.duration.normal,
-      ease: ANIMATION_CONSTANTS.easing.decelerate
-    }
-  }
-};
+  const fadeInVariants = {
+    hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: prefersReducedMotion ? 0 : ANIMATION_CONSTANTS.duration.normal,
+        ease: ANIMATION_CONSTANTS.easing.decelerate,
+      },
+    },
+  };
 
-export const scaleVariants = {
-  initial: { scale: 1 },
-  hover: { 
-    scale: ANIMATION_CONSTANTS.scale.normal,
-    transition: { 
-      duration: ANIMATION_CONSTANTS.duration.fast,
-      ease: ANIMATION_CONSTANTS.easing.standard
-    }
-  },
-  tap: { 
-    scale: 0.98,
-    transition: { 
-      duration: ANIMATION_CONSTANTS.duration.fast,
-      ease: ANIMATION_CONSTANTS.easing.sharp
-    }
-  }
+  const scaleVariants = {
+    initial: { scale: 1 },
+    hover: {
+      scale: prefersReducedMotion ? 1 : ANIMATION_CONSTANTS.scale.normal,
+      transition: {
+        duration: prefersReducedMotion ? 0 : ANIMATION_CONSTANTS.duration.fast,
+        ease: ANIMATION_CONSTANTS.easing.standard,
+      },
+    },
+    tap: {
+      scale: prefersReducedMotion ? 1 : 0.98,
+      transition: {
+        duration: prefersReducedMotion ? 0 : ANIMATION_CONSTANTS.duration.fast,
+        ease: ANIMATION_CONSTANTS.easing.sharp,
+      },
+    },
+  };
+
+  return { fadeInVariants, scaleVariants, prefersReducedMotion };
 };
 
 // CSS class helpers for consistent animations

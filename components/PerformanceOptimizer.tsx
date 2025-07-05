@@ -311,6 +311,21 @@ export const optimizedVariants: Record<string, any> = {
             }
         },
         viewport: { once: true }
+    },
+
+    // Glass float animation
+    glassFloat: {
+        animate: {
+            scale: 1.02,
+            opacity: 0.9,
+            filter: 'blur(2px)',
+            transition: {
+                ...SPRING_CONFIGS.gentle,
+                repeat: Infinity,
+                repeatType: 'reverse' as const,
+                duration: 4,
+            }
+        }
     }
 };
 

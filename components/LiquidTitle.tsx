@@ -111,11 +111,11 @@ export const LiquidTitle: React.FC<LiquidTitleProps> = ({
  */
 export const LiquidTitleVariants = {
   /** Hero title with strong tilt effect */
-  hero: {
+hero: {
     as: 'h1' as const,
     tiltX: 12,
     tiltY: -8,
-    className: 'text-4xl md:text-6xl font-bold',
+    className: 'text-display-2xl md:text-display-4xl font-display',
   },
   
   /** Section title with moderate tilt effect */
@@ -123,7 +123,7 @@ export const LiquidTitleVariants = {
     as: 'h2' as const,
     tiltX: 6,
     tiltY: -4,
-    className: 'text-2xl md:text-4xl font-semibold',
+    className: 'text-display-xl md:text-display-2xl font-display',
   },
   
   /** Subtle title with minimal tilt effect */
@@ -131,13 +131,13 @@ export const LiquidTitleVariants = {
     as: 'h3' as const,
     tiltX: 4,
     tiltY: -2,
-    className: 'text-xl md:text-2xl font-medium',
+    className: 'text-display-lg md:text-display-xl font-display',
   },
   
   /** Disabled tilt for accessibility */
   static: {
     enableTilt: false,
-    className: 'text-2xl md:text-3xl font-medium',
+    className: 'text-display-lg md:text-display-xl font-display',
   },
 } as const;
 
