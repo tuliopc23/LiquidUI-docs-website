@@ -1,0 +1,73 @@
+# Accessibility Guidelines
+
+Liquidify is designed with accessibility in mind. This guide helps you create accessible applications using our components.
+
+## Core Principles
+
+1. **Keyboard Navigation**: All interactive components are keyboard accessible
+2. **Screen Reader Support**: Components include proper ARIA attributes
+3. **Color Contrast**: All components meet WCAG 2.1 AA standards
+4. **Reduced Motion**: Animations respect user preferences
+5. **Focus Management**: Clear focus indicators and proper focus trapping
+
+## Component-Specific Guidelines
+
+### GlassButton
+
+```tsx
+// Accessible button with proper attributes
+<GlassButton
+  aria-label="Submit form"
+  onClick={handleSubmit}
+>
+  Submit
+</GlassButton>
+
+// For icon-only buttons, always include aria-label
+<GlassButton
+  aria-label="Close dialog"
+  icon={<CloseIcon />}
+  onClick={handleClose}
+/>
+```
+
+### GlassModal
+
+```tsx
+<GlassModal
+  isOpen={isOpen}
+  onClose={handleClose}
+  aria-labelledby="modal-title"
+  aria-describedby="modal-description"
+  returnFocusOnClose
+>
+  <h2 id="modal-title">Modal Title</h2>
+  <p id="modal-description">Modal content description</p>
+</GlassModal>
+```
+
+## Testing Accessibility
+
+We recommend using the following tools to test accessibility:
+
+1. **Automated Testing**: Use `jest-axe` or `pa11y` for automated testing
+2. **Manual Testing**: Test with keyboard navigation and screen readers
+3. **Contrast Checking**: Use tools like Lighthouse or WebAIM's contrast checker
+
+## Reduced Motion
+
+Liquidify automatically respects the user's reduced motion preference:
+
+```tsx
+// This animation will be disabled when prefers-reduced-motion is enabled
+<LiquidMorph
+  animate={{ scale: 1.1 }}
+  transition={{ duration: 0.3 }}
+/>
+```
+
+## Resources
+
+- [WCAG 2.1 Guidelines](https://www.w3.org/TR/WCAG21/)
+- [A11y Project Checklist](https://www.a11yproject.com/checklist/)
+- [MDN Accessibility Guide](https://developer.mozilla.org/en-US/docs/Web/Accessibility)

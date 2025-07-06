@@ -1,0 +1,65 @@
+# Migration Guide
+
+This guide helps you migrate from `@tuliocunha23/liquidui` to the official `liquidify` package.
+
+## Step 1: Install the new package
+
+```bash
+npm uninstall @tuliocunha23/liquidui
+npm install liquidify
+```
+
+## Step 2: Update imports
+
+Replace all imports from `@tuliocunha23/liquidui` to `liquidify`:
+
+```diff
+- import { GlassButton, GlassCard } from '@tuliocunha23/liquidui';
++ import { GlassButton, GlassCard } from 'liquidify';
+```
+
+You can use our automated script to update all imports:
+
+```bash
+npx liquidify-codemod migrate
+```
+
+## Step 3: Theme Provider Updates
+
+The theme provider has been enhanced with new features:
+
+```tsx
+// Before
+import { ThemeProvider } from '@tuliocunha23/liquidui';
+
+<ThemeProvider>
+  <App />
+</ThemeProvider>
+
+// After
+import { ThemeProvider } from 'liquidify';
+
+<ThemeProvider 
+  defaultTheme="system"
+  enableSystem={true}
+  disableTransitionOnChange
+>
+  <App />
+</ThemeProvider>
+```
+
+## Breaking Changes
+
+### Component Renames
+
+| Old Name | New Name |
+|----------|----------|
+| `GlassMorph` | `GlassContainer` |
+| `LiquidButton` | `GlassButton` |
+| `AnimatedText` | `LiquidText` |
+
+### API Changes
+
+- `useTheme` hook now returns additional properties: `resolvedTheme` and `setTheme`
+- `GlassCard` now uses `elevation` prop instead of `depth`
+- Animation durations are now in milliseconds instead of seconds
