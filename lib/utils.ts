@@ -29,21 +29,21 @@ export function generateId(prefix = 'id') {
 }
 
 // Utility to debounce function calls
-export function debounce(fn: Function, ms = 300) {
+export function debounce<T extends (...args: unknown[]) => void>(fn: T, ms = 300) {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function(...args: any[]) {
+  return function(this: unknown, ...args: Parameters<T>) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
 }
 
 // Utility to throttle function calls
-export function throttle(fn: Function, wait = 300) {
+export function throttle<T extends (...args: unknown[]) => void>(fn: T, wait = 300) {
   let inThrottle: boolean;
   let lastFn: ReturnType<typeof setTimeout>;
   let lastTime: number;
   
-  return function(...args: any[]) {
+  return function(this: unknown, ...args: Parameters<T>) {
     if (!inThrottle) {
       fn.apply(this, args);
       lastTime = Date.now();

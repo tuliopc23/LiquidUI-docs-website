@@ -20,8 +20,12 @@ interface ToastContextType {
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
-export function ToastProvider({ children }) {
+export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
+
+  const removeToast = useCallback((id: string) => {
+    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+  }, []);
 
   const addToast = useCallback(
     ({ type, title, message, duration = 5000 }: Omit<ToastProps, 'id'>) => {
@@ -38,12 +42,8 @@ export function ToastProvider({ children }) {
       
       return id;
     },
-    []
+    [removeToast]
   );
-
-  const removeToast = useCallback((id: string) => {
-    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
-  }, []);
 
   return (
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
@@ -75,7 +75,7 @@ function ToastContainer() {
   );
 }
 
-function Toast({ id, type, title, message, onClose }: ToastProps & { onClose: () => void }) {
+function Toast({ type, title, message, onClose }: Omit<ToastProps, 'id'> & { onClose: () => void }) {
   const icons = {
     success: <CheckCircle className="w-5 h-5 text-green-500" />,
     error: <AlertCircle className="w-5 h-5 text-red-500" />,

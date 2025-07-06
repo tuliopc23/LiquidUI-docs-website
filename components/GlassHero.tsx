@@ -49,21 +49,18 @@ export function GlassHero({
         <>
           <LiquidBlob 
             className="absolute top-[-10%] right-[-5%] opacity-30" 
-            color="bg-blue-500/20" 
-            size={400} 
-            blur={80}
+            color="primary" 
+            size="lg"
           />
           <LiquidBlob 
             className="absolute bottom-[-20%] left-[-10%] opacity-20" 
-            color="bg-purple-500/20" 
-            size={500} 
-            blur={100}
+            color="secondary" 
+            size="lg"
           />
           <LiquidBlob 
             className="absolute top-[30%] left-[20%] opacity-10" 
-            color="bg-teal-500/20" 
-            size={300} 
-            blur={60}
+            color="accent" 
+            size="md"
           />
         </>
       )}

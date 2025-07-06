@@ -1,19 +1,24 @@
 import React from 'react';
 import { ScrollReveal, LiquidBlob } from './AnimationSystem';
 
+interface DocPageTemplateProps {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}
+
 export function DocPageTemplate({ 
   title, 
   description, 
   children 
-}) {
+}: DocPageTemplateProps) {
   return (
     <div className="relative">
       {/* Background decoration */}
       <LiquidBlob 
-        color="bg-primary/5" 
-        size={400} 
-        className="top-0 right-0" 
-        blur={100}
+        color="primary" 
+        size="lg" 
+        className="top-0 right-0"
       />
       
       <div className="container mx-auto px-6 py-12 relative z-10">

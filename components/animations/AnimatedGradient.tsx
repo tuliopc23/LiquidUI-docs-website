@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { usePerformanceOptimizer } from '@/hooks/usePerformanceOptimizer'
+import { usePerformanceOptimizer } from '../../hooks/usePerformanceOptimizer'
 
 interface AnimatedGradientProps {
   className?: string
@@ -25,19 +24,6 @@ export const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
     (intensity === 'high' ? 'medium' : intensity) : 
     intensity)
   
-  // Opacity values based on intensity
-  const opacityMap = {
-    low: 0.1,
-    medium: 0.2,
-    high: 0.3
-  }
-  
-  // Blur values based on intensity
-  const blurMap = {
-    low: 60,
-    medium: 100,
-    high: 140
-  }
   
   // Animation speed based on intensity and reduced motion
   const adjustedSpeed = isReducedMotion ? 0.1 : (
@@ -51,6 +37,20 @@ export const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
     const ctx = canvas.getContext('2d')
     if (!ctx) return
     
+    // Opacity values based on intensity
+    const opacityMap = {
+      low: 0.1,
+      medium: 0.2,
+      high: 0.3
+    }
+    
+    // Blur values based on intensity
+    const blurMap = {
+      low: 60,
+      medium: 100,
+      high: 140
+    }
+    
     // Set canvas dimensions
     const setCanvasDimensions = () => {
       const rect = canvas.getBoundingClientRect()
@@ -62,7 +62,7 @@ export const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
     window.addEventListener('resize', setCanvasDimensions)
     
     // Create gradient points
-    const points = colors.map((color, i) => ({
+    const points = colors.map((color) => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * adjustedSpeed,
@@ -119,7 +119,7 @@ export const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
         className={`animated-gradient ${className}`}
         style={{
           background: `linear-gradient(135deg, ${colors.join(', ')})`,
-          opacity: opacityMap[adjustedIntensity] * 0.5
+          opacity: { low: 0.1, medium: 0.2, high: 0.3 }[adjustedIntensity] * 0.5
         }}
       >
         {children}

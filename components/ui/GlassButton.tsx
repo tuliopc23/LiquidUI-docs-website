@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 interface GlassButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
@@ -21,7 +21,8 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   disabled,
   loading,
   fullWidth = false,
-  ...props
+  onClick,
+  type
 }) => {
   // Base styles
   const baseStyles = 'glass-button inline-flex items-center justify-center rounded-ds font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
@@ -81,10 +82,11 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
     <motion.button
       className={combinedStyles}
       disabled={disabled || loading}
+      onClick={onClick}
+      type={type}
       whileTap={{ scale: 0.98 }}
       whileHover={{ translateY: -2 }}
       transition={{ duration: 0.2 }}
-      {...props}
     >
       {loading && <LoadingSpinner />}
       {icon && iconPosition === 'left' && !loading && (

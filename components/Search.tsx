@@ -1,9 +1,25 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
+interface DocSearchItem {
+  url: string;
+  [key: string]: unknown;
+}
+
+interface DocSearchConfig {
+  apiKey: string;
+  indexName: string;
+  appId: string;
+  container: string;
+  transformItems: (items: DocSearchItem[]) => DocSearchItem[];
+  navigator: {
+    navigate: (params: { itemUrl: string }) => void;
+  };
+}
+
 declare global {
   interface Window {
-    docsearch: any
+    docsearch: (config: DocSearchConfig) => void;
   }
 }
 
@@ -17,7 +33,7 @@ export const Search: React.FC = () => {
         indexName: 'liquidify',
         appId: 'placeholder_app_id', // Replace with your Algolia App ID
         container: '#docsearch',
-        transformItems: (items: any[]) => {
+        transformItems: (items: DocSearchItem[]) => {
           return items.map((item) => {
             // Transform the URL to match your site structure
             const url = new URL(item.url)
