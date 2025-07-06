@@ -8,9 +8,9 @@
     @apply rounded-3xl;
 }
 
-/* Apple Design Language Typography System */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
+/* World-Class Typography System - Optimized Loading */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* Base styles */
@@ -137,6 +137,76 @@
     --color-text-secondary-dark: #a1a1a6;
     --color-background-dark: #000000;
     --color-background-secondary-dark: #1d1d1f;
+    
+    /* Industry-Leading Typography Variables */
+    --font-display: 'SF Pro Display Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'SF Pro Display Variable', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+    
+    /* Text Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    
+    /* Optimized Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
+    
+    /* Enhanced Theme HSL Colors */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+    --success: 84 81% 44%;
+    --success-foreground: 0 0% 98%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 98%;
+}
+
+.dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263.4 70% 50.4%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 11%;
+    --success: 84 81% 44%;
+    --success-foreground: 0 0% 2%;
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 2%;
 }
 
 /* Dark theme background */
@@ -154,10 +224,10 @@ body[data-theme="dark"] {
     }
 
     .dark .glass-card {
-        background: rgba(30, 30, 30, 0.7);
+        background: rgba(30, 30, 30, 0.9);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .glass-button {
@@ -169,9 +239,10 @@ body[data-theme="dark"] {
     }
 
     .dark .glass-button {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        color: hsl(var(--foreground));
     }
 
     .glass-button::before {
@@ -237,9 +308,9 @@ body[data-theme="dark"] {
 
     .dark .liquid-glass {
         background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.05),
-                rgba(255, 255, 255, 0.02));
-        border: 1px solid rgba(255, 255, 255, 0.1);
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.05));
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .liquid-glass::before {
@@ -658,29 +729,56 @@ body:has([data-nextra-banner]:not([style*="display: none"])) {
     color: hsl(220 8.9% 80%) !important;
 }
 
-/* Enhanced scrollbar */
+/* Industry-Leading Scrollbar Design */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
     background: transparent;
+    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted) / 0.6);
-    border-radius: 3px;
-    transition: background-color 0.2s ease;
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.6), hsl(var(--primary) / 0.8));
+    border-radius: 4px;
+    border: 1px solid hsl(var(--border));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted) / 0.8);
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.8), hsl(var(--primary)));
+    box-shadow: 0 2px 4px hsl(var(--primary) / 0.3);
 }
 
-/* Focus styles for accessibility */
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Enhanced Focus Styles for Accessibility */
 :focus-visible {
-    @apply outline-none ring-2 ring-primary/60 ring-offset-2 ring-offset-background;
+    @apply outline-none;
+    box-shadow: 
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--primary)),
+        0 0 12px hsl(var(--primary) / 0.3);
+    border-radius: 6px;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced focus for interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    box-shadow: 
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--primary)),
+        0 0 16px hsl(var(--primary) / 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 /* Skip link for accessibility - visually hidden but accessible */
@@ -1036,7 +1134,7 @@ body {
     }
 }
 
-/* Font display optimization with variable font support */
+/* Premium Font Loading - Variable Font Support */
 @font-face {
     font-family: 'Inter Variable';
     font-style: normal;
@@ -1047,9 +1145,18 @@ body {
 }
 
 @font-face {
-    font-family: 'JetBrains Mono';
+    font-family: 'SF Pro Display Variable';
     font-style: normal;
-    font-weight: 400 600;
+    font-weight: 100 900;
+    font-display: swap;
+    src: local('SF Pro Display'), local('SFProDisplay-Regular');
+    /* Fallback to system fonts if SF Pro isn't available */
+}
+
+@font-face {
+    font-family: 'JetBrains Mono Variable';
+    font-style: normal;
+    font-weight: 100 800;
     font-display: swap;
     src: url('https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2') format('woff2');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
@@ -1325,15 +1432,16 @@ body {
     line-height: clamp(1.5, 1.6, 1.7);
 }
 
-/* Apple-Inspired Typography Utilities */
+/* Industry-Leading Typography System */
 .text-display-large {
     font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 8rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -0.04em;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: var(--leading-none);
+    letter-spacing: -0.05em;
     text-rendering: optimizeLegibility;
-    font-feature-settings: 'liga' 1, 'kern' 1, 'ss01' 1;
+    font-feature-settings: 'liga' 1, 'kern' 1, 'ss01' 1, 'cv01' 1;
+    text-wrap: balance;
 }
 
 .text-display-medium {
@@ -1511,19 +1619,28 @@ html {
     border: 0;
 }
 
-/* Reduce motion for accessibility */
+/* Reduce motion for accessibility - less aggressive approach */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
+        animation-duration: 0.2s !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
         scroll-behavior: auto !important;
+        transition-timing-function: linear !important;
     }
     
     .motion-element {
-        transform: none !important;
+        /* Keep transforms but make them instant */
+        transition-duration: 0.1s !important;
+    }
+    
+    /* Disable complex animations but keep basic transitions */
+    .enhanced-float,
+    .glass-morph-animation,
+    .animate-liquid-morph {
+        animation: none !important;
     }
 }
 

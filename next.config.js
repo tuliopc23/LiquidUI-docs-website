@@ -86,7 +86,8 @@ const nextConfig = {
   // Enhanced performance optimizations
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
-    reactRemoveProperties: process.env.NODE_ENV === "production",
+    // Keep React properties needed for animations
+    reactRemoveProperties: false,
     styledComponents: true,
   },
   
@@ -151,9 +152,10 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     });
     
-    // Tree shaking optimization
+    // Tree shaking optimization (but preserve animation code)
     config.optimization.usedExports = true;
-    config.optimization.sideEffects = false;
+    // Don't mark all modules as side-effect free to preserve animations
+    // config.optimization.sideEffects = false;
     
     return config;
   },

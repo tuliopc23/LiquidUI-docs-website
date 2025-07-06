@@ -6,6 +6,9 @@ import { SmoothScroll } from '../components/SmoothScroll'
 import { LazyOptimizedMotion, usePerformanceOptimization } from '../components/PerformanceOptimizer'
 import { WebVitalsMonitor } from '../components/WebVitalsMonitor'
 import ErrorBoundary from '../components/ErrorBoundary'
+import { AnimationProvider } from '../components/AnimationProvider'
+import { ScrollProgress } from '../components/ScrollAnimations'
+import { DevPerformanceMonitor } from '../components/PerformanceMonitor'
 
 function AppContent({ Component, pageProps }: AppProps) {
     usePerformanceOptimization();
@@ -17,8 +20,10 @@ function AppContent({ Component, pageProps }: AppProps) {
             enableSystem
             disableTransitionOnChange
         >
-            <LazyOptimizedMotion>
-                <SmoothScroll>
+            <AnimationProvider>
+                <ScrollProgress />
+                <LazyOptimizedMotion>
+                    <SmoothScroll>
                     <div className="min-h-screen bg-background text-foreground">
                         {/* Skip link for keyboard navigation */}
                         <a
@@ -34,10 +39,12 @@ function AppContent({ Component, pageProps }: AppProps) {
                                 <Component {...pageProps} />
                             </ErrorBoundary>
                             <WebVitalsMonitor />
+                            <DevPerformanceMonitor />
                         </div>
                     </div>
                 </SmoothScroll>
-            </LazyOptimizedMotion>
+                </LazyOptimizedMotion>
+            </AnimationProvider>
         </ThemeProvider>
     );
 }

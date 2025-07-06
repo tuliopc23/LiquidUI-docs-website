@@ -29,7 +29,10 @@
       "Bash(claude mcp add:*)",
       "Bash(claude mcp:*)",
       "Bash(npm show:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run test:*)",
+      "Bash(npm run lighthouse:*)"
     ],
     "deny": []
   }

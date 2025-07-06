@@ -8,11 +8,21 @@ import {
   optimizedVariants,
   ViewportMotion,
 } from "./PerformanceOptimizer";
+import {
+  ScrollReveal,
+  LiquidHover,
+  StaggerContainer,
+  TextReveal,
+  MagneticHover,
+  fadeInUpVariants,
+  scaleInVariants,
+} from "./ScrollAnimations";
 
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-12 sm:py-20 px-4 section-spacing">
+    <ScrollReveal variants={fadeInUpVariants}>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-12 sm:py-20 px-4 section-spacing">
       {/* Rounded gradient overlay container with responsive spacing */}
       <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-gray-800/50 dark:to-transparent rounded-ds" />
 
@@ -98,81 +108,74 @@ export function HeroSection() {
             </span>
           </OptimizedMotion.div>
 
-          <div className="mb-8 sm:mb-12 max-w-4xl mx-auto">
+          <StaggerContainer className="mb-8 sm:mb-12 max-w-4xl mx-auto">
             <div className="flex flex-col items-center mb-6 sm:mb-8">
-              <OptimizedMotion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.05, duration: 0.8 }}
-                className="mb-4 sm:mb-6 motion-element"
-              >
-                <LiquidifyLogo size={80} className="mx-auto enhanced-float" />
-              </OptimizedMotion.div>
+              <ScrollReveal variants={scaleInVariants} delay={0.1}>
+                <MagneticHover className="mb-4 sm:mb-6">
+                  <LiquidifyLogo size={80} className="mx-auto" />
+                </MagneticHover>
+              </ScrollReveal>
 
-              <LiquidTitle
-                as="h1"
-                tiltX={8}
-                tiltY={-6}
-                className="text-center text-gray-900 dark:text-white motion-element"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.8 }}
-              >
-                <span className="block text-[2.8rem] sm:text-6xl lg:text-7xl tracking-tight font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 gradient-text drop-shadow-lg mb-2 sm:mb-4">
-                  LiqUIdify
-                </span>
-                <span className="block bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 bg-clip-text text-transparent gradient-text text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide mt-2">
-                  Component Library
-                </span>
-              </LiquidTitle>
+              <ScrollReveal delay={0.2}>
+                <LiquidTitle
+                  as="h1"
+                  tiltX={8}
+                  tiltY={-6}
+                  className="text-center text-gray-900 dark:text-white"
+                >
+                  <TextReveal 
+                    text="LiqUIdify"
+                    className="block text-[2.8rem] sm:text-6xl lg:text-7xl tracking-tight font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 gradient-text drop-shadow-lg mb-2 sm:mb-4"
+                  />
+                  <TextReveal 
+                    text="Component Library"
+                    delay={0.3}
+                    className="block bg-gradient-to-r from-purple-500 via-pink-500 to-blue-600 bg-clip-text text-transparent gradient-text text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide mt-2"
+                  />
+                </LiquidTitle>
+              </ScrollReveal>
             </div>
 
-            <OptimizedMotion.p
-              className="mt-6 sm:mt-8 body-text text-lg sm:text-xl md:text-2xl text-pretty text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed font-normal sm:font-medium motion-element"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              A modern React component library with glassmorphism design and
-              physics-based interactions.
-              <br />
-              <span className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-normal">
-                Build beautiful, accessible UIs with pre-built components and
-                customizable themes.
-              </span>
-            </OptimizedMotion.p>
-          </div>
+            <ScrollReveal delay={0.4}>
+              <p className="mt-6 sm:mt-8 body-text text-lg sm:text-xl md:text-2xl text-pretty text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed font-normal sm:font-medium">
+                A modern React component library with glassmorphism design and
+                physics-based interactions.
+                <br />
+                <span className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-normal">
+                  Build beautiful, accessible UIs with pre-built components and
+                  customizable themes.
+                </span>
+              </p>
+            </ScrollReveal>
+          </StaggerContainer>
 
-          <OptimizedMotion.div
-            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 w-full max-w-md sm:max-w-none motion-element"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <a
-              href="/getting-started"
-              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-blue-500 border border-transparent rounded-ds shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
-            >
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-2 -mr-1" />
-            </a>
-            <a
-              href="https://github.com/tuliopc23/LiquidUI-docs-website"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="enhanced-button inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-ds shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover-optimized"
-            >
-              <Github className="w-4 h-4 mr-2" />
-              View on GitHub
-            </a>
-          </OptimizedMotion.div>
+          <ScrollReveal delay={0.6}>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-12 sm:mb-16 w-full max-w-md sm:max-w-none">
+              <LiquidHover intensity="normal">
+                <a
+                  href="/getting-started"
+                  className="inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-blue-500 border border-transparent rounded-ds shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                >
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-2 -mr-1" />
+                </a>
+              </LiquidHover>
+              <LiquidHover intensity="normal">
+                <a
+                  href="https://github.com/tuliopc23/LiquidUI-docs-website"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 sm:py-3.5 text-sm sm:text-base font-medium text-gray-700 bg-white border border-gray-200 rounded-ds shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  View on GitHub
+                </a>
+              </LiquidHover>
+            </div>
+          </ScrollReveal>
 
-          <OptimizedMotion.div
-            className="relative w-full max-w-6xl mx-auto enhanced-glass backdrop-blur-lg rounded-ds shadow-xl overflow-hidden border border-gray-200/70 dark:border-gray-700/50 motion-element layout-stable"
-            initial={{ opacity: 0, y: 20, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-          >
+          <ScrollReveal delay={0.8} variants={scaleInVariants}>
+            <LiquidHover intensity="subtle" className="relative w-full max-w-6xl mx-auto enhanced-glass backdrop-blur-lg rounded-ds shadow-xl overflow-hidden border border-gray-200/70 dark:border-gray-700/50">
             <div className="p-1">
               <div className="relative aspect-video bg-gray-50/50 dark:bg-gray-900/50 rounded-ds overflow-hidden flex items-center justify-center">
                 <div className="text-center p-4 sm:p-8">
@@ -209,27 +212,31 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-          </OptimizedMotion.div>
+            </LiquidHover>
+          </ScrollReveal>
         </ViewportMotion>
       </div>
 
       {/* Scroll Indicator with responsive positioning - optimized with spring */}
-        <motion.div
-          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 motion-element enhanced-float"
-          animate={{ y: 6 }}
-          transition={{
-            type: "spring",
-            stiffness: 150,
-            damping: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            duration: 2,
-          }}
-        >
-          <div className="w-5 sm:w-6 h-8 sm:h-10 border-2 border-gray-400/50 rounded-full flex justify-center hover-optimized">
-            <div className="w-0.5 sm:w-1 h-2 sm:h-3 bg-gray-400/50 rounded-full mt-1.5 sm:mt-2" />
-          </div>
-        </motion.div>
-    </section>
+        <ScrollReveal delay={1.0}>
+          <motion.div
+            className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"
+            animate={{ y: 6 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 10,
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 2,
+            }}
+          >
+            <div className="w-5 sm:w-6 h-8 sm:h-10 border-2 border-gray-400/50 rounded-full flex justify-center">
+              <div className="w-0.5 sm:w-1 h-2 sm:h-3 bg-gray-400/50 rounded-full mt-1.5 sm:mt-2" />
+            </div>
+          </motion.div>
+        </ScrollReveal>
+      </section>
+    </ScrollReveal>
   );
 }

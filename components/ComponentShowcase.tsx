@@ -112,7 +112,7 @@ export function ComponentShowcase({
   return (
     <ViewportMotion
       variants={showcaseVariants}
-      className="component-showcase group relative overflow-hidden rounded-3xl my-8 glass-card border border-white/20"
+      className="component-showcase group relative overflow-hidden rounded-ds my-8 glass-card border border-white/20"
       threshold={0.2}
       rootMargin={ANIMATION_CONSTANTS.viewport.lazy}
       once={true}
@@ -172,7 +172,7 @@ export function ComponentShowcase({
                         ? `code-${title.replace(/\s+/g, "-").toLowerCase()}`
                         : "code-section"
                     }
-                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
+                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
                     type="button"
                   >
                     {isCodeVisible ? (
@@ -189,7 +189,7 @@ export function ComponentShowcase({
                         ? "Code copied to clipboard"
                         : "Copy code to clipboard"
                     }
-                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-2xl hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
+                    className="min-w-[44px] min-h-[44px] glass-button p-2 rounded-ds hover:scale-105 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
                     type="button"
                   >
                     {copied ? (
@@ -249,7 +249,7 @@ export function ComponentShowcase({
           transition={{ duration: 0.3 }}
           className="border-t border-white/20 overflow-hidden"
         >
-          <div className="relative z-10 liquid-glass bg-gray-50/90 dark:bg-gray-900/90 backdrop-blur-xl p-4 rounded-b-3xl">
+          <div className="relative z-10 liquid-glass bg-gray-50/90 dark:bg-gray-900/90 backdrop-blur-xl p-4 rounded-b-ds">
             <pre className="text-sm overflow-x-auto">
               <code className="text-gray-900 dark:text-gray-100 font-mono body-text">
                 {code}
