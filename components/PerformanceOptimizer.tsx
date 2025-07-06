@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { useSafeAnimation } from './AnimationProvider';
+import { useAnimation } from './AnimationProvider';
 
 // Custom shouldReduceMotion function
 function shouldReduceMotion(): boolean {
@@ -256,7 +256,7 @@ export const ViewportMotion: React.FC<{
 }) => {
     const [isInView, setIsInView] = React.useState(false);
     const [hasAnimated, setHasAnimated] = React.useState(false);
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     const ref = useIntersectionObserver(
         ([entry]) => {

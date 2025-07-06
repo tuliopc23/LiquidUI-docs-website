@@ -120,8 +120,9 @@ describe('ComponentShowcase', () => {
       </ComponentShowcase>
     )
     
-    const showcase = screen.getByRole('region')
-    expect(showcase).toHaveClass(customClass)
+    // The className is applied to the showcase area (containing the children), not the role="region" container
+    const showcaseArea = screen.getByText('Content').parentElement
+    expect(showcaseArea).toHaveClass(customClass)
   })
 
   it('has proper accessibility attributes', () => {
@@ -151,7 +152,8 @@ describe('ComponentShowcase', () => {
     fireEvent.click(copyButton)
     
     await waitFor(() => {
-      expect(screen.getByText(/copied/i)).toBeInTheDocument()
+      // Check that the button's aria-label changes to indicate success
+      expect(screen.getByRole('button', { name: /copied to clipboard/i })).toBeInTheDocument()
     })
   })
 })

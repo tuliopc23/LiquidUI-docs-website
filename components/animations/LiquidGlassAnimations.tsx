@@ -48,13 +48,22 @@ export const LiquidGlassAnimations = ({
 
         const ripple = document.createElement('div')
         ripple.className = 'liquid-ripple'
-        
+        ripple.style.cssText = `
+            position: absolute;
+            left: ${x - 25}px;
+            top: ${y - 25}px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transform: scale(0);
+        `
 
         containerRef.current.appendChild(ripple)
 
         gsap.to(ripple, {
-            width: 100,
-            height: 100,
+            scale: 2,
             opacity: 0,
             duration: 0.6,
             ease: 'power2.out',

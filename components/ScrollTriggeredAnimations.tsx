@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSafeAnimation } from './AnimationProvider';
+import { useAnimation } from './AnimationProvider';
 
 interface ScrollAnimationProps {
     children: React.ReactNode;
@@ -18,7 +18,7 @@ export const ScrollFadeIn: React.FC<ScrollAnimationProps> = ({
 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     useEffect(() => {
         if (!shouldAnimate || !ref.current) {
@@ -69,7 +69,7 @@ export const ScrollStagger: React.FC<{
     className?: string;
     staggerDelay?: number;
 }> = ({ children, className = '', staggerDelay = 100 }) => {
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     if (!shouldAnimate) {
         return <div className={className}>{children}</div>;
@@ -94,7 +94,7 @@ export const ScrollParallax: React.FC<{
 }> = ({ children, speed = 0.5, className = '' }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [translateY, setTranslateY] = useState(0);
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     useEffect(() => {
         if (!shouldAnimate) return;
@@ -137,7 +137,7 @@ export const ScrollScale: React.FC<ScrollAnimationProps> = ({
 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     useEffect(() => {
         if (!shouldAnimate || !ref.current) {
@@ -184,7 +184,7 @@ export const ScrollReveal: React.FC<{
 }> = ({ children, className = '', width = "100%", delay = 0 }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
-    const { shouldAnimate } = useSafeAnimation();
+    const { shouldAnimate } = useAnimation();
 
     useEffect(() => {
         if (!shouldAnimate || !ref.current) {

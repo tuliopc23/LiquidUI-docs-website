@@ -70,23 +70,10 @@ export const getByTestId = (container: HTMLElement, testId: string) => {
   return element
 }
 
-// Animation testing utilities
-export const mockFramerMotion = () => {
-  jest.mock('framer-motion', () => ({
-    motion: {
-      div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-      section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
-      h1: ({ children, ...props }: any) => <h1 {...props}>{children}</h1>,
-      h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
-      h3: ({ children, ...props }: any) => <h3 {...props}>{children}</h3>,
-      p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
-      button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
-      a: ({ children, ...props }: any) => <a {...props}>{children}</a>,
-    },
-    AnimatePresence: ({ children }: any) => children,
-    LazyMotion: ({ children }: any) => children,
-    domAnimation: {},
-  }))
+// Animation testing utilities for GSAP
+export const mockGSAP = () => {
+  // GSAP is already mocked globally in jest.setup.js
+  return true
 }
 
 // Theme testing utilities
@@ -161,3 +148,12 @@ export const checkAccessibility = (element: HTMLElement) => {
   
   return issues
 }
+
+// Simple test to ensure file is valid
+describe('Test Utils', () => {
+  it('should provide utility functions', () => {
+    expect(typeof waitForAnimation).toBe('function')
+    expect(typeof mockGSAP).toBe('function')
+    expect(typeof checkAccessibility).toBe('function')
+  })
+})

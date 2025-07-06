@@ -32,25 +32,57 @@ jest.mock('next/image', () => ({
   },
 }))
 
-// Mock framer-motion for testing
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => <div {...props}>{children}</div>,
-    section: ({ children, ...props }) => <section {...props}>{children}</section>,
-    h1: ({ children, ...props }) => <h1 {...props}>{children}</h1>,
-    h2: ({ children, ...props }) => <h2 {...props}>{children}</h2>,
-    h3: ({ children, ...props }) => <h3 {...props}>{children}</h3>,
-    p: ({ children, ...props }) => <p {...props}>{children}</p>,
-    button: ({ children, ...props }) => <button {...props}>{children}</button>,
-    a: ({ children, ...props }) => <a {...props}>{children}</a>,
-    ul: ({ children, ...props }) => <ul {...props}>{children}</ul>,
-    li: ({ children, ...props }) => <li {...props}>{children}</li>,
-    img: ({ children, ...props }) => <img {...props}>{children}</img>,
-    span: ({ children, ...props }) => <span {...props}>{children}</span>,
+// Mock GSAP for testing
+jest.mock('gsap', () => ({
+  gsap: {
+    to: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    from: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    set: jest.fn(),
+    timeline: jest.fn().mockReturnValue({
+      to: jest.fn().mockReturnThis(),
+      from: jest.fn().mockReturnThis(),
+      set: jest.fn().mockReturnThis(),
+      play: jest.fn().mockReturnThis(),
+      pause: jest.fn().mockReturnThis(),
+      kill: jest.fn().mockReturnThis(),
+    }),
+    registerPlugin: jest.fn(),
+    killTweensOf: jest.fn(),
   },
-  AnimatePresence: ({ children }) => children,
-  LazyMotion: ({ children }) => children,
-  domAnimation: {},
+  default: {
+    to: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    from: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    set: jest.fn(),
+    timeline: jest.fn().mockReturnValue({
+      to: jest.fn().mockReturnThis(),
+      from: jest.fn().mockReturnThis(),
+      set: jest.fn().mockReturnThis(),
+      play: jest.fn().mockReturnThis(),
+      pause: jest.fn().mockReturnThis(),
+      kill: jest.fn().mockReturnThis(),
+    }),
+    registerPlugin: jest.fn(),
+    killTweensOf: jest.fn(),
+  },
+}))
+
+// Mock utils/gsap
+jest.mock('./utils/gsap', () => ({
+  gsap: {
+    to: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    from: jest.fn().mockReturnValue({ kill: jest.fn() }),
+    set: jest.fn(),
+    timeline: jest.fn().mockReturnValue({
+      to: jest.fn().mockReturnThis(),
+      from: jest.fn().mockReturnThis(),
+      set: jest.fn().mockReturnThis(),
+      play: jest.fn().mockReturnThis(),
+      pause: jest.fn().mockReturnThis(),
+      kill: jest.fn().mockReturnThis(),
+    }),
+    registerPlugin: jest.fn(),
+    killTweensOf: jest.fn(),
+  },
 }))
 
 // Mock IntersectionObserver

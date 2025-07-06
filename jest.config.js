@@ -24,7 +24,8 @@ const config = {
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
-    '<rootDir>/liquidui-package/'
+    '<rootDir>/liquidui-package/',
+    '<rootDir>/tests/e2e/'
   ],
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',

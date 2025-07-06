@@ -3,17 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { LiquidTitle, LiquidTitleVariants, LiquidH1, LiquidH2, LiquidH3 } from '../../components/LiquidTitle';
 
-// Mock framer-motion to avoid animation issues in tests
-jest.mock('framer-motion', () => ({
-  motion: {
-    h1: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h1 style={style} {...props}>{children}</h1>,
-    h2: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h2 style={style} {...props}>{children}</h2>,
-    h3: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h3 style={style} {...props}>{children}</h3>,
-    h4: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h4 style={style} {...props}>{children}</h4>,
-    h5: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h5 style={style} {...props}>{children}</h5>,
-    h6: ({ children, whileHover, initial, animate, transition, style, ...props }: any) => <h6 style={style} {...props}>{children}</h6>,
-  },
-}));
+// GSAP-based animations are already mocked globally in jest.setup.js
 
 // Mock window.matchMedia for reduced motion tests
 Object.defineProperty(window, 'matchMedia', {
@@ -191,26 +181,26 @@ describe('LiquidTitle Variants', () => {
       as: 'h1',
       tiltX: 12,
       tiltY: -8,
-      className: 'text-4xl md:text-6xl font-bold',
+      className: 'text-display-2xl md:text-display-4xl font-display',
     });
 
     expect(LiquidTitleVariants.section).toEqual({
       as: 'h2',
       tiltX: 6,
       tiltY: -4,
-      className: 'text-2xl md:text-4xl font-semibold',
+      className: 'text-display-xl md:text-display-2xl font-display',
     });
 
     expect(LiquidTitleVariants.subtle).toEqual({
       as: 'h3',
       tiltX: 4,
       tiltY: -2,
-      className: 'text-xl md:text-2xl font-medium',
+      className: 'text-display-lg md:text-display-xl font-display',
     });
 
     expect(LiquidTitleVariants.static).toEqual({
       enableTilt: false,
-      className: 'text-2xl md:text-3xl font-medium',
+      className: 'text-display-lg md:text-display-xl font-display',
     });
   });
 });

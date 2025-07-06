@@ -247,13 +247,22 @@ export const useMagneticHover = () => {
 
         const ripple = document.createElement('div')
         ripple.className = 'magnetic-ripple'
-        
+        ripple.style.cssText = `
+            position: absolute;
+            left: ${x - 50}px;
+            top: ${y - 50}px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+            transform: scale(0);
+        `
 
         element.appendChild(ripple)
 
         gsap.to(ripple, {
-            width: 200,
-            height: 200,
+            scale: 2,
             opacity: 0,
             duration: 0.8,
             ease: 'power2.out',

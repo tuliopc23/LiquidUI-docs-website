@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useSafeAnimation } from './AnimationProvider';
+import { useAnimation } from './AnimationProvider';
 
 // Clean animation variants for CSS-based animations
 export const animationClasses = {
@@ -25,7 +25,7 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const { shouldAnimate } = useSafeAnimation();
+  const { shouldAnimate } = useAnimation();
 
   useEffect(() => {
     if (!shouldAnimate || !ref.current) {
@@ -77,7 +77,7 @@ export function StaggerContainer({
   className = '',
   staggerDelay = 100
 }: StaggerContainerProps) {
-  const { shouldAnimate } = useSafeAnimation();
+  const { shouldAnimate } = useAnimation();
 
   if (!shouldAnimate) {
     return <div className={className}>{children}</div>;
@@ -106,7 +106,7 @@ export function LiquidHover({
   className = '',
   intensity = 'medium'
 }: LiquidHoverProps) {
-  const { shouldAnimate } = useSafeAnimation();
+  const { shouldAnimate } = useAnimation();
 
   const hoverClasses = {
     subtle: 'hover:scale-[1.02] hover:-translate-y-1',
@@ -139,7 +139,7 @@ export function TextReveal({
   delay = 0,
   staggerDelay = 50
 }: TextRevealProps) {
-  const { shouldAnimate } = useSafeAnimation();
+  const { shouldAnimate } = useAnimation();
   const words = text.split(' ');
 
   if (!shouldAnimate) {
@@ -171,7 +171,7 @@ export function FloatingElement({
   children,
   className = ''
 }: FloatingElementProps) {
-  const { shouldAnimate } = useSafeAnimation();
+  const { shouldAnimate } = useAnimation();
 
   if (!shouldAnimate) {
     return <div className={className}>{children}</div>;
