@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '../lib/utils';
+import { initMagneticElements } from './MagneticEffect';
 
 type GlassIntensity = 'subtle' | 'default' | 'strong' | 'intense';
 
@@ -26,6 +27,12 @@ export function GlassComponent({
     strong: 'backdrop-blur-lg bg-white/20 dark:bg-black/20 border-white/30 dark:border-white/15',
     intense: 'backdrop-blur-xl bg-white/30 dark:bg-black/30 border-white/40 dark:border-white/20',
   };
+
+  useEffect(() => {
+    if (magneticEffect) {
+      initMagneticElements();
+    }
+  }, [magneticEffect]);
 
   return (
     <div

@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Sparkles, MessageCircle } from "lucide-react";
 import { LiquidifyLogo } from "./components/LiquidifyLogo";
 import { StorybookLogo } from "./components/StorybookLogo";
@@ -115,13 +114,11 @@ const config = {
         );
       }
       return (
-        <motion.span
-          whileHover={{ x: 3, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        <div
           className="flex items-center gap-2 body-text hover:text-blue-600 transition-colors"
         >
           {title}
-        </motion.span>
+        </div>
       );
     },
     defaultMenuCollapseLevel: 1,
@@ -130,38 +127,34 @@ const config = {
   toc: {
     backToTop: true,
     title: (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <div
         className="liquid-glass px-4 py-3 rounded-2xl border border-white/20"
       >
         <span className="text-sm font-semibold body-text flex items-center gap-2">
           <LiquidifyLogo size={16} />
           On This Page
         </span>
-      </motion.div>
+      </div>
     ),
   },
   editLink: {
     text: (
-      <motion.span
-        whileHover={{ x: 3, scale: 1.02 }}
+      <div
         className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
         <LiquidifyLogo size={12} />
         Edit this page on GitHub →
-      </motion.span>
+      </div>
     ),
   },
   feedback: {
     content: (
-      <motion.span
-        whileHover={{ scale: 1.02 }}
+      <div
         className="flex items-center gap-2 text-sm body-text hover:text-blue-600 transition-colors"
       >
         <LiquidifyLogo size={12} />
         Question? Give us feedback →
-      </motion.span>
+      </div>
     ),
     labels: "feedback",
   },

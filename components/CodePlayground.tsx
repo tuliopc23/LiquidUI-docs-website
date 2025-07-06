@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check, Code2, Eye, RotateCcw } from 'lucide-react';
+import { Copy, Check, RefreshCw, Eye, Code } from 'lucide-react';
 import { cn } from 'liquidify';
 
 interface CodePlaygroundProps {
@@ -102,7 +101,7 @@ export function CodePlayground({
                 : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/10"
             )}
           >
-            <Code2 className="w-4 h-4" />
+            <Code className="w-4 h-4" />
             Code
           </button>
         </div>
@@ -114,7 +113,7 @@ export function CodePlayground({
               className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
               title="Reset code"
             >
-              <RotateCcw className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <RefreshCw className="w-4 h-4 text-gray-600 dark:text-gray-400" />
             </button>
           )}
           <button
@@ -122,79 +121,47 @@ export function CodePlayground({
             className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
             title="Copy code"
           >
-            <AnimatePresence mode="wait">
-              {copied ? (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
-                  key="check"
-                >
-                  <Check className="w-4 h-4 text-green-500" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
-                  key="copy"
-                >
-                  <Copy className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {copied ? (
+              <Check className="w-4 h-4 text-green-500" />
+            ) : (
+              <Copy className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+            )}
           </button>
         </div>
       </div>
 
       {/* Content */}
-      <AnimatePresence mode="wait">
-        {activeTab === 'preview' ? (
-          <motion.div
-            key="preview"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="p-8"
-          >
-            {preview || (
-              <div className="text-center text-gray-500 dark:text-gray-400">
-                No preview available
+      {activeTab === 'preview' ? (
+        <div className="p-8">
+          {preview || (
+            <div className="text-center text-gray-500 dark:text-gray-400">
+              No preview available
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="overflow-x-auto p-6">
+          {editable ? (
+            <textarea
+              value={editableCode}
+              onChange={(e) => setEditableCode(e.target.value)}
+              className={cn(
+                "w-full p-6 bg-transparent resize-none",
+                "font-mono text-sm text-gray-800 dark:text-gray-200",
+                "focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg"
+              )}
+              style={{ minHeight: '200px' }}
+              spellCheck={false}
+            />
+          ) : (
+            <div className="font-mono text-sm">
+              <div className="table w-full">
+                {formatCode(editableCode)}
               </div>
-            )}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="code"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-x-auto"
-          >
-            {editable ? (
-              <textarea
-                value={editableCode}
-                onChange={(e) => setEditableCode(e.target.value)}
-                className={cn(
-                  "w-full p-6 bg-transparent resize-none",
-                  "font-mono text-sm text-gray-800 dark:text-gray-200",
-                  "focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg"
-                )}
-                style={{ minHeight: '200px' }}
-                spellCheck={false}
-              />
-            ) : (
-              <div className="p-6 font-mono text-sm">
-                <div className="table w-full">
-                  {formatCode(editableCode)}
-                </div>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Live Editor Integration Point */}
       {activeTab === 'preview' && editable && (

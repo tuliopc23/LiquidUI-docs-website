@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 
 interface FeatureProps {
   title: string
@@ -9,12 +8,8 @@ interface FeatureProps {
 
 export const Feature: React.FC<FeatureProps> = ({ title, description, icon }) => {
   return (
-    <motion.div 
+    <div
       className="feature p-6 glass-card rounded-ds"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
     >
       {icon && (
         <div className="icon-container mb-4">
@@ -23,7 +18,7 @@ export const Feature: React.FC<FeatureProps> = ({ title, description, icon }) =>
       )}
       <h3 className="feature-heading text-xl font-bold mb-3">{title}</h3>
       <p className="critical-text">{description}</p>
-    </motion.div>
+    </div>
   )
 }
 
@@ -46,10 +41,10 @@ export const FeatureSection: React.FC<FeatureSectionProps> = ({
           <p className="body-text max-w-2xl mx-auto">{description}</p>
         )}
       </div>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, index) => (
-          <Feature 
+          <Feature
             key={index}
             title={feature.title}
             description={feature.description}

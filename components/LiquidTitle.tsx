@@ -1,8 +1,7 @@
 import React from 'react';
-import { motion, HTMLMotionProps, TargetAndTransition } from 'framer-motion';
 import './LiquidTitle.css';
 
-interface LiquidTitleProps extends Omit<HTMLMotionProps<'h1'>, 'whileHover'> {
+interface LiquidTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   /** The heading level to render (h1, h2, h3, h4, h5, h6) */
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   /** Children content to render inside the title */
@@ -14,8 +13,6 @@ interface LiquidTitleProps extends Omit<HTMLMotionProps<'h1'>, 'whileHover'> {
   tiltY?: number;
   /** Additional CSS class names */
   className?: string;
-  /** Custom hover animations (overrides tilt if provided) */
-  customHoverAnimation?: TargetAndTransition;
 }
 
 /**
@@ -23,7 +20,7 @@ interface LiquidTitleProps extends Omit<HTMLMotionProps<'h1'>, 'whileHover'> {
  * 
  * Features:
  * - Semantic HTML heading elements (h1-h6)
- * - 3D tilt effect on hover using framer-motion
+ * - 3D tilt effect on hover using CSS transforms
  * - Customizable tilt values
  * - Accessibility-friendly with reduced motion support
  * - Fully customizable styling
@@ -46,36 +43,18 @@ export const LiquidTitle: React.FC<LiquidTitleProps> = ({
   tiltX = 8,
   tiltY = -6,
   className = '',
-  customHoverAnimation,
+  style,
   ...props
 }) => {
   // Check for reduced motion preference
-  const shouldReduceMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+  const shouldReduceMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
-
-  // Create the motion component based on the heading level
-  const MotionComponent = motion[as] as typeof motion.h1;
-
-  // Default hover animation with 3D tilt
-  const defaultHoverAnimation: TargetAndTransition = enableTilt && !shouldReduceMotion ? {
-    rotateX: tiltX,
-    rotateY: tiltY,
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 20,
-      duration: 0.3,
-    }
-  } : {};
-
-  // Use custom hover animation if provided, otherwise use default
-  const hoverAnimation = customHoverAnimation || defaultHoverAnimation;
 
   // Generate CSS classes based on variant and tilt settings
   const getCssClasses = () => {
     const classes = ['liquid-title'];
-    
+
     if (!enableTilt || shouldReduceMotion) {
       classes.push('liquid-title--static');
     } else if (tiltX >= 10 || tiltY <= -8) {
@@ -83,26 +62,37 @@ export const LiquidTitle: React.FC<LiquidTitleProps> = ({
     } else if (tiltX <= 4 && tiltY >= -2) {
       classes.push('liquid-title--subtle');
     }
-    
+
     if (className) {
       classes.push(className);
     }
-    
+
     return classes.join(' ');
   };
 
+  // Create the style object with CSS custom properties for tilt values
+  const combinedStyle: React.CSSProperties = {
+    transformStyle: 'preserve-3d',
+    transformOrigin: 'center',
+    transition: 'transform 0.3s ease-out',
+    ...(enableTilt && !shouldReduceMotion ? {
+      '--tilt-x': `${tiltX}deg`,
+      '--tilt-y': `${tiltY}deg`,
+    } as React.CSSProperties : {}),
+    ...style,
+  };
+
+  // Render the appropriate heading element
+  const HeadingComponent = as;
+
   return (
-    <MotionComponent
+    <HeadingComponent
       className={getCssClasses()}
-      whileHover={hoverAnimation}
-      style={{
-        transformStyle: 'preserve-3d',
-        transformOrigin: 'center',
-      }}
+      style={combinedStyle}
       {...props}
     >
       {children}
-    </MotionComponent>
+    </HeadingComponent>
   );
 };
 
@@ -111,13 +101,13 @@ export const LiquidTitle: React.FC<LiquidTitleProps> = ({
  */
 export const LiquidTitleVariants = {
   /** Hero title with strong tilt effect */
-hero: {
+  hero: {
     as: 'h1' as const,
     tiltX: 12,
     tiltY: -8,
     className: 'text-display-2xl md:text-display-4xl font-display',
   },
-  
+
   /** Section title with moderate tilt effect */
   section: {
     as: 'h2' as const,
@@ -125,7 +115,7 @@ hero: {
     tiltY: -4,
     className: 'text-display-xl md:text-display-2xl font-display',
   },
-  
+
   /** Subtle title with minimal tilt effect */
   subtle: {
     as: 'h3' as const,
@@ -133,7 +123,7 @@ hero: {
     tiltY: -2,
     className: 'text-display-lg md:text-display-xl font-display',
   },
-  
+
   /** Disabled tilt for accessibility */
   static: {
     enableTilt: false,

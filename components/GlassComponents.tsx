@@ -1,8 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { cn } from "liquidify";
-import { motion } from 'framer-motion';
-import { optimizedVariants, ViewportMotion } from './PerformanceOptimizer';
+import { ViewportMotion } from './PerformanceOptimizer';
 
 // Temporary local implementations until package exports are fixed
 // These provide the same API as the liquidify components
@@ -628,21 +627,14 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => (
 export { GlassNavbar } from "./GlassNavbar";
 
 export const GlassBlob = () => (
-  <ViewportMotion>
-    <motion.div
-      variants={optimizedVariants.glassFloat}
-      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
-    />
+  <ViewportMotion animation="fadeIn">
+    <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" />
   </ViewportMotion>
 );
 
 export const GlassRing = () => (
-  <ViewportMotion>
-    <motion.div
-      variants={optimizedVariants.glassFloat}
-      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      className="absolute top-0 left-0 w-96 h-96 border-8 border-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
-    />
+  <ViewportMotion animation="fadeIn">
+    <div className="absolute top-0 left-0 w-96 h-96 border-8 border-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"
+      style={{ animationDelay: '2s' }} />
   </ViewportMotion>
 );

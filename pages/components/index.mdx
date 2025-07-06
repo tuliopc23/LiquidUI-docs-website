@@ -16,7 +16,6 @@ import {
   ToastExamples,
   InputExamples
 } from "../../components/ExampleComponents";
-import { motion } from "framer-motion";
 import {
   Sparkles,
   Code,
@@ -339,12 +338,10 @@ Advanced interactive components with physics-based behaviors.
       ]
     }
   ].map((category, index) => (
-    <motion.div
+    <div
       key={category.category}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="liquid-glass rounded-3xl p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300"
+      className="liquid-glass rounded-3xl p-6 border border-blue-200/30 hover:scale-105 transition-all duration-300 animate-fade-in-up"
+      style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="flex items-center gap-3 mb-6">
         <div className={`w-12 h-12 ios-logo ${category.gradient} flex items-center justify-center`}>
@@ -377,7 +374,7 @@ Advanced interactive components with physics-based behaviors.
       <a href={`/components/${category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`} className="w-full glass-button-primary py-3 rounded-2xl text-white font-medium body-text hover:scale-105 transition-all duration-300 block text-center">
         Explore {category.category}
       </a>
-    </motion.div>
+    </div>
   ))}
 </div>
 

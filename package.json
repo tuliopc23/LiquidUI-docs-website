@@ -13,7 +13,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -26,7 +26,9 @@
     "a11y-test": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml",
     "type-check": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:all": "npm run type-check && npm run lint && npm run test:ci"
+    "test:all": "npm run type-check && npm run lint && npm run test:ci",
+    "clean": "rm -rf .next",
+    "analyze": "ANALYZE=true npm run build"
   },
   "keywords": [
     "liquidify",
@@ -40,10 +42,8 @@
   "license": "MIT",
   "dependencies": {
     "@emotion/is-prop-valid": "^1.3.1",
-    "@ibm-cloud/watsonx-ai": "^1.6.8",
-    "@modelcontextprotocol/sdk": "^1.13.2",
-    "@smithery/sdk": "^1.5.2",
-    "framer-motion": "^11.0.0",
+    
+    "gsap": "^3.13.0",
     "liquidify": "^1.0.22",
     "lucide-react": "^0.400.0",
     "next": "^15.3.4",

@@ -15,10 +15,10 @@ export const glassEffect = (
   className?: string,
 ) => {
   const variants = {
-    default: "backdrop-blur-md bg-white/10 border border-white/20",
-    subtle: "backdrop-blur-sm bg-white/5 border border-white/10",
-    strong: "backdrop-blur-lg bg-white/20 border border-white/30",
-    card: "backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-lg",
+    default: "backdrop-blur-md bg-white/10 border border-white/20 dark:bg-black/20 dark:border-white/10",
+    subtle: "backdrop-blur-sm bg-white/5 border border-white/10 dark:bg-black/10 dark:border-white/5",
+    strong: "backdrop-blur-lg bg-white/20 border border-white/30 dark:bg-black/30 dark:border-white/15",
+    card: "backdrop-blur-md bg-white/10 border border-white/20 rounded-xl shadow-lg dark:bg-black/20 dark:border-white/10",
   };
 
   return cn(variants[variant], className);
@@ -74,13 +74,13 @@ export const typography = (
   className?: string,
 ) => {
   const variants = {
-    h1: "text-4xl font-bold tracking-tight",
-    h2: "text-3xl font-semibold tracking-tight",
-    h3: "text-2xl font-semibold tracking-tight",
-    h4: "text-xl font-semibold tracking-tight",
-    body: "text-base",
-    caption: "text-sm text-muted-foreground",
-    label: "text-sm font-medium",
+    h1: "text-display-3xl font-bold tracking-tight",
+    h2: "text-display-2xl font-semibold tracking-tight",
+    h3: "text-display-xl font-semibold tracking-tight",
+    h4: "text-display-lg font-semibold tracking-tight",
+    body: "text-body-md",
+    caption: "text-body-sm text-muted-foreground",
+    label: "text-body-sm font-medium",
   };
 
   return cn(variants[variant], className);

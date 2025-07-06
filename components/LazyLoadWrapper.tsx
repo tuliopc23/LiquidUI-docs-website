@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { ComponentSkeleton } from './LoadingSkeleton';
 
 interface LazyLoadWrapperProps {
@@ -12,12 +11,12 @@ interface LazyLoadWrapperProps {
 
 export function LazyLoadWrapper({
   children,
-  fallback,
-  rootMargin = '50px',
+  fallback = <ComponentSkeleton />,
+  rootMargin = '100px',
   threshold = 0.1,
   className = ''
 }: LazyLoadWrapperProps) {
-  const [isInView, setIsInView] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -25,14 +24,13 @@ export function LazyLoadWrapper({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasLoaded) {
-          setIsInView(true);
+          setIsVisible(true);
           setHasLoaded(true);
-          observer.unobserve(entry.target);
         }
       },
       {
-        rootMargin,
         threshold,
+        rootMargin,
       }
     );
 
@@ -41,39 +39,32 @@ export function LazyLoadWrapper({
     }
 
     return () => observer.disconnect();
-  }, [rootMargin, threshold, hasLoaded]);
-
-  const LoadingFallback = () => <ComponentSkeleton />;
+  }, [threshold, rootMargin, hasLoaded]);
 
   return (
     <div ref={ref} className={className}>
-      {isInView ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-        >
-          {children}
-        </motion.div>
-      ) : (
-        fallback || <LoadingFallback />
-      )}
+      <div
+        className={`transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+      >
+        {isVisible ? children : fallback}
+      </div>
     </div>
   );
 }
 
 // Performance optimized component wrapper
-export function OptimizedSection({ 
-  children, 
+export function OptimizedSection({
+  children,
   className = '',
   priority = 'low'
-}: { 
+}: {
   children: React.ReactNode;
   className?: string;
   priority?: 'high' | 'medium' | 'low';
 }) {
   const shouldLazyLoad = priority === 'low';
-  
+
   if (!shouldLazyLoad) {
     return <div className={className}>{children}</div>;
   }

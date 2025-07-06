@@ -1,4 +1,3 @@
-import { useReducedMotion } from 'framer-motion';
 import { usePrefersReducedMotion } from '../hooks/use-prefers-reduced-motion';
 import { ANIMATION_CONSTANTS } from '../PerformanceOptimizer';
 
@@ -6,8 +5,7 @@ export { ANIMATION_CONSTANTS };
 
 export const useAnimation = () => {
   const systemPrefersReducedMotion = usePrefersReducedMotion();
-  const framerPrefersReducedMotion = useReducedMotion();
-  const prefersReducedMotion = systemPrefersReducedMotion || framerPrefersReducedMotion;
+  const prefersReducedMotion = systemPrefersReducedMotion;
 
   const fadeInVariants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : 20 },
@@ -43,18 +41,23 @@ export const useAnimation = () => {
 };
 
 // CSS class helpers for consistent animations
-export const getHoverScale = (size: 'subtle' | 'normal' | 'strong' = 'normal') => {
+export const getHoverScale = (size: 'small' | 'normal' | 'large' = 'normal') => {
   return `hover:scale-[${ANIMATION_CONSTANTS.scale[size]}] transition-transform duration-${ANIMATION_CONSTANTS.duration.fast}`;
 };
 
 export const getGlassEffect = (intensity: 'light' | 'medium' | 'heavy' = 'medium') => {
-  const blur = ANIMATION_CONSTANTS.blur[intensity];
+  const blurValues = {
+    light: '10px',
+    medium: '15px',
+    heavy: '20px'
+  };
+  const blur = blurValues[intensity];
   const opacity = intensity === 'light' ? 0.05 : intensity === 'medium' ? 0.10 : 0.15;
   const borderOpacity = intensity === 'light' ? 0.1 : intensity === 'medium' ? 0.15 : 0.20;
-  
+
   return {
     background: `rgba(255, 255, 255, ${opacity})`,
-    backdropFilter: `blur(${blur}px)`,
+    backdropFilter: `blur(${blur})`,
     border: `1px solid rgba(255, 255, 255, ${borderOpacity})`
   };
 };

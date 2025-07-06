@@ -5,21 +5,23 @@
   transform-style: preserve-3d;
   transform-origin: center center;
   perspective: 1000px;
-  
+
   /* Smooth cursor transition on hover */
   cursor: pointer;
-  
+
   /* Add subtle depth with text shadow for enhanced 3D effect */
-  text-shadow: 
+  text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.1),
     0 2px 4px rgba(0, 0, 0, 0.05);
-  
+
   /* Ensure smooth transitions for all transform properties */
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Enhanced depth effect when hovering */
 .liquid-title:hover {
+  /* Add 3D tilt transform using CSS custom properties */
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   /* Add subtle glow for interactive feedback */
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
@@ -27,11 +29,11 @@
 /* For dark theme compatibility */
 @media (prefers-color-scheme: dark) {
   .liquid-title {
-    text-shadow: 
+    text-shadow:
       0 1px 3px rgba(0, 0, 0, 0.3),
       0 2px 6px rgba(0, 0, 0, 0.2);
   }
-  
+
   .liquid-title:hover {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
   }
@@ -43,7 +45,7 @@
     transition: none;
     transform: none !important;
   }
-  
+
   .liquid-title:hover {
     filter: none;
   }
@@ -52,7 +54,7 @@
 /* Variants for different title sizes and contexts */
 .liquid-title--hero {
   /* Enhanced effects for hero titles */
-  text-shadow: 
+  text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.1),
     0 4px 8px rgba(0, 0, 0, 0.05),
     0 8px 16px rgba(0, 0, 0, 0.03);

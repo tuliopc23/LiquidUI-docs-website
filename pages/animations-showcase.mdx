@@ -1,0 +1,214 @@
+import { LiquidGlassAnimations } from '../components/animations/LiquidGlassAnimations'
+import { ScrollAnimations } from '../components/animations/ScrollAnimations'
+import { MagneticHover } from '../components/animations/MagneticHover'
+import { ArrowRight, Sparkles, Zap, Heart, Star } from 'lucide-react'
+
+# Liquid Glass Animations Showcase
+
+Experience the beauty of **LiqUIdify's** advanced animation system with interactive liquid glass effects and magnetic hover interactions.
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  <div className="space-y-4">
+    <h3 className="text-lg font-semibold">Liquid Glass Buttons</h3>
+    <div className="space-y-3">
+      <MagneticHover strength="medium" speed="fast" triggerDistance={100}>
+        <LiquidGlassAnimations intensity="medium" morphSpeed="fast">
+          <button className="glass-button glass-button-primary text-white px-6 py-3 text-sm font-medium flex items-center gap-2 w-full justify-center">
+            <Sparkles className="w-4 h-4" />
+            Primary Button
+          </button>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+      
+      <MagneticHover strength="subtle" speed="fast" triggerDistance={100}>
+        <LiquidGlassAnimations intensity="subtle" morphSpeed="medium">
+          <button className="glass-button text-gray-700 dark:text-gray-300 px-6 py-3 text-sm font-medium flex items-center gap-2 w-full justify-center">
+            <Zap className="w-4 h-4" />
+            Secondary Button
+          </button>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+      
+      <MagneticHover strength="strong" speed="medium" triggerDistance={120}>
+        <LiquidGlassAnimations intensity="strong" morphSpeed="slow">
+          <button className="glass-button bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-700 dark:text-purple-300 px-6 py-3 text-sm font-medium flex items-center gap-2 w-full justify-center">
+            <Heart className="w-4 h-4" />
+            Animated Button
+          </button>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    <h3 className="text-lg font-semibold">Interactive Cards</h3>
+    <div className="space-y-3">
+      <MagneticHover strength="medium" speed="medium" triggerDistance={80}>
+        <LiquidGlassAnimations intensity="medium" morphSpeed="medium">
+          <div className="glass-card p-4 text-center space-y-3">
+            <div className="w-10 h-10 mx-auto bg-blue-500/20 rounded-lg flex items-center justify-center">
+              <Star className="w-5 h-5 text-blue-500" />
+            </div>
+            <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200">Feature Card</h4>
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              Hover to see the liquid glass effect combined with magnetic attraction.
+            </p>
+          </div>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+      
+      <MagneticHover strength="subtle" speed="fast" triggerDistance={80}>
+        <LiquidGlassAnimations intensity="subtle" morphSpeed="fast">
+          <div className="glass-card p-4 text-center space-y-3">
+            <div className="w-10 h-10 mx-auto bg-green-500/20 rounded-lg flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-green-500" />
+            </div>
+            <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200">Subtle Effect</h4>
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              Gentle animations that feel natural and polished.
+            </p>
+          </div>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+    </div>
+  </div>
+
+  <div className="space-y-4">
+    <h3 className="text-lg font-semibold">Scroll Animations</h3>
+    <div className="space-y-3">
+      <ScrollAnimations animationType="liquid" intensity="medium" className="glass-card p-4">
+        <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">Liquid Morph</h4>
+        <p className="text-xs text-gray-600 dark:text-gray-400">
+          This card morphs as you scroll, creating a dynamic liquid effect.
+        </p>
+      </ScrollAnimations>
+      
+      <ScrollAnimations animationType="morphing" intensity="strong" className="glass-card p-4">
+        <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">Morphing Effect</h4>
+        <p className="text-xs text-gray-600 dark:text-gray-400">
+          Advanced morphing animation with shape transformations.
+        </p>
+      </ScrollAnimations>
+      
+      <ScrollAnimations animationType="scale" intensity="medium" className="glass-card p-4">
+        <h4 className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2">Scale Animation</h4>
+        <p className="text-xs text-gray-600 dark:text-gray-400">
+          Smooth scale-in animation on scroll trigger.
+        </p>
+      </ScrollAnimations>
+    </div>
+  </div>
+</div>
+
+## Animation Intensities
+
+Experience different intensity levels of liquid glass animations:
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+  <MagneticHover strength="subtle" speed="fast" triggerDistance={100}>
+    <LiquidGlassAnimations intensity="subtle" morphSpeed="fast">
+      <div className="glass-card p-6 text-center space-y-3">
+        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Subtle</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Gentle animations that enhance without overwhelming.
+        </p>
+      </div>
+    </LiquidGlassAnimations>
+  </MagneticHover>
+  
+  <MagneticHover strength="medium" speed="medium" triggerDistance={100}>
+    <LiquidGlassAnimations intensity="medium" morphSpeed="medium">
+      <div className="glass-card p-6 text-center space-y-3">
+        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Medium</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Balanced animations that provide clear feedback.
+        </p>
+      </div>
+    </LiquidGlassAnimations>
+  </MagneticHover>
+  
+  <MagneticHover strength="strong" speed="medium" triggerDistance={100}>
+    <LiquidGlassAnimations intensity="strong" morphSpeed="slow">
+      <div className="glass-card p-6 text-center space-y-3">
+        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Strong</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Bold animations that create dramatic effects.
+        </p>
+      </div>
+    </LiquidGlassAnimations>
+  </MagneticHover>
+</div>
+
+## Interactive Elements
+
+Try these interactive elements with combined magnetic and liquid glass effects:
+
+<div className="space-y-6 my-8">
+  <div className="flex flex-wrap gap-4 justify-center">
+    <MagneticHover strength="medium" speed="fast" triggerDistance={120}>
+      <LiquidGlassAnimations intensity="medium" morphSpeed="fast">
+        <button className="glass-button glass-button-primary text-white px-8 py-4 text-lg font-semibold flex items-center gap-3">
+          Get Started
+          <ArrowRight className="w-5 h-5" />
+        </button>
+      </LiquidGlassAnimations>
+    </MagneticHover>
+    
+    <MagneticHover strength="subtle" speed="fast" triggerDistance={120}>
+      <LiquidGlassAnimations intensity="subtle" morphSpeed="fast">
+        <button className="glass-button text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold flex items-center gap-3">
+          Learn More
+          <Sparkles className="w-5 h-5" />
+        </button>
+      </LiquidGlassAnimations>
+    </MagneticHover>
+  </div>
+
+  <div className="max-w-2xl mx-auto text-center">
+    <ScrollAnimations animationType="liquid" intensity="medium" liquidMorph={true}>
+      <div className="glass-card p-8 space-y-4">
+        <h3 className="text-2xl font-bold gradient-text">Liquid Glass Technology</h3>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+          Our advanced animation system combines GSAP's powerful animation engine with custom liquid glass effects 
+          and magnetic hover interactions to create truly immersive user experiences.
+        </p>
+      </div>
+    </ScrollAnimations>
+  </div>
+</div>
+
+## Technical Features
+
+- **GSAP-Powered**: High-performance animations using the industry-standard GSAP library
+- **Liquid Glass Effects**: Morphing shapes and blur effects that simulate liquid behavior
+- **Magnetic Hover**: Elements that attract and follow the mouse cursor
+- **Scroll Animations**: Trigger animations based on scroll position with intersection observer
+- **Accessibility**: Full support for `prefers-reduced-motion` and keyboard navigation
+- **Performance Optimized**: GPU-accelerated animations with `transform3d` and `will-change`
+
+<div className="mt-12 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl">
+  <div className="text-center space-y-4">
+    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
+      Ready to implement these animations?
+    </h3>
+    <p className="text-gray-600 dark:text-gray-400">
+      Explore our comprehensive documentation and start building liquid glass interfaces today.
+    </p>
+    <div className="flex justify-center gap-4 mt-6">
+      <MagneticHover strength="medium" speed="fast" triggerDistance={100}>
+        <LiquidGlassAnimations intensity="medium" morphSpeed="fast">
+          <button className="glass-button glass-button-primary text-white px-6 py-3 text-sm font-medium">
+            View Documentation
+          </button>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+      <MagneticHover strength="subtle" speed="fast" triggerDistance={100}>
+        <LiquidGlassAnimations intensity="subtle" morphSpeed="fast">
+          <button className="glass-button text-gray-700 dark:text-gray-300 px-6 py-3 text-sm font-medium">
+            Try Examples
+          </button>
+        </LiquidGlassAnimations>
+      </MagneticHover>
+    </div>
+  </div>
+</div> 

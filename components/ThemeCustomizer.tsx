@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Palette, Download, RotateCcw, Eye, Code2, Sliders } from 'lucide-react';
 import { cn } from 'liquidify';
 
@@ -102,7 +101,7 @@ export function ThemeCustomizer({
   };
 
   const PreviewComponent = () => (
-    <div 
+    <div
       className="p-8 space-y-6"
       style={{
         '--liquid-primary': theme.primary,
@@ -120,7 +119,7 @@ export function ThemeCustomizer({
       {previewComponent || (
         <>
           {/* Glass Card */}
-          <div 
+          <div
             className="p-6"
             style={{
               backdropFilter: `blur(${theme.glassBlur}px)`,
@@ -130,13 +129,13 @@ export function ThemeCustomizer({
               boxShadow: `0 8px 32px rgba(0, 0, 0, ${theme.shadowIntensity})`,
             }}
           >
-            <h3 
+            <h3
               className="text-lg font-semibold mb-3"
               style={{ color: theme.foreground }}
             >
               Glass Card Preview
             </h3>
-            <p 
+            <p
               className="text-sm mb-4"
               style={{ color: theme.foreground, opacity: 0.7 }}
             >
@@ -177,7 +176,7 @@ export function ThemeCustomizer({
           </div>
 
           {/* Input Example */}
-          <div 
+          <div
             className="p-4"
             style={{
               backdropFilter: `blur(${theme.glassBlur}px)`,
@@ -191,7 +190,7 @@ export function ThemeCustomizer({
               type="text"
               placeholder="Glass input field"
               className="w-full px-3 py-2 bg-transparent border-none outline-none"
-              style={{ 
+              style={{
                 color: theme.foreground,
                 borderRadius: `${theme.borderRadius * 0.5}px`,
               }}
@@ -252,122 +251,99 @@ export function ThemeCustomizer({
       </div>
 
       {/* Content */}
-      <AnimatePresence mode="wait">
+      <div className="p-6">
         {activeTab === 'customize' && (
-          <motion.div
-            key="customize"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="p-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Colors */}
-              <div className="space-y-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Colors</h3>
-                {[
-                  { key: 'primary', label: 'Primary', value: theme.primary },
-                  { key: 'secondary', label: 'Secondary', value: theme.secondary },
-                  { key: 'accent', label: 'Accent', value: theme.accent },
-                  { key: 'background', label: 'Background', value: theme.background },
-                  { key: 'foreground', label: 'Foreground', value: theme.foreground },
-                ].map((color) => (
-                  <div key={color.key} className="flex items-center gap-3">
-                    <label className="text-sm text-gray-700 dark:text-gray-300 min-w-[80px]">
-                      {color.label}
-                    </label>
-                    <input
-                      type="color"
-                      value={color.value}
-                      onChange={(e) => updateTheme(color.key as keyof ThemeConfig, e.target.value)}
-                      className="w-12 h-8 rounded border border-white/20 cursor-pointer"
-                    />
-                    <input
-                      type="text"
-                      value={color.value}
-                      onChange={(e) => updateTheme(color.key as keyof ThemeConfig, e.target.value)}
-                      className="flex-1 px-2 py-1 text-sm bg-white/10 border border-white/20 rounded"
-                    />
-                  </div>
-                ))}
-              </div>
-
-              {/* Glass Effects */}
-              <div className="space-y-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Glass Effects</h3>
-                {[
-                  { key: 'glassBlur', label: 'Blur', value: theme.glassBlur, min: 0, max: 50, step: 1 },
-                  { key: 'borderRadius', label: 'Border Radius', value: theme.borderRadius, min: 0, max: 50, step: 1 },
-                  { key: 'borderOpacity', label: 'Border Opacity', value: theme.borderOpacity, min: 0, max: 1, step: 0.1 },
-                  { key: 'shadowIntensity', label: 'Shadow Intensity', value: theme.shadowIntensity, min: 0, max: 1, step: 0.1 },
-                ].map((setting) => (
-                  <div key={setting.key} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm text-gray-700 dark:text-gray-300">
-                        {setting.label}
-                      </label>
-                      <span className="text-xs text-gray-500">
-                        {setting.value}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      min={setting.min}
-                      max={setting.max}
-                      step={setting.step}
-                      value={setting.value}
-                      onChange={(e) => updateTheme(
-                        setting.key as keyof ThemeConfig, 
-                        parseFloat(e.target.value)
-                      )}
-                      className="w-full"
-                    />
-                  </div>
-                ))}
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Colors */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white">Colors</h3>
+              {[
+                { key: 'primary', label: 'Primary', value: theme.primary },
+                { key: 'secondary', label: 'Secondary', value: theme.secondary },
+                { key: 'accent', label: 'Accent', value: theme.accent },
+                { key: 'background', label: 'Background', value: theme.background },
+                { key: 'foreground', label: 'Foreground', value: theme.foreground },
+              ].map((color) => (
+                <div key={color.key} className="flex items-center gap-3">
+                  <label className="text-sm text-gray-700 dark:text-gray-300 min-w-[80px]">
+                    {color.label}
+                  </label>
+                  <input
+                    type="color"
+                    value={color.value}
+                    onChange={(e) => updateTheme(color.key as keyof ThemeConfig, e.target.value)}
+                    className="w-12 h-8 rounded border border-white/20 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={color.value}
+                    onChange={(e) => updateTheme(color.key as keyof ThemeConfig, e.target.value)}
+                    className="flex-1 px-2 py-1 text-sm bg-white/10 border border-white/20 rounded"
+                  />
+                </div>
+              ))}
             </div>
-          </motion.div>
+
+            {/* Glass Effects */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white">Glass Effects</h3>
+              {[
+                { key: 'glassBlur', label: 'Blur', value: theme.glassBlur, min: 0, max: 50, step: 1 },
+                { key: 'borderRadius', label: 'Border Radius', value: theme.borderRadius, min: 0, max: 50, step: 1 },
+                { key: 'borderOpacity', label: 'Border Opacity', value: theme.borderOpacity, min: 0, max: 1, step: 0.1 },
+                { key: 'shadowIntensity', label: 'Shadow Intensity', value: theme.shadowIntensity, min: 0, max: 1, step: 0.1 },
+              ].map((setting) => (
+                <div key={setting.key} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm text-gray-700 dark:text-gray-300">
+                      {setting.label}
+                    </label>
+                    <span className="text-xs text-gray-500">
+                      {setting.value}
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min={setting.min}
+                    max={setting.max}
+                    step={setting.step}
+                    value={setting.value}
+                    onChange={(e) => updateTheme(
+                      setting.key as keyof ThemeConfig,
+                      parseFloat(e.target.value)
+                    )}
+                    className="w-full"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {activeTab === 'preview' && (
-          <motion.div
-            key="preview"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-          >
-            <PreviewComponent />
-          </motion.div>
+          <PreviewComponent />
         )}
 
         {activeTab === 'export' && (
-          <motion.div
-            key="export"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="p-6"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  CSS Variables
-                </h3>
-                <button
-                  onClick={handleExport}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                >
-                  <Download className="w-4 h-4" />
-                  {copied ? 'Copied!' : 'Copy CSS'}
-                </button>
-              </div>
-              <pre className="p-4 bg-gray-900/20 rounded-lg overflow-x-auto text-xs">
-                <code>{exportTheme()}</code>
-              </pre>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                CSS Variables
+              </h3>
+              <button
+                onClick={handleExport}
+                className="flex items-center gap-2 px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                {copied ? 'Copied!' : 'Copy CSS'}
+              </button>
             </div>
-          </motion.div>
+            <pre className="p-4 bg-gray-900/20 rounded-lg overflow-x-auto text-xs">
+              <code>{exportTheme()}</code>
+            </pre>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { cn } from '../lib/utils';
+import { cn } from 'liquidify';
 import { LiquidHover } from './ScrollAnimations';
 
 // Enhanced glass morphism components for industry-leading visual effects
@@ -12,11 +11,11 @@ interface GlassCardProps {
   animated?: boolean;
 }
 
-export function GlassCard({ 
-  children, 
-  className, 
+export function GlassCard({
+  children,
+  className,
   variant = 'medium',
-  animated = true 
+  animated = true
 }: GlassCardProps) {
   const variants = {
     subtle: 'bg-white/5 backdrop-blur-md border-white/10',
@@ -75,7 +74,7 @@ export function GlassButton({
   disabled = false,
 }: GlassButtonProps) {
   const baseClasses = 'relative overflow-hidden font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
-  
+
   const variantClasses = {
     primary: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl',
     secondary: 'bg-white/10 backdrop-blur-lg border border-white/20 text-foreground hover:bg-white/20 dark:bg-black/20 dark:border-white/10 dark:hover:bg-black/30',
@@ -89,8 +88,8 @@ export function GlassButton({
   };
 
   return (
-    <LiquidHover intensity="normal">
-      <motion.button
+    <LiquidHover intensity="medium">
+      <button
         className={cn(
           baseClasses,
           variantClasses[variant],
@@ -99,15 +98,12 @@ export function GlassButton({
         )}
         onClick={onClick}
         disabled={disabled}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ duration: 0.2 }}
       >
         <div className="relative z-10">
           {children}
         </div>
         <div className="absolute inset-0 rounded-inherit bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-      </motion.button>
+      </button>
     </LiquidHover>
   );
 }
@@ -134,7 +130,7 @@ export function FloatingActionButton({
   };
 
   return (
-    <motion.button
+    <button
       className={cn(
         'fixed z-50 w-14 h-14 rounded-full',
         'bg-primary text-primary-foreground',
@@ -147,23 +143,9 @@ export function FloatingActionButton({
         className
       )}
       onClick={onClick}
-      whileHover={{ 
-        scale: 1.1,
-        rotate: 5,
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-      }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ scale: 0, rotate: -180 }}
-      animate={{ scale: 1, rotate: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 260, 
-        damping: 20,
-        duration: 0.6,
-      }}
     >
       {children}
-    </motion.button>
+    </button>
   );
 }
 
@@ -176,7 +158,7 @@ interface GlassNavProps {
 
 export function GlassNav({ children, className, sticky = true }: GlassNavProps) {
   return (
-    <motion.nav
+    <nav
       className={cn(
         'w-full z-40 transition-all duration-300',
         'bg-white/80 dark:bg-black/80',
@@ -185,16 +167,13 @@ export function GlassNav({ children, className, sticky = true }: GlassNavProps) 
         sticky && 'sticky top-0',
         className
       )}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
     >
       <div className="relative">
         {children}
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />
       </div>
-    </motion.nav>
+    </nav>
   );
 }
 
@@ -206,11 +185,11 @@ interface GlassTooltipProps {
   className?: string;
 }
 
-export function GlassTooltip({ 
-  children, 
-  content, 
+export function GlassTooltip({
+  children,
+  content,
   position = 'top',
-  className 
+  className
 }: GlassTooltipProps) {
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -222,40 +201,37 @@ export function GlassTooltip({
   };
 
   return (
-    <div 
+    <div
       className="relative inline-block"
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
       {children}
-      <motion.div
-        className={cn(
-          'absolute z-50 px-3 py-2 text-sm',
-          'bg-black/80 text-white rounded-lg',
-          'backdrop-blur-lg border border-white/20',
-          'whitespace-nowrap pointer-events-none',
-          positions[position],
-          className
-        )}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ 
-          opacity: isVisible ? 1 : 0, 
-          scale: isVisible ? 1 : 0.8 
-        }}
-        transition={{ duration: 0.2 }}
-      >
-        {content}
-        {/* Arrow */}
-        <div 
+      {isVisible && (
+        <div
           className={cn(
-            'absolute w-2 h-2 bg-black/80 rotate-45',
-            position === 'top' && 'top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-            position === 'bottom' && 'bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2',
-            position === 'left' && 'left-full top-1/2 transform -translate-x-1/2 -translate-y-1/2',
-            position === 'right' && 'right-full top-1/2 transform translate-x-1/2 -translate-y-1/2'
+            'absolute z-50 px-3 py-2 text-sm',
+            'bg-black/80 text-white rounded-lg',
+            'backdrop-blur-lg border border-white/20',
+            'whitespace-nowrap pointer-events-none',
+            'transition-opacity duration-200',
+            positions[position],
+            className
           )}
-        />
-      </motion.div>
+        >
+          {content}
+          {/* Arrow */}
+          <div
+            className={cn(
+              'absolute w-2 h-2 bg-black/80 rotate-45',
+              position === 'top' && 'top-full left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+              position === 'bottom' && 'bottom-full left-1/2 transform -translate-x-1/2 translate-y-1/2',
+              position === 'left' && 'left-full top-1/2 transform -translate-x-1/2 -translate-y-1/2',
+              position === 'right' && 'right-full top-1/2 transform translate-x-1/2 -translate-y-1/2'
+            )}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -269,12 +245,12 @@ interface GlassModalProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-export function GlassModal({ 
-  children, 
-  isOpen, 
-  onClose, 
+export function GlassModal({
+  children,
+  isOpen,
+  onClose,
   className,
-  size = 'md' 
+  size = 'md'
 }: GlassModalProps) {
   const sizes = {
     sm: 'max-w-md',
@@ -289,7 +265,7 @@ export function GlassModal({
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -298,24 +274,17 @@ export function GlassModal({
   if (!isOpen) return null;
 
   return (
-    <motion.div
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
     >
       {/* Backdrop */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
         onClick={onClose}
       />
-      
+
       {/* Modal */}
-      <motion.div
+      <div
         className={cn(
           'relative w-full rounded-ds overflow-hidden',
           'bg-white/90 dark:bg-black/90',
@@ -324,16 +293,9 @@ export function GlassModal({
           sizes[size],
           className
         )}
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ 
-          duration: 0.3,
-          ease: [0.23, 1, 0.32, 1]
-        }}
       >
         {children}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

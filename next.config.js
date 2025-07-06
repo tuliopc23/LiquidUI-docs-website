@@ -26,6 +26,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  // Stable Turbopack configuration
   turbopack: {
     rules: {
       '*.svg': {
@@ -90,75 +91,17 @@ const nextConfig = {
     reactRemoveProperties: false,
     styledComponents: true,
   },
-  
+
   // SEO and caching optimizations
   generateEtags: true,
   poweredByHeader: false,
   compress: true,
-  
+
   // Static optimization
   trailingSlash: false,
+
+  // Simplified webpack configuration for Turbopack compatibility
   
-  
-  // Enhanced bundle optimization
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizations
-    if (!dev && !isServer) {
-      config.optimization = {
-        ...config.optimization,
-        moduleIds: 'deterministic',
-        splitChunks: {
-          ...config.optimization.splitChunks,
-          cacheGroups: {
-            ...config.optimization.splitChunks.cacheGroups,
-            // Framework chunk for React/Next.js
-            framework: {
-              chunks: 'all',
-              name: 'framework',
-              test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types)[\\/]/,
-              priority: 40,
-              enforce: true,
-            },
-            // Large libraries chunk
-            lib: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'lib',
-              priority: 30,
-              chunks: 'all',
-              enforce: true,
-            },
-            // Common components
-            commons: {
-              name: "commons",
-              chunks: "all",
-              minChunks: 2,
-              priority: 20,
-            },
-            // Shared utilities
-            shared: {
-              name: 'shared',
-              chunks: 'all',
-              minChunks: 2,
-              priority: 10,
-            },
-          },
-        },
-      };
-    }
-    
-    // SVG optimization
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-    
-    // Tree shaking optimization (but preserve animation code)
-    config.optimization.usedExports = true;
-    // Don't mark all modules as side-effect free to preserve animations
-    // config.optimization.sideEffects = false;
-    
-    return config;
-  },
 };
 
 module.exports = withBundleAnalyzer(withNextra(nextConfig));

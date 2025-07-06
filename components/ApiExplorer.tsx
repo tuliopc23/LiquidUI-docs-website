@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronRight, Code2, FileText, Package, Hash } from 'lucide-react';
+import { ChevronDown, ChevronRight, Package, Code2, Hash, FileText } from 'lucide-react';
 import { cn } from 'liquidify';
 
 interface PropType {
@@ -101,95 +100,78 @@ export function ApiExplorer({
                 Props ({props.length})
               </h3>
             </div>
-            <motion.div
-              animate={{ rotate: expandedSections.props ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <div className={cn(
+              "w-4 h-4 text-gray-400 transition-transform",
+              expandedSections.props && "rotate-180"
+            )}>
               <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-            </motion.div>
+            </div>
           </button>
-          
-          <AnimatePresence>
-            {expandedSections.props && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="px-6 pb-4">
-                  <div className="space-y-3">
-                    {props.map((prop) => (
-                      <motion.div
-                        key={prop.name}
-                        className={cn(
-                          "p-4 rounded-lg border transition-all cursor-pointer",
-                          selectedProp === prop.name
-                            ? "bg-blue-500/10 border-blue-500/30"
-                            : "bg-white/5 border-white/10 hover:border-white/20"
-                        )}
-                        onClick={() => setSelectedProp(
-                          selectedProp === prop.name ? null : prop.name
-                        )}
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <code className="font-mono text-sm font-semibold text-gray-900 dark:text-white">
-                                {prop.name}
-                              </code>
-                              {prop.required && (
-                                <span className="px-2 py-0.5 text-xs bg-red-500/20 text-red-600 dark:text-red-400 rounded-full">
-                                  required
-                                </span>
-                              )}
-                            </div>
-                            <div className="mt-1 flex items-center gap-2">
-                              <code className={cn("font-mono text-xs", getTypeColor(prop.type))}>
-                                {prop.type}
-                              </code>
-                              {prop.default && (
-                                <>
-                                  <span className="text-gray-500">•</span>
-                                  <code className="font-mono text-xs text-gray-600 dark:text-gray-400">
-                                    default: {prop.default}
-                                  </code>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                          <ChevronRight 
-                            className={cn(
-                              "w-4 h-4 text-gray-400 transition-transform",
-                              selectedProp === prop.name && "rotate-90"
+
+          {expandedSections.props && (
+            <div className="overflow-hidden">
+              <div className="px-6 pb-4">
+                <div className="space-y-3">
+                  {props.map((prop) => (
+                    <div
+                      key={prop.name}
+                      className={cn(
+                        "p-4 rounded-lg border transition-all cursor-pointer",
+                        selectedProp === prop.name
+                          ? "bg-blue-500/10 border-blue-500/30"
+                          : "bg-white/5 border-white/10 hover:border-white/20"
+                      )}
+                      onClick={() => setSelectedProp(
+                        selectedProp === prop.name ? null : prop.name
+                      )}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <code className="font-mono text-sm font-semibold text-gray-900 dark:text-white">
+                              {prop.name}
+                            </code>
+                            {prop.required && (
+                              <span className="px-2 py-0.5 text-xs bg-red-500/20 text-red-600 dark:text-red-400 rounded-full">
+                                required
+                              </span>
                             )}
-                          />
+                          </div>
+                          <div className="mt-1 flex items-center gap-2">
+                            <code className={cn("font-mono text-xs", getTypeColor(prop.type))}>
+                              {prop.type}
+                            </code>
+                            {prop.default && (
+                              <>
+                                <span className="text-gray-500">•</span>
+                                <code className="font-mono text-xs text-gray-600 dark:text-gray-400">
+                                  default: {prop.default}
+                                </code>
+                              </>
+                            )}
+                          </div>
                         </div>
-                        
-                        <AnimatePresence>
-                          {selectedProp === prop.name && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: 'auto', opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              className="mt-3 pt-3 border-t border-white/10"
-                            >
-                              <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {prop.description}
-                              </p>
-                            </motion.div>
+                        <ChevronRight
+                          className={cn(
+                            "w-4 h-4 text-gray-400 transition-transform",
+                            selectedProp === prop.name && "rotate-90"
                           )}
-                        </AnimatePresence>
-                      </motion.div>
-                    ))}
-                  </div>
+                        />
+                      </div>
+
+                      {selectedProp === prop.name && (
+                        <div className="mt-3 pt-3 border-t border-white/10">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            {prop.description}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -206,61 +188,53 @@ export function ApiExplorer({
                 Methods ({methods.length})
               </h3>
             </div>
-            <motion.div
-              animate={{ rotate: expandedSections.methods ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <div className={cn(
+              "w-4 h-4 text-gray-400 transition-transform",
+              expandedSections.methods && "rotate-180"
+            )}>
               <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-            </motion.div>
+            </div>
           </button>
-          
-          <AnimatePresence>
-            {expandedSections.methods && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="px-6 pb-4">
-                  <div className="space-y-3">
-                    {methods.map((method) => (
-                      <div
-                        key={method.name}
-                        className="p-4 rounded-lg bg-white/5 border border-white/10"
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <code className="font-mono text-sm font-semibold text-gray-900 dark:text-white">
-                              {method.name}(
-                              {method.parameters?.map(p => p.name).join(', ')}
-                              )
-                            </code>
-                            {method.returns && (
-                              <div className="mt-1">
-                                <code className={cn("font-mono text-xs", getTypeColor(method.returns))}>
-                                  returns: {method.returns}
-                                </code>
-                              </div>
-                            )}
-                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                              {method.description}
-                            </p>
-                            {method.example && (
-                              <div className="mt-3 p-3 bg-gray-900/10 dark:bg-gray-900/30 rounded-lg">
-                                <code className="text-xs">{method.example}</code>
-                              </div>
-                            )}
-                          </div>
+
+          {expandedSections.methods && (
+            <div className="overflow-hidden">
+              <div className="px-6 pb-4">
+                <div className="space-y-3">
+                  {methods.map((method) => (
+                    <div
+                      key={method.name}
+                      className="p-4 rounded-lg bg-white/5 border border-white/10"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <code className="font-mono text-sm font-semibold text-gray-900 dark:text-white">
+                            {method.name}(
+                            {method.parameters?.map(p => p.name).join(', ')}
+                            )
+                          </code>
+                          {method.returns && (
+                            <div className="mt-1">
+                              <code className={cn("font-mono text-xs", getTypeColor(method.returns))}>
+                                returns: {method.returns}
+                              </code>
+                            </div>
+                          )}
+                          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                            {method.description}
+                          </p>
+                          {method.example && (
+                            <div className="mt-3 p-3 bg-gray-900/10 dark:bg-gray-900/30 rounded-lg">
+                              <code className="text-xs">{method.example}</code>
+                            </div>
+                          )}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -277,42 +251,34 @@ export function ApiExplorer({
                 Examples ({Object.keys(examples).length})
               </h3>
             </div>
-            <motion.div
-              animate={{ rotate: expandedSections.examples ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <div className={cn(
+              "w-4 h-4 text-gray-400 transition-transform",
+              expandedSections.examples && "rotate-180"
+            )}>
               <ChevronDown className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-            </motion.div>
+            </div>
           </button>
-          
-          <AnimatePresence>
-            {expandedSections.examples && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="overflow-hidden"
-              >
-                <div className="px-6 pb-4">
-                  <div className="space-y-4">
-                    {Object.entries(examples).map(([name, code]) => (
-                      <div key={name} className="space-y-2">
-                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-                          {name}
-                        </h4>
-                        <div className="p-4 bg-gray-900/10 dark:bg-gray-900/30 rounded-lg overflow-x-auto">
-                          <pre className="text-xs">
-                            <code>{code}</code>
-                          </pre>
-                        </div>
+
+          {expandedSections.examples && (
+            <div className="overflow-hidden">
+              <div className="px-6 pb-4">
+                <div className="space-y-4">
+                  {Object.entries(examples).map(([name, code]) => (
+                    <div key={name} className="space-y-2">
+                      <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                        {name}
+                      </h4>
+                      <div className="p-4 bg-gray-900/10 dark:bg-gray-900/30 rounded-lg overflow-x-auto">
+                        <pre className="text-xs">
+                          <code>{code}</code>
+                        </pre>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

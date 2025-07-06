@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { OptimizedMotion } from './PerformanceOptimizer';
+import React, { useRef, useEffect, useState } from 'react';
+import { useSafeAnimation } from './AnimationProvider';
 
 interface ScrollAnimationProps {
     children: React.ReactNode;
@@ -8,145 +7,175 @@ interface ScrollAnimationProps {
     direction?: 'up' | 'down' | 'left' | 'right';
     delay?: number;
     duration?: number;
-    once?: boolean;
 }
 
+// Simple CSS-based scroll fade in
 export const ScrollFadeIn: React.FC<ScrollAnimationProps> = ({
     children,
     className = '',
     direction = 'up',
-    delay = 0,
-    duration = 0.6,
-    once = true
+    delay = 0
 }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once, margin: "0px 0px -100px 0px" });
+    const [isVisible, setIsVisible] = useState(false);
+    const { shouldAnimate } = useSafeAnimation();
 
-    const directionVariants = {
-        up: { y: 50, opacity: 0 },
-        down: { y: -50, opacity: 0 },
-        left: { x: 50, opacity: 0 },
-        right: { x: -50, opacity: 0 }
+    useEffect(() => {
+        if (!shouldAnimate || !ref.current) {
+            setIsVisible(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, delay);
+                }
+            },
+            { threshold: 0.1, rootMargin: '-100px 0px' }
+        );
+
+        observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [shouldAnimate, delay]);
+
+    if (!shouldAnimate) {
+        return <div className={className}>{children}</div>;
+    }
+
+    const directionClasses = {
+        up: isVisible ? 'animate-slide-up' : 'opacity-0 translate-y-8',
+        down: isVisible ? 'animate-slide-up' : 'opacity-0 -translate-y-8',
+        left: isVisible ? 'animate-slide-up' : 'opacity-0 translate-x-8',
+        right: isVisible ? 'animate-slide-up' : 'opacity-0 -translate-x-8'
     };
 
     return (
-        <OptimizedMotion.div
+        <div
             ref={ref}
-            className={`motion-element ${className}`}
-            initial={directionVariants[direction]}
-            animate={isInView ? { x: 0, y: 0, opacity: 1 } : directionVariants[direction]}
-            transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                duration,
-                delay,
-                mass: 1,
-            }}
+            className={`${className} ${directionClasses[direction]} transition-all duration-500 ease-out`}
+            style={{ transitionDelay: shouldAnimate ? `${delay}ms` : '0ms' }}
         >
             {children}
-        </OptimizedMotion.div>
+        </div>
     );
 };
 
+// Simple stagger container
 export const ScrollStagger: React.FC<{
     children: React.ReactNode;
     className?: string;
     staggerDelay?: number;
-}> = ({ children, className = '', staggerDelay = 0.1 }) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
+}> = ({ children, className = '', staggerDelay = 100 }) => {
+    const { shouldAnimate } = useSafeAnimation();
+
+    if (!shouldAnimate) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
-        <OptimizedMotion.div
-            ref={ref}
-            className={`motion-element ${className}`}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            variants={{
-                hidden: { opacity: 0 },
-                visible: {
-                    opacity: 1,
-                    transition: {
-                        staggerChildren: staggerDelay,
-                        delayChildren: 0.1,
-                    }
-                }
-            }}
-        >
-            {children}
-        </OptimizedMotion.div>
+        <div className={className}>
+            {React.Children.map(children, (child, index) => (
+                <ScrollFadeIn delay={index * staggerDelay} key={index}>
+                    {child}
+                </ScrollFadeIn>
+            ))}
+        </div>
     );
 };
 
+// CSS-based parallax effect
 export const ScrollParallax: React.FC<{
     children: React.ReactNode;
     speed?: number;
     className?: string;
 }> = ({ children, speed = 0.5, className = '' }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const y = useMotionValue(0);
-    const smoothY = useSpring(y, { damping: 15, stiffness: 100, restDelta: 0.001 });
+    const [translateY, setTranslateY] = useState(0);
+    const { shouldAnimate } = useSafeAnimation();
 
     useEffect(() => {
-        const element = ref.current;
-        if (!element) return;
+        if (!shouldAnimate) return;
 
-        const updateY = () => {
+        const updateTranslateY = () => {
             const scrolled = window.pageYOffset;
             const rate = scrolled * -speed;
-            y.set(rate);
+            setTranslateY(rate);
         };
 
         const handleScroll = () => {
-            requestAnimationFrame(updateY);
+            requestAnimationFrame(updateTranslateY);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        updateY();
+        updateTranslateY();
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [speed, y]);
+    }, [speed, shouldAnimate]);
 
     return (
-        <OptimizedMotion.div
+        <div
             ref={ref}
-            className={`motion-element ${className}`}
-            style={{ y: smoothY }}
+            className={`${className} gpu-accelerated`}
+            style={shouldAnimate ? {
+                transform: `translateY(${translateY}px)`,
+                transition: 'transform 0.1s ease-out'
+            } : {}}
         >
             {children}
-        </OptimizedMotion.div>
+        </div>
     );
 };
 
+// Simple scale animation
 export const ScrollScale: React.FC<ScrollAnimationProps> = ({
     children,
     className = '',
-    delay = 0,
-    once = true
+    delay = 0
 }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once, margin: "0px 0px -100px 0px" });
+    const [isVisible, setIsVisible] = useState(false);
+    const { shouldAnimate } = useSafeAnimation();
+
+    useEffect(() => {
+        if (!shouldAnimate || !ref.current) {
+            setIsVisible(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, delay);
+                }
+            },
+            { threshold: 0.1, rootMargin: '-100px 0px' }
+        );
+
+        observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [shouldAnimate, delay]);
+
+    if (!shouldAnimate) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
-        <OptimizedMotion.div
+        <div
             ref={ref}
-            className={`motion-element ${className}`}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-            transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-                delay,
-                mass: 1,
-            }}
+            className={`${className} ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-90'} transition-all duration-500 ease-out`}
+            style={{ transitionDelay: shouldAnimate ? `${delay}ms` : '0ms' }}
         >
             {children}
-        </OptimizedMotion.div>
+        </div>
     );
 };
 
+// Simple reveal animation
 export const ScrollReveal: React.FC<{
     children: React.ReactNode;
     className?: string;
@@ -154,50 +183,72 @@ export const ScrollReveal: React.FC<{
     delay?: number;
 }> = ({ children, className = '', width = "100%", delay = 0 }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
+    const [isVisible, setIsVisible] = useState(false);
+    const { shouldAnimate } = useSafeAnimation();
+
+    useEffect(() => {
+        if (!shouldAnimate || !ref.current) {
+            setIsVisible(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        setIsVisible(true);
+                    }, delay);
+                }
+            },
+            { threshold: 0.1, rootMargin: '-50px 0px' }
+        );
+
+        observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, [shouldAnimate, delay]);
+
+    if (!shouldAnimate) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
         <div ref={ref} className={`overflow-hidden ${className}`}>
-            <OptimizedMotion.div
-                className="motion-element"
-                initial={{ x: "-100%" }}
-                animate={isInView ? { x: "0%" } : { x: "-100%" }}
-                transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    delay,
-                    mass: 1,
+            <div
+                className={`${isVisible ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-500 ease-out gpu-accelerated`}
+                style={{
+                    width,
+                    transitionDelay: shouldAnimate ? `${delay}ms` : '0ms'
                 }}
-                style={{ width }}
             >
                 {children}
-            </OptimizedMotion.div>
+            </div>
         </div>
     );
 };
 
-// Hook for custom scroll animations
+// Simple scroll progress hook
 export const useScrollProgress = () => {
-    const scrollY = useMotionValue(0);
-    const scrollProgress = useTransform(scrollY, [0, 1000], [0, 1]);
+    const [scrollProgress, setScrollProgress] = useState(0);
 
     useEffect(() => {
-        const updateScrollY = () => {
-            scrollY.set(window.pageYOffset);
+        const updateScrollProgress = () => {
+            const scrolled = window.pageYOffset;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = Math.min(scrolled / maxScroll, 1);
+            setScrollProgress(progress);
         };
 
         const handleScroll = () => {
-            requestAnimationFrame(updateScrollY);
+            requestAnimationFrame(updateScrollProgress);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        updateScrollY();
+        updateScrollProgress();
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [scrollY]);
+    }, []);
 
-    return { scrollY, scrollProgress };
+    return { scrollProgress };
 };
 
 const ScrollAnimations = {

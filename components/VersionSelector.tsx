@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Check, Tag, Clock, ExternalLink } from 'lucide-react';
 import { cn } from 'liquidify';
 
@@ -88,14 +87,32 @@ const versionData: Version[] = [
   }
 ];
 
-export function VersionSelector({
+export const VersionSelector: React.FC<VersionSelectorProps> = ({
   currentVersion,
   versions = versionData,
   onVersionChange,
   className
-}: VersionSelectorProps) {
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedVersion, setSelectedVersion] = useState(currentVersion);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleVersionSelect = (version: string) => {
     setSelectedVersion(version);
@@ -144,124 +161,119 @@ export function VersionSelector({
       </button>
 
       {/* Dropdown Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            className={cn(
-              "absolute top-full left-0 mt-2 w-80 z-50",
-              "backdrop-blur-xl bg-white/10 dark:bg-white/5",
-              "border border-white/20 dark:border-white/10",
-              "rounded-lg shadow-xl overflow-hidden"
-            )}
-          >
-            <div className="max-h-96 overflow-y-auto">
-              {versions
-                .sort((a, b) => {
-                  // Sort by version number (latest first)
-                  const aNum = parseFloat(a.version.replace(/[^\d.]/g, ''));
-                  const bNum = parseFloat(b.version.replace(/[^\d.]/g, ''));
-                  return bNum - aNum;
-                })
-                .map((version) => (
-                  <motion.button
-                    key={version.version}
-                    onClick={() => handleVersionSelect(version.version)}
-                    className={cn(
-                      "w-full px-4 py-3 text-left hover:bg-white/10 transition-colors",
-                      "border-b border-white/10 last:border-b-0",
-                      selectedVersion === version.version && "bg-white/15"
-                    )}
-                    whileHover={{ x: 4 }}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono font-semibold">
-                            v{version.version}
+      {isOpen && (
+        <div
+          ref={dropdownRef}
+          className={cn(
+            "absolute top-full left-0 mt-2 w-80 z-50",
+            "backdrop-blur-xl bg-white/10 dark:bg-white/5",
+            "border border-white/20 dark:border-white/10",
+            "rounded-lg shadow-xl overflow-hidden"
+          )}
+        >
+          <div className="max-h-96 overflow-y-auto">
+            {versions
+              .sort((a, b) => {
+                // Sort by version number (latest first)
+                const aNum = parseFloat(a.version.replace(/[^\d.]/g, ''));
+                const bNum = parseFloat(b.version.replace(/[^\d.]/g, ''));
+                return bNum - aNum;
+              })
+              .map((version) => (
+                <button
+                  key={version.version}
+                  onClick={() => handleVersionSelect(version.version)}
+                  className={cn(
+                    "w-full px-4 py-3 text-left hover:bg-white/10 transition-colors",
+                    "border-b border-white/10 last:border-b-0",
+                    selectedVersion === version.version && "bg-white/15"
+                  )}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-semibold">
+                          v{version.version}
+                        </span>
+                        <span className={cn(
+                          "px-2 py-0.5 text-xs rounded-full",
+                          getStatusColor(version.status)
+                        )}>
+                          {version.status}
+                        </span>
+                        {version.breaking && (
+                          <span className="px-2 py-0.5 text-xs bg-red-500/20 text-red-600 dark:text-red-400 rounded-full">
+                            breaking
                           </span>
-                          <span className={cn(
-                            "px-2 py-0.5 text-xs rounded-full",
-                            getStatusColor(version.status)
-                          )}>
-                            {version.status}
-                          </span>
-                          {version.breaking && (
-                            <span className="px-2 py-0.5 text-xs bg-red-500/20 text-red-600 dark:text-red-400 rounded-full">
-                              breaking
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 mt-1 text-xs text-gray-600 dark:text-gray-400">
-                          <Clock className="w-3 h-3" />
-                          {new Date(version.date).toLocaleDateString()}
-                          {version.changelog && (
-                            <>
-                              <span>•</span>
-                              <a
-                                href={version.changelog}
-                                className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                Changelog
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                            </>
-                          )}
-                        </div>
-                        
-                        {/* Version Features/Fixes Preview */}
-                        {(version.features || version.fixes) && (
-                          <div className="mt-2 space-y-1">
-                            {version.features && version.features.slice(0, 2).map((feature, i) => (
-                              <div key={i} className="text-xs text-green-600 dark:text-green-400">
-                                + {feature}
-                              </div>
-                            ))}
-                            {version.fixes && version.fixes.slice(0, 1).map((fix, i) => (
-                              <div key={i} className="text-xs text-blue-600 dark:text-blue-400">
-                                • {fix}
-                              </div>
-                            ))}
-                            {((version.features?.length || 0) + (version.fixes?.length || 0)) > 3 && (
-                              <div className="text-xs text-gray-500">
-                                +{((version.features?.length || 0) + (version.fixes?.length || 0)) - 3} more changes
-                              </div>
-                            )}
-                          </div>
                         )}
                       </div>
-                      
-                      {selectedVersion === version.version && (
-                        <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+                      <div className="flex items-center gap-2 mt-1 text-xs text-gray-600 dark:text-gray-400">
+                        <Clock className="w-3 h-3" />
+                        {new Date(version.date).toLocaleDateString()}
+                        {version.changelog && (
+                          <>
+                            <span>•</span>
+                            <a
+                              href={version.changelog}
+                              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Changelog
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Version Features/Fixes Preview */}
+                      {(version.features || version.fixes) && (
+                        <div className="mt-2 space-y-1">
+                          {version.features && version.features.slice(0, 2).map((feature, i) => (
+                            <div key={i} className="text-xs text-green-600 dark:text-green-400">
+                              + {feature}
+                            </div>
+                          ))}
+                          {version.fixes && version.fixes.slice(0, 1).map((fix, i) => (
+                            <div key={i} className="text-xs text-blue-600 dark:text-blue-400">
+                              • {fix}
+                            </div>
+                          ))}
+                          {((version.features?.length || 0) + (version.fixes?.length || 0)) > 3 && (
+                            <div className="text-xs text-gray-500">
+                              +{((version.features?.length || 0) + (version.fixes?.length || 0)) - 3} more changes
+                            </div>
+                          )}
+                        </div>
                       )}
                     </div>
-                  </motion.button>
-                ))}
-            </div>
-            
-            <div className="px-4 py-3 border-t border-white/10 bg-white/5">
-              <p className="text-xs text-gray-600 dark:text-gray-400">
-                Select a version to view its specific documentation and examples.
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+                    {selectedVersion === version.version && (
+                      <Check className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
+                    )}
+                  </div>
+                </button>
+              ))}
+          </div>
+
+          <div className="px-4 py-3 border-t border-white/10 bg-white/5">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              Select a version to view its specific documentation and examples.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 // Version Comparison Component
-export function VersionComparison({ 
-  fromVersion, 
-  toVersion, 
-  className 
-}: { 
-  fromVersion: string; 
-  toVersion: string; 
+export function VersionComparison({
+  fromVersion,
+  toVersion,
+  className
+}: {
+  fromVersion: string;
+  toVersion: string;
   className?: string;
 }) {
   const versions = versionData;

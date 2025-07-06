@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "liquidify";
 import { ClassValue } from "clsx";
-import { 
-  ChevronDown, 
-  Check, 
-  X, 
+import {
+  ChevronDown,
+  Check,
+  X,
   MoreHorizontal,
   Info
 } from "lucide-react";
@@ -47,15 +46,15 @@ export const GlassDropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
   ({ children, className, trigger, items, ...props }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
-    
+
     const defaultItems = [
       { label: "Profile", value: "profile", icon: <div className="w-4 h-4 rounded-full bg-blue-500" /> },
       { label: "Settings", value: "settings", icon: <div className="w-4 h-4 rounded bg-gray-500" /> },
       { label: "Sign out", value: "signout", separator: true, icon: <X className="w-4 h-4" /> }
     ];
-    
+
     const dropdownItems = items || defaultItems;
-    
+
     return (
       <div ref={ref} className={cn("relative inline-block", className)} {...props}>
         <button
@@ -75,45 +74,39 @@ export const GlassDropdown = React.forwardRef<HTMLDivElement, DropdownProps>(
             </>
           )}
         </button>
-        
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className={cn(
-                glassBase,
-                "absolute right-0 top-full mt-2 min-w-[200px] rounded-2xl p-2 z-50"
-              )}
-            >
-              {dropdownItems.map((item, index) => (
-                <React.Fragment key={item.value}>
-                  {item.separator && index > 0 && (
-                    <div className="h-px bg-white/10 my-2" />
+
+        {isOpen && (
+          <div
+            className={cn(
+              glassBase,
+              "absolute right-0 top-full mt-2 min-w-[200px] rounded-2xl p-2 z-50"
+            )}
+          >
+            {dropdownItems.map((item, index) => (
+              <React.Fragment key={item.value}>
+                {item.separator && index > 0 && (
+                  <div className="h-px bg-white/10 my-2" />
+                )}
+                <button
+                  onClick={() => {
+                    setSelectedItem(item.value);
+                    setIsOpen(false);
+                  }}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm",
+                    "hover:bg-white/10 dark:hover:bg-white/5 transition-colors",
+                    selectedItem === item.value && "bg-white/15 dark:bg-white/8"
                   )}
-                  <button
-                    onClick={() => {
-                      setSelectedItem(item.value);
-                      setIsOpen(false);
-                    }}
-                    className={cn(
-                      "w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm",
-                      "hover:bg-white/10 dark:hover:bg-white/5 transition-colors",
-                      selectedItem === item.value && "bg-white/15 dark:bg-white/8"
-                    )}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                    {selectedItem === item.value && <Check className="w-4 h-4 ml-auto" />}
-                  </button>
-                </React.Fragment>
-              ))}
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                  {selectedItem === item.value && <Check className="w-4 h-4 ml-auto" />}
+                </button>
+              </React.Fragment>
+            ))}
+            {children}
+          </div>
+        )}
       </div>
     );
   }
@@ -135,17 +128,17 @@ export const GlassTable = React.forwardRef<HTMLTableElement, TableProps>(
       { name: "Jane Smith", email: "jane@example.com", role: "User", status: "Active" },
       { name: "Bob Johnson", email: "bob@example.com", role: "Editor", status: "Inactive" },
     ];
-    
+
     const defaultColumns = [
       { key: "name", label: "Name", width: "25%" },
       { key: "email", label: "Email", width: "35%" },
       { key: "role", label: "Role", width: "20%" },
       { key: "status", label: "Status", width: "20%" },
     ];
-    
+
     const tableData = data || defaultData;
     const tableColumns = columns || defaultColumns;
-    
+
     return (
       <div className={cn(glassBase, "rounded-2xl overflow-hidden", className)}>
         <table ref={ref} className="w-full" {...props}>
@@ -164,11 +157,8 @@ export const GlassTable = React.forwardRef<HTMLTableElement, TableProps>(
           </thead>
           <tbody>
             {tableData.map((row, index) => (
-              <motion.tr
+              <tr
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
                 className={cn(
                   "transition-colors hover:bg-white/5",
                   striped && index % 2 === 1 && "bg-white/5"
@@ -179,7 +169,7 @@ export const GlassTable = React.forwardRef<HTMLTableElement, TableProps>(
                     {column.key === "status" ? (
                       <span className={cn(
                         "inline-flex px-2 py-1 rounded-full text-xs font-medium",
-                        String(row[column.key as keyof typeof row]) === "Active" 
+                        String(row[column.key as keyof typeof row]) === "Active"
                           ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
                           : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
                       )}>
@@ -190,7 +180,7 @@ export const GlassTable = React.forwardRef<HTMLTableElement, TableProps>(
                     )}
                   </td>
                 ))}
-              </motion.tr>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -211,29 +201,29 @@ interface TabsProps {
 export const GlassTabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ children, className, tabs, defaultTab, ...props }, ref) => {
     const defaultTabs = [
-      { 
-        id: "overview", 
-        label: "Overview", 
+      {
+        id: "overview",
+        label: "Overview",
         icon: <Info className="w-4 h-4" />,
         content: <div className="p-4">Overview content with glass effects and smooth animations.</div>
       },
-      { 
-        id: "analytics", 
-        label: "Analytics", 
+      {
+        id: "analytics",
+        label: "Analytics",
         icon: <div className="w-4 h-4 rounded bg-blue-500" />,
         content: <div className="p-4">Analytics dashboard with interactive charts and data visualization.</div>
       },
-      { 
-        id: "settings", 
-        label: "Settings", 
+      {
+        id: "settings",
+        label: "Settings",
         icon: <div className="w-4 h-4 rounded bg-gray-500" />,
         content: <div className="p-4">Configuration options and preferences management.</div>
       }
     ];
-    
+
     const tabItems = tabs || defaultTabs;
     const [activeTab, setActiveTab] = useState(defaultTab || tabItems[0]?.id);
-    
+
     return (
       <div ref={ref} className={cn("w-full", className)} {...props}>
         {/* Tab Navigation */}
@@ -253,35 +243,24 @@ export const GlassTabs = React.forwardRef<HTMLDivElement, TabsProps>(
                 {tab.icon}
                 <span>{tab.label}</span>
                 {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTab"
+                  <div
                     className="absolute inset-0 bg-white/10 rounded-xl"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
               </button>
             ))}
           </div>
         </div>
-        
+
         {/* Tab Content */}
         <div className={cn(glassBase, "rounded-2xl min-h-[200px]")}>
-          <AnimatePresence mode="wait">
-            {tabItems.map((tab) => 
-              tab.id === activeTab ? (
-                <motion.div
-                  key={tab.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {tab.content}
-                </motion.div>
-              ) : null
-            )}
-          </AnimatePresence>
+          {tabItems.map((tab) =>
+            tab.id === activeTab ? (
+              <div key={tab.id}>
+                {tab.content}
+              </div>
+            ) : null
+          )}
           {children}
         </div>
       </div>
@@ -300,83 +279,72 @@ interface TooltipProps {
 
 export const GlassTooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   ({ children, content, className, position = "top", delay = 500, ...props }, ref) => {
-    const [isVisible, setIsVisible] = useState(false);
     const [showTooltip, setShowTooltip] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-    
+
     const handleMouseEnter = useCallback(() => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => {
-        setIsVisible(true);
         setShowTooltip(true);
       }, delay);
     }, [delay]);
-    
+
     const handleMouseLeave = useCallback(() => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      setIsVisible(false);
       setTimeout(() => setShowTooltip(false), 150);
     }, []);
-    
+
     useEffect(() => {
       return () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
       };
     }, []);
-    
+
     const positionClasses = {
       top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
       bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
       left: "right-full top-1/2 -translate-y-1/2 mr-2",
       right: "left-full top-1/2 -translate-y-1/2 ml-2"
     };
-    
+
     const arrowClasses = {
       top: "top-full left-1/2 -translate-x-1/2 border-l-transparent border-r-transparent border-b-transparent",
       bottom: "bottom-full left-1/2 -translate-x-1/2 border-l-transparent border-r-transparent border-t-transparent",
       left: "left-full top-1/2 -translate-y-1/2 border-t-transparent border-b-transparent border-r-transparent",
       right: "right-full top-1/2 -translate-y-1/2 border-t-transparent border-b-transparent border-l-transparent"
     };
-    
+
     return (
-      <div 
-        ref={ref} 
-        className={cn("relative inline-block", className)} 
+      <div
+        ref={ref}
+        className={cn("relative inline-block", className)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...props}
       >
         {children}
-        
+
         {showTooltip && (
-          <AnimatePresence>
-            {isVisible && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.15 }}
-                className={cn(
-                  glassBase,
-                  "absolute z-50 px-3 py-2 text-sm font-medium text-white rounded-xl shadow-lg pointer-events-none",
-                  "max-w-xs break-words",
-                  positionClasses[position]
-                )}
-                role="tooltip"
-              >
-                {content || "Tooltip content with glass morphism design and smooth animations."}
-                
-                {/* Arrow */}
-                <div 
-                  className={cn(
-                    "absolute w-0 h-0 border-4",
-                    "border-white/20",
-                    arrowClasses[position]
-                  )}
-                />
-              </motion.div>
+          <div
+            className={cn(
+              glassBase,
+              "absolute z-50 px-3 py-2 text-sm font-medium text-white rounded-xl shadow-lg pointer-events-none",
+              "max-w-xs break-words",
+              positionClasses[position]
             )}
-          </AnimatePresence>
+            role="tooltip"
+          >
+            {content || "Tooltip content with glass morphism design and smooth animations."}
+
+            {/* Arrow */}
+            <div
+              className={cn(
+                "absolute w-0 h-0 border-4",
+                "border-white/20",
+                arrowClasses[position]
+              )}
+            />
+          </div>
         )}
       </div>
     );
