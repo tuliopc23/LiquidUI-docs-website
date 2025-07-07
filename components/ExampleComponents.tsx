@@ -28,7 +28,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-// Import LiqUIdify components from local implementation
+// Import LiqUIdify components from actual package
 import { LiquidifyLogo } from "./LiquidifyLogo";
 import {
   GlassButton,
@@ -41,7 +41,7 @@ import {
   GlassAvatar,
   GlassCheckbox,
   GlassSlider,
-} from "./GlassComponents";
+} from "liquidify";
 
 
 // Light mode wrapper component
@@ -91,7 +91,7 @@ export const ButtonSizes = () => (
     <GlassButton variant="secondary" size="lg">
       Large
     </GlassButton>
-    <GlassButton variant="secondary" size="icon">
+    <GlassButton variant="secondary" size="sm" className="p-2">
       <Settings className="w-4 h-4" />
     </GlassButton>
   </div>
@@ -676,9 +676,9 @@ export const FeatureShowcaseExamples = () => (
 export const AvatarExamples = () => (
   <LightModeShowcase>
     <div className="flex items-center space-x-4">
-      <GlassAvatar size="sm">JD</GlassAvatar>
-      <GlassAvatar size="md">AB</GlassAvatar>
-      <GlassAvatar size="lg">MK</GlassAvatar>
+      <GlassAvatar size="sm" fallback="JD" />
+      <GlassAvatar size="md" fallback="AB" />
+      <GlassAvatar size="lg" fallback="MK" />
       <GlassAvatar
         size="md"
         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
@@ -883,13 +883,15 @@ export const FormExamples = () => (
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
-        <GlassSelect>
-          <option>Select a country</option>
-          <option>United States</option>
-          <option>Canada</option>
-          <option>United Kingdom</option>
-          <option>Australia</option>
-        </GlassSelect>
+        <GlassSelect
+          options={[
+            { value: "", label: "Select a country" },
+            { value: "us", label: "United States" },
+            { value: "ca", label: "Canada" },
+            { value: "uk", label: "United Kingdom" },
+            { value: "au", label: "Australia" }
+          ]}
+        />
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
