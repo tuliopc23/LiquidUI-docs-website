@@ -8,18 +8,22 @@ export default function Document() {
         <meta name="theme-color" content="#3b82f6" />
         <meta name="color-scheme" content="dark light" />
         
-        {/* Preload critical fonts */}
-        <link 
-          rel="preload" 
-          href="/fonts/inter.woff2" 
-          as="font" 
-          type="font/woff2" 
-          crossOrigin="anonymous" 
-        />
-        
         {/* Banner height tracker script for SSR-safe positioning */}
         <script
           src="/scripts/banner-height-tracker.js"
+          defer
+        />
+        
+        
+        {/* Font loading check script - remove in production */}
+        <script
+          src="/scripts/font-loader-check.js"
+          defer
+        />
+        
+        {/* Runtime font fix script */}
+        <script
+          src="/scripts/font-fix-runtime.js"
           defer
         />
         

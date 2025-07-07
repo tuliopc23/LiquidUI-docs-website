@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from "react";
 import { motion, type Variants } from "framer-motion";
 // Tree-shaken lucide-react imports (destructured for better tree-shaking)
 import { Copy, Check, Code, Eye } from "lucide-react";
+import { useTheme } from "next-themes";
 import { LiquidifyLogo } from "./LiquidifyLogo";
 import { StorybookLogo } from "./StorybookLogo";
 
@@ -47,6 +48,8 @@ interface ComponentShowcaseProps {
   code?: string;
   /** Whether to show the code snippet by default. */
   showCode?: boolean;
+  /** Whether to force dark mode for the component preview (useful for liquidify components) */
+  forceDarkMode?: boolean;
 }
 
 /**
@@ -68,9 +71,14 @@ export function ComponentShowcase({
   description,
   code,
   showCode = false,
+  forceDarkMode = false,
 }: ComponentShowcaseProps) {
   const [copied, setCopied] = useState(false);
   const [isCodeVisible, setIsCodeVisible] = useState(showCode);
+  const { resolvedTheme } = useTheme();
+  
+  // Determine if we should use dark mode for the preview
+  const isDark = forceDarkMode || resolvedTheme === 'dark';
 
   const handleCopy = useCallback(async () => {
     if (!code) return;
@@ -110,8 +118,8 @@ export function ComponentShowcase({
       aria-label={ariaLabel}
     >
       {/* Animated background effect for better visibility */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-blue-900/20 opacity-100 transition-opacity duration-500" />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-transparent to-purple-100/30 dark:from-blue-400/10 dark:via-transparent dark:to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:bg-gradient-dark opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-transparent to-purple-100/30 dark:bg-gradient-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* Header */}
       {(title || description || code) && (
@@ -128,7 +136,7 @@ export function ComponentShowcase({
                 <div className="flex items-center gap-3">
                   <LiquidifyLogo size={24} />
                   <h3
-                    className="text-lg font-semibold text-gray-900 mb-1 hero-text"
+                    className="text-lg font-semibold text-foreground mb-1 hero-text"
                     id={`showcase-${title.replace(/\s+/g, "-").toLowerCase()}`}
                   >
                     {title}
@@ -136,7 +144,7 @@ export function ComponentShowcase({
                 </div>
               )}
               {description && (
-                <p className="text-sm text-gray-700 body-text mt-2">
+                <p className="text-sm text-muted-foreground body-text mt-2">
                   {description}
                 </p>
               )}
@@ -187,7 +195,7 @@ export function ComponentShowcase({
                       />
                     ) : (
                       <Copy
-                        className="w-4 h-4 text-gray-700"
+                        className="w-4 h-4 text-muted-foreground"
                         aria-hidden="true"
                       />
                     )}
@@ -218,14 +226,23 @@ export function ComponentShowcase({
           // Light mode: bright background for glass components to show
           "bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50",
           // Dark mode: darker but visible background
-          "dark:bg-gradient-to-br dark:from-gray-800 dark:via-gray-900 dark:to-gray-800",
+          "dark:bg-gradient-dark",
           className,
         )}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.4 }}
       >
-        {children}
+        {/* Wrapper for liquidify components to ensure proper dark mode support */}
+        <div className={cn(
+          "w-full flex flex-wrap gap-4 items-center justify-center",
+          // Force dark class for liquidify components when needed
+          isDark ? "dark" : "",
+          // Ensure liquidify components get proper background
+          "dark:bg-gray-900/50 rounded-2xl p-4"
+        )}>
+          {children}
+        </div>
       </motion.div>
 
       {/* Code section */}

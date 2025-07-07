@@ -9,7 +9,7 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-gray-900 py-12 sm:py-20 px-4 section-spacing">
 
       {/* Rounded gradient overlay container with responsive spacing */}
-      <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-gray-800/50 dark:to-transparent rounded-2xl sm:rounded-3xl" />
+      <div className="absolute inset-4 sm:inset-6 bg-gradient-to-br from-blue-50/50 to-transparent dark:bg-gradient-dark rounded-2xl sm:rounded-3xl" />
 
       {/* Floating Elements for visual depth */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

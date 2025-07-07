@@ -41,6 +41,10 @@ import {
   GlassAvatar,
   GlassCheckbox,
   GlassSlider,
+  GlassDropdown,
+  GlassTooltip,
+  GlassLoading,
+  GlassBadge,
 } from "liquidify";
 
 
@@ -58,30 +62,25 @@ const ThemeAwareShowcase = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-// Button Examples using actual LiqUIdify components
+// Button Examples using actual liquidify components
 export const ButtonVariants = () => (
-  <ThemeAwareShowcase>
-    <div className="flex flex-wrap gap-4">
-      <GlassButton variant="primary" size="md">
-        Primary
-      </GlassButton>
-      <GlassButton variant="secondary" size="md">
-        Secondary
-      </GlassButton>
-      <GlassButton variant="destructive" size="md">
-        Destructive
-      </GlassButton>
-      <GlassButton variant="secondary" size="md">
-        Secondary Alt
-      </GlassButton>
-      <GlassButton variant="ghost" size="md">
-        Ghost
-      </GlassButton>
-      <GlassButton variant="tertiary" size="md">
-        Tertiary
-      </GlassButton>
-    </div>
-  </ThemeAwareShowcase>
+  <div className="flex flex-wrap gap-4">
+    <GlassButton variant="primary" size="md">
+      Primary
+    </GlassButton>
+    <GlassButton variant="secondary" size="md">
+      Secondary
+    </GlassButton>
+    <GlassButton variant="destructive" size="md">
+      Destructive
+    </GlassButton>
+    <GlassButton variant="ghost" size="md">
+      Ghost
+    </GlassButton>
+    <GlassButton variant="tertiary" size="md">
+      Tertiary
+    </GlassButton>
+  </div>
 );
 
 export const ButtonSizes = () => (
@@ -184,10 +183,10 @@ export const InteractiveCard = () => (
 export const BadgeExamples = () => (
   <ThemeAwareShowcase>
     <div className="flex flex-wrap gap-3">
-      <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">Default</span>
+      <span className="glass-button px-3 py-1 rounded-full text-sm text-foreground border border-border/50 hover:scale-105 transition-all duration-200">Default</span>
       <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">Secondary</span>
-      <span className="px-3 py-1 rounded-full text-sm text-red-700 bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Destructive</span>
-      <span className="px-3 py-1 rounded-full text-sm text-gray-700 bg-transparent border border-gray-300 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Outline</span>
+      <span className="px-3 py-1 rounded-full text-sm text-red-700 dark:text-red-300 bg-red-100/80 dark:bg-red-900/30 border border-red-200 dark:border-red-800 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Destructive</span>
+      <span className="px-3 py-1 rounded-full text-sm text-foreground bg-transparent border border-border hover:scale-105 transition-all duration-200 backdrop-blur-sm">Outline</span>
     </div>
   </ThemeAwareShowcase>
 );
@@ -196,10 +195,10 @@ export const BadgeExamples = () => (
 export const InputExamples = () => (
   <ThemeAwareShowcase>
     <div className="space-y-4 max-w-md">
-      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Enter your email" type="email" />
-      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-border/30 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/50 text-foreground placeholder-muted-foreground" placeholder="Enter your email" type="email" />
+      <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-border/30 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/50 text-foreground placeholder-muted-foreground" placeholder="Search components..." type="search" />
       <div className="flex items-center space-x-2">
-        <input className="flex-1 px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Username" />
+        <input className="flex-1 px-4 py-3 liquid-glass rounded-2xl border border-border/30 focus:outline-none focus:ring-2 focus:ring-primary/60 focus:border-primary/50 text-foreground placeholder-muted-foreground" placeholder="Username" />
         <button className="px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
       </div>
     </div>
@@ -572,7 +571,7 @@ export const FooterExamples = () => (
 export const HeroExamples = () => (
   <div className="w-full space-y-8">
     <div className="liquid-glass rounded-3xl p-12 border border-blue-200/30 text-center relative overflow-hidden backdrop-blur-xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-green-50/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-green-50/80 dark:bg-gradient-dark"></div>
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-4">
           <LiquidifyLogo size={32} />
@@ -794,16 +793,112 @@ export const FloatingActionExamples = () => (
         </div>
 
         {/* Connection lines */}
-        <div className="absolute w-px h-8 bg-gradient-to-t from-blue-400/30 to-transparent -top-8"></div>
-        <div className="absolute w-8 h-px bg-gradient-to-l from-blue-400/30 to-transparent -left-8 top-1/2"></div>
-        <div className="absolute w-8 h-px bg-gradient-to-r from-blue-400/30 to-transparent -right-8 top-1/2"></div>
-        <div className="absolute w-px h-8 bg-gradient-to-b from-blue-400/30 to-transparent -bottom-8"></div>
+        <div className="absolute w-px h-8 bg-gradient-to-t from-blue-400/30 to-transparent dark:bg-gradient-dark -top-8"></div>
+        <div className="absolute w-8 h-px bg-gradient-to-l from-blue-400/30 to-transparent dark:bg-gradient-dark -left-8 top-1/2"></div>
+        <div className="absolute w-8 h-px bg-gradient-to-r from-blue-400/30 to-transparent dark:bg-gradient-dark -right-8 top-1/2"></div>
+        <div className="absolute w-px h-8 bg-gradient-to-b from-blue-400/30 to-transparent dark:bg-gradient-dark -bottom-8"></div>
       </div>
       <p className="text-center text-sm text-gray-600 mt-4 body-text">
         Hover to expand secondary actions
       </p>
     </div>
   </div>
+);
+
+// Dropdown Examples
+export const DropdownExamples = () => {
+  const dropdownItems = [
+    { label: 'Profile', value: 'profile' },
+    { label: 'Settings', value: 'settings' },
+    { label: 'Help', value: 'help' },
+    { label: 'Sign out', value: 'signout' },
+  ];
+
+  return (
+    <ThemeAwareShowcase>
+      <div className="space-y-4">
+        <GlassDropdown 
+          trigger={
+            <GlassButton variant="secondary" rightIcon={<MoreHorizontal className="w-4 h-4" />}>
+              Account Menu
+            </GlassButton>
+          }
+          items={dropdownItems}
+          onSelect={(value) => console.log('Selected:', value)}
+        />
+        
+        <GlassDropdown 
+          trigger={
+            <GlassButton variant="ghost" size="sm">
+              Quick Actions
+            </GlassButton>
+          }
+          items={[
+            { label: 'New File', value: 'new-file', icon: <FolderPlus className="w-4 h-4" /> },
+            { label: 'Upload', value: 'upload', icon: <Upload className="w-4 h-4" /> },
+            { label: 'Share', value: 'share', icon: <Share2 className="w-4 h-4" /> },
+          ]}
+          onSelect={(value) => console.log('Action:', value)}
+        />
+      </div>
+    </ThemeAwareShowcase>
+  );
+};
+
+// Badge Examples with new GlassBadge component
+export const NewBadgeExamples = () => (
+  <ThemeAwareShowcase>
+    <div className="flex flex-wrap gap-3">
+      <GlassBadge variant="default">Default</GlassBadge>
+      <GlassBadge variant="success">Success</GlassBadge>
+      <GlassBadge variant="warning">Warning</GlassBadge>
+      <GlassBadge variant="error">Error</GlassBadge>
+    </div>
+  </ThemeAwareShowcase>
+);
+
+// Tooltip Examples
+export const TooltipExamples = () => (
+  <ThemeAwareShowcase>
+    <div className="flex flex-wrap gap-4">
+      <GlassTooltip content="This is a helpful tooltip">
+        <GlassButton variant="secondary" leftIcon={<Settings className="w-4 h-4" />}>
+          Hover me
+        </GlassButton>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Delete this item permanently" position="top">
+        <GlassButton variant="destructive" size="sm">
+          <Trash2 className="w-4 h-4" />
+        </GlassButton>
+      </GlassTooltip>
+      
+      <GlassTooltip content="Add to favorites" position="bottom">
+        <GlassButton variant="ghost" size="sm">
+          <Heart className="w-4 h-4" />
+        </GlassButton>
+      </GlassTooltip>
+    </div>
+  </ThemeAwareShowcase>
+);
+
+// Loading Examples
+export const LoadingExamples = () => (
+  <ThemeAwareShowcase>
+    <div className="space-y-6">
+      <div className="flex items-center gap-4">
+        <GlassLoading size="sm" variant="spinner" />
+        <GlassLoading size="md" variant="dots" />
+        <GlassLoading size="lg" variant="pulse" />
+      </div>
+      
+      <GlassLoading size="md" variant="spinner" text="Loading components..." />
+      
+      <div className="w-full">
+        <GlassLoading size="lg" variant="bars" text="Processing your request..." />
+      </div>
+    </div>
+  </ThemeAwareShowcase>
 );
 
 // New Component Examples using actual GlassComponents

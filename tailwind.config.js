@@ -5,11 +5,11 @@ module.exports = {
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './theme.config.tsx',
         './styles/**/*.css',
-        // Only include specific LiquidiUI components if needed
-        // '../LiquidiUI/src/components/**/*.{js,ts,jsx,tsx}',
+        // Include liquidify components for proper class scanning
+        './node_modules/liquidify/**/*.{js,ts,jsx,tsx,mjs,cjs}',
     ],
     safelist: [
-        // Core Apple-inspired classes
+        // Core Apple-inspired classes (verified to exist in CSS)
         'apple-gradient',
         'apple-gradient-2', 
         'apple-gradient-3',
@@ -17,70 +17,53 @@ module.exports = {
         'ios-logo',
         'hero-text',
         'body-text',
-        'animate-liquid-morph',
         
-        // Glass effect classes
+        // Glass effect classes (verified to exist)
         'glass-card',
         'glass-button',
         'glass-button-primary',
         'liquid-glass',
         'glass-effect',
-        'glass-effect-light',
-        'glass-effect-strong',
-        'glass-nav',
         
-        // Background utilities
+        // Background utilities (verified to exist)
         'liquid-gradient-light',
         'liquid-gradient-dark',
         'bg-gradient-radial',
         'bg-gradient-conic',
         'bg-gradient-glass',
+        'bg-gradient-dark',
         'bg-shimmer',
         
-        // Animation classes
-        'animate-shimmer',
-        'animate-glass-expand',
+        // Animation classes (verified to exist)
         'animate-liquid-morph',
+        'animate-glass-float',
         'hover-lift',
         'hover-glow',
         'hover-scale',
         
-        // Text gradients
+        // Text gradients (verified to exist)
         'text-gradient',
         'text-gradient-primary',
         'text-gradient-rainbow',
         
-        // Layout utilities
+        // Layout utilities (verified to exist)
         'content-container',
         'full-bleed',
         'smooth-scroll',
         'scroll-padding',
         
-        // Nextra overrides
-        'nextra-nav-container',
-        'nextra-sidebar',
-        'nextra-content',
-        
-        // Color variants with opacity
-        { pattern: /bg-(white|black|gray|primary|secondary|accent)-\d+/ },
-        { pattern: /text-(white|black|gray|primary|secondary|accent)-\d+/ },
-        { pattern: /border-(white|black|gray|primary|secondary|accent)-\d+/ },
-        
-        // Dynamic RGB color usage - simplified pattern
-        'rgb-primary',
-        
-        // Dark mode variants - simplified
-        'dark:bg-gray-900',
-        'dark:text-white',
-        'dark:border-gray-700',
+        // Essential dynamic patterns only
+        { pattern: /bg-(primary|secondary|accent|muted)-\d+/ },
+        { pattern: /text-(primary|secondary|accent|muted)-\d+/ },
+        { pattern: /border-(primary|secondary|accent|muted)-\d+/ },
     ],
-    darkMode: ['class', '[data-theme="dark"]'],
+    darkMode: 'class', // Uses class strategy - aligned with next-themes ThemeProvider
     theme: {
         extend: {
             fontFamily: {
-                sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'system-ui', 'sans-serif'],
-                mono: ['SF Mono', 'JetBrains Mono', 'Consolas', 'monospace'],
-                heading: ['SF Pro Display', 'Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
+                sans: ['var(--font-inter)', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                mono: ['var(--font-jetbrains-mono)', 'SF Mono', 'Consolas', 'monospace'],
+                heading: ['var(--font-manrope)', 'var(--font-inter)', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
             },
             fontSize: {
                 '2xs': ['0.75rem', { lineHeight: '1rem' }],
@@ -448,6 +431,9 @@ module.exports = {
                 '.bg-shimmer': {
                     backgroundImage: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
                     backgroundSize: '200% 100%',
+                },
+                '.bg-gradient-dark': {
+                    backgroundImage: 'linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4))',
                 },
 
                 // Interactive States

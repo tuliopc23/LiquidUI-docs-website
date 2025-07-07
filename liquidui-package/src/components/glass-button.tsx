@@ -14,13 +14,13 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
     ...props
 }) => {
     const variants = {
-        default: "bg-white/10 hover:bg-white/20 text-gray-900 border-white/20",
-        primary: "bg-blue-500/20 hover:bg-blue-500/30 text-blue-700 border-blue-300/30 hover:border-blue-300/50",
-        secondary: "bg-gray-500/10 hover:bg-gray-500/20 text-gray-700 border-gray-300/20",
-        destructive: "bg-red-500/20 hover:bg-red-500/30 text-red-700 border-red-300/30",
-        ghost: "bg-transparent hover:bg-white/10 text-gray-700 border-transparent hover:border-white/20",
-        link: "bg-transparent hover:bg-blue-50/50 text-blue-600 hover:text-blue-700 border-transparent underline-offset-4 hover:underline",
-        tertiary: "bg-green-500/10 hover:bg-green-500/20 text-green-700 border-green-300/20 hover:border-green-300/40"
+        default: "bg-background/10 hover:bg-background/20 text-foreground border-border/20 dark:bg-white/10 dark:hover:bg-white/20",
+        primary: "bg-primary/20 hover:bg-primary/30 text-primary-foreground border-primary/30 hover:border-primary/50",
+        secondary: "bg-secondary/10 hover:bg-secondary/20 text-secondary-foreground border-border/20",
+        destructive: "bg-destructive/20 hover:bg-destructive/30 text-destructive-foreground border-destructive/30",
+        ghost: "bg-transparent hover:bg-background/10 text-foreground border-transparent hover:border-border/20",
+        link: "bg-transparent hover:bg-accent/10 text-accent-foreground hover:text-accent border-transparent underline-offset-4 hover:underline",
+        tertiary: "bg-green-500/10 hover:bg-green-500/20 text-green-700 dark:text-green-300 border-green-300/20 dark:border-green-700/30 hover:border-green-300/40"
     };
 
     const sizes = {

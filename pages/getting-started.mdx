@@ -3,8 +3,10 @@ title: Getting Started
 ---
 
 import { ComponentShowcase } from "../components/ComponentShowcase";
+import { LiquidifyButtonShowcase, LiquidifyCardShowcase } from "../components/LiquidifyShowcaseExamples";
 import { motion } from "framer-motion";
 import { Package, Download, Code, Rocket, CheckCircle } from "lucide-react";
+import { GlassButton, GlassCard, GlassCardContent, GlassCardHeader, GlassCardTitle, GlassCardDescription } from "liquidify";
 
 # Getting Started
 
@@ -105,7 +107,7 @@ Let's create your first LiqUIdify component:
 
 <ComponentShowcase
   title="Your First LiqUIdify Component"
-  description="A simple button with glassmorphism effect"
+  description="A simple button with glassmorphism effect - this is using the REAL liquidify component from npm!"
   code={`import { GlassButton } from 'liquidify'
 
 function MyComponent() {
@@ -116,13 +118,9 @@ function MyComponent() {
   )
 }`}
 >
-  <div className="liquid-glass rounded-2xl p-6 border border-white/20 backdrop-blur-xl">
-    <div className="flex items-center justify-center">
-      <button className="glass-button-primary px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300" onClick={() => alert('Hello LiquidUI!')}>
-        Click me!
-      </button>
-    </div>
-  </div>
+  <GlassButton variant="primary" size="md" onClick={() => alert('Hello from real liquidify component!')}>
+    Click me!
+  </GlassButton>
 </ComponentShowcase>
 
 ## Basic Example
@@ -130,39 +128,41 @@ function MyComponent() {
 Here's a more complete example showing multiple components:
 
 <ComponentShowcase
-  title="Complete Example"
-  description="Card with button and content"
-  code={`import { GlassCard, GlassButton, GlassBadge } from 'liquidify'
+  title="Complete Example with Real Components"
+  description="Card with button and content - using actual liquidify components!"
+  code={`import { GlassCard, GlassCardHeader, GlassCardContent, GlassCardTitle, GlassCardDescription, GlassButton } from 'liquidify'
 
 function WelcomeCard() {
   return (
-    <GlassCard className="p-6 max-w-md">
-      <div className="space-y-4">
-        <GlassBadge>New Feature</GlassBadge>
-        <h3 className="text-xl font-semibold">Welcome to LiquidiUI</h3>
-        <p className="text-muted-foreground">
+    <GlassCard className="max-w-md">
+      <GlassCardHeader>
+        <GlassCardTitle>Welcome to LiqUIdify</GlassCardTitle>
+        <GlassCardDescription>
           Experience the future of React components with physics-based interactions.
-        </p>
-        <GlassButton className="w-full">
+        </GlassCardDescription>
+      </GlassCardHeader>
+      <GlassCardContent>
+        <GlassButton variant="primary" className="w-full">
           Get Started
         </GlassButton>
-      </div>
+      </GlassCardContent>
     </GlassCard>
   )
 }`}
 >
-  <div className="liquid-glass rounded-3xl p-6 max-w-md border border-white/20 backdrop-blur-xl">
-    <div className="space-y-4">
-      <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white">New Feature</span>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Welcome to LiqUIdify</h3>
-      <p className="text-gray-600 dark:text-gray-300">
+  <GlassCard className="max-w-md">
+    <GlassCardHeader>
+      <GlassCardTitle>Welcome to LiqUIdify</GlassCardTitle>
+      <GlassCardDescription>
         Experience the future of React components with physics-based interactions.
-      </p>
-      <button className="glass-button-primary w-full px-6 py-3 rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">
+      </GlassCardDescription>
+    </GlassCardHeader>
+    <GlassCardContent>
+      <GlassButton variant="primary" className="w-full">
         Get Started
-      </button>
-    </div>
-  </div>
+      </GlassButton>
+    </GlassCardContent>
+  </GlassCard>
 </ComponentShowcase>
 
 ## Key Features
@@ -207,6 +207,18 @@ function MyButton({ customProp, ...props }: MyButtonProps) {
   return <GlassButton {...props} />
 }
 ```
+
+## More Component Examples
+
+Explore more liquidify components with proper dark mode support:
+
+### Button Variations
+
+<LiquidifyButtonShowcase />
+
+### Card Variations
+
+<LiquidifyCardShowcase />
 
 ## Performance
 

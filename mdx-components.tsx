@@ -50,27 +50,8 @@ const customComponents: MDXComponents = {
     return <p {...props}>{children}</p>
   },
   
-  // Enhanced headings with emoji processing
-  h1: ({ children, ...props }) => {
-    if (typeof children === 'string') {
-      return <h1 {...props}>{processEmojiText(children)}</h1>
-    }
-    return <h1 {...props}>{children}</h1>
-  },
-  
-  h2: ({ children, ...props }) => {
-    if (typeof children === 'string') {
-      return <h2 {...props}>{processEmojiText(children)}</h2>
-    }
-    return <h2 {...props}>{children}</h2>
-  },
-  
-  h3: ({ children, ...props }) => {
-    if (typeof children === 'string') {
-      return <h3 {...props}>{processEmojiText(children)}</h3>
-    }
-    return <h3 {...props}>{children}</h3>
-  },
+  // Let Nextra handle headings, only process emoji in text content
+  // Remove h1, h2, h3 overrides to avoid typography conflicts
   
   // Enhanced list items with emoji processing
   li: ({ children, ...props }) => {

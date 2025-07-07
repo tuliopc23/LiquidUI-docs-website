@@ -114,14 +114,17 @@ describe('ComponentShowcase', () => {
   it('applies custom className when provided', () => {
     const customClass = 'custom-showcase-class'
     
-    render(
+    const { container } = render(
       <ComponentShowcase className={customClass}>
         <div>Content</div>
       </ComponentShowcase>
     )
     
-    const showcase = screen.getByRole('region')
-    expect(showcase).toHaveClass(customClass)
+    // The custom className is applied to the showcase area motion.div
+    // Find the element with both the standard classes and custom class
+    const showcaseArea = container.querySelector(`.${customClass}`)
+    expect(showcaseArea).toBeInTheDocument()
+    expect(showcaseArea).toHaveClass('relative', 'z-10', customClass)
   })
 
   it('has proper accessibility attributes', () => {
@@ -151,7 +154,7 @@ describe('ComponentShowcase', () => {
     fireEvent.click(copyButton)
     
     await waitFor(() => {
-      expect(screen.getByText(/copied/i)).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /code copied to clipboard/i })).toBeInTheDocument()
     })
   })
 })
