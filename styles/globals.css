@@ -1,6 +1,6 @@
-@import url('tailwindcss/base');
-@import url('tailwindcss/components');
-@import url('tailwindcss/utilities');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('./nav.css');
 @import url('./nextra-typography.css');
 
