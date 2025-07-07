@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Palette, Download, RotateCcw, Eye, Code2, Sliders } from 'lucide-react';
-import { cn } from 'liquidify';
+import { cn } from '../lib/liquidify-utils';
 
 interface ThemeConfig {
   primary: string;

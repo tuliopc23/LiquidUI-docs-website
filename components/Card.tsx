@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "liquidify";
+import { cn } from '../lib/liquidify-utils';
 import { glassEffect, cardPadding } from "./utils/classNames";
 
 /**

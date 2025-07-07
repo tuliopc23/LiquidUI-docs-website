@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { cn } from "liquidify";
+import { cn } from '../lib/liquidify-utils';
 import { ViewportMotion } from './PerformanceOptimizer';
 
 // Temporary local implementations until package exports are fixed

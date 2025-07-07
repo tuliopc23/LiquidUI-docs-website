@@ -26,6 +26,17 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  // Custom webpack config for optimization
+  webpack: (config, { isServer }) => {
+    // Tree-shaking optimizations
+    config.optimization = {
+      ...config.optimization,
+      usedExports: true,
+      sideEffects: false,
+    };
+    
+    return config;
+  },
   // Stable Turbopack configuration
   turbopack: {
     rules: {
@@ -43,6 +54,20 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   async headers() {
     return [

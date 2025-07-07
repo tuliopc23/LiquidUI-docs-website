@@ -1,0 +1,61 @@
+version: 2
+updates:
+  # NPM dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "npm"
+    assignees:
+      - "tuliopc23"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react*"
+      next:
+        patterns:
+          - "next"
+          - "@next/*"
+      testing:
+        patterns:
+          - "jest*"
+          - "@testing-library/*"
+          - "@playwright/*"
+          - "@types/jest"
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@typescript-eslint/*"
+      styling:
+        patterns:
+          - "tailwindcss"
+          - "autoprefixer" 
+          - "postcss*"
+          - "@tailwindcss/*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"
+    assignees:
+      - "tuliopc23"
+    commit-message:
+      prefix: "ci"
+      include: "scope"

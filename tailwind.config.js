@@ -120,9 +120,10 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-                mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', 'monospace'],
-                display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                // Use CSS variables with comprehensive fallback stacks
+                sans: ['var(--font-inter)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
+                mono: ['var(--font-jetbrains-mono)', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Courier New', 'monospace'],
+                display: ['var(--font-inter)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', 'Arial', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'],
             },
             fontSize: {
                 // Base scale
@@ -134,7 +135,8 @@ module.exports = {
                 '7xl': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
                 '8xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
 
-                // Dramatic Display Type Scale (Fluid & Bold)
+                // Centralized Typography Scale - Using CSS Variables
+                // Display Scale (For hero sections and large headings)
                 'display-5xl': ['var(--display-5xl)', { lineHeight: '0.9', letterSpacing: 'var(--display-tracking-tightest)', fontWeight: 'var(--display-weight-black)' }],
                 'display-4xl': ['var(--display-4xl)', { lineHeight: '0.95', letterSpacing: 'var(--display-tracking-tighter)', fontWeight: 'var(--display-weight-extrabold)' }],
                 'display-3xl': ['var(--display-3xl)', { lineHeight: '1.0', letterSpacing: 'var(--display-tracking-tighter)', fontWeight: 'var(--display-weight-extrabold)' }],
@@ -144,20 +146,23 @@ module.exports = {
                 'display-md': ['var(--display-md)', { lineHeight: '1.15', letterSpacing: 'var(--display-tracking-normal)', fontWeight: 'var(--display-weight-bold)' }],
                 'display-sm': ['var(--display-sm)', { lineHeight: '1.2', letterSpacing: 'var(--display-tracking-normal)', fontWeight: 'var(--display-weight-bold)' }],
 
-                // Subtitle Type Scale (Pairs well with display)
+                // Title/Subtitle Scale (For section headings and subheadings)
                 'subtitle-2xl': ['var(--subtitle-2xl)', { lineHeight: '1.3', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '600' }],
                 'subtitle-xl': ['var(--subtitle-xl)', { lineHeight: '1.4', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '600' }],
                 'subtitle-lg': ['var(--subtitle-lg)', { lineHeight: '1.4', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
                 'subtitle-md': ['var(--subtitle-md)', { lineHeight: '1.5', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
                 'subtitle-sm': ['var(--subtitle-sm)', { lineHeight: '1.5', letterSpacing: 'var(--subtitle-tracking)', fontWeight: '500' }],
 
-                // Body Type Scale (Readable & Fluid)
+                // Body Scale (For readable content and paragraphs)
                 'body-2xl': ['var(--body-2xl)', { lineHeight: '1.5', letterSpacing: 'var(--body-tracking-tight)', fontWeight: '400' }],
                 'body-xl': ['var(--body-xl)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-tight)', fontWeight: '400' }],
                 'body-lg': ['var(--body-lg)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-normal)', fontWeight: '400' }],
                 'body-md': ['var(--body-md)', { lineHeight: '1.65', letterSpacing: 'var(--body-tracking-normal)', fontWeight: '400' }],
                 'body-sm': ['var(--body-sm)', { lineHeight: '1.6', letterSpacing: 'var(--body-tracking-relaxed)', fontWeight: '400' }],
                 'body-xs': ['var(--body-xs)', { lineHeight: '1.5', letterSpacing: 'var(--body-tracking-relaxed)', fontWeight: '400' }],
+
+                // Caption Scale (For small text, metadata, and labels)
+                'caption': ['var(--body-xs)', { lineHeight: '1.4', letterSpacing: '0.025em', fontWeight: '500', textTransform: 'uppercase' }],
 
                 // Semantic headline scale (h1-h6)
                 'h1': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.025em', fontWeight: '800' }],
