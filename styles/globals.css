@@ -199,37 +199,53 @@
     --input: 0 0% 95%;
     --ring: 204 100% 50%;
 
-    /* Light theme glass adjustments */
-    --glass-opacity: 0.12;
-    --glass-border-opacity: 0.25;
+    /* Enhanced light theme glass effects */
+    --glass-opacity: 0.15;
+    --glass-border-opacity: 0.3;
+    --glass-shadow-color: 31 38 135;
+    --glass-highlight: 255 255 255;
+    --glass-blur-strength: 16px;
+    
+    /* Light liquid glass gradients */
+    --light-glass-primary: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+    --light-glass-secondary: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+    --light-glass-accent: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(147, 51, 234, 0.04));
 }
 
 .dark {
-    /* Apple-inspired Color System - Dark Mode */
-    --background: 0 0% 8%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 11%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 100%;
+    /* Apple-inspired Color System - Dark Mode Enhanced */
+    --background: 220 15% 6%;
+    --foreground: 210 8% 96%;
+    --card: 222 14% 11%;
+    --card-foreground: 210 8% 96%;
+    --popover: 220 15% 12%;
+    --popover-foreground: 210 8% 96%;
     --primary: 210 100% 56%;
     --primary-rgb: 10 132 255;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    --primary-foreground: 210 8% 96%;
+    --secondary: 217 15% 18%;
+    --secondary-foreground: 210 8% 90%;
+    --muted: 217 15% 15%;
+    --muted-foreground: 215 8% 70%;
     --accent: 210 100% 56%;
-    --accent-foreground: 0 0% 100%;
+    --accent-foreground: 210 8% 96%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 22%;
-    --input: 0 0% 18%;
+    --destructive-foreground: 210 8% 96%;
+    --border: 217 15% 25%;
+    --input: 217 15% 20%;
     --ring: 204 100% 50%;
 
-    /* Dark theme glass adjustments */
-    --glass-opacity: 0.05;
-    --glass-border-opacity: 0.1;
+    /* Enhanced dark theme glass effects */
+    --glass-opacity: 0.12;
+    --glass-border-opacity: 0.25;
+    --glass-shadow-color: 0 0 0;
+    --glass-highlight: 255 255 255;
+    --glass-blur-strength: 16px;
+    
+    /* Dark liquid glass gradients */
+    --dark-glass-primary: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    --dark-glass-secondary: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(59, 130, 246, 0.08));
+    --dark-glass-accent: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(147, 51, 234, 0.06));
 }
 
 * {
@@ -270,28 +286,34 @@ body[data-theme="dark"] {
 @layer components {
     .glass-card {
         @apply backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        background: var(--light-glass-primary);
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.15), 
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.2);
     }
 
     .dark .glass-card {
-        background: rgba(30, 30, 30, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--dark-glass-primary);
+        backdrop-filter: blur(var(--glass-blur-strength));
+        -webkit-backdrop-filter: blur(var(--glass-blur-strength));
+        border: 1px solid rgba(var(--glass-highlight), var(--glass-border-opacity));
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.2), 
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.1);
     }
 
     .glass-button {
         @apply backdrop-blur-lg border border-white/30 rounded-2xl shadow-lg relative overflow-hidden;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
-        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        background: var(--light-glass-primary);
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.37),
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.25);
         transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         will-change: transform, box-shadow, filter;
     }
 
     .dark .glass-button {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        background: var(--dark-glass-primary);
+        border: 1px solid rgba(var(--glass-highlight), var(--glass-border-opacity));
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.3),
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.08);
     }
 
     .glass-button::before {
@@ -350,16 +372,18 @@ body[data-theme="dark"] {
 
     .liquid-glass {
         @apply backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl transition-all duration-300;
-        background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.05));
+        background: var(--light-glass-secondary);
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.15),
+                    0 2px 16px rgba(59, 130, 246, 0.08),
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.2);
     }
 
     .dark .liquid-glass {
-        background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.05),
-                rgba(255, 255, 255, 0.02));
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: var(--dark-glass-secondary);
+        border: 1px solid rgba(var(--glass-highlight), var(--glass-border-opacity));
+        box-shadow: 0 8px 32px rgba(var(--glass-shadow-color), 0.2),
+                    0 2px 16px rgba(99, 102, 241, 0.1),
+                    inset 0 1px 0 rgba(var(--glass-highlight), 0.12);
     }
 
     .liquid-glass::before {

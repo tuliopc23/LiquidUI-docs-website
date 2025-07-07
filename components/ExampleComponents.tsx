@@ -44,19 +44,23 @@ import {
 } from "liquidify";
 
 
-// Light mode wrapper component
-const LightModeShowcase = ({ children }: { children: React.ReactNode }) => (
-  <div className="min-h-[200px] p-6 rounded-3xl bg-gradient-to-br from-blue-50 via-white to-green-50 border border-blue-200/50 relative overflow-hidden">
-    {/* Background decoration */}
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.1),transparent_50%)] pointer-events-none"></div>
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.1),transparent_50%)] pointer-events-none"></div>
+// Theme-aware showcase wrapper component
+const ThemeAwareShowcase = ({ children }: { children: React.ReactNode }) => (
+  <div className="min-h-[200px] p-6 rounded-3xl bg-gradient-to-br from-blue-50/60 via-white/90 to-green-50/60 dark:from-slate-900/60 dark:via-slate-800/70 dark:to-blue-950/50 border border-blue-200/50 dark:border-slate-700/40 relative overflow-hidden backdrop-blur-xl shadow-xl">
+    {/* Background decoration - Light mode */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.08),transparent_50%)] dark:bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.15),transparent_50%)] pointer-events-none"></div>
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.08),transparent_50%)] dark:bg-[radial-gradient(circle_at_70%_80%,rgba(34,197,94,0.12),transparent_50%)] pointer-events-none"></div>
+    
+    {/* Glass effect overlay */}
+    <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-transparent to-white/10 dark:from-white/5 dark:via-transparent dark:to-white/3 pointer-events-none rounded-3xl"></div>
+    
     <div className="relative z-10">{children}</div>
   </div>
 );
 
 // Button Examples using actual LiqUIdify components
 export const ButtonVariants = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="flex flex-wrap gap-4">
       <GlassButton variant="primary" size="md">
         Primary
@@ -77,7 +81,7 @@ export const ButtonVariants = () => (
         Tertiary
       </GlassButton>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 export const ButtonSizes = () => (
@@ -178,19 +182,19 @@ export const InteractiveCard = () => (
 
 // Badge Examples
 export const BadgeExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="flex flex-wrap gap-3">
       <span className="glass-button px-3 py-1 rounded-full text-sm text-gray-700 border border-gray-200/50 hover:scale-105 transition-all duration-200">Default</span>
       <span className="glass-button-primary px-3 py-1 rounded-full text-sm text-white hover:scale-105 transition-all duration-200">Secondary</span>
       <span className="px-3 py-1 rounded-full text-sm text-red-700 bg-red-100/80 border border-red-200 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Destructive</span>
       <span className="px-3 py-1 rounded-full text-sm text-gray-700 bg-transparent border border-gray-300 hover:scale-105 transition-all duration-200 backdrop-blur-sm">Outline</span>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Input Examples
 export const InputExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-4 max-w-md">
       <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Enter your email" type="email" />
       <input className="w-full px-4 py-3 liquid-glass rounded-2xl border border-blue-200/30 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-400/50 text-gray-900 placeholder-gray-500" placeholder="Search components..." type="search" />
@@ -199,12 +203,12 @@ export const InputExamples = () => (
         <button className="px-4 py-3 glass-button-primary rounded-2xl text-white font-medium hover:scale-105 transition-all duration-300">Submit</button>
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Progress Examples
 export const ProgressExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-6 max-w-md">
       <div>
         <div className="flex justify-between text-sm mb-2 text-gray-700">
@@ -228,12 +232,12 @@ export const ProgressExamples = () => (
         <GlassProgress value={100} showValue={false} />
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Switch Examples
 export const SwitchExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
         <div className="relative inline-flex h-6 w-11 items-center rounded-full liquid-glass border border-blue-200/30 transition-colors focus-within:ring-2 focus-within:ring-blue-500/60">
@@ -254,7 +258,7 @@ export const SwitchExamples = () => (
         </label>
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 export const CardWithActions = () => (
@@ -674,7 +678,7 @@ export const FeatureShowcaseExamples = () => (
 
 // Avatar Examples
 export const AvatarExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="flex items-center space-x-4">
       <GlassAvatar size="sm" fallback="JD" />
       <GlassAvatar size="md" fallback="AB" />
@@ -685,7 +689,7 @@ export const AvatarExamples = () => (
         alt="User avatar"
       />
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 
@@ -806,7 +810,7 @@ export const FloatingActionExamples = () => (
 
 // Switch Examples  
 export const NewSwitchExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-6 max-w-sm">
       <div className="flex items-center justify-between">
         <span className="text-sm text-gray-700">Enable notifications</span>
@@ -821,12 +825,12 @@ export const NewSwitchExamples = () => (
         <GlassSwitch checked={false} disabled={true} />
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Checkbox Examples
 export const CheckboxExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-4 max-w-sm">
       <div className="flex items-center space-x-3">
         <GlassCheckbox checked={true} />
@@ -841,12 +845,12 @@ export const CheckboxExamples = () => (
         <span className="text-sm text-gray-400">Disabled option</span>
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Slider Examples
 export const SliderExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-6 max-w-sm">
       <div>
         <div className="flex justify-between text-sm mb-2 text-gray-700">
@@ -870,12 +874,12 @@ export const SliderExamples = () => (
         <GlassSlider value={22} min={16} max={30} />
       </div>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
 
 // Comprehensive Form Example
 export const FormExamples = () => (
-  <LightModeShowcase>
+  <ThemeAwareShowcase>
     <div className="space-y-4 max-w-md">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
@@ -905,5 +909,5 @@ export const FormExamples = () => (
         Submit Form
       </GlassButton>
     </div>
-  </LightModeShowcase>
+  </ThemeAwareShowcase>
 );
