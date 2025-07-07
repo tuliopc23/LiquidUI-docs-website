@@ -250,6 +250,11 @@
     --light-glass-primary: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
     --light-glass-secondary: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
     --light-glass-accent: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(147, 51, 234, 0.04));
+    
+    /* Banner and layout variables */
+    --banner-height: 0px;
+    --navbar-height: 64px;
+    --total-header-height: calc(var(--banner-height) + var(--navbar-height));
 }
 
 .dark {
@@ -658,12 +663,7 @@ body[data-theme="dark"] {
     animation: liquid-morph 8s ease-in-out infinite;
 }
 
-/* Banner height CSS custom property for SSR-safe calculations */
-:root {
-    --banner-height: 0px;
-    --navbar-height: 64px;
-    --total-header-height: calc(var(--banner-height) + var(--navbar-height));
-}
+/* Banner height CSS custom properties moved to main :root declaration */
 
 /* Banner positioning fixes */
 .nx-banner,
