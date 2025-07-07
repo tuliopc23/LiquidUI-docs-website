@@ -16,14 +16,16 @@
     }
 
     body {
-        @apply font-sans;
+        font-family: var(--font-body);
         /* Full white background in light mode, black background in dark mode */
         background: hsl(var(--background)) !important;
         color: hsl(var(--foreground));
     }
 
     h1 {
-        @apply font-heading font-bold tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-5xl);
         line-height: var(--leading-tight);
@@ -31,7 +33,9 @@
     }
     
     h2 {
-        @apply font-heading font-bold tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-4xl);
         line-height: var(--leading-tight);
@@ -40,7 +44,9 @@
     }
     
     h3 {
-        @apply font-heading font-semibold tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-3xl);
         line-height: var(--leading-snug);
@@ -49,7 +55,9 @@
     }
     
     h4 {
-        @apply font-heading font-semibold tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 600;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-2xl);
         line-height: var(--leading-snug);
@@ -58,7 +66,9 @@
     }
     
     h5 {
-        @apply font-heading font-medium tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 500;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-xl);
         line-height: var(--leading-normal);
@@ -67,7 +77,9 @@
     }
     
     h6 {
-        @apply font-heading font-medium tracking-tight;
+        font-family: var(--font-heading);
+        font-weight: 500;
+        letter-spacing: -0.025em;
         color: hsl(var(--foreground));
         font-size: var(--text-lg);
         line-height: var(--leading-normal);
@@ -106,8 +118,36 @@
 }
 
 :root {
-    /* Apple-inspired Color System - Dark Mode Default */
-    --background: 0 0% 8%;
+    /* Typography System */
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'JetBrains Mono', 'Consolas', monospace;
+    --font-heading: 'SF Pro Display', 'Cal Sans', 'Inter', system-ui, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+    --text-8xl: 6rem;
+    
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
+    
+    /* Apple-inspired Color System - Light Mode Default */
+    --background: 0 0% 100%;
     --foreground: 0 0% 98%;
     --card: 0 0% 11%;
     --card-foreground: 0 0% 100%;
@@ -466,23 +506,32 @@ body[data-theme="dark"] {
 
     /* Enhanced typography with better readability */
     .hero-text {
+        font-family: var(--font-heading);
         font-weight: 800;
         letter-spacing: -0.03em;
         line-height: var(--leading-tight);
         font-size: clamp(2.5rem, 5vw, 4rem);
         margin-bottom: 1.5rem;
-        text-wrap: balance;
     }
-
+    
     .body-text {
+        font-family: var(--font-body);
         font-weight: 400;
         line-height: var(--leading-relaxed);
-        letter-spacing: -0.005em;
-        font-size: var(--text-lg);
-        text-wrap: pretty;
+        color: hsl(var(--foreground));
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        text-wrap: balance;
     }
     
     .subtitle-text {
+        font-family: var(--font-body);
         font-weight: 500;
         line-height: var(--leading-normal);
         font-size: var(--text-xl);
@@ -492,6 +541,7 @@ body[data-theme="dark"] {
     }
     
     .caption-text {
+        font-family: var(--font-body);
         font-weight: 500;
         line-height: var(--leading-normal);
         font-size: var(--text-sm);

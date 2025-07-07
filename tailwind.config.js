@@ -406,53 +406,13 @@ module.exports = {
         require('@tailwindcss/typography'),
         function ({ addUtilities, addComponents, theme }) {
             const newUtilities = {
-                // Enhanced Glass Effects
+                // Enhanced Glass Effects (minimal, main definitions in globals.css)
                 '.glass-effect': {
                     background: 'rgba(255, 255, 255, var(--glass-opacity, 0.05))',
                     backdropFilter: 'blur(var(--glass-blur, 20px))',
                     WebkitBackdropFilter: 'blur(var(--glass-blur, 20px))',
                     border: '1px solid rgba(255, 255, 255, var(--glass-border-opacity, 0.1))',
                     boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-                },
-                '.glass-effect-light': {
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(15px)',
-                    WebkitBackdropFilter: 'blur(15px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)',
-                },
-                '.glass-effect-strong': {
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    backdropFilter: 'blur(30px)',
-                    WebkitBackdropFilter: 'blur(30px)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    boxShadow: '0 12px 48px 0 rgba(31, 38, 135, 0.5)',
-                },
-                '.glass-card': {
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)',
-                },
-                '.glass-nav': {
-                    background: 'rgba(255, 255, 255, 0.08)',
-                    backdropFilter: 'blur(25px)',
-                    WebkitBackdropFilter: 'blur(25px)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                },
-                '.glass-button': {
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
-                },
-                '.glass-button:hover': {
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    borderColor: 'rgba(255, 255, 255, 0.3)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 12px 24px rgba(31, 38, 135, 0.3)',
                 },
 
                 // Text Gradients

@@ -26,14 +26,6 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  turbopack: {
-    rules: {
-      '*.svg': {
-        loaders: ['@svgr/webpack'],
-        as: '*.js',
-      },
-    },
-  },
   transpilePackages: ["liquidify"],
   images: {
     formats: ["image/webp", "image/avif"],
@@ -99,61 +91,20 @@ const nextConfig = {
   trailingSlash: false,
   
   
-  // Enhanced bundle optimization
+  // Webpack configuration (used when Turbopack is not active)
   webpack: (config, { dev, isServer }) => {
-    // Production optimizations
-    if (!dev && !isServer) {
-      config.optimization = {
-        ...config.optimization,
-        moduleIds: 'deterministic',
-        splitChunks: {
-          ...config.optimization.splitChunks,
-          cacheGroups: {
-            ...config.optimization.splitChunks.cacheGroups,
-            // Framework chunk for React/Next.js
-            framework: {
-              chunks: 'all',
-              name: 'framework',
-              test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types)[\\/]/,
-              priority: 40,
-              enforce: true,
-            },
-            // Large libraries chunk
-            lib: {
-              test: /[\\/]node_modules[\\/]/,
-              name: 'lib',
-              priority: 30,
-              chunks: 'all',
-              enforce: true,
-            },
-            // Common components
-            commons: {
-              name: "commons",
-              chunks: "all",
-              minChunks: 2,
-              priority: 20,
-            },
-            // Shared utilities
-            shared: {
-              name: 'shared',
-              chunks: 'all',
-              minChunks: 2,
-              priority: 10,
-            },
-          },
-        },
-      };
-    }
-    
     // SVG optimization
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
     
-    // Tree shaking optimization
-    config.optimization.usedExports = true;
-    config.optimization.sideEffects = false;
+    // Production optimizations for webpack builds
+    if (!dev && !isServer) {
+      config.optimization.usedExports = true;
+      config.optimization.sideEffects = false;
+      config.optimization.moduleIds = 'deterministic';
+    }
     
     return config;
   },
