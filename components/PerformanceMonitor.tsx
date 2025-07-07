@@ -65,7 +65,7 @@ export function PerformanceMonitor({
     try {
       observer.observe({ entryTypes: ['paint', 'largest-contentful-paint', 'first-input', 'layout-shift'] });
     } catch {
-      console.warn('Performance observer not fully supported');
+      // console.warn('Performance observer not fully supported');
     }
 
     // Navigation timing for TTFB
