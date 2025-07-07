@@ -67,8 +67,8 @@ export function ComponentShowcase({
       await navigator.clipboard.writeText(code);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      // console.warn('Failed to copy to clipboard:', error);
+    } catch {
+      // Failed to copy to clipboard - fallback below
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
       textArea.value = code;

@@ -33,6 +33,7 @@ export function WebVitalsMonitor() {
 
     // Dynamically import web-vitals only in production
     import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const sendToAnalytics = (metric: WebVitalsMetric) => {
         // Log to console in development, send to analytics in production
         // console.log('📊 Web Vitals:', {
