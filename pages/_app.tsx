@@ -8,10 +8,8 @@ import { WebVitalsMonitor } from '../components/WebVitalsMonitor'
 import ErrorBoundary from '../components/ErrorBoundary'
 
 function AppContent({ Component, pageProps }: AppProps) {
-    // Temporarily disable performance optimization in development
-    if (process.env.NODE_ENV !== 'development') {
-        usePerformanceOptimization();
-    }
+    // Always call the hook, but let the hook itself handle development mode
+    usePerformanceOptimization();
 
     return (
         <ThemeProvider

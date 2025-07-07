@@ -26,9 +26,9 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     scrollRestoration: true,
-    instrumentationHook: true, // Required for Sentry
-    serverComponentsExternalPackages: ['@sentry/profiling-node'], // For profiling
   },
+  // Moved from experimental as per Next.js 15 requirements
+  serverExternalPackages: ['@sentry/profiling-node'],
   transpilePackages: ["liquidify"],
   images: {
     formats: ["image/webp", "image/avif"],
