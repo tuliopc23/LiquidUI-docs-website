@@ -1,3 +1,4 @@
+const { withSentryConfig } = require('@sentry/nextjs');
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
@@ -25,6 +26,8 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     scrollRestoration: true,
+    instrumentationHook: true, // Required for Sentry
+    serverComponentsExternalPackages: ['@sentry/profiling-node'], // For profiling
   },
   transpilePackages: ["liquidify"],
   images: {
@@ -110,4 +113,38 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withNextra(nextConfig));
+// Apply configurations in order: Nextra -> Bundle Analyzer -> Sentry
+module.exports = withSentryConfig(
+  withBundleAnalyzer(withNextra(nextConfig)),
+  {
+    // Sentry webpack plugin options
+    org: process.env.SENTRY_ORG,
+    project: process.env.SENTRY_PROJECT,
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+    
+    // Only print logs for uploading source maps in CI
+    silent: !process.env.CI,
+    
+    // Automatically tree-shake Sentry logger statements to reduce bundle size
+    disableLogger: true,
+    
+    // Source maps configuration
+    sourcemaps: {
+      // Upload a larger set of source maps for prettier stack traces (increases build time)
+      widenClientFileUpload: true,
+      // Delete source maps after upload to reduce deployment size
+      deleteSourcemapsAfterUpload: true,
+    },
+    
+    // Exclude server routes from instrumentation if needed
+    excludeServerRoutes: [
+      '/health',
+      '/api/health',
+    ],
+    
+    // Advanced webpack plugin options (unstable)
+    unstable_sentryWebpackPluginOptions: {
+      applicationKey: "liquidify-docs",
+    },
+  }
+);

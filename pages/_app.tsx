@@ -8,7 +8,10 @@ import { WebVitalsMonitor } from '../components/WebVitalsMonitor'
 import ErrorBoundary from '../components/ErrorBoundary'
 
 function AppContent({ Component, pageProps }: AppProps) {
-    usePerformanceOptimization();
+    // Temporarily disable performance optimization in development
+    if (process.env.NODE_ENV !== 'development') {
+        usePerformanceOptimization();
+    }
 
     return (
         <ThemeProvider
@@ -17,27 +20,39 @@ function AppContent({ Component, pageProps }: AppProps) {
             enableSystem
             disableTransitionOnChange
         >
-            <LazyOptimizedMotion>
-                <SmoothScroll>
-                    <div className="min-h-screen bg-background text-foreground">
-                        {/* Skip link for keyboard navigation */}
-                        <a
-                            href="#main-content"
-                            className="skip-link focus:top-6"
-                            tabIndex={1}
-                        >
-                            Skip to main content
-                        </a>
-
-                        <div id="main-content" tabIndex={-1}>
-                            <ErrorBoundary>
-                                <Component {...pageProps} />
-                            </ErrorBoundary>
-                            <WebVitalsMonitor />
-                        </div>
+            {process.env.NODE_ENV === 'development' ? (
+                // Simplified version for development
+                <div className="min-h-screen bg-background text-foreground">
+                    <div id="main-content" tabIndex={-1}>
+                        <ErrorBoundary>
+                            <Component {...pageProps} />
+                        </ErrorBoundary>
                     </div>
-                </SmoothScroll>
-            </LazyOptimizedMotion>
+                </div>
+            ) : (
+                // Full version for production
+                <LazyOptimizedMotion>
+                    <SmoothScroll>
+                        <div className="min-h-screen bg-background text-foreground">
+                            {/* Skip link for keyboard navigation */}
+                            <a
+                                href="#main-content"
+                                className="skip-link focus:top-6"
+                                tabIndex={1}
+                            >
+                                Skip to main content
+                            </a>
+
+                            <div id="main-content" tabIndex={-1}>
+                                <ErrorBoundary>
+                                    <Component {...pageProps} />
+                                </ErrorBoundary>
+                                <WebVitalsMonitor />
+                            </div>
+                        </div>
+                    </SmoothScroll>
+                </LazyOptimizedMotion>
+            )}
         </ThemeProvider>
     );
 }

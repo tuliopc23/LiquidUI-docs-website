@@ -446,10 +446,19 @@ export const usePerformanceMonitor = () => {
     });
     
     React.useEffect(() => {
+        // Disable performance monitoring in development to prevent server hanging
+        if (process.env.NODE_ENV === 'development') {
+            return;
+        }
+        
         let frameCount = 0;
         let lastTime = performance.now();
+        let rafId: number;
+        let isRunning = true;
         
         const measurePerformance = () => {
+            if (!isRunning) return;
+            
             frameCount++;
             const currentTime = performance.now();
             
@@ -468,11 +477,19 @@ export const usePerformanceMonitor = () => {
                 lastTime = currentTime;
             }
             
-            requestAnimationFrame(measurePerformance);
+            if (isRunning) {
+                rafId = requestAnimationFrame(measurePerformance);
+            }
         };
         
-        const rafId = requestAnimationFrame(measurePerformance);
-        return () => cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(measurePerformance);
+        
+        return () => {
+            isRunning = false;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+            }
+        };
     }, []);
     
     return metrics;

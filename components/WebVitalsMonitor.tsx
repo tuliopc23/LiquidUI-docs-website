@@ -89,7 +89,8 @@ export function WebVitalsMonitor() {
 // Performance monitoring hook
 export function usePerformanceMonitor() {
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    // Disable performance monitoring in development to prevent server issues
+    if (typeof window === 'undefined' || process.env.NODE_ENV === 'development') return;
 
     // Monitor memory usage (if available)
     const monitorMemory = () => {
