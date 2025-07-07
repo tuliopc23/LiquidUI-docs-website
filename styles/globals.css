@@ -7,8 +7,7 @@
 /* ============================================================================
    IMPORTS
    ============================================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+/* Fonts are now loaded via next/font/google for optimal performance */
 
 
 /* ============================================================================
@@ -44,9 +43,9 @@ body {
     /* ----------------------------------------------------------------------------
      * FONT FAMILIES
      * ------------------------------------------------------------------------- */
-    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+    --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: var(--font-jetbrains-mono), 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Courier New', monospace;
 
     /* ----------------------------------------------------------------------------
      * FONT WEIGHTS
@@ -60,42 +59,56 @@ body {
     --font-weight-black: 900;
 
     /* ----------------------------------------------------------------------------
-     * FLUID TYPE SCALE (CLAMP)
+     * FLUID TYPE SCALE (CLAMP) - Matches Tailwind fontSize configuration
      * ------------------------------------------------------------------------- */
-    --font-size-display-5xl: clamp(4rem, 10vw, 8rem);
-    --font-size-display-4xl: clamp(3.5rem, 8.5vw, 6.5rem);
-    --font-size-display-3xl: clamp(3rem, 7vw, 5rem);
-    --font-size-display-2xl: clamp(2.5rem, 6vw, 4rem);
-    --font-size-display-xl: clamp(2rem, 5vw, 3.25rem);
-    --font-size-display-lg: clamp(1.75rem, 4vw, 2.75rem);
-    --font-size-display-md: clamp(1.5rem, 3.5vw, 2.25rem);
-    --font-size-display-sm: clamp(1.25rem, 3vw, 1.875rem);
+    /* Display Scale */
+    --display-5xl: clamp(4rem, 10vw, 8rem);
+    --display-4xl: clamp(3.5rem, 8.5vw, 6.5rem);
+    --display-3xl: clamp(3rem, 7vw, 5rem);
+    --display-2xl: clamp(2.5rem, 6vw, 4rem);
+    --display-xl: clamp(2rem, 5vw, 3.25rem);
+    --display-lg: clamp(1.75rem, 4vw, 2.75rem);
+    --display-md: clamp(1.5rem, 3.5vw, 2.25rem);
+    --display-sm: clamp(1.25rem, 3vw, 1.875rem);
 
-    --font-size-subtitle-2xl: clamp(1.375rem, 3vw, 1.75rem);
-    --font-size-subtitle-xl: clamp(1.25rem, 2.5vw, 1.5rem);
-    --font-size-subtitle-lg: clamp(1.125rem, 2vw, 1.375rem);
-    --font-size-subtitle-md: clamp(1rem, 1.5vw, 1.25rem);
-    --font-size-subtitle-sm: clamp(0.875rem, 1.25vw, 1.125rem);
+    /* Subtitle Scale */
+    --subtitle-2xl: clamp(1.375rem, 3vw, 1.75rem);
+    --subtitle-xl: clamp(1.25rem, 2.5vw, 1.5rem);
+    --subtitle-lg: clamp(1.125rem, 2vw, 1.375rem);
+    --subtitle-md: clamp(1rem, 1.5vw, 1.25rem);
+    --subtitle-sm: clamp(0.875rem, 1.25vw, 1.125rem);
 
-    --font-size-body-2xl: clamp(1.125rem, 2vw, 1.375rem);
-    --font-size-body-xl: clamp(1rem, 1.75vw, 1.25rem);
-    --font-size-body-lg: clamp(0.9375rem, 1.5vw, 1.125rem);
-    --font-size-body-md: clamp(0.875rem, 1.25vw, 1rem);
-    --font-size-body-sm: clamp(0.8125rem, 1vw, 0.9375rem);
-    --font-size-body-xs: clamp(0.75rem, 0.875vw, 0.875rem);
+    /* Body Scale */
+    --body-2xl: clamp(1.125rem, 2vw, 1.375rem);
+    --body-xl: clamp(1rem, 1.75vw, 1.25rem);
+    --body-lg: clamp(0.9375rem, 1.5vw, 1.125rem);
+    --body-md: clamp(0.875rem, 1.25vw, 1rem);
+    --body-sm: clamp(0.8125rem, 1vw, 0.9375rem);
+    --body-xs: clamp(0.75rem, 0.875vw, 0.875rem);
 
     /* ----------------------------------------------------------------------------
      * LETTER SPACING & LINE HEIGHT
      * ------------------------------------------------------------------------- */
-    --tracking-tightest: -0.05em;
-    --tracking-tighter: -0.04em;
-    --tracking-tight: -0.03em;
-    --tracking-normal: -0.02em;
-    --tracking-subtitle: -0.01em;
-    --tracking-body-tight: -0.01em;
-    --tracking-body-normal: -0.005em;
-    --tracking-body-relaxed: 0em;
+    /* Display tracking variables */
+    --display-tracking-tightest: -0.05em;
+    --display-tracking-tighter: -0.04em;
+    --display-tracking-tight: -0.03em;
+    --display-tracking-normal: -0.02em;
+    
+    /* Weight variables for display text */
+    --display-weight-black: 900;
+    --display-weight-extrabold: 800;
+    --display-weight-bold: 700;
+    
+    /* Subtitle tracking */
+    --subtitle-tracking: -0.01em;
+    
+    /* Body tracking */
+    --body-tracking-tight: -0.01em;
+    --body-tracking-normal: -0.005em;
+    --body-tracking-relaxed: 0em;
 
+    /* Line heights */
     --line-height-display: 0.9;
     --line-height-heading: 1.2;
     --line-height-body: 1.6;
@@ -167,6 +180,10 @@ body {
     --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
     --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
     --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+    
+    /* Animation duration variable for reduced motion */
+    --animation-duration: 300ms;
+    --blur-intensity: 8px;
 }
 
 /* ============================================================================
@@ -191,34 +208,34 @@ body {
  * ------------------------------------------------------------------------- */
 .text-display-5xl {
     font-family: var(--font-display);
-    font-size: var(--font-size-display-5xl);
-    font-weight: var(--font-weight-black);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-tightest);
+    font-size: var(--display-5xl);
+    font-weight: var(--display-weight-black);
+    line-height: 0.9;
+    letter-spacing: var(--display-tracking-tightest);
 }
 
 .text-display-4xl {
     font-family: var(--font-display);
-    font-size: var(--font-size-display-4xl);
-    font-weight: var(--font-weight-extrabold);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-tighter);
+    font-size: var(--display-4xl);
+    font-weight: var(--display-weight-extrabold);
+    line-height: 0.95;
+    letter-spacing: var(--display-tracking-tighter);
 }
 
 .text-display-3xl {
     font-family: var(--font-display);
-    font-size: var(--font-size-display-3xl);
-    font-weight: var(--font-weight-extrabold);
+    font-size: var(--display-3xl);
+    font-weight: var(--display-weight-extrabold);
     line-height: 1.0;
-    letter-spacing: var(--tracking-tighter);
+    letter-spacing: var(--display-tracking-tighter);
 }
 
 .text-display-2xl {
     font-family: var(--font-display);
-    font-size: var(--font-size-display-2xl);
-    font-weight: var(--font-weight-bold);
+    font-size: var(--display-2xl);
+    font-weight: var(--display-weight-bold);
     line-height: 1.05;
-    letter-spacing: var(--tracking-tight);
+    letter-spacing: var(--display-tracking-tight);
 }
 
 /* ----------------------------------------------------------------------------
@@ -234,18 +251,18 @@ body {
 
 .text-heading {
     font-family: var(--font-display);
-    font-size: var(--font-size-display-lg);
+    font-size: var(--display-lg);
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-heading);
-    letter-spacing: var(--tracking-normal);
+    letter-spacing: var(--display-tracking-normal);
 }
 
 .text-subheading {
     font-family: var(--font-body);
-    font-size: var(--font-size-subtitle-xl);
+    font-size: var(--subtitle-xl);
     font-weight: var(--font-weight-semibold);
     line-height: 1.4;
-    letter-spacing: var(--tracking-subtitle);
+    letter-spacing: var(--subtitle-tracking);
 }
 
 /* ----------------------------------------------------------------------------
@@ -253,26 +270,26 @@ body {
  * ------------------------------------------------------------------------- */
 .text-body-large {
     font-family: var(--font-body);
-    font-size: var(--font-size-body-xl);
+    font-size: var(--body-xl);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
-    letter-spacing: var(--tracking-body-normal);
+    letter-spacing: var(--body-tracking-normal);
 }
 
 .text-body {
     font-family: var(--font-body);
-    font-size: var(--font-size-body-md);
+    font-size: var(--body-md);
     font-weight: var(--font-weight-regular);
     line-height: var(--line-height-body);
-    letter-spacing: var(--tracking-body-normal);
+    letter-spacing: var(--body-tracking-normal);
 }
 
 .text-body-small {
     font-family: var(--font-body);
-    font-size: var(--font-size-body-sm);
+    font-size: var(--body-sm);
     font-weight: var(--font-weight-regular);
     line-height: 1.5;
-    letter-spacing: var(--tracking-body-relaxed);
+    letter-spacing: var(--body-tracking-relaxed);
 }
 
 /* ----------------------------------------------------------------------------
@@ -280,7 +297,7 @@ body {
  * ------------------------------------------------------------------------- */
 .text-caption {
     font-family: var(--font-body);
-    font-size: var(--font-size-body-xs);
+    font-size: var(--body-xs);
     font-weight: var(--font-weight-medium);
     line-height: 1.4;
     letter-spacing: 0.025em;
@@ -289,10 +306,10 @@ body {
 
 .subtitle-text {
     font-family: var(--font-body);
-    font-size: var(--font-size-subtitle-md);
+    font-size: var(--subtitle-md);
     font-weight: var(--font-weight-medium);
     line-height: 1.5;
-    letter-spacing: var(--tracking-subtitle);
+    letter-spacing: var(--subtitle-tracking);
 }
 
 
@@ -304,7 +321,7 @@ body {
         font-size: clamp(2rem, 4vw, 3rem);
     }
     .text-heading {
-        font-size: var(--font-size-display-md);
+        font-size: var(--display-md);
     }
 }
 
@@ -447,6 +464,61 @@ body {
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
+}
+
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-auto {
+    will-change: auto;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.transform-gpu {
+    transform: translateZ(0);
+}
+
+/* Liquid morph animation */
+@keyframes liquidMorph {
+    0% { border-radius: 50%; }
+    25% { border-radius: 30% 70% 70% 30%; }
+    50% { border-radius: 70% 30% 30% 70%; }
+    75% { border-radius: 40% 60% 60% 40%; }
+    100% { border-radius: 16px; }
+}
+
+.animate-liquid-morph {
+    animation: liquidMorph var(--animation-duration, 2s) ease-in-out infinite;
+}
+
+/* Glass shimmer effect */
+@keyframes glassShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.animate-glass-shimmer {
+    animation: glassShimmer 1.5s ease-in-out infinite;
+}
+
+/* Enhanced fade in animations */
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(40px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp var(--animation-duration, 300ms) ease-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

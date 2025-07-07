@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Copy, Check, RefreshCw, Eye, Code } from 'lucide-react';
-import { cn } from 'liquidify';
+import { cn } from '../lib/liquidify-utils';
 
 interface CodePlaygroundProps {
   code: string;

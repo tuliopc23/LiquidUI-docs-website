@@ -305,10 +305,10 @@ export const LazyOptimizedMotion: React.FC<{
         if (shouldShowMetrics) {
             // Log performance warnings
             if (metrics.fps < 30) {
-                console.warn('Low FPS detected:', metrics.fps);
+                // console.warn('Low FPS detected:', metrics.fps);
             }
             if (metrics.memoryUsage > 100 * 1024 * 1024) { // 100MB
-                console.warn('High memory usage detected:', metrics.memoryUsage);
+                // console.warn('High memory usage detected:', metrics.memoryUsage);
             }
         }
     }, [metrics, shouldShowMetrics]);

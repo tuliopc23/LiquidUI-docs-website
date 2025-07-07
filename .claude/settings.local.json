@@ -32,7 +32,11 @@
       "Bash(mv:*)",
       "Bash(npx tsc:*)",
       "Bash(npm run test:*)",
-      "Bash(npm run lighthouse:*)"
+      "Bash(npm run lighthouse:*)",
+      "Bash(npm outdated)",
+      "Bash(npm ls:*)",
+      "Bash(curl:*)",
+      "Bash(npm update:*)"
     ],
     "deny": []
   }

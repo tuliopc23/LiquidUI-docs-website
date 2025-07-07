@@ -1,0 +1,64 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDigest",
+    ":automergeBranch"
+  ],
+  "schedule": ["before 4am on Monday"],
+  "timezone": "UTC",
+  "labels": ["dependencies"],
+  "assignees": ["tuliopc23"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@types/"],
+      "groupName": "TypeScript type definitions",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^eslint", "^@typescript-eslint/"],
+      "groupName": "ESLint and TypeScript ESLint",
+      "automerge": true
+    },
+    {
+      "matchPackageNames": ["react", "react-dom"],
+      "groupName": "React core",
+      "major": {
+        "automerge": false
+      }
+    },
+    {
+      "matchPackageNames": ["next"],
+      "groupName": "Next.js",
+      "major": {
+        "automerge": false
+      }
+    },
+    {
+      "matchPackagePatterns": ["^@testing-library/", "^jest", "^playwright"],
+      "groupName": "Testing dependencies",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^tailwindcss", "^autoprefixer", "^postcss"],
+      "groupName": "CSS/Styling dependencies",
+      "automerge": true
+    },
+    {
+      "matchPackagePatterns": ["^nextra"],
+      "groupName": "Nextra documentation",
+      "major": {
+        "automerge": false
+      }
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "assignees": ["tuliopc23"]
+  },
+  "prConcurrentLimit": 5,
+  "branchConcurrentLimit": 10,
+  "prHourlyLimit": 2
+}

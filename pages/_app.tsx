@@ -1,9 +1,27 @@
 import React from 'react'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import '../styles/globals.css'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { AnimationProvider } from '../components/AnimationProvider'
+
+// Font configurations with optimal loading
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  preload: true,
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+  weight: ['400', '700'],
+  preload: true,
+})
 
 function AppContent({ Component, pageProps }: AppProps) {
     return (
@@ -14,7 +32,7 @@ function AppContent({ Component, pageProps }: AppProps) {
             disableTransitionOnChange
         >
             <AnimationProvider>
-                <div className="min-h-screen bg-background text-foreground">
+                <div className={`min-h-screen bg-background text-foreground ${inter.variable} ${jetbrainsMono.variable}`}>
                     {/* Skip link for keyboard navigation */}
                     <a
                         href="#main-content"

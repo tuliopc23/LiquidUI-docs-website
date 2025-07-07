@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronRight, Package, Code2, Hash, FileText } from 'lucide-react';
-import { cn } from 'liquidify';
+import { cn } from '../lib/liquidify-utils';
 
 interface PropType {
   name: string;

@@ -35,11 +35,11 @@ export function WebVitalsMonitor() {
     import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
       const sendToAnalytics = (metric: WebVitalsMetric) => {
         // Log to console in development, send to analytics in production
-        console.log('📊 Web Vitals:', {
-          name: metric.name,
-          value: Math.round(metric.value),
-          rating: metric.rating,
-        });
+        // console.log('📊 Web Vitals:', {
+        //   name: metric.name,
+        //   value: Math.round(metric.value),
+        //   rating: metric.rating,
+        // });
 
         // You can integrate with analytics services here:
         // gtag('event', metric.name, {
@@ -103,7 +103,7 @@ export function usePerformanceMonitor() {
 
         // Log if memory usage is high
         if (memoryUsage.used / memoryUsage.limit > 0.8) {
-          console.warn('🚨 High memory usage detected:', memoryUsage);
+          // console.warn('🚨 High memory usage detected:', memoryUsage);
         }
       }
     };
@@ -129,10 +129,10 @@ export function BundleAnalyzer() {
     );
 
     if (modules.length > 0) {
-      console.log('📦 Bundle Analysis:', {
-        webpackModules: modules.length,
-        timestamp: new Date().toISOString(),
-      });
+      // console.log('📦 Bundle Analysis:', {
+      //   webpackModules: modules.length,
+      //   timestamp: new Date().toISOString(),
+      // });
     }
   }, []);
 

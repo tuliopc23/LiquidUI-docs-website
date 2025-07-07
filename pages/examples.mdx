@@ -103,7 +103,7 @@ A modern dashboard layout with glass effects and responsive design:
   </Tab>
   <Tab>
     ```tsx
-    import { Card, Button, Badge } from 'liquidify'
+    import { GlassCard, GlassButton, GlassBadge } from 'liquidify'
     
     function Dashboard() {
       return (
@@ -112,21 +112,21 @@ A modern dashboard layout with glass effects and responsive design:
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Sidebar */}
               <div className="lg:col-span-1">
-                <Card className="glass-effect">
+                <GlassCard className="glass-effect">
                   <h3 className="font-semibold mb-4">Navigation</h3>
                   <nav className="space-y-2">
-                    <Button variant="glass" fullWidth className="justify-start">
+                    <GlassButton variant="glass" fullWidth className="justify-start">
                       Dashboard
-                    </Button>
-                    <Button variant="ghost" fullWidth className="justify-start">
-                      Analytics
-                    </Button>
-                    <Button variant="ghost" fullWidth className="justify-start">
-                      Reports
-                    </Button>
-                    <Button variant="ghost" fullWidth className="justify-start">
-                      Settings
-                    </Button>
+                    </GlassButton>
+                    <GlassButton variant="ghost" fullWidth className="justify-start">
+                    Analytics
+                    </GlassButton>
+                    <GlassButton variant="ghost" fullWidth className="justify-start">
+                    Reports
+                    </GlassButton>
+                    <GlassButton variant="ghost" fullWidth className="justify-start">
+                    Settings
+                    </GlassButton>
                   </nav>
                 </Card>
               </div>
@@ -145,7 +145,7 @@ A modern dashboard layout with glass effects and responsive design:
                         <p className="text-2xl font-bold">2,543</p>
                       </div>
                     </div>
-                  </Card>
+                  </GlassCard>
                 </div>
               </div>
             </div>
@@ -204,7 +204,7 @@ A beautiful login form with glass morphism effects:
   <Tab>
     ```tsx
     import { useState } from 'react'
-    import { Card, Input, Button } from 'liquidify'
+    import { GlassCard, GlassInput, GlassButton } from 'liquidify'
     
     function LoginForm() {
       const [email, setEmail] = useState('')
@@ -223,14 +223,14 @@ A beautiful login form with glass morphism effects:
       
       return (
         <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 flex items-center justify-center p-4">
-          <Card className="glass-effect max-w-md w-full">
+          <GlassCard className="glass-effect max-w-md w-full">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
               <p className="text-white/80">Sign in to your account</p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
-              <Input
+              <GlassInput
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -239,7 +239,7 @@ A beautiful login form with glass morphism effects:
                 required
               />
               
-              <Input
+              <GlassInput
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -248,7 +248,7 @@ A beautiful login form with glass morphism effects:
                 required
               />
               
-              <Button
+              <GlassButton
                 type="submit"
                 variant="glass"
                 fullWidth
@@ -256,9 +256,9 @@ A beautiful login form with glass morphism effects:
                 size="lg"
               >
                 {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
+              </GlassButton>
             </form>
-          </Card>
+          </GlassCard>
         </div>
       )
     }

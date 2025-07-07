@@ -1,11 +1,26 @@
-import React, { useState, useRef } from 'react';
-import { cn } from 'liquidify';
+import React, { useState, useRef, useCallback } from 'react';
+import { cn } from '../lib/liquidify-utils';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
-// Custom shouldReduceMotion function
-function shouldReduceMotion(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
+// Throttle utility for performance
+const throttle = (func: (...args: unknown[]) => void, delay: number) => {
+  let timeoutId: NodeJS.Timeout | null = null;
+  let lastExecTime = 0;
+  return (...args: unknown[]) => {
+    const currentTime = Date.now();
+    
+    if (currentTime - lastExecTime > delay) {
+      func(...args);
+      lastExecTime = currentTime;
+    } else {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+        lastExecTime = Date.now();
+      }, delay - (currentTime - lastExecTime));
+    }
+  };
+};
 
 // Magnetic button effect
 export function MagneticButton({
@@ -20,33 +35,71 @@ export function MagneticButton({
   [key: string]: unknown;
 }) {
   const ref = useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const animationFrameRef = useRef<number | null>(null);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
+  const updateTransform = useCallback((deltaX: number, deltaY: number) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
+    animationFrameRef.current = requestAnimationFrame(() => {
+      if (ref.current) {
+        ref.current.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+      }
+    });
+  }, []);
 
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+  const throttledMouseMove = useCallback((e: React.MouseEvent) => {
+    const throttledFn = throttle((...args: unknown[]) => {
+      const event = args[0] as React.MouseEvent;
+      if (!ref.current || prefersReducedMotion) return;
 
-    const deltaX = (e.clientX - centerX) / strength;
-    const deltaY = (e.clientY - centerY) / strength;
+      const rect = ref.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-    ref.current.style.setProperty('--x', `${deltaX * 100}%`);
-    ref.current.style.setProperty('--y', `${deltaY * 100}%`);
+      const deltaX = (event.clientX - centerX) / strength;
+      const deltaY = (event.clientY - centerY) / strength;
+
+      updateTransform(deltaX, deltaY);
+    }, 16);
+    
+    throttledFn(e);
+  }, [strength, prefersReducedMotion, updateTransform]);
+
+  const handleMouseEnter = () => {
+    if (!ref.current || prefersReducedMotion) return;
+    ref.current.style.willChange = 'transform';
   };
 
   const handleMouseLeave = () => {
-    ref.current?.style.setProperty('--x', '0%');
-    ref.current?.style.setProperty('--y', '0%');
+    if (!ref.current) return;
+    
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
+    ref.current.style.willChange = 'auto';
+    
+    if (!prefersReducedMotion) {
+      requestAnimationFrame(() => {
+        if (ref.current) {
+          ref.current.style.transform = 'translate(0px, 0px)';
+        }
+      });
+    }
   };
 
   return (
     <button
       ref={ref}
-      onMouseMove={handleMouseMove}
+      onMouseMove={throttledMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative transition-all duration-200 hover:scale-105 active:scale-95",
+        "relative gpu-accelerated",
+        !prefersReducedMotion && "transition-all duration-200 hover:scale-105 active:scale-95",
         className
       )}
       {...props}
@@ -70,9 +123,10 @@ export function RippleButton({
 }) {
   const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const createRipple = (event: React.MouseEvent) => {
-    if (!buttonRef.current || shouldReduceMotion()) return;
+    if (!buttonRef.current || prefersReducedMotion) return;
 
     const button = buttonRef.current;
     const rect = button.getBoundingClientRect();
@@ -95,9 +149,8 @@ export function RippleButton({
     <button
       ref={buttonRef}
       className={cn(
-        'relative overflow-hidden',
-        'transition-all duration-200 ease-out',
-        'hover:scale-105 active:scale-95',
+        'relative overflow-hidden gpu-accelerated',
+        !prefersReducedMotion && 'transition-all duration-200 ease-out hover:scale-105 active:scale-95',
         className
       )}
       onMouseDown={createRipple}
@@ -132,6 +185,7 @@ export function FloatingActionButton({
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   [key: string]: unknown;
 }) {
+  const prefersReducedMotion = useReducedMotion();
   const positionClasses = {
     'bottom-right': 'bottom-6 right-6',
     'bottom-left': 'bottom-6 left-6',
@@ -143,12 +197,10 @@ export function FloatingActionButton({
     <div className={cn("fixed z-50", positionClasses[position])}>
       <button
         className={cn(
-          "w-14 h-14 rounded-full shadow-lg",
+          "w-14 h-14 rounded-full shadow-lg gpu-accelerated",
           "backdrop-blur-xl bg-blue-500/80 text-white",
-          "hover:bg-blue-600/80 transition-all duration-200",
           "flex items-center justify-center",
-          "hover:scale-110 active:scale-90",
-          !shouldReduceMotion() && "animate-pulse",
+          !prefersReducedMotion && "hover:bg-blue-600/80 transition-all duration-200 hover:scale-110 active:scale-90 animate-pulse",
           className
         )}
         {...props}
@@ -169,34 +221,77 @@ export function TiltCard({
   className?: string;
   [key: string]: unknown;
 }) {
-  const x = useRef<HTMLDivElement>(null);
-  const y = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const animationFrameRef = useRef<number | null>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!x.current || !y.current) return;
+  const updateTilt = useCallback((rotateX: number, rotateY: number) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
+    animationFrameRef.current = requestAnimationFrame(() => {
+      if (cardRef.current) {
+        cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
+    });
+  }, []);
 
-    const currentRect = e.currentTarget.getBoundingClientRect();
-    const centerX = currentRect.left + currentRect.width / 2;
-    const centerY = currentRect.top + currentRect.height / 2;
+  const throttledMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const throttledFn = throttle((...args: unknown[]) => {
+      const event = args[0] as React.MouseEvent<HTMLDivElement>;
+      if (!cardRef.current || prefersReducedMotion) return;
 
-    const deltaX = ((e.clientX - centerX) / currentRect.width) * 100;
-    const deltaY = ((e.clientY - centerY) / currentRect.height) * 100;
+      const rect = cardRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
 
-    x.current.style.setProperty('--x', `${deltaX}%`);
-    y.current.style.setProperty('--y', `${deltaY}%`);
+      const deltaX = (event.clientX - centerX) / rect.width;
+      const deltaY = (event.clientY - centerY) / rect.height;
+
+      const rotateY = deltaX * 15; // Max 15 degrees
+      const rotateX = -deltaY * 15; // Negative for natural movement
+
+      updateTilt(rotateX, rotateY);
+    }, 16);
+    
+    throttledFn(e);
+  }, [prefersReducedMotion, updateTilt]);
+
+  const handleMouseEnter = () => {
+    if (!cardRef.current || prefersReducedMotion) return;
+    cardRef.current.style.willChange = 'transform';
   };
 
   const handleMouseLeave = () => {
-    x.current?.style.setProperty('--x', '0%');
-    y.current?.style.setProperty('--y', '0%');
+    if (!cardRef.current) return;
+    
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
+    cardRef.current.style.willChange = 'auto';
+    
+    if (!prefersReducedMotion) {
+      requestAnimationFrame(() => {
+        if (cardRef.current) {
+          cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
+      });
+    }
   };
 
   return (
     <div
-      ref={x}
-      onMouseMove={handleMouseMove}
+      ref={cardRef}
+      onMouseMove={throttledMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={cn("cursor-pointer transition-transform duration-200 hover:scale-105", className)}
+      className={cn(
+        "cursor-pointer gpu-accelerated",
+        !prefersReducedMotion && "transition-transform duration-200 hover:scale-105",
+        className
+      )}
       style={{
         transformStyle: "preserve-3d",
       }}
@@ -221,9 +316,10 @@ export function ParallaxContainer({
 }) {
   const [translateY, setTranslateY] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   React.useEffect(() => {
-    if (shouldReduceMotion()) return;
+    if (prefersReducedMotion) return;
 
     const updateTransform = () => {
       if (!containerRef.current) return;
@@ -241,13 +337,13 @@ export function ParallaxContainer({
     updateTransform();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [speed]);
+  }, [speed, prefersReducedMotion]);
 
   return (
     <div
       ref={containerRef}
-      className={cn('transform-gpu', className)}
-      style={!shouldReduceMotion() ? {
+      className={cn('gpu-accelerated', className)}
+      style={!prefersReducedMotion ? {
         transform: `translateY(${translateY}px)`,
         willChange: 'transform'
       } : {}}
@@ -267,15 +363,20 @@ export function StaggerContainer({
   staggerDelay?: number;
   className?: string;
 }) {
+  const prefersReducedMotion = useReducedMotion();
+  
   return (
     <div className={className}>
       {React.Children.map(children, (child, index) => (
         <div
           key={index}
-          className="animate-fade-in"
-          style={{
+          className={cn(
+            "gpu-accelerated",
+            !prefersReducedMotion && "animate-fade-in"
+          )}
+          style={!prefersReducedMotion ? {
             animationDelay: `${index * staggerDelay}s`
-          }}
+          } : {}}
         >
           {child}
         </div>
