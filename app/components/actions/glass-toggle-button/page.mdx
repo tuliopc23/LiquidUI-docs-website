@@ -1,0 +1,139 @@
+# Glass Toggle Button
+
+Toggle between two states using the GlassToggleButton, with smooth transitions and advanced styling.
+
+## Overview
+
+The `GlassToggleButton` component provides a visually intuitive way to toggle between on/off states or select/deselect options. It supports advanced Liquid Glass effects and is designed to be accessible, with ARIA attributes and smooth animations powered by GSAP.
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```tsx
+import { GlassToggleButton } from 'liquidify'
+import { Star } from 'lucide-react'
+
+function App() {
+  const [favorited, setFavorited] = useState(false)
+
+  return (
+    cGlassToggleButton 
+      pressed={favorited} 
+      onToggle={() =e setFavorited(!favorited)}
+    e
+      cStar size={16} /e
+      {favorited ? 'Favorited' : 'Add to Favorites'}
+    c/GlassToggleButtone
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassToggleButton } from 'liquidify'
+import { Star, Sun, Moon } from 'lucide-react'
+
+export default function ToggleButtonDemo() {
+  const [theme, setTheme] = useState('light')
+  const [favorited, setFavorited] = useState(false)
+
+  const toggleTheme = () =e {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+
+  return (
+    cdiv className="space-y-8 p-6"e
+      {/* Theme Toggle */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eTheme Togglec/h3e
+        cGlassToggleButton 
+          pressed={theme === 'dark'}
+          onToggle={toggleTheme}
+          aria-label="Toggle theme"
+        e
+          {theme === 'dark' ? cSun size={20} /e : cMoon size={20} /e}
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        c/GlassToggleButtone
+      c/sectione
+
+      {/* Favorite Toggle */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eFavorite Togglec/h3e
+        cGlassToggleButton 
+          pressed={favorited}
+          onToggle={() =e setFavorited(!favorited)}
+          aria-label="Add to favorites"
+        e
+          cStar size={20} fill={favorited ? 'currentColor' : 'none'} /e
+          {favorited ? 'Favorited' : 'Add to Favorites'}
+        c/GlassToggleButtone
+      c/sectione
+    c/dive
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `pressed` | `boolean` | `false` | Current toggle state |
+| `onToggle` | `(pressed: boolean) =e void` | - | Callback when toggle state changes |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `loading` | `boolean` | `false` | Shows loading spinner |
+| `aria-label` | `string` | - | Accessibility label (required) |
+| `className` | `string` | - | Additional CSS classes |
+
+## Interaction Patterns
+
+### Theme Toggle
+Switch between light and dark mode using a persistent toggle button:
+
+```tsx
+cGlassToggleButton 
+  pressed={isDarkMode} 
+  onToggle={toggleTheme}
+  aria-label="Toggle theme"
+e
+  {isDarkMode ? cSun size={20} /e : cMoon size={20} /e}
+  {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+c/GlassToggleButtone
+```
+
+### Favorite Toggle
+Toggle favorite state, reflecting visually with icon:
+
+```tsx
+cGlassToggleButton 
+  pressed={isFavorited} 
+  onToggle={() =e setFavorited(!isFavorited)}
+  aria-label="Add to favorites"
+e
+  cStar size={20} fill={isFavorited ? 'currentColor' : 'none'} /e
+  {isFavorited ? 'Favorited' : 'Add to Favorites'}
+c/GlassToggleButtone
+```
+
+## Accessibility
+
+- **Semantic Roles**: Uses `button` role with `aria-pressed` for toggle state
+- **Keyboard Accessible**: Activates with `Space` or `Enter`
+- **Visual Feedback**: Clear state indication
+
+## Best Practices
+
+- **Use clear ARIA labels** for all toggle buttons
+- **Visual consistency**: Match toggle icon size to button size
+
+---
+
+*Glass Toggle Button offers dynamic, accessible toggling with sleek design and smooth transitions, keeping your applications both functional and visually appealing.*

@@ -1,0 +1,159 @@
+# GlassTable
+
+Tabular data display with sorting, filtering, and selection capabilities using Apple's Liquid Glass design language.
+
+## Overview
+
+GlassTable provides a comprehensive solution for displaying structured data with built-in interactions like sorting, filtering, and row selection. It maintains excellent performance with large datasets while preserving accessibility and responsive design.
+
+## Basic Usage
+
+```tsx
+import { GlassTable } from '@liquidify/ui'
+
+function BasicTable() {
+  const columns = [
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'email', label: 'Email', sortable: true },
+    { key: 'role', label: 'Role' },
+    { key: 'status', label: 'Status' }
+  ]
+
+  const data = [
+    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'Active' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'Active' }
+  ]
+
+  return (
+    <GlassTable
+      columns={columns}
+      data={data}
+      keyField="id"
+    />
+  )
+}
+```
+
+## API Reference
+
+### GlassTable Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `columns` | `TableColumn[]` | - | Column definitions |
+| `data` | `any[]` | - | Table data |
+| `keyField` | `string` | `'id'` | Unique identifier field |
+| `sortable` | `boolean` | `true` | Enable column sorting |
+| `filterable` | `boolean` | `false` | Enable filtering |
+| `selectable` | `boolean` | `false` | Enable row selection |
+| `pagination` | `boolean \| PaginationConfig` | `false` | Enable pagination |
+| `loading` | `boolean` | `false` | Show loading state |
+| `empty` | `React.ReactNode` | - | Empty state content |
+
+### TableColumn Interface
+
+```typescript
+interface TableColumn {
+  key: string
+  label: string
+  sortable?: boolean
+  filterable?: boolean
+  width?: string | number
+  align?: 'left' | 'center' | 'right'
+  render?: (value: any, row: any) => React.ReactNode
+}
+```
+
+## Features
+
+### Sorting
+
+```tsx
+<GlassTable
+  columns={[
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'date', label: 'Date', sortable: true }
+  ]}
+  data={data}
+  defaultSort={{ column: 'name', direction: 'asc' }}
+/>
+```
+
+### Row Selection
+
+```tsx
+<GlassTable
+  columns={columns}
+  data={data}
+  selectable={true}
+  onSelectionChange={(selectedRows) => console.log(selectedRows)}
+/>
+```
+
+### Custom Cell Rendering
+
+```tsx
+const columns = [
+  { key: 'name', label: 'Name' },
+  { 
+    key: 'status', 
+    label: 'Status',
+    render: (value) => (
+      <GlassBadge variant={value === 'Active' ? 'success' : 'warning'}>
+        {value}
+      </GlassBadge>
+    )
+  }
+]
+```
+
+### Pagination
+
+```tsx
+<GlassTable
+  columns={columns}
+  data={data}
+  pagination={{
+    pageSize: 10,
+    showSizeChanger: true,
+    showInfo: true
+  }}
+/>
+```
+
+## Accessibility
+
+### ARIA Support
+
+- **`role="table"`**: Proper table semantics
+- **`role="columnheader"`**: Column headers
+- **`aria-sort`**: Sort direction indicators
+- **`aria-selected`**: Row selection state
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Navigate between interactive elements |
+| `Space` | Select/deselect row |
+| `Enter` | Activate sort or action |
+| `Arrow Keys` | Navigate table cells |
+
+## Best Practices
+
+### Do's
+
+- **Keep columns scannable**: Use clear, concise headers
+- **Provide sorting**: Enable for relevant columns
+- **Show loading states**: Indicate when data is being fetched
+- **Handle empty states**: Provide helpful empty state messages
+
+### Don'ts
+
+- **Don't overcrowd**: Limit columns for better readability
+- **Don't forget mobile**: Consider responsive behavior
+- **Don't hide important actions**: Make key functions accessible
+
+---
+
+*GlassTable provides a comprehensive solution for data display with excellent performance and accessibility.*

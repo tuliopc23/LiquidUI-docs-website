@@ -1,0 +1,332 @@
+# Glass Input
+
+Elegant text input fields with Apple's Liquid Glass design, providing clear feedback and exceptional user experience.
+
+## Overview
+
+Glass inputs enable users to enter and edit text using Apple's Liquid Glass material. They provide a sophisticated visual treatment that maintains content clarity while offering delightful interactions and comprehensive accessibility support.
+
+## Anatomy
+
+The Glass Input consists of:
+- **Container**: Liquid glass field background with backdrop blur
+- **Label**: Clear descriptive text following Apple typography
+- **Input Field**: Text entry area with proper contrast
+- **Placeholder**: Helpful hint text when field is empty
+- **Helper Text**: Additional guidance or validation messages
+- **Focus Ring**: Apple-standard accessibility indicator
+- **Icons**: Leading or trailing visual elements (optional)
+
+## States
+
+### Default State
+Clean liquid glass appearance with subtle background and clear typography.
+
+### Interactive States
+- **Focus**: Blue focus ring with enhanced glass clarity
+- **Hover**: Subtle glass opacity increase
+- **Filled**: Maintains glass aesthetic with entered content
+- **Error**: Red accent with validation messaging
+- **Success**: Green accent for confirmed valid input
+- **Disabled**: Reduced opacity with proper contrast
+
+### Responsive Behavior
+- **Mobile**: 44pt minimum touch target height
+- **Tablet**: Optimized for touch and keyboard input
+- **Desktop**: Precise pointer interactions
+
+## Usage Guidelines
+
+### When to Use
+- Single-line text entry (names, emails, search terms)
+- Form inputs requiring user data
+- Settings and configuration fields
+- Search interfaces
+- Login and authentication forms
+
+### When Not to Use
+- Multi-line text input (use Glass Textarea)
+- Selection from predefined options (use Glass Select)
+- Binary choices (use Glass Switch or Checkbox)
+- Numeric-only input with steppers (use specialized number input)
+
+## Accessibility
+
+### Voice Control
+Supports Voice Control with clear field identification.
+
+### Keyboard Navigation
+- **Tab**: Navigate to input field
+- **Enter**: Submit form or trigger search
+- **Escape**: Clear focus or cancel input
+- **Cmd+A**: Select all text
+
+### Screen Reader Support
+- Proper label association
+- Error message announcements
+- Field state descriptions
+- Placeholder text accessibility
+
+### High Contrast Mode
+Maintains proper contrast ratios and border visibility.
+
+### Reduced Motion
+Respects motion preferences for focus animations.
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'text' \| 'email' \| 'password' \| 'search' \| 'url' \| 'tel'` | `'text'` | Input type for appropriate keyboard |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Input size following 4pt grid |
+| `variant` | `'default' \| 'subtle' \| 'prominent'` | `'default'` | Visual prominence level |
+| `label` | `string` | `undefined` | Accessible label text |
+| `placeholder` | `string` | `undefined` | Placeholder hint text |
+| `helperText` | `string` | `undefined` | Additional guidance text |
+| `errorText` | `string` | `undefined` | Error message (implies error state) |
+| `leadingIcon` | `ReactNode` | `undefined` | Icon before input text |
+| `trailingIcon` | `ReactNode` | `undefined` | Icon after input text |
+| `required` | `boolean` | `false` | Marks field as required |
+| `disabled` | `boolean` | `false` | Disables input interaction |
+| `readOnly` | `boolean` | `false` | Makes input read-only |
+| `value` | `string` | `undefined` | Controlled input value |
+| `defaultValue` | `string` | `undefined` | Uncontrolled default value |
+| `onChange` | `(event: ChangeEvent) => void` | - | Change event handler |
+| `onFocus` | `(event: FocusEvent) => void` | - | Focus event handler |
+| `onBlur` | `(event: FocusEvent) => void` | - | Blur event handler |
+
+### Variants
+
+- **Default**: Standard liquid glass with medium opacity
+- **Subtle**: Lighter glass for secondary forms
+- **Prominent**: Enhanced glass for primary forms
+
+## Code Examples
+
+### Basic Input
+
+```tsx
+import { GlassInput } from '@liquidify/ui'
+
+export default function BasicInput() {
+  return (
+    <GlassInput
+      label="Full Name"
+      placeholder="Enter your full name"
+      required
+    />
+  )
+}
+```
+
+### Email Input with Validation
+
+```tsx
+import { GlassInput } from '@liquidify/ui'
+import { useState } from 'react'
+
+export default function EmailInput() {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+  
+  const validateEmail = (value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (value && !emailRegex.test(value)) {
+      setError('Please enter a valid email address')
+    } else {
+      setError('')
+    }
+  }
+  
+  return (
+    <GlassInput
+      type="email"
+      label="Email Address"
+      placeholder="you@example.com"
+      value={email}
+      onChange={(e) => {
+        setEmail(e.target.value)
+        validateEmail(e.target.value)
+      }}
+      errorText={error}
+      required
+    />
+  )
+}
+```
+
+### Search Input with Icon
+
+```tsx
+import { GlassInput } from '@liquidify/ui'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+
+export default function SearchInput() {
+  return (
+    <GlassInput
+      type="search"
+      placeholder="Search components..."
+      leadingIcon={
+        <MagnifyingGlassIcon className="w-5 h-5 text-apple-gray-500" />
+      }
+      variant="prominent"
+    />
+  )
+}
+```
+
+### Password Input with Toggle
+
+```tsx
+import { GlassInput, GlassButton } from '@liquidify/ui'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+
+export default function PasswordInput() {
+  const [showPassword, setShowPassword] = useState(false)
+  
+  return (
+    <GlassInput
+      type={showPassword ? 'text' : 'password'}
+      label="Password"
+      placeholder="Enter your password"
+      trailingIcon={
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="text-apple-gray-500 hover:text-apple-gray-700"
+        >
+          {showPassword ? (
+            <EyeSlashIcon className="w-5 h-5" />
+          ) : (
+            <EyeIcon className="w-5 h-5" />
+          )}
+        </button>
+      }
+      helperText="Must be at least 8 characters"
+      required
+    />
+  )
+}
+```
+
+### Form with Multiple Inputs
+
+```tsx
+import { GlassInput, GlassButton, GlassCard } from '@liquidify/ui'
+
+export default function ContactForm() {
+  return (
+    <GlassCard className="max-w-md">
+      <h2 className="hig-title-2 mb-6">Contact Information</h2>
+      
+      <div className="space-y-4">
+        <GlassInput
+          label="First Name"
+          placeholder="John"
+          required
+        />
+        
+        <GlassInput
+          label="Last Name"
+          placeholder="Doe"
+          required
+        />
+        
+        <GlassInput
+          type="email"
+          label="Email"
+          placeholder="john@example.com"
+          required
+        />
+        
+        <GlassInput
+          type="tel"
+          label="Phone Number"
+          placeholder="+1 (555) 123-4567"
+          helperText="Include country code for international numbers"
+        />
+        
+        <GlassButton variant="primary" fullWidth>
+          Save Contact
+        </GlassButton>
+      </div>
+    </GlassCard>
+  )
+}
+```
+
+## Interactive Playground
+
+*[Interactive component playground would be implemented here with live editing capabilities]*
+
+## Design Tokens
+
+### Colors
+- **Background**: 10% white/black opacity with backdrop blur
+- **Border**: 1px solid with 20% white/black opacity
+- **Focus**: `apple-blue` focus ring (3px width)
+- **Error**: `apple-red` for error states
+- **Success**: `apple-green` for success states
+
+### Typography
+- **Label**: `hig-callout` (16pt/21pt, semibold)
+- **Input Text**: `hig-body` (17pt/22pt)
+- **Placeholder**: `hig-body` with reduced opacity
+- **Helper Text**: `hig-caption-1` (13pt/18pt)
+
+### Spacing
+- **Small**: Height 36pt, padding 8pt horizontal
+- **Medium**: Height 44pt, padding 12pt horizontal (default)
+- **Large**: Height 52pt, padding 16pt horizontal
+- **Label Margin**: 4pt below label
+- **Helper Margin**: 4pt below input
+
+### Focus Ring
+- **Width**: 3px
+- **Color**: `apple-blue`
+- **Offset**: 2px from input border
+- **Border Radius**: Matches input radius + 2px
+
+### Motion
+- **Focus**: Ring appearance over 150ms
+- **Hover**: Glass opacity increase over 200ms
+- **Error**: Shake animation over 300ms (when enabled)
+
+## Platform Considerations
+
+### iOS/iPadOS
+- Appropriate keyboard types for input methods
+- Support for autofill and password managers
+- Dynamic Type scaling
+- Smart punctuation handling
+
+### macOS
+- Full keyboard navigation support
+- Context menu integration
+- Window focus behavior
+- Spell check integration
+
+### watchOS
+- Optimized for Digital Crown input
+- Voice dictation support
+- Scribble text input on supported devices
+
+## Related Components
+
+- [Glass Textarea](/components/inputs/glass-textarea) - Multi-line text input
+- [Glass Select](/components/inputs/glass-select) - Selection from options
+- [Glass Search](/components/inputs/glass-search) - Search-specific input
+- [Glass Checkbox](/components/inputs/glass-checkbox) - Binary selection
+
+## Resources
+
+- [Apple HIG - Text Fields](https://developer.apple.com/design/human-interface-guidelines/text-fields)
+- [Form Design Best Practices](https://developer.apple.com/design/human-interface-guidelines/forms)
+- [Accessibility Guidelines](https://developer.apple.com/accessibility/)
+
+---
+
+*This component follows Apple's Human Interface Guidelines and implements the Liquid Glass design language introduced at WWDC 2025.*

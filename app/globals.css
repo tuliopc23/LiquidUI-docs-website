@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apple HIG CSS Variables */
+:root {
+  /* Apple HIG Typography */
+  --hig-font-system: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --hig-font-mono: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', 'source-code-pro', Menlo, Consolas, monospace;
+  
+  /* Apple System Colors */
+  --hig-blue: #007AFF;
+  --hig-green: #34C759;
+  --hig-indigo: #5856D6;
+  --hig-orange: #FF9500;
+  --hig-pink: #FF2D92;
+  --hig-purple: #AF52DE;
+  --hig-red: #FF3B30;
+  --hig-teal: #30B0C7;
+  --hig-yellow: #FFCC00;
+
+  /* Apple Label Colors (Light Mode) */
+  --hig-label-primary: #000000;
+  --hig-label-secondary: rgba(60, 60, 67, 0.6);
+  --hig-label-tertiary: rgba(60, 60, 67, 0.3);
+  --hig-label-quaternary: rgba(60, 60, 67, 0.18);
+
+  /* Apple Background Colors (Light Mode) */
+  --hig-background-primary: #FFFFFF;
+  --hig-background-secondary: #F2F2F7;
+  --hig-background-tertiary: #FFFFFF;
+
+  /* Apple Fill Colors (Light Mode) */
+  --hig-fill-primary: rgba(120, 120, 128, 0.2);
+  --hig-fill-secondary: rgba(120, 120, 128, 0.16);
+  --hig-fill-tertiary: rgba(118, 118, 128, 0.12);
+  --hig-fill-quaternary: rgba(116, 116, 128, 0.08);
+
+  /* Apple Motion */
+  --hig-duration-fast: 0.2s;
+  --hig-duration-standard: 0.3s;
+  --hig-duration-slow: 0.5s;
+  --hig-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --hig-easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --hig-easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+  --hig-easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Touch Targets */
+  --hig-touch-target: 44px;
+
+  /* Liquid Glass Variables */
+  --liquid-glass-bg-light: rgba(255, 255, 255, 0.15);
+  --liquid-glass-bg-dark: rgba(0, 0, 0, 0.15);
+  --liquid-glass-border-light: rgba(255, 255, 255, 0.2);
+  --liquid-glass-border-dark: rgba(255, 255, 255, 0.1);
+  --liquid-glass-blur: blur(12px);
+  --liquid-glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+}
+
+/* Dark Mode Variables */
+.dark {
+  /* Apple Label Colors (Dark Mode) */
+  --hig-label-primary: #FFFFFF;
+  --hig-label-secondary: rgba(235, 235, 245, 0.6);
+  --hig-label-tertiary: rgba(235, 235, 245, 0.3);
+  --hig-label-quaternary: rgba(235, 235, 245, 0.16);
+
+  /* Apple Background Colors (Dark Mode) */
+  --hig-background-primary: #000000;
+  --hig-background-secondary: #1C1C1E;
+  --hig-background-tertiary: #2C2C2E;
+
+  /* Apple Fill Colors (Dark Mode) */
+  --hig-fill-primary: rgba(120, 120, 128, 0.36);
+  --hig-fill-secondary: rgba(120, 120, 128, 0.32);
+  --hig-fill-tertiary: rgba(118, 118, 128, 0.24);
+  --hig-fill-quaternary: rgba(116, 116, 128, 0.18);
+
+  /* Liquid Glass Dark Mode */
+  --liquid-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Apple HIG Base Styles */
+@layer base {
+  * {
+    font-family: var(--hig-font-system);
+  }
+
+  body {
+    font-family: var(--hig-font-system);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Apple HIG Typography Styles */
+  .hig-large-title {
+    font-size: 34px;
+    line-height: 41px;
+    font-weight: 400;
+    letter-spacing: 0.374px;
+  }
+
+  .hig-title-1 {
+    font-size: 28px;
+    line-height: 34px;
+    font-weight: 400;
+    letter-spacing: 0.364px;
+  }
+
+  .hig-title-2 {
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 400;
+    letter-spacing: 0.35px;
+  }
+
+  .hig-title-3 {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 400;
+    letter-spacing: 0.38px;
+  }
+
+  .hig-headline {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 600;
+    letter-spacing: -0.408px;
+  }
+
+  .hig-body {
+    font-size: 17px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: -0.408px;
+  }
+
+  .hig-callout {
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 400;
+    letter-spacing: -0.32px;
+  }
+
+  .hig-subheadline {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: -0.24px;
+  }
+
+  .hig-footnote {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: -0.08px;
+  }
+
+  .hig-caption-1 {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+  }
+
+  .hig-caption-2 {
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: 400;
+    letter-spacing: 0.066px;
+  }
+}
+
+/* Legacy CSS removed - now using modern GlassEffect component system */
+/* All liquid glass styles are now handled by the React component system */
+
+/* Performance optimizations now handled by GlassEffect component */
+
+/* Accessibility support now handled by GlassEffect component */
+
+/* Apple HIG Touch Targets */
+.hig-touch-target {
+  min-height: var(--hig-touch-target);
+  min-width: var(--hig-touch-target);
+}
+
+/* Apple HIG Focus Ring */
+.hig-focus {
+  outline: 2px solid var(--hig-blue);
+  outline-offset: 2px;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Enhanced scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-br from-blue-500 to-purple-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-blue-600 to-purple-700;
+}
+
+/* Enhanced styling will be handled by GlassEffect components */
+
+/* Focus styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-transparent;
+}

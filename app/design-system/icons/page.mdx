@@ -1,0 +1,189 @@
+# Icons
+
+Liquidify uses SF Symbols and Lucide React icons to provide a comprehensive and cohesive icon system that aligns with Apple's design standards.
+
+## SF Symbols Integration
+
+SF Symbols is Apple's set of symbols designed to integrate seamlessly with the San Francisco system font.
+
+### Key Features
+
+- **Vector-based**: Sharp at any size
+- **Weight-matched**: Harmonious with system fonts
+- **Dynamic**: Adapts to text size and weight
+- **Platform-native**: Consistent with Apple's ecosystem
+
+### Usage
+```tsx
+import { SFSymbol } from 'liquidify'
+
+export default function Example() {
+  return (
+    <SFSymbol 
+      name="heart.fill" 
+      size="large" 
+      weight="medium"
+      color="red"
+    />
+  )
+}
+```
+
+## Lucide React Icons
+
+For non-Apple platforms and additional icon variety, Liquidify integrates Lucide React icons.
+
+### Popular Icons
+```tsx
+import { 
+  Heart, 
+  Search, 
+  Settings, 
+  User,
+  Home,
+  ChevronRight
+} from 'lucide-react'
+
+export default function IconList() {
+  return (
+    <div className="flex space-x-4">
+      <Heart size={24} />
+      <Search size={24} />
+      <Settings size={24} />
+      <User size={24} />
+    </div>
+  )
+}
+```
+
+## Icon Sizes
+
+Consistent sizing ensures visual harmony across your interface.
+
+### Size Scale
+| Size   | Pixels | Usage              |
+|--------|--------|--------------------|
+| xs     | 12px   | Inline text icons  |
+| sm     | 16px   | Small buttons      |
+| md     | 20px   | Standard icons     |
+| lg     | 24px   | Navigation icons   |
+| xl     | 32px   | Feature icons      |
+| 2xl    | 48px   | Hero icons         |
+
+```tsx
+import { Icon } from 'liquidify'
+
+<Icon name="star" size="md" />  {/* 20px */}
+<Icon name="star" size="lg" />  {/* 24px */}
+```
+
+## Icon Weights
+
+SF Symbols support multiple weights to match your typography.
+
+### Weight Options
+- **ultralight**: Very thin strokes
+- **thin**: Thin strokes
+- **light**: Light strokes
+- **regular**: Default weight
+- **medium**: Medium weight
+- **semibold**: Semi-bold strokes
+- **bold**: Bold strokes
+- **heavy**: Heavy strokes
+- **black**: Very heavy strokes
+
+```tsx
+<SFSymbol name="heart" weight="light" />
+<SFSymbol name="heart" weight="medium" />
+<SFSymbol name="heart" weight="bold" />
+```
+
+## Color and Theming
+
+Icons automatically adapt to the current theme and can be customized.
+
+### Theme Colors
+```tsx
+// Uses theme colors
+<Icon name="star" color="primary" />
+<Icon name="star" color="success" />
+<Icon name="star" color="warning" />
+
+// Custom colors
+<Icon name="star" color="#FF6B6B" />
+```
+
+### Dark Mode
+Icons automatically adapt to dark mode when using semantic colors:
+
+```tsx
+<Icon 
+  name="moon" 
+  color="text-primary"  // Adapts to theme
+  className="dark:text-yellow-400" 
+/>
+```
+
+## Accessibility
+
+Icons in Liquidify are designed with accessibility in mind.
+
+### Best Practices
+1. **Always provide labels** for screen readers
+2. **Use semantic meaning** in icon selection
+3. **Maintain sufficient contrast** against backgrounds
+4. **Avoid icon-only buttons** without text labels
+
+```tsx
+// Good: Icon with accessible label
+<button aria-label="Save document">
+  <Icon name="save" />
+</button>
+
+// Better: Icon with visible text
+<button>
+  <Icon name="save" />
+  Save
+</button>
+```
+
+## Custom Icons
+
+You can add custom icons to maintain brand consistency.
+
+### Adding Custom Icons
+```tsx
+import { createIcon } from 'liquidify'
+
+const CustomBrandIcon = createIcon({
+  displayName: 'CustomBrandIcon',
+  path: (
+    <path 
+      d="M12 2L2 7V17L12 22L22 17V7L12 2Z" 
+      fill="currentColor"
+    />
+  ),
+})
+
+export default function Example() {
+  return <CustomBrandIcon size="lg" color="primary" />
+}
+```
+
+## Icon Guidelines
+
+### Do's
+- Use icons to enhance understanding
+- Maintain consistent sizing within contexts
+- Choose icons with clear, recognizable metaphors
+- Provide alternative text for accessibility
+
+### Don'ts
+- Don't use too many different icon styles
+- Don't make icons smaller than 16px for touch targets
+- Don't use decorative icons without semantic meaning
+- Don't rely solely on color to convey information
+
+---
+
+*Icons are powerful visual elements that enhance usability and provide clear communication when used thoughtfully and consistently.*

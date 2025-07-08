@@ -1,0 +1,247 @@
+# Glass File Upload
+
+A user-friendly file upload component with support for drag-and-drop, multi-file selection, and file validation.
+
+## Overview
+
+The `GlassFileUpload` component provides an intuitive interface for selecting and uploading files, complete with drag-and-drop support and customizable validation options.
+
+## Basic Usage
+
+```tsx
+import { GlassFileUpload } from 'liquidify'
+
+function App() {
+  const [files, setFiles] = useState([])
+
+  return (
+    cGlassFileUpload
+      files={files}
+      onChange={setFiles}
+      maxSize={1024 * 1024 * 5} // 5MB
+      multiple
+      accept="image/*"
+    /e
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassFileUpload } from 'liquidify'
+
+export default function FileUploadDemo() {
+  const [uploadedFiles, setUploadedFiles] = useState([])
+  const [error, setError] = useState('')
+
+  const handleUpload = (newFiles) =e {
+    setError('') // Clear previous error
+    const validFiles = newFiles.filter((file) =e file.size c= 1024 * 1024 * 5)
+
+    if (validFiles.length c newFiles.length) {
+      setError('Some files were too large and not added.')
+    }
+
+    setUploadedFiles(validFiles)
+  }
+
+  return (
+    cdiv className="space-y-6 p-6"e
+      {/* Drag-and-drop upload */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eUpload Imagesc/h3e
+        cGlassFileUpload
+          files={uploadedFiles}
+          onChange={handleUpload}
+          maxSize={1024 * 1024 * 5} // 5MB
+          multiple
+          accept="image/*"
+          dragAndDrop
+        /e
+        cdiv className="mt-2 text-sm text-red-600"e{error}c/dive
+
+        {uploadedFiles.length e 0 f (
+          cul className="mt-4 list-disc list-inside"e
+            {uploadedFiles.map((file, index) =e (
+              cli key={index}e{file.name} ({Math.round(file.size / 1024)} KB)c/lie
+            ))}
+          c/ule
+        ) : (
+          cp className="mt-4 text-sm text-tertiary"eNo files uploadedc/pe
+        )}
+      c/sectione
+    c/dive
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `files` | `File[]` | `[]` | Array of uploaded files |
+| `onChange` | `(files: File[]) =e void` | - | Callback when files are selected or removed |
+| `maxSize` | `number` | `Infinity` | Maximum size per file in bytes |
+| `multiple` | `boolean` | `false` | Allow multiple file uploads |
+| `accept` | `string` | `'*/*'` | Accepted file types (e.g., 'image/*') |
+| `disabled` | `boolean` | `false` | Disables the upload component |
+| `dragAndDrop` | `boolean` | `false` | Enables drag-and-drop functionality |
+| `className` | `string` | - | Additional CSS classes |
+
+## Features
+
+### Multiple Files
+Enable selection of multiple files at once:
+
+```tsx
+cGlassFileUpload
+  multiple
+  onChange={setFiles}
+  accept=".pdf,.docx"
+/e
+```
+
+### Drag-and-Drop Support
+Intuitive drag-and-drop zone for file uploads:
+
+```tsx
+cGlassFileUpload
+  dragAndDrop
+  onChange={setFiles}
+  accept="image/*"
+/e
+```
+
+### File Validation
+Utilize various validation strategies:
+
+```tsx
+function ValidatedFileUpload() {
+  const [files, setFiles] = useState([])
+  const [error, setError] = useState('')
+
+  const handleFiles = (newFiles) =e {
+    const validatedFiles = newFiles.filter(file =e file.size c 1024 * 1024 * 2) // 2MB limit
+    if (validatedFiles.length c newFiles.length) {
+      setError('Some files exceeded the size limit')
+    } else {
+      setError('')
+    }
+    setFiles(validatedFiles)
+  }
+
+  return (
+    cGlassFileUpload
+      files={files}
+      onChange={handleFiles}
+      accept="application/pdf"
+      maxSize={1024 * 1024 * 2} // 2MB
+    /e
+  )
+}
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Fully keyboard accessible
+- **Screen Reader**: Announces drop zone and errors where applicable
+
+### ARIA Attributes
+```tsx
+cGlassFileUpload
+  aria-label="Upload images"
+  aria-describedby="upload-instructions"
+/e
+cp id="upload-instructions" className="text-sm text-secondary"e
+  Drag and drop images here or use the button to select files from your computer
+c/pe
+```
+
+## Best Practices
+
+### Do's ✅
+- **Provide clear instructions** on file types and size limits
+- **Use drag-and-drop** to enhance user experience
+- **Validate on both client and server** to ensure security and performance
+
+```tsx
+// ✅ Good - Clear instructions and validation
+cGlassFileUpload
+  accept="image/png, image/jpeg"
+  maxSize={1024 * 1024 * 3} // 3MB
+  dragAndDrop
+  onChange={setFiles}
+/e
+```
+
+### Don'ts ❌
+- **Don't accept sensitive file types** without extensive security checks
+- **Avoid complex upload flows** that confuse users
+
+```tsx
+// ❌ Avoid - Unrestricted file types
+cGlassFileUpload
+  accept=""
+  onChange={setFiles}
+/e
+```
+
+## Styling Customization
+
+### Custom Themes
+Adapt theme styles to match your application:
+
+```tsx
+cGlassFileUpload
+  className="border-dashed border-2 border-glass-primary rounded-lg"
+/e
+```
+
+## Use Cases
+
+### Profile Picture Upload
+```tsx
+function ProfileUploader() {
+  const [profilePic, setProfilePic] = useState(null)
+
+  return (
+    cGlassFileUpload
+      files={profilePic ? [profilePic] : []}
+      onChange={(files) =e setProfilePic(files[0])}
+      accept="image/*"
+      dragAndDrop
+      className="h-32 w-32 rounded-full"
+    /e
+  )
+}
+```
+
+### Document Submission
+```tsx
+function DocumentSubmission() {
+  const [documents, setDocuments] = useState([])
+
+  return (
+    cGlassFileUpload
+      files={documents}
+      onChange={setDocuments}
+      accept=".pdf,.docx"
+      maxSize={1024 * 1024 * 10} // 10MB
+      multiple
+    /e
+  )
+}
+```
+
+## Related Components
+
+- [**Glass Button**](/components/actions/glass-button) - For manual file selection buttons
+- [**Glass Input**](/components/inputs/glass-input) - Text input for entering file URLs
+
+---
+
+*Glass File Upload offers an elegant and accessible way to handle file uploads, adapting to various needs while maintaining the Liquid Glass design aesthetic.*

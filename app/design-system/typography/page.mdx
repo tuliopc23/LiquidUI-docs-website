@@ -1,0 +1,79 @@
+# Typography
+
+The typography system in Liquidify follows Apple's standards for clarity, readability, and aesthetics. It's built with SF Pro Display and SF Pro Text fonts to align with Apple's design.
+
+## Font Families
+
+Liquidify uses Apple's system fonts to ensure text renders beautifully across all platforms.
+
+```json
+{
+  "sans": ["SF Pro Display", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+  "mono": ["SF Mono", "Monaco", "Inconsolata", ""],
+  "body": ["SF Pro Text", "Inter", "system-ui"]
+}
+```
+
+## Font Sizes and Scale
+
+The typography scale is based on Apple's guidance for Dynamic Type, ensuring accessibility and responsiveness.
+
+### Dynamic Type Sizes
+
+| Size     | px   | Example    |
+|----------|------|------------|
+| 9XL      | 128  | Huge Title |
+| 8XL      | 96   | Main Title |
+| 7XL      | 72   | Section    |
+| 6XL      | 60   | Large Headline |
+| 5XL      | 48   | Headline   |
+| 4XL      | 36   | Subheadline|
+| 3XL      | 30   | Title 1    |
+| 2XL      | 24   | Title 2    |
+| XL       | 20   | Title 3    |
+| Base     | 16   | Body       |
+| SM       | 14   | Caption    |
+| XS       | 12   | Footnote   |
+
+```tsx
+import { typography } from 'liquidify/tokens'
+
+const heading = typography.fontSize['3xl'] // 30px for headlines
+const bodyText = typography.fontSize.base  // 16px for body
+```
+
+## Usage
+
+Apply typography styles using utility classes or styled-components.
+
+### Utility Classes
+
+```html
+<h1 class="font-display text-lg">Heading</h1>
+<p class="font-body text-base">Body text here</p>
+<pre class="font-mono">Code block</pre>
+```
+
+### Styled-components
+
+```tsx
+const Title = styled.h1`
+  font-family: ${props => props.theme.fonts.display};
+  font-size: ${typography.fontSize['3xl'][0]};
+`
+
+const Body = styled.p`
+  font-family: ${props => props.theme.fonts.body};
+  font-size: ${typography.fontSize.base[0]};
+`
+```
+
+## Accessibility and Responsiveness
+
+1. **Responsive Scaling**: Supports Apple's Dynamic Type to adapt text size.
+2. **Contrast Ratios**: Meets accessibility standards for readability.
+3. **Consistent Leading**: Provides even spacing across text lines.
+
+---
+
+This typography system balances aesthetics with functionality, ensuring text is legible, accessible, and beautiful across devices.

@@ -1,0 +1,391 @@
+# Glass Button
+
+A premium glass-effect button component with advanced visual effects, multiple variants, loading states, and full accessibility support.
+
+## Overview
+
+The Glass Button is an interactive element that enables users to initiate actions, make choices, or navigate through interfaces. Built with sophisticated glassmorphism effects, backdrop blur, magnetic hover interactions, and haptic feedback support, it provides an elegant user experience while maintaining full accessibility compliance.
+
+## Features
+
+- **Multiple Variants**: 5 visual styles (primary, secondary, tertiary, ghost, destructive)
+- **5 Size Options**: xs, sm, md, lg, xl following 4pt grid system
+- **Loading States**: Built-in spinner with smooth transitions
+- **Icon Support**: Left and right icons with proper spacing
+- **Glass Morphism**: Advanced backdrop blur and transparency effects
+- **Magnetic Hover**: Subtle magnetic attraction interactions
+- **Haptic Feedback**: Native haptic response on supported devices
+- **Accessibility**: Full VoiceOver, Voice Control, and keyboard support
+
+## Anatomy
+
+The Glass Button consists of:
+- **Container**: Glass surface with backdrop blur and border
+- **Label**: Text content with Apple HIG typography
+- **Icons** (optional): Leading or trailing visual elements
+- **Loading Spinner** (optional): Animated loading indicator
+- **Focus Ring**: Blue accessibility indicator
+- **Magnetic Field**: Invisible hover interaction zone
+
+## API Reference
+
+### Props
+
+Based on the actual Liquidify component API:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost' \| 'destructive'` | `'primary'` | Visual style and prominence |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Button size following 4pt grid |
+| `asChild` | `boolean` | `false` | Render as child component (Slot pattern) |
+| `leftIcon` | `ReactNode` | `undefined` | Icon displayed on the left side |
+| `rightIcon` | `ReactNode` | `undefined` | Icon displayed on the right side |
+| `loading` | `boolean` | `false` | Shows loading spinner and disables interaction |
+| `disabled` | `boolean` | `false` | Disables button interaction |
+| `className` | `string` | `undefined` | Additional CSS classes |
+| `children` | `ReactNode` | - | Button content |
+| ...HTMLButtonAttributes | - | - | All standard button HTML attributes |
+
+### Size Specifications
+
+From the component tokens:
+- **xs**: 28px height, 8px/10px padding
+- **sm**: 32px height, 10px/12px padding  
+- **md**: 40px height, 12px/16px padding (default)
+- **lg**: 44px height, 14px/20px padding
+- **xl**: 52px height, 16px/24px padding
+
+## Code Examples
+
+### Basic Usage
+
+```tsx
+import { GlassButton } from 'liquidify'
+
+export default function BasicExample() {
+  return (
+    <GlassButton variant="primary" size="md">
+      Get Started
+    </GlassButton>
+  )
+}
+```
+
+### With Icons
+
+```tsx
+import { GlassButton } from 'liquidify'
+import { PlayIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
+
+export default function IconExample() {
+  return (
+    <div className="flex gap-4">
+      <GlassButton 
+        variant="primary" 
+        leftIcon={<PlayIcon className="w-5 h-5" />}
+      >
+        Play Video
+      </GlassButton>
+      
+      <GlassButton 
+        variant="secondary" 
+        rightIcon={<ArrowRightIcon className="w-4 h-4" />}
+      >
+        Continue
+      </GlassButton>
+    </div>
+  )
+}
+```
+
+### Loading State
+
+```tsx
+import { GlassButton } from 'liquidify'
+import { useState } from 'react'
+
+export default function LoadingExample() {
+  const [loading, setLoading] = useState(false)
+  
+  const handleSubmit = async () => {
+    setLoading(true)
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      console.log('Form submitted!')
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  return (
+    <GlassButton 
+      variant="primary" 
+      loading={loading}
+      onClick={handleSubmit}
+      disabled={loading}
+    >
+      {loading ? 'Submitting...' : 'Submit Form'}
+    </GlassButton>
+  )
+}
+```
+
+### All Variants
+
+```tsx
+import { GlassButton } from 'liquidify'
+
+export default function VariantsExample() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      <GlassButton variant="primary">
+        Primary
+      </GlassButton>
+      
+      <GlassButton variant="secondary">
+        Secondary
+      </GlassButton>
+      
+      <GlassButton variant="tertiary">
+        Tertiary
+      </GlassButton>
+      
+      <GlassButton variant="ghost">
+        Ghost
+      </GlassButton>
+      
+      <GlassButton variant="destructive">
+        Destructive
+      </GlassButton>
+    </div>
+  )
+}
+```
+
+### All Sizes
+
+```tsx
+import { GlassButton } from 'liquidify'
+
+export default function SizesExample() {
+  return (
+    <div className="flex items-end gap-4">
+      <GlassButton size="xs">Extra Small</GlassButton>
+      <GlassButton size="sm">Small</GlassButton>
+      <GlassButton size="md">Medium</GlassButton>
+      <GlassButton size="lg">Large</GlassButton>
+      <GlassButton size="xl">Extra Large</GlassButton>
+    </div>
+  )
+}
+```
+
+### As Child Pattern
+
+```tsx
+import { GlassButton } from 'liquidify'
+import Link from 'next/link'
+
+export default function AsChildExample() {
+  return (
+    <GlassButton asChild>
+      <Link href="/docs" className="inline-flex items-center">
+        View Documentation
+      </Link>
+    </GlassButton>
+  )
+}
+```
+
+## Interactive Playground
+
+```tsx
+import { GlassButton } from 'liquidify'
+import { useState } from 'react'
+
+export default function ButtonPlayground() {
+  const [variant, setVariant] = useState('primary')
+  const [size, setSize] = useState('md')
+  const [loading, setLoading] = useState(false)
+  const [hasIcon, setHasIcon] = useState(false)
+  
+  return (
+    <div className="space-y-6">
+      {/* Controls */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Variant</label>
+          <select 
+            value={variant} 
+            onChange={(e) => setVariant(e.target.value)}
+            className="w-full p-2 border rounded"
+          >
+            <option value="primary">Primary</option>
+            <option value="secondary">Secondary</option>
+            <option value="tertiary">Tertiary</option>
+            <option value="ghost">Ghost</option>
+            <option value="destructive">Destructive</option>
+          </select>
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium mb-2">Size</label>
+          <select 
+            value={size} 
+            onChange={(e) => setSize(e.target.value)}
+            className="w-full p-2 border rounded"
+          >
+            <option value="xs">Extra Small</option>
+            <option value="sm">Small</option>
+            <option value="md">Medium</option>
+            <option value="lg">Large</option>
+            <option value="xl">Extra Large</option>
+          </select>
+        </div>
+        
+        <label className="flex items-center gap-2">
+          <input 
+            type="checkbox" 
+            checked={loading} 
+            onChange={(e) => setLoading(e.target.checked)} 
+          />
+          Loading State
+        </label>
+        
+        <label className="flex items-center gap-2">
+          <input 
+            type="checkbox" 
+            checked={hasIcon} 
+            onChange={(e) => setHasIcon(e.target.checked)} 
+          />
+          Show Icon
+        </label>
+      </div>
+      
+      {/* Preview */}
+      <div className="flex justify-center p-8 bg-gray-50 rounded-lg">
+        <GlassButton 
+          variant={variant}
+          size={size}
+          loading={loading}
+          leftIcon={hasIcon ? <span>🚀</span> : undefined}
+        >
+          Button Preview
+        </GlassButton>
+      </div>
+      
+      {/* Generated Code */}
+      <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-x-auto">
+        {`<GlassButton
+  variant="${variant}"
+  size="${size}"${loading ? '\n  loading={true}' : ''}${hasIcon ? '\n  leftIcon={<Icon />}' : ''}
+>
+  Button Preview
+</GlassButton>`}
+      </div>
+    </div>
+  )
+}
+```
+
+## Accessibility
+
+### VoiceOver Support
+- Proper semantic button role
+- Clear, descriptive labels  
+- State announcements for loading/disabled states
+
+### Voice Control
+- Responds to "Tap [button text]" commands
+- Supports number-based navigation
+- Handles icon-only buttons with accessibility labels
+
+### Keyboard Navigation
+- **Tab**: Focus button
+- **Space/Enter**: Activate button
+- **Escape**: Remove focus (when appropriate)
+
+### High Contrast Mode
+- Maintains proper contrast ratios
+- Enhanced borders and focus indicators
+- Respects system contrast preferences
+
+### Reduced Motion
+- Respects `prefers-reduced-motion`
+- Provides alternative feedback for animations
+- Maintains functionality without motion
+
+## Design Tokens
+
+The component uses Liquidify's design token system:
+
+### Colors
+```css
+/* Primary variant uses system blue */
+--glass-primary-bg: rgba(0, 122, 255, 0.15);
+--glass-primary-border: rgba(0, 122, 255, 0.3);
+--glass-primary-text: #007AFF;
+
+/* Secondary uses subtle glass */
+--glass-secondary-bg: rgba(255, 255, 255, 0.1);
+--glass-secondary-border: rgba(255, 255, 255, 0.2);
+```
+
+### Typography
+Uses system font stack with appropriate weights:
+```css
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+```
+
+### Spacing & Sizing
+Follows 4pt grid system with precise touch targets:
+```css
+/* Medium size (default) */
+height: 40px;
+padding: 12px 16px;
+min-width: 44px; /* Touch target compliance */
+```
+
+### Glass Effects
+```css
+backdrop-filter: blur(20px) saturate(180%);
+-webkit-backdrop-filter: blur(20px) saturate(180%);
+background: rgba(255, 255, 255, 0.12);
+border: 1px solid rgba(255, 255, 255, 0.18);
+```
+
+## Platform Considerations
+
+### iOS/iPadOS
+- Haptic feedback on button press
+- Dynamic Type scaling support
+- Context menu integration
+- Smart punctuation handling
+
+### macOS  
+- Precise pointer interactions
+- Keyboard shortcut support
+- Menu bar integration
+- Window focus management
+
+### watchOS
+- Optimized for Digital Crown navigation
+- Enhanced touch targets
+- Simplified visual hierarchy
+
+## Related Components
+
+- [Glass Icon Button](/components/actions/glass-icon-button) - Icon-only actions
+- [Glass Button Group](/components/actions/glass-button-group) - Related action sets  
+- [Glass Floating Action](/components/actions/glass-floating-action) - Prominent primary actions
+
+## Resources
+
+- [Liquidify Package](https://www.npmjs.com/package/liquidify) - NPM package
+- [Apple HIG - Buttons](https://developer.apple.com/design/human-interface-guidelines/buttons)
+- [Accessibility Guidelines](https://developer.apple.com/accessibility/)
+
+---
+
+*This component is part of the Liquidify design system and implements Apple's Human Interface Guidelines with advanced glassmorphism effects.*

@@ -1,0 +1,83 @@
+# Glass Textarea
+
+A flexible multi-line text input, perfect for capturing larger user inputs such as comments, descriptions, or messages.
+
+## Overview
+
+The `GlassTextarea` component provides a responsive multi-line text input, featuring auto-resizing and extensive styling options.
+
+## Basic Usage
+
+```tsx
+import { GlassTextarea } from 'liquidify'
+
+function App() {
+  return (
+    cGlassTextarea 
+      placeholder="Your message here..."
+      rows={4} 
+    e
+  )
+}
+```
+
+## Features
+
+- **Auto-resize**: Adjusts height based on content length
+- **Character count**: Display remaining/used characters
+
+```tsx
+import { useState } from 'react'
+import { GlassTextarea } from 'liquidify'
+
+function AutoResizeTextarea() {
+  const [message, setMessage] = useState('')
+
+  return (
+    cdive
+      cGlassTextarea 
+        value={message} 
+        onChange={(e) =e setMessage(e.target.value)}
+        placeholder="Share your thoughts..."
+        autoResize
+      e
+      cdive{message.length}/500 charactersc/dive
+    c/dive
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `''` | Current text value |
+| `onChange` | `(event: React.ChangeEvent<HTMLTextAreaElement>) =e void` | - | Handler on text change |
+| `placeholder` | `string` | `''` | Placeholder text |
+| `autoResize` | `boolean` | `false` | Enables auto-resizing based on content |
+| `rows` | `number` | `3` | Initial number of visible rows |
+| `maxLength` | `number` | - | Maximum character length |
+| `className` | `string` | - | Additional CSS classes |
+
+## Accessibility
+
+- **VoiceOver Support**: Descriptive placeholder, `aria-label` support
+- **Keyboard Navigation**: Full support for editing interactions
+
+### VoiceOver Example
+
+```tsx
+cGlassTextarea 
+  aria-label="Story description"
+  placeholder="Describe your story..."
+e
+```
+
+## Best Practices
+
+- **Use clear labels and placeholders** for better accessibility
+- **Provide character count** if there are content limits
+
+---

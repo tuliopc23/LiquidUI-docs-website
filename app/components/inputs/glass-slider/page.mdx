@@ -1,0 +1,145 @@
+# Glass Slider
+
+A component to select a value from a defined range with a sliding interface, offering both discrete and continuous value options.
+
+## Overview
+
+The `GlassSlider` component provides a smooth and interactive way for users to select a value from a defined range, with customization options for both style and functionality.
+
+## Basic Usage
+
+```tsx
+import { GlassSlider } from 'liquidify'
+
+function App() {
+  const [value, setValue] = useState(50)
+
+  return (
+    cGlassSlider
+      value={value}
+      onChange={setValue}
+      min={0}
+      max={100}
+      step={1}
+    e
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassSlider } from 'liquidify'
+
+export default function SliderDemo() {
+  const [volume, setVolume] = useState(50)
+  const [brightness, setBrightness] = useState(75)
+
+  return (
+    cdiv className="space-y-6 p-6"e
+      {/* Volume Slider */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eVolumec/h3e
+        cGlassSlider 
+          value={volume}
+          onChange={setVolume}
+          min={0}
+          max={100}
+          step={1}
+          tooltipVisible
+          label="Volume"
+        /e
+        cp className="text-sm mt-2"eCurrent Volume: {volume}%c/pe
+      c/sectione
+
+      {/* Brightness Slider */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eBrightnessc/h3e
+        cGlassSlider 
+          value={brightness}
+          onChange={setBrightness}
+          min={0}
+          max={100}
+          step={5}
+          tooltipVisible
+          label="Brightness"
+        /e
+        cp className="text-sm mt-2"eCurrent Brightness: {brightness}%c/pe
+      c/sectione
+    c/dive
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | Current value of the slider |
+| `onChange` | `(value: number) =e void` | - | Callback when the slider value changes |
+| `min` | `number` | `0` | Minimum value allowed |
+| `max` | `number` | `100` | Maximum value allowed |
+| `step` | `number` | `1` | Interval between selectable values in the slider |
+| `disabled` | `boolean` | `false` | Disables the slider |
+| `tooltipVisible` | `boolean` | `false` | Shows current value in a tooltip above the slider |
+| `label` | `string` | '' | Label text for the slider |
+
+## Features
+
+### Discrete vs Continuous
+
+- **Discrete Mode**: Allow only fixed increments
+```tsx
+cGlassSlider min={0} max={10} step={1} /e
+```
+
+- **Continuous Mode**: Freeform slider within a range
+```tsx
+cGlassSlider min={0} max={100} step={0.1} /e
+```
+
+### Custom Styling
+Style the track and thumb to fit your design needs
+
+```tsx
+cGlassSlider
+  trackClassName="bg-glass-secondary"
+  thumbClassName="bg-glass-primary"
+/e
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Arrow keys to adjust values
+- **ARIA support** for better screen reader compatibility
+
+### Keyboard Example
+```tsx
+cGlassSlider
+  aria-label="Adjust volume"
+  value={volume}
+  onChange={setVolume}
+/e
+```
+
+## Best Practices
+
+### Do's ✅
+- **Use clear labels** to indicate slider function
+- **Define appropriate min/max** range for context
+- **Show tooltip** for precise value adjustments
+
+### Don'ts ❌
+- **Avoid overly large ranges** without context
+- **Don't rely solely on visual cues** for slider interaction
+
+## Related Components
+- [**Glass Input**](/components/inputs/glass-input) for manual value entry
+- [**Glass Checkbox**](/components/inputs/glass-checkbox) for binary checks
+---
+
+*Glass Slider offers a smooth, interactive way to select values, seamlessly integrating into Liquidify's design aesthetics.*
+

@@ -29,7 +29,18 @@
       "Bash(claude mcp add:*)",
       "Bash(claude mcp:*)",
       "Bash(npm show:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(npm outdated)",
+      "mcp__github__search_repositories",
+      "mcp__github__get_file_contents",
+      "Bash(touch:*)",
+      "Bash(pkill:*)",
+      "Bash(kill:*)",
+      "Bash(timeout 5s npm run dev)",
+      "Bash(npm test)",
+      "Bash(timeout 10s npm run dev)",
+      "WebFetch(domain:developer.apple.com)",
+      "Bash(npm run test:*)"
     ],
     "deny": []
   }

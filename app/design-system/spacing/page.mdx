@@ -1,0 +1,102 @@
+# Spacing and Layout
+
+Liquidify utilizes a 4-point grid system to create a proportionate and visually appealing layout that aligns with Apple’s design philosophy.
+
+## Grid System
+
+A consistent 4-point grid helps streamline design across different screen sizes and devices.
+
+### Key Benefits
+
+- Universal sizing units
+- Simplifies responsive adjustments
+- Aligns components proportionately
+
+### Grid in Practice
+The grid uses multiples of 4 to ensure harmonious scaling and spacing.
+
+```json
+{
+  "0": "0px",
+  "1": "4px",
+  "2": "8px",
+  "3": "12px",
+  "4": "16px",
+  "5": "20px",
+  "6": "24px",
+  "8": "32px",
+  "10": "40px",
+  "12": "48px",
+  "16": "64px",
+  "20": "80px",
+  "24": "96px"
+}
+```
+
+## Layout Patterns
+
+Designing with intentionality to ensure predictable and clean interfaces.
+
+### Containers and Alignment
+
+Use containers to organize content and apply spacing rules to maintain visual hierarchy.
+
+```tsx
+import { Box } from 'liquidify'
+
+export default function Example() {
+  return (
+    <Box className="p-4 m-8">
+      <h2>Section Title</h2>
+      <p>Aligned content using Liquidify’s spacing.
+    </Box>
+  )
+}
+```
+
+### Responsive Breakpoints
+
+Adapting layouts to fit the screen size of any device.
+
+| Breakpoint | Width  | Example       |
+|------------|--------|---------------|
+| XS         | 320px  | iPhone SE     |
+| SM         | 375px  | iPhone X      |
+| MD         | 768px  | iPad Portrait |
+| LG         | 1024px | iPad Landscape|
+| XL         | 1280px | Desktop       |
+| 2XL        | 1536px | Large Desktop |
+
+```css
+@media (min-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+}
+```
+
+## Common Layouts
+
+Predefined layouts for consistency and ease of use.
+
+### Hero
+
+```html
+<div className="hero bg-primary text-center p-12">
+  <h1 className="text-white">Welcome to Liquidify</h1>
+  <p className="text-secondary">Design beautifully with simplicity.</p>
+</div>
+```
+
+### Card
+
+```html
+<div className="card shadow-lg p-8">
+  <h2 className="text-lg font-medium">Card Title</h2>
+  <div className="content">Card content with great spacing!</div>
+</div>
+```
+
+---
+
+*The 4-point grid is fundamental to the Liquidify design system, ensuring that designs feel structured and balanced across all platforms.*

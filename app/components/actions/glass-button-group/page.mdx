@@ -1,0 +1,284 @@
+# Glass Button Group
+
+A cohesive grouping of related actions providing a unified experience for segmented controls or toolbars.
+
+## Overview
+
+The `GlassButtonGroup` component aligns actions in a single row, maintaining equal distribution and consistent spacing. It supports two interaction modes: Segmented Control for mutually exclusive selections and Button Toolbar for independent actions.
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```tsx
+import { GlassButtonGroup, GlassButton } from 'liquidify'
+
+function App() {
+  return (
+    <GlassButtonGroup>
+      <GlassButton variant="secondary">Day</GlassButton>
+      <GlassButton variant="secondary">Week</GlassButton>
+      <GlassButton variant="primary">Month</GlassButton>
+    </GlassButtonGroup>
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassButton, GlassButtonGroup } from 'liquidify'
+import { 
+  AlignLeft, 
+  AlignCenter, 
+  AlignRight,
+  Bold,
+  Italic,
+  Underline,
+  List,
+  Grid,
+  LayoutGrid
+} from 'lucide-react'
+
+export default function ButtonGroupDemo() {
+  const [viewMode, setViewMode] = useState('grid')
+  const [alignment, setAlignment] = useState('left')
+  const [formatting, setFormatting] = useState(new Set())
+
+  const toggleFormat = (format) => {
+    const newFormatting = new Set(formatting)
+    if (newFormatting.has(format)) {
+      newFormatting.delete(format)
+    } else {
+      newFormatting.add(format)
+    }
+    setFormatting(newFormatting)
+  }
+
+  return (
+    <div className="space-y-8 p-6">
+      {/* Segmented Control - View Mode */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Segmented Control</h3>
+        <p className="hig-body mb-4 text-secondary">
+          Single selection from multiple options
+        </p>
+        <GlassButtonGroup 
+          value={viewMode}
+          onValueChange={setViewMode}
+        >
+          <GlassButton value="list" leftIcon={<List size={16} />}>
+            List
+          </GlassButton>
+          <GlassButton value="grid" leftIcon={<Grid size={16} />}>
+            Grid
+          </GlassButton>
+          <GlassButton value="cards" leftIcon={<LayoutGrid size={16} />}>
+            Cards
+          </GlassButton>
+        </GlassButtonGroup>
+        <p className="mt-2 text-sm text-tertiary">
+          Selected: {viewMode}
+        </p>
+      </section>
+
+      {/* Segmented Control - Text Alignment */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Text Alignment</h3>
+        <GlassButtonGroup 
+          value={alignment}
+          onValueChange={setAlignment}
+          size="sm"
+        >
+          <GlassButton value="left" aria-label="Align left">
+            <AlignLeft size={16} />
+          </GlassButton>
+          <GlassButton value="center" aria-label="Align center">
+            <AlignCenter size={16} />
+          </GlassButton>
+          <GlassButton value="right" aria-label="Align right">
+            <AlignRight size={16} />
+          </GlassButton>
+        </GlassButtonGroup>
+      </section>
+
+      {/* Button Toolbar - Text Formatting */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Button Toolbar</h3>
+        <p className="hig-body mb-4 text-secondary">
+          Independent toggle actions
+        </p>
+        <GlassButtonGroup variant="ghost">
+          <GlassButton 
+            variant={formatting.has('bold') ? 'primary' : 'ghost'}
+            onClick={() => toggleFormat('bold')}
+            aria-label="Bold"
+            aria-pressed={formatting.has('bold')}
+          >
+            <Bold size={16} />
+          </GlassButton>
+          <GlassButton 
+            variant={formatting.has('italic') ? 'primary' : 'ghost'}
+            onClick={() => toggleFormat('italic')}
+            aria-label="Italic"
+            aria-pressed={formatting.has('italic')}
+          >
+            <Italic size={16} />
+          </GlassButton>
+          <GlassButton 
+            variant={formatting.has('underline') ? 'primary' : 'ghost'}
+            onClick={() => toggleFormat('underline')}
+            aria-label="Underline"
+            aria-pressed={formatting.has('underline')}
+          >
+            <Underline size={16} />
+          </GlassButton>
+        </GlassButtonGroup>
+        <p className="mt-2 text-sm text-tertiary">
+          Active: {Array.from(formatting).join(', ') || 'None'}
+        </p>
+      </section>
+
+      {/* Sizes */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Sizes</h3>
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm text-secondary mb-2">Small</p>
+            <GlassButtonGroup size="sm">
+              <GlassButton>Option A</GlassButton>
+              <GlassButton>Option B</GlassButton>
+              <GlassButton>Option C</GlassButton>
+            </GlassButtonGroup>
+          </div>
+          <div>
+            <p className="text-sm text-secondary mb-2">Medium (Default)</p>
+            <GlassButtonGroup>
+              <GlassButton>Option A</GlassButton>
+              <GlassButton>Option B</GlassButton>
+              <GlassButton>Option C</GlassButton>
+            </GlassButtonGroup>
+          </div>
+          <div>
+            <p className="text-sm text-secondary mb-2">Large</p>
+            <GlassButtonGroup size="lg">
+              <GlassButton>Option A</GlassButton>
+              <GlassButton>Option B</GlassButton>
+              <GlassButton>Option C</GlassButton>
+            </GlassButtonGroup>
+          </div>
+        </div>
+      </section>
+
+      {/* Full Width */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Full Width</h3>
+        <GlassButtonGroup fullWidth value="option2" onValueChange={() => {}}>
+          <GlassButton value="option1">Option 1</GlassButton>
+          <GlassButton value="option2">Option 2</GlassButton>
+          <GlassButton value="option3">Option 3</GlassButton>
+        </GlassButtonGroup>
+      </section>
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Current selected value in segmented control |
+| `onValueChange` | `(value: string) => void` | - | Callback when value changes |
+| `variant` | `'primary' \| 'secondary' \| 'ghost'` | `'secondary'` | Visual style of child buttons |
+| `rounded` | `boolean` | `true` | Rounded corners |
+| `fullWidth` | `boolean` | `false` | Full-width layout for mobile |
+| `children` | `ReactNode` | - | Button elements |
+
+## Interaction Patterns
+
+### Segmented Control
+Enables single selection among multiple options, similar to a radio group:
+
+```tsx
+<GlassButtonGroup 
+  value={selected} 
+  onValueChange={setSelected}
+>
+  <GlassButton value="list">List</GlassButton>
+  <GlassButton value="grid">Grid</GlassButton>
+  <GlassButton value="card">Card</GlassButton>
+</GlassButtonGroup>
+```
+
+### Toolbar
+Multiple independent actions in a toolbar:
+
+```tsx
+<GlassButtonGroup>
+  <GlassButton variant="ghost">Cut</GlassButton>
+  <GlassButton variant="ghost">Copy</GlassButton>
+  <GlassButton variant="ghost">Paste</GlassButton>
+</GlassButtonGroup>
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Arrow keys for segmented control, Tab for toolbar
+- **Focus Management**: Clear visual indicators
+
+**Segmented Controls**:
+
+```tsx
+// Controlled segmented interaction
+<GlassButtonGroup 
+  value={timeframe} 
+  onValueChange={setTimeframe}
+  role="radiogroup"
+>
+  <GlassButton value="hour" aria-checked={timeframe === 'hour'}>
+    Hour
+  </GlassButton>
+  <GlassButton value="day" aria-checked={timeframe === 'day'}>
+    Day
+  </GlassButton>
+</GlassButtonGroup>
+```
+
+**Toolbar Examples**:
+
+```tsx
+// Toolbar with Hotkeys
+<GlassButtonGroup>
+  <GlassButton variant="ghost" aria-label="Bold (Ctrl + B)">
+    Bold
+  </GlassButton>
+  <GlassButton variant="ghost" aria-label="Italic (Ctrl + I)">
+    Italic
+  </GlassButton>
+  <GlassButton variant="ghost" aria-label="Underline (Ctrl + U)">
+    Underline
+  </GlassButton>
+</GlassButtonGroup>
+```
+
+## Best Practices
+
+### Segmented Control
+- **Do**: Use for mutually exclusive options
+- **Don't**: Overload with too many options
+
+### Button Toolbar
+- **Do**: Apply equal button sizing for cohesion
+- **Don't**: Mix unrelated actions
+
+---
+
+*Glass Button Group delivers an elegant way to cluster related actions, maintaining streamlined aesthetics and intuitive controls within Liquidify's design system.*

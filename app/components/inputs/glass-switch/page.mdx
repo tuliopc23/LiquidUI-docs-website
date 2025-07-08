@@ -1,0 +1,335 @@
+# Glass Switch
+
+A toggle switch component for binary states, perfect for settings and preferences with smooth animations and accessibility support.
+
+## Overview
+
+The `GlassSwitch` component provides an intuitive toggle interface with smooth state transitions. It's commonly used for enabling/disabling features or options in settings panels.
+
+## Basic Usage
+
+```tsx
+import { GlassSwitch } from 'liquidify'
+
+function App() {
+  const [enabled, setEnabled] = useState(false)
+
+  return (
+    <GlassSwitch 
+      checked={enabled}
+      onChange={setEnabled}
+      label="Enable notifications"
+    />
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassSwitch } from 'liquidify'
+
+export default function SwitchDemo() {
+  const [settings, setSettings] = useState({
+    notifications: true,
+    darkMode: false,
+    autoSave: true,
+    publicProfile: false
+  })
+
+  const updateSetting = (key, value) => {
+    setSettings(prev => ({ ...prev, [key]: value }))
+  }
+
+  return (
+    <div className="space-y-6 p-6 max-w-md">
+      <section>
+        <h3 className="hig-title-3 mb-4">Settings Panel</h3>
+        <div className="space-y-4">
+          <GlassSwitch 
+            checked={settings.notifications}
+            onChange={(value) => updateSetting('notifications', value)}
+            label="Push Notifications"
+            description="Receive alerts and updates"
+          />
+          
+          <GlassSwitch 
+            checked={settings.darkMode}
+            onChange={(value) => updateSetting('darkMode', value)}
+            label="Dark Mode"
+            description="Use dark theme across the app"
+          />
+          
+          <GlassSwitch 
+            checked={settings.autoSave}
+            onChange={(value) => updateSetting('autoSave', value)}
+            label="Auto-save"
+            description="Automatically save your work"
+          />
+          
+          <GlassSwitch 
+            checked={settings.publicProfile}
+            onChange={(value) => updateSetting('publicProfile', value)}
+            label="Public Profile"
+            description="Make your profile visible to others"
+            disabled
+          />
+        </div>
+      </section>
+
+      {/* Sizes */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Sizes</h3>
+        <div className="space-y-3">
+          <GlassSwitch size="sm" label="Small switch" />
+          <GlassSwitch size="md" label="Medium switch" />
+          <GlassSwitch size="lg" label="Large switch" />
+        </div>
+      </section>
+
+      {/* Without Labels */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Icon Only</h3>
+        <div className="flex items-center gap-4">
+          <GlassSwitch 
+            checked={settings.darkMode}
+            onChange={(value) => updateSetting('darkMode', value)}
+            aria-label="Toggle dark mode"
+          />
+          <span>Dark Mode</span>
+        </div>
+      </section>
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | `false` | Whether the switch is on |
+| `onChange` | `(checked: boolean) => void` | - | Callback when state changes |
+| `label` | `string \| ReactNode` | - | Label text or element |
+| `description` | `string` | - | Optional description text |
+| `disabled` | `boolean` | `false` | Disables the switch |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size variant |
+| `id` | `string` | - | HTML id attribute |
+| `name` | `string` | - | HTML name attribute |
+| `className` | `string` | - | Additional CSS classes |
+
+## Features
+
+### With Description
+Add context with description text:
+
+```tsx
+<GlassSwitch 
+  checked={enabled}
+  onChange={setEnabled}
+  label="Email Notifications"
+  description="Receive updates about your account activity"
+/>
+```
+
+### Form Integration
+Works seamlessly with form libraries:
+
+```tsx
+import { useForm, Controller } from 'react-hook-form'
+
+function SettingsForm() {
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      notifications: false,
+      marketing: true
+    }
+  })
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        name="notifications"
+        control={control}
+        render={({ field }) => (
+          <GlassSwitch
+            checked={field.value}
+            onChange={field.onChange}
+            label="Push Notifications"
+          />
+        )}
+      />
+    </form>
+  )
+}
+```
+
+### Loading State
+Show pending state during async operations:
+
+```tsx
+function AsyncSwitch() {
+  const [loading, setLoading] = useState(false)
+  const [enabled, setEnabled] = useState(false)
+
+  const handleToggle = async (value) => {
+    setLoading(true)
+    try {
+      await updateSetting('notifications', value)
+      setEnabled(value)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <GlassSwitch 
+      checked={enabled}
+      onChange={handleToggle}
+      disabled={loading}
+      label={loading ? 'Updating...' : 'Notifications'}
+    />
+  )
+}
+```
+
+## Accessibility
+
+### Keyboard Navigation
+- **Space/Enter**: Toggle switch state
+- **Tab**: Move to next focusable element
+
+### Screen Reader Support
+```tsx
+<GlassSwitch 
+  checked={checked}
+  onChange={setChecked}
+  label="Enable two-factor authentication"
+  aria-describedby="2fa-description"
+/>
+<div id="2fa-description" className="text-sm text-secondary">
+  Adds an extra layer of security to your account
+</div>
+```
+
+### ARIA Attributes
+The component automatically handles ARIA attributes:
+- `role="switch"`
+- `aria-checked` for current state
+- `aria-labelledby` when using labels
+
+## Best Practices
+
+### Do's ✅
+- **Use clear, action-oriented labels** that describe what the switch controls
+- **Provide immediate feedback** when state changes
+- **Group related switches** logically
+- **Use descriptions** for complex or ambiguous options
+
+```tsx
+// ✅ Good - Clear label and helpful description
+<GlassSwitch 
+  label="Location Services"
+  description="Allow apps to access your location"
+  checked={locationEnabled}
+  onChange={setLocationEnabled}
+/>
+```
+
+### Don'ts ❌
+- **Don't use for actions** that require confirmation (use buttons)
+- **Avoid unclear labels** that don't indicate the current state
+- **Don't use for destructive actions** without additional confirmation
+
+```tsx
+// ❌ Avoid - Destructive action without confirmation
+<GlassSwitch 
+  label="Delete all data"
+  checked={deleteData}
+  onChange={setDeleteData}
+/>
+```
+
+## Styling Customization
+
+### Custom Colors
+```tsx
+<GlassSwitch 
+  label="Important setting"
+  className="accent-red-500"
+  checked={checked}
+  onChange={setChecked}
+/>
+```
+
+### Layout Variations
+```tsx
+// Switch on the left
+<div className="flex items-center justify-between">
+  <div>
+    <div className="font-medium">Feature Name</div>
+    <div className="text-sm text-secondary">Feature description</div>
+  </div>
+  <GlassSwitch checked={enabled} onChange={setEnabled} />
+</div>
+```
+
+## Use Cases
+
+### Settings Panel
+```tsx
+function SettingsPanel() {
+  return (
+    <div className="space-y-4">
+      <h2 className="hig-title-2">Privacy Settings</h2>
+      
+      <GlassSwitch 
+        label="Profile Visibility"
+        description="Make your profile visible to other users"
+      />
+      
+      <GlassSwitch 
+        label="Activity Status"
+        description="Show when you're online"
+      />
+      
+      <GlassSwitch 
+        label="Data Collection"
+        description="Allow anonymous usage data collection"
+      />
+    </div>
+  )
+}
+```
+
+### Feature Toggles
+```tsx
+function FeatureToggles() {
+  return (
+    <div className="space-y-3">
+      <GlassSwitch 
+        label="Beta Features"
+        description="Enable experimental features"
+      />
+      
+      <GlassSwitch 
+        label="Advanced Mode"
+        description="Show additional options and controls"
+      />
+    </div>
+  )
+}
+```
+
+## Related Components
+
+- [**Glass Checkbox**](/components/inputs/glass-checkbox) - Multiple selections
+- [**Glass Toggle Button**](/components/actions/glass-toggle-button) - Button-style toggles
+- [**Glass Radio**](/components/inputs/glass-radio) - Mutually exclusive options
+
+---
+
+*Glass Switch provides intuitive, accessible toggle controls that feel natural and integrate seamlessly with Liquidify's design system.*

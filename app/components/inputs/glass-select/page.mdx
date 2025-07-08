@@ -1,0 +1,237 @@
+import { GlassSelect } from 'liquidify'
+
+# Glass Select
+
+A dropdown selection component that allows users to choose from a list of options with elegant animations and search capabilities.
+
+## Overview
+
+The `GlassSelect` component provides an accessible dropdown interface with support for single and multi-selection, search filtering, and keyboard navigation.
+
+## Basic Usage
+
+```tsx
+import { GlassSelect } from 'liquidify'
+
+function App() {
+  const options = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'orange', label: 'Orange' }
+  ]
+
+  return (
+    <GlassSelect 
+      options={options}
+      placeholder="Select a fruit..."
+    />
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassSelect } from 'liquidify'
+
+export default function SelectDemo() {
+  const [selected, setSelected] = useState('')
+  const [multiSelected, setMultiSelected] = useState([])
+
+  const fruits = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'orange', label: 'Orange' },
+    { value: 'grape', label: 'Grape' },
+    { value: 'strawberry', label: 'Strawberry' }
+  ]
+
+  return (
+    <div className="space-y-6 p-6">
+      {/* Single Selection */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Single Selection</h3>
+        <GlassSelect 
+          options={fruits}
+          value={selected}
+          onChange={setSelected}
+          placeholder="Choose your favorite fruit..."
+          searchable
+        />
+        <p className="mt-2 text-sm text-tertiary">
+          Selected: {selected || 'None'}
+        </p>
+      </section>
+
+      {/* Multi Selection */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Multi Selection</h3>
+        <GlassSelect 
+          options={fruits}
+          value={multiSelected}
+          onChange={setMultiSelected}
+          placeholder="Choose multiple fruits..."
+          multiple
+          searchable
+        />
+        <p className="mt-2 text-sm text-tertiary">
+          Selected: {multiSelected.join(', ') || 'None'}
+        </p>
+      </section>
+
+      {/* With Groups */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Grouped Options</h3>
+        <GlassSelect 
+          options={[
+            {
+              label: 'Fruits',
+              options: [
+                { value: 'apple', label: 'Apple' },
+                { value: 'banana', label: 'Banana' }
+              ]
+            },
+            {
+              label: 'Vegetables',
+              options: [
+                { value: 'carrot', label: 'Carrot' },
+                { value: 'lettuce', label: 'Lettuce' }
+              ]
+            }
+          ]}
+          placeholder="Select food..."
+        />
+      </section>
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Option[] \| OptionGroup[]` | `[]` | List of selectable options |
+| `value` | `string \| string[]` | - | Selected value(s) |
+| `onChange` | `(value: string \| string[]) => void` | - | Selection change handler |
+| `placeholder` | `string` | `'Select...'` | Placeholder text |
+| `multiple` | `boolean` | `false` | Enable multi-selection |
+| `searchable` | `boolean` | `false` | Enable search filtering |
+| `disabled` | `boolean` | `false` | Disable the select |
+| `loading` | `boolean` | `false` | Show loading state |
+| `clearable` | `boolean` | `true` | Show clear button |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size variant |
+
+### Option Interface
+
+```tsx
+interface Option {
+  value: string
+  label: string
+  disabled?: boolean
+  icon?: ReactNode
+}
+
+interface OptionGroup {
+  label: string
+  options: Option[]
+}
+```
+
+## Features
+
+### Searchable Select
+Enable search functionality for large option lists:
+
+```tsx
+<GlassSelect 
+  options={countries}
+  searchable
+  placeholder="Search countries..."
+  noOptionsMessage="No countries found"
+/>
+```
+
+### Custom Option Rendering
+Customize how options are displayed:
+
+```tsx
+<GlassSelect 
+  options={users}
+  renderOption={(option) => (
+    <div className="flex items-center gap-3">
+      <img src={option.avatar} className="w-6 h-6 rounded-full" />
+      <span>{option.label}</span>
+    </div>
+  )}
+/>
+```
+
+### Async Loading
+Load options dynamically:
+
+```tsx
+function AsyncSelect() {
+  const [options, setOptions] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  const loadOptions = async (searchTerm) => {
+    setLoading(true)
+    const results = await searchAPI(searchTerm)
+    setOptions(results)
+    setLoading(false)
+  }
+
+  return (
+    <GlassSelect 
+      options={options}
+      loading={loading}
+      onInputChange={loadOptions}
+      searchable
+    />
+  )
+}
+```
+
+## Accessibility
+
+### Keyboard Navigation
+- **Arrow keys**: Navigate through options
+- **Enter/Space**: Select option
+- **Escape**: Close dropdown
+- **Tab**: Move to next focusable element
+
+### Screen Reader Support
+```tsx
+<GlassSelect 
+  options={options}
+  aria-label="Choose your preferred language"
+  aria-describedby="language-help"
+/>
+```
+
+## Best Practices
+
+### Do's ✅
+- **Use clear, descriptive labels** for options
+- **Group related options** when dealing with large lists
+- **Provide search functionality** for lists with 10+ items
+- **Show loading states** during async operations
+
+### Don'ts ❌
+- **Don't use for binary choices** (use radio buttons instead)
+- **Don't hide important context** in option labels
+- **Avoid very long option lists** without search
+
+## Related Components
+
+- [**Glass Input**](/components/inputs/glass-input) - Single-line text input
+- [**Glass Radio**](/components/inputs/glass-radio) - Mutually exclusive options
+- [**Glass Checkbox**](/components/inputs/glass-checkbox) - Multiple selections
+
+---
+
+*Glass Select provides an elegant, accessible way to choose from multiple options while maintaining the beautiful Liquid Glass aesthetic.*

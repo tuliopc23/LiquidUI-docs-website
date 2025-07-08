@@ -1,0 +1,404 @@
+# Design Tokens
+
+Complete reference for Liquidify's design token system built on Apple's design principles and 4-point grid methodology.
+
+## Overview
+
+Design tokens are the visual design atoms of Liquidify — the smallest indivisible elements that represent design decisions. They create consistency, scalability, and maintainability across the entire design system.
+
+## Import Tokens
+
+```tsx
+import { designTokens } from 'liquidify/tokens'
+import type { 
+  ColorToken, 
+  SpacingToken, 
+  TypographyToken,
+  ComponentTokens 
+} from 'liquidify/tokens'
+```
+
+## Spacing Tokens
+
+Based on Apple's 4-point grid system for consistent layouts and optimal touch targets.
+
+### Grid System
+```tsx
+const spacing = designTokens.spacing
+
+// 4pt grid increments
+spacing[0]  // 0px
+spacing[1]  // 4px  - Smallest spacing
+spacing[2]  // 8px  - Compact spacing
+spacing[3]  // 12px - Close spacing
+spacing[4]  // 16px - Default spacing
+spacing[5]  // 20px - Comfortable spacing
+spacing[6]  // 24px - Loose spacing
+spacing[8]  // 32px - Section spacing
+spacing[10] // 40px - Large spacing
+spacing[12] // 48px - Extra large spacing
+spacing[16] // 64px - Section dividers
+spacing[20] // 80px - Page sections
+spacing[24] // 96px - Major sections
+spacing[32] // 128px - Hero sections
+```
+
+### Usage Examples
+```tsx
+// Component spacing
+<GlassCard className="p-6 mb-8">  {/* 24px padding, 32px margin */}
+  <h2 className="mb-4">Title</h2>   {/* 16px margin bottom */}
+  <p className="mb-3">Content</p>   {/* 12px margin bottom */}
+</GlassCard>
+
+// Using token variables
+<div style={{ padding: spacing[6], marginBottom: spacing[8] }}>
+  Content with token-based spacing
+</div>
+```
+
+## Typography Tokens
+
+### Font Families
+```tsx
+const fonts = designTokens.typography.fontFamily
+
+// Apple system fonts with fallbacks
+fonts.display // SF Pro Display for headings
+fonts.body    // SF Pro Text for body content
+fonts.sans    // Inter fallback for web
+fonts.mono    // SF Mono for code
+```
+
+### Font Sizes
+Apple HIG typography scale with optimized letter spacing and line heights:
+
+```tsx
+const fontSize = designTokens.typography.fontSize
+
+// Apple HIG Text Styles
+fontSize.largeTitle  // 34px - iOS Large Title
+fontSize.title1      // 28px - Primary titles
+fontSize.title2      // 22px - Secondary titles  
+fontSize.title3      // 20px - Tertiary titles
+fontSize.headline    // 17px - Emphasized content
+fontSize.body        // 16px - Default body text
+fontSize.callout     // 16px - Emphasized body
+fontSize.subheadline // 15px - Secondary content
+fontSize.footnote    // 13px - Supplementary text
+fontSize.caption     // 12px - Image captions
+
+// Web-friendly sizes
+fontSize.xs   // 12px
+fontSize.sm   // 14px  
+fontSize.base // 16px (default)
+fontSize.lg   // 18px
+fontSize.xl   // 20px
+fontSize['2xl'] // 24px
+fontSize['3xl'] // 30px
+fontSize['4xl'] // 36px
+fontSize['5xl'] // 48px
+fontSize['6xl'] // 60px
+fontSize['7xl'] // 72px
+fontSize['8xl'] // 96px
+fontSize['9xl'] // 128px
+```
+
+### Font Weights
+```tsx
+const fontWeight = designTokens.typography.fontWeight
+
+fontWeight.light     // 300 - Light text
+fontWeight.normal    // 400 - Default body
+fontWeight.medium    // 500 - Emphasis
+fontWeight.semibold  // 600 - Strong emphasis
+fontWeight.bold      // 700 - Headings
+fontWeight.extrabold // 800 - Display text
+fontWeight.black     // 900 - Heavy display
+```
+
+### Usage Examples
+```tsx
+// Using typography tokens
+<h1 style={{
+  fontSize: fontSize.title1[0],
+  lineHeight: fontSize.title1[1].lineHeight,
+  letterSpacing: fontSize.title1[1].letterSpacing,
+  fontWeight: fontWeight.bold
+}}>
+  Page Title
+</h1>
+
+// CSS classes (recommended)
+<h1 className="hig-title-1">Page Title</h1>
+<p className="hig-body">Body content</p>
+<span className="hig-caption">Caption text</span>
+```
+
+## Color Tokens
+
+### Apple System Colors
+```tsx
+const colors = designTokens.colors
+
+// Apple Blue
+colors.blue50   // #EBF8FF
+colors.blue500  // #007AFF (Apple Blue)
+colors.blue900  // #1E3A8A
+
+// Apple Green  
+colors.green50  // #F0FDF4
+colors.green500 // #34C759 (Apple Green)
+colors.green900 // #14532D
+
+// Apple Red
+colors.red50    // #FEF2F2
+colors.red500   // #FF3B30 (Apple Red)
+colors.red900   // #7F1D1D
+
+// Apple Orange
+colors.orange50  // #FFF7ED
+colors.orange500 // #FF9500 (Apple Orange)
+colors.orange900 // #9A3412
+
+// Grays (Apple Gray palette)
+colors.gray50   // #F9FAFB
+colors.gray100  // #F3F4F6
+colors.gray200  // #E5E7EB
+colors.gray300  // #D1D5DB
+colors.gray400  // #9CA3AF
+colors.gray500  // #6B7280
+colors.gray600  // #4B5563
+colors.gray700  // #374151
+colors.gray800  // #1F2937
+colors.gray900  // #111827
+```
+
+### Semantic Colors
+```tsx
+// Semantic mappings for components
+colors.primary    // Apple Blue (#007AFF)
+colors.secondary  // Apple Purple (#AF52DE)
+colors.success    // Apple Green (#34C759)
+colors.warning    // Apple Orange (#FF9500)
+colors.error      // Apple Red (#FF3B30)
+colors.info       // Apple Teal (#30B0C7)
+```
+
+### Glass Material Colors
+```tsx
+// Liquid Glass specific colors
+colors.glass.light       // rgba(255, 255, 255, 0.15)
+colors.glass.dark        // rgba(0, 0, 0, 0.15)
+colors.glass.blur        // rgba(255, 255, 255, 0.08)
+colors.glass.border.light // rgba(255, 255, 255, 0.2)
+colors.glass.border.dark  // rgba(255, 255, 255, 0.1)
+```
+
+## Border Radius Tokens
+
+Apple-style rounded corners for different component types:
+
+```tsx
+const borderRadius = designTokens.borderRadius
+
+borderRadius.none  // 0px
+borderRadius.sm    // 4px  - Small components
+borderRadius.md    // 8px  - Default buttons
+borderRadius.lg    // 12px - Cards, modals
+borderRadius.xl    // 16px - Large cards
+borderRadius['2xl'] // 20px - Hero sections
+borderRadius.full  // 9999px - Pills, avatars
+
+// Apple-specific radii
+borderRadius.apple.button  // 8px
+borderRadius.apple.card    // 12px
+borderRadius.apple.modal   // 16px
+borderRadius.apple.sheet   // 20px
+```
+
+## Animation Tokens
+
+### Duration
+```tsx
+const duration = designTokens.animation.duration
+
+duration.fast    // 150ms - Quick transitions
+duration.normal  // 250ms - Standard transitions
+duration.slow    // 350ms - Complex animations
+duration.slower  // 500ms - Major transitions
+
+// Apple-specific durations
+duration.apple.quick   // 200ms
+duration.apple.smooth  // 300ms
+duration.apple.gentle  // 500ms
+```
+
+### Easing
+```tsx
+const easing = designTokens.animation.easing
+
+// Apple spring curves
+easing.apple.standard    // cubic-bezier(0.4, 0.0, 0.2, 1)
+easing.apple.decelerate  // cubic-bezier(0.0, 0.0, 0.2, 1)
+easing.apple.accelerate  // cubic-bezier(0.4, 0.0, 1, 1)
+easing.apple.sharp       // cubic-bezier(0.4, 0.0, 0.6, 1)
+easing.apple.bounce      // cubic-bezier(0.68, -0.55, 0.265, 1.55)
+```
+
+## Component Tokens
+
+### Button Tokens
+```tsx
+const buttonTokens = designTokens.components.button
+
+// Heights
+buttonTokens.height.xs  // 28px
+buttonTokens.height.sm  // 32px  
+buttonTokens.height.md  // 40px (default)
+buttonTokens.height.lg  // 44px (Touch-optimized)
+buttonTokens.height.xl  // 52px
+
+// Padding
+buttonTokens.padding.xs  // 8px 10px
+buttonTokens.padding.sm  // 10px 12px
+buttonTokens.padding.md  // 12px 16px
+buttonTokens.padding.lg  // 14px 20px
+buttonTokens.padding.xl  // 16px 24px
+```
+
+### Input Tokens
+```tsx
+const inputTokens = designTokens.components.input
+
+// Heights 
+inputTokens.height.sm  // 32px
+inputTokens.height.md  // 40px (default)
+inputTokens.height.lg  // 44px
+
+// Padding
+inputTokens.padding.sm  // 8px 12px
+inputTokens.padding.md  // 10px 14px
+inputTokens.padding.lg  // 12px 16px
+```
+
+### Card Tokens
+```tsx
+const cardTokens = designTokens.components.card
+
+// Padding
+cardTokens.padding.sm  // 16px
+cardTokens.padding.md  // 20px (default)
+cardTokens.padding.lg  // 24px
+cardTokens.padding.xl  // 32px
+```
+
+## Breakpoint Tokens
+
+Responsive design breakpoints following Apple's adaptive layout principles:
+
+```tsx
+const breakpoints = designTokens.breakpoints
+
+breakpoints.xs   // 320px  - iPhone SE
+breakpoints.sm   // 375px  - iPhone standard
+breakpoints.md   // 768px  - iPad portrait
+breakpoints.lg   // 1024px - iPad landscape  
+breakpoints.xl   // 1280px - Desktop
+breakpoints['2xl'] // 1536px - Large desktop
+
+// Apple device specific
+breakpoints.iphone    // 375px
+breakpoints.ipad      // 768px
+breakpoints.mac       // 1280px
+breakpoints.studio    // 1536px
+```
+
+## Usage Best Practices
+
+### 1. Use Semantic Tokens
+```tsx
+// ✅ Good - semantic meaning
+<GlassButton variant="primary">Primary Action</GlassButton>
+
+// ❌ Avoid - hard-coded values
+<button style={{ backgroundColor: '#007AFF' }}>Button</button>
+```
+
+### 2. Leverage Component Tokens
+```tsx
+// ✅ Good - consistent sizing
+<GlassButton size="lg">Touch-optimized</GlassButton>
+
+// ❌ Avoid - custom sizing
+<GlassButton style={{ height: '44px', padding: '14px 20px' }}>
+  Custom Button
+</GlassButton>
+```
+
+### 3. Responsive Typography
+```tsx
+// ✅ Good - responsive scale
+<h1 className="hig-title-1 lg:hig-large-title">
+  Responsive Heading
+</h1>
+
+// ✅ Good - programmatic sizing
+<Text size={{ base: 'body', lg: 'title2' }}>
+  Adaptive Text
+</Text>
+```
+
+## CSS Custom Properties
+
+All tokens are available as CSS custom properties:
+
+```css
+/* Spacing */
+.component {
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+/* Typography */
+.heading {
+  font-family: var(--font-display);
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title);
+}
+
+/* Colors */
+.button {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-600);
+}
+
+/* Glass materials */
+.glass {
+  background: var(--glass-light);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-light);
+}
+```
+
+## Platform Considerations
+
+### iOS & iPadOS
+- Tokens adapt to Dynamic Type scaling
+- Respect user's preferred content size
+- Support Smart Invert and high contrast modes
+
+### macOS
+- Optimized for pointer precision
+- Supports system accent colors
+- Adapts to window vibrancy settings
+
+### watchOS  
+- Reduced token set for efficiency
+- Optimized for small screens
+- Battery-conscious animations
+
+---
+
+*Design tokens power the consistency and scalability of the entire Liquidify design system.*

@@ -1,7 +1,8 @@
 import type { MDXComponents } from 'mdx/types'
-import { useMDXComponents as useNextraMDXComponents } from 'nextra/mdx'
+import { useMDXComponents as getDocsMDXComponents } from 'nextra-theme-docs'
+import GlassEffect from './components/ui/GlassEffect'
 
-// Emoji mapping for common shortcodes (equivalent to remark-emoji)
+// Emoji mapping for common shortcodes
 const emojiMap: Record<string, string> = {
   ':rocket:': '🚀',
   ':heart:': '❤️',
@@ -40,72 +41,165 @@ const processEmojiText = (text: string): string => {
   return processedText
 }
 
-// Custom components with emoji support
+// Custom components with glassmorphism styling
 const customComponents: MDXComponents = {
-  // Enhanced paragraph with emoji processing
+  // Enhanced paragraph with Apple HIG typography
   p: ({ children, ...props }) => {
     if (typeof children === 'string') {
-      return <p {...props}>{processEmojiText(children)}</p>
+      return <p {...props} className="hig-body mb-4">{processEmojiText(children)}</p>
     }
-    return <p {...props}>{children}</p>
+    return <p {...props} className="hig-body mb-4">{children}</p>
   },
   
-  // Let Nextra handle headings, only process emoji in text content
-  // Remove h1, h2, h3 overrides to avoid typography conflicts
-  
-  // Enhanced list items with emoji processing
+  // Enhanced list items with Apple HIG typography
   li: ({ children, ...props }) => {
     if (typeof children === 'string') {
-      return <li {...props}>{processEmojiText(children)}</li>
+      return <li {...props} className="hig-body mb-1">{processEmojiText(children)}</li>
     }
-    return <li {...props}>{children}</li>
+    return <li {...props} className="hig-body mb-1">{children}</li>
   },
 
-  // Custom components for enhanced UX
+  // Enhanced images with liquid glass
   img: ({ src, alt, ...props }) => (
-    <img 
-      src={src} 
-      alt={alt} 
-      loading="lazy"
-      style={{ borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}
-      {...props} 
-    />
+    <GlassEffect variant="card" className="my-6 p-2">
+      <img 
+        src={src} 
+        alt={alt} 
+        loading="lazy"
+        className="rounded-apple-lg max-w-full h-auto"
+        {...props} 
+      />
+    </GlassEffect>
   ),
   
-  // Enhanced code blocks
+  // Enhanced code blocks with liquid glass
   pre: ({ children, ...props }) => (
-    <div className="relative group">
-      <pre {...props} className="relative overflow-x-auto rounded-xl bg-gray-50 dark:bg-gray-900 p-4 border border-gray-200 dark:border-gray-700">
-        {children}
-      </pre>
+    <div className="relative group my-6">
+      <GlassEffect variant="card" className="p-4">
+        <pre 
+          {...props} 
+          className="overflow-x-auto hig-caption-1 font-mono bg-transparent"
+        >
+          {children}
+        </pre>
+      </GlassEffect>
     </div>
   ),
   
   // Enhanced inline code
   code: ({ children, ...props }) => (
-    <code 
-      {...props} 
-      className="px-1.5 py-0.5 rounded-md bg-gray-100 dark:bg-gray-800 text-sm font-mono border border-gray-200 dark:border-gray-700"
+    <GlassEffect 
+      variant="button" 
+      className="inline-flex px-1.5 py-0.5 hig-caption-1 font-mono"
+      hover={false}
+      animated={false}
+      {...props}
     >
       {children}
-    </code>
+    </GlassEffect>
   ),
   
-  // Enhanced blockquotes
+  // Enhanced blockquotes with liquid glass
   blockquote: ({ children, ...props }) => (
-    <blockquote 
-      {...props} 
-      className="border-l-4 border-blue-500 pl-4 my-4 bg-blue-50 dark:bg-blue-900/20 py-2 rounded-r-lg"
+    <GlassEffect 
+      variant="card" 
+      className="border-l-4 border-apple-blue pl-4 py-3 my-6 hig-body italic"
+      {...props}
     >
       {children}
-    </blockquote>
+    </GlassEffect>
+  ),
+
+  // Enhanced tables with liquid glass
+  table: ({ children, ...props }) => (
+    <div className="overflow-x-auto my-6">
+      <GlassEffect variant="card" className="w-full overflow-hidden">
+        <table className="w-full" {...props}>
+          {children}
+        </table>
+      </GlassEffect>
+    </div>
+  ),
+
+  th: ({ children, ...props }) => (
+    <th 
+      {...props} 
+      className="px-4 py-3 text-left hig-headline bg-white/20 dark:bg-black/20 border-b border-white/10 dark:border-white/5"
+    >
+      {children}
+    </th>
+  ),
+
+  td: ({ children, ...props }) => (
+    <td 
+      {...props} 
+      className="px-4 py-3 hig-body border-b border-white/10 dark:border-white/5"
+    >
+      {children}
+    </td>
+  ),
+
+  // Enhanced headings with Apple HIG typography
+  h1: ({ children, ...props }) => (
+    <h1 
+      {...props} 
+      className="hig-large-title font-bold mb-6 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent"
+    >
+      {children}
+    </h1>
+  ),
+
+  h2: ({ children, ...props }) => (
+    <h2 
+      {...props} 
+      className="hig-title-1 font-bold mb-4 mt-8 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent"
+    >
+      {children}
+    </h2>
+  ),
+
+  h3: ({ children, ...props }) => (
+    <h3 
+      {...props} 
+      className="hig-title-2 font-semibold mb-3 mt-6 text-apple-gray-700 dark:text-apple-gray-200"
+    >
+      {children}
+    </h3>
+  ),
+
+  h4: ({ children, ...props }) => (
+    <h4 
+      {...props} 
+      className="hig-title-3 font-semibold mb-2 mt-4 text-apple-gray-700 dark:text-apple-gray-200"
+    >
+      {children}
+    </h4>
+  ),
+
+  h5: ({ children, ...props }) => (
+    <h5 
+      {...props} 
+      className="hig-headline mb-2 mt-3 text-apple-gray-700 dark:text-apple-gray-200"
+    >
+      {children}
+    </h5>
+  ),
+
+  h6: ({ children, ...props }) => (
+    <h6 
+      {...props} 
+      className="hig-callout font-semibold mb-1 mt-2 text-apple-gray-700 dark:text-apple-gray-200"
+    >
+      {children}
+    </h6>
   ),
 }
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    ...useNextraMDXComponents(components),
+    ...getDocsMDXComponents(),
     ...customComponents,
+    ...components,
   }
 }
 

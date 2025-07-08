@@ -1,0 +1,221 @@
+# GlassAvatar
+
+User representation component using Apple's Liquid Glass design language, suitable for profiles, teams, and social contexts.
+
+## Overview
+
+GlassAvatars provide a flexible way to visually represent users or group members in an application. They support images, initials, or icons, and incorporate Liquid Glass effects to maintain elegant styling in all contexts.
+
+## Basic Usage
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function BasicAvatar() {
+  return 
+        /
+  )
+}
+```
+
+## Variants
+
+### Image Avatar
+
+```tsx
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function ImageAvatar() {
+  return 
+
+}
+```
+
+### Initials Avatar
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function InitialsAvatar() {
+  return (
+     initials="JD"
+  )
+}
+```
+
+### Icon Avatar
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function IconAvatar() {
+  return  icon="user"
+  )
+}
+```
+
+## Interactive Demo
+
+
+  icon="gear"
+  status="online"
+  
+    p-2"
+       
+      New Message
+    
+  
+
+
+## API Reference
+
+### GlassAvatar Props
+
+| Prop | Type | Default | Description |
+|-----|------|---------|-------------|
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Avatar size |
+| `image` | `string` | - | URL to avatar image |
+| `initials` | `string` | - | Initials for the avatar |
+| `icon`  | `string` | - | Icon name if no image or initials |
+| `status` | `'online' \| 'offline' \| 'busy' \| 'away'` | - | Status indicator |
+| `shape` | `'circle' \| 'square' \| 'rounded'` | `'circle'` | Avatar shape |
+| `className` | `string` | '' | Additional CSS classes |
+
+## Features
+
+### Status Indicators
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function AvatarWithStatus() {
+  return  icon="user" status="online"
+  )
+}
+```
+
+### Fallbacks
+
+Provide multiple ways to represent a user visually. If an image is missing, fallbacks will be used.
+
+```tsx
+   imgFailed
+}
+```
+
+### Group Support
+
+```tsx
+   p-2"
+  users=[{ name: 'Jane Doe', image: '/jane.jpg' }, { name: 'John Doe', initials: 'JD'}]
+ /
+```
+
+## Styling and Customization
+
+### CSS Custom Properties
+
+```css
+.glass-avatar {
+  --avatar-size-xs: 24px;
+  --avatar-size-sm: 32px;
+  --avatar-size-md: 40px;
+  --avatar-size-lg: 48px;
+  --avatar-size-xl: 64px;
+  --avatar-border-radius-circle: 50%;
+  --avatar-border-radius-square: 8px;
+  --avatar-border-radius-rounded: 16px;
+}
+```
+
+### Theme Integration
+
+```tsx
+  dark:bg-gray-700"
+ Themed content
+
+```
+
+## Common Use Cases
+
+### Profile Display
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function UserProfile() {
+  return /
+}
+```
+
+### Team Member Icons
+
+```tsx
+import { GlassAvatar } from '@liquidify/ui'
+
+function TeamAvatars() {
+  return ūer" }, { 
+    a"
+  ]}
+      name
+  )
+}
+```
+
+### Comments Section
+
+```tsx
+import { GlassAvatar, GlassButton } from '@liquidify/ui'
+
+function Comment({ comment, user }) {
+  return (
+>
+      comments"
+      author"
+        === user.id 
+deleteComment(comment.id)}
+      Icon" /}"
+      Comment...
+    
+  
+}
+```
+
+## Accessibility
+
+### Screen Reader Support
+
+Ensure avatars provide proper labels for accessibility.
+
+```jsx
+<
+ role="img" aria-label="User avatar for John Doe"
+}
+```
+
+### Keyboard Navigation
+
+Ensure avatars are accessible through keyboard navigation when interactive.
+
+| Key | Description |
+---|---|
+| `Tab` | Navigate to focusable avatars |
+| `Enter`/`Space` | Activate avatar action |
+
+## Best Practices
+
+### Do's
+
+- **Ensure diverse representations**: Use initials or icons for non-image scenarios
+- **Provide status indicators**: Reflect user availability clearly
+- **Optimize for performance**: Use appropriately sized image assets
+
+### Don'ts
+
+- **Don't rely on images alone**: Always provide fallbacks
+- **Don't use low contrast combinations**: Ensure visibility
+
+---
+
+*GlassAvatar encapsulates user representation in a visually appealing and accessible manner, aligned with Apple's design principles.*

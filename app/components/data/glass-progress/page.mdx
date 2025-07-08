@@ -1,0 +1,162 @@
+# GlassProgress
+
+Progress indicators for loading states and task completion using Apple's Liquid Glass design language.
+
+## Overview
+
+GlassProgress provides visual feedback for ongoing processes, loading states, and task completion. It offers multiple variants to match different use cases while maintaining accessibility and smooth animations.
+
+## Basic Usage
+
+```tsx
+import { GlassProgress } from '@liquidify/ui'
+
+function BasicProgress() {
+  return <GlassProgress value={65} />
+}
+```
+
+## API Reference
+
+### GlassProgress Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | - | Progress value (0-100) |
+| `type` | `'linear' \| 'circular'` | `'linear'` | Progress indicator type |
+| `variant` | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | Color variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
+| `indeterminate` | `boolean` | `false` | Show indeterminate progress |
+| `showLabel` | `boolean` | `false` | Display progress percentage |
+| `label` | `string` | - | Custom label text |
+
+## Types
+
+### Linear Progress
+
+```tsx
+<GlassProgress type="linear" value={45} />
+<GlassProgress type="linear" value={75} showLabel />
+<GlassProgress type="linear" indeterminate />
+```
+
+### Circular Progress
+
+```tsx
+<GlassProgress type="circular" value={60} />
+<GlassProgress type="circular" value={80} showLabel />
+<GlassProgress type="circular" indeterminate />
+```
+
+## Variants
+
+### Success State
+
+```tsx
+<GlassProgress value={100} variant="success" showLabel />
+```
+
+### Warning State
+
+```tsx
+<GlassProgress value={25} variant="warning" showLabel />
+```
+
+### Error State
+
+```tsx
+<GlassProgress value={15} variant="error" showLabel />
+```
+
+## Features
+
+### Custom Labels
+
+```tsx
+<GlassProgress 
+  value={60} 
+  label="Uploading... 60%" 
+  showLabel 
+/>
+```
+
+### Indeterminate Progress
+
+```tsx
+<GlassProgress indeterminate label="Loading..." />
+```
+
+### Sizes
+
+```tsx
+<GlassProgress value={50} size="sm" />
+<GlassProgress value={50} size="md" />
+<GlassProgress value={50} size="lg" />
+```
+
+## Common Use Cases
+
+### File Upload
+
+```tsx
+function FileUpload() {
+  const [progress, setProgress] = useState(0)
+  
+  return (
+    <div>
+      <GlassProgress 
+        value={progress} 
+        label={`Uploading... ${progress}%`}
+        showLabel 
+      />
+    </div>
+  )
+}
+```
+
+### Loading States
+
+```tsx
+<GlassProgress 
+  indeterminate 
+  label="Loading content..." 
+/>
+```
+
+### Multi-step Process
+
+```tsx
+function StepProgress({ currentStep, totalSteps }) {
+  const progress = (currentStep / totalSteps) * 100
+  
+  return (
+    <GlassProgress 
+      value={progress}
+      label={`Step ${currentStep} of ${totalSteps}`}
+      showLabel
+    />
+  )
+}
+```
+
+## Accessibility
+
+### ARIA Support
+
+- **`role="progressbar"`**: Proper semantic meaning
+- **`aria-valuenow`**: Current progress value
+- **`aria-valuemin`** and **`aria-valuemax`**: Progress range
+- **`aria-label`**: Descriptive progress label
+
+### Screen Reader Support
+
+```tsx
+<GlassProgress 
+  value={75}
+  aria-label="Upload progress: 75% complete"
+/>
+```
+
+---
+
+*GlassProgress provides clear visual feedback for ongoing processes and loading states.*

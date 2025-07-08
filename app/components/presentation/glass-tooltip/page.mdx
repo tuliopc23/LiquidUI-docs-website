@@ -1,0 +1,169 @@
+import { GlassTooltip } from 'liquidify'
+
+# GlassTooltip
+
+Contextual help text with smart positioning and Apple HIG-compliant interactions.
+
+## Overview
+
+GlassTooltip provides lightweight contextual information that appears on hover or focus, helping users understand interface elements without cluttering the design.
+
+## Basic Usage
+
+```tsx
+import { GlassTooltip } from 'liquidify'
+
+function BasicTooltip() {
+  return (
+    <GlassTooltip content="This button saves your work">
+      <button>Save</button>
+    </GlassTooltip>
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+<GlassTooltip 
+  content="Click this button to save your changes"
+  placement="top"
+  showArrow={true}
+>
+  <button className="bg-blue-500 text-white px-4 py-2 rounded">
+    Save Changes
+  </button>
+</GlassTooltip>
+```
+
+## API Reference
+
+### GlassTooltip Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `content` | `React.ReactNode` | - | Tooltip content |
+| `children` | `React.ReactNode` | - | Element that triggers tooltip |
+| `placement` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Tooltip position |
+| `trigger` | `'hover' \| 'focus' \| 'click'` | `'hover'` | How to show tooltip |
+| `delay` | `number` | `500` | Delay before showing |
+| `hideDelay` | `number` | `0` | Delay before hiding |
+| `showArrow` | `boolean` | `true` | Show arrow pointer |
+| `disabled` | `boolean` | `false` | Disable tooltip |
+
+## Placement Options
+
+```tsx
+<GlassTooltip content="Top tooltip" placement="top">
+  <button>Top</button>
+</GlassTooltip>
+
+<GlassTooltip content="Bottom tooltip" placement="bottom">
+  <button>Bottom</button>
+</GlassTooltip>
+
+<GlassTooltip content="Left tooltip" placement="left">
+  <button>Left</button>
+</GlassTooltip>
+
+<GlassTooltip content="Right tooltip" placement="right">
+  <button>Right</button>
+</GlassTooltip>
+```
+
+## Features
+
+### Rich Content
+
+```tsx
+<GlassTooltip
+  content={
+    <div>
+      <strong>Keyboard Shortcut</strong>
+      <br />
+      Ctrl+S (Windows) or Cmd+S (Mac)
+    </div>
+  }
+>
+  <button>Save</button>
+</GlassTooltip>
+```
+
+### Custom Delays
+
+```tsx
+<GlassTooltip 
+  content="Appears quickly"
+  delay={100}
+  hideDelay={200}
+>
+  <button>Quick Tooltip</button>
+</GlassTooltip>
+```
+
+## Accessibility
+
+### ARIA Support
+
+- **`aria-describedby`**: Links element to tooltip
+- **`role="tooltip"`**: Proper semantic meaning
+- **Screen reader compatible**: Content announced appropriately
+
+### Keyboard Support
+
+| Key | Action |
+|-----|--------|
+| `Escape` | Hide tooltip |
+| `Tab` | Navigate and show focus tooltips |
+
+## Best Practices
+
+### Do's
+
+- **Keep content concise**: Short, helpful descriptions
+- **Use for clarification**: Explain unfamiliar terms or icons
+- **Provide keyboard access**: Support focus triggers
+
+### Don'ts
+
+- **Don't use for critical information**: Essential info should be always visible
+- **Don't make tooltips too large**: Use popovers for extensive content
+- **Don't auto-show tooltips**: Always require user interaction
+
+## Common Use Cases
+
+### Icon Buttons
+
+```tsx
+<GlassTooltip content="Delete item">
+  <button className="p-2">
+    <TrashIcon />
+  </button>
+</GlassTooltip>
+```
+
+### Form Fields
+
+```tsx
+<div>
+  <label>Password</label>
+  <GlassTooltip 
+    content="Must be at least 8 characters"
+    trigger="focus"
+  >
+    <input type="password" />
+  </GlassTooltip>
+</div>
+```
+
+### Help Text
+
+```tsx
+<GlassTooltip content="This feature is only available to premium users">
+  <span className="text-gray-400">Premium Feature</span>
+</GlassTooltip>
+```
+
+---
+
+*GlassTooltip provides contextual assistance without overwhelming the interface.*

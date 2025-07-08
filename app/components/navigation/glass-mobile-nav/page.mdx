@@ -1,0 +1,282 @@
+import { GlassMobileNav } from 'liquidify'
+import { HomeIcon, UserIcon, CogIcon, BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+
+# Glass Mobile Nav
+
+A responsive mobile navigation component with glassmorphism aesthetics, designed for mobile-first experiences using Apple's Liquid Glass design language.
+
+## Features
+
+- **Mobile-First Design**: Optimized for touch interactions and small screens
+- **Glassmorphism Effects**: Translucent background with blur effects
+- **Gesture Support**: Swipe gestures for navigation
+- **Bottom Navigation**: iOS-style bottom navigation bar
+- **Responsive**: Adapts to different screen sizes and orientations
+- **Accessibility**: Full touch and screen reader support
+- **Customizable**: Extensive theming and styling options
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```jsx
+import { GlassMobileNav } from 'liquidify'
+
+function App() {
+  const [activeTab, setActiveTab] = useState('home')
+
+  const navItems = [
+    { id: 'home', label: 'Home', icon: HomeIcon },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'notifications', label: 'Notifications', icon: BellIcon },
+    { id: 'settings', label: 'Settings', icon: CogIcon }
+  ]
+
+  return (
+    <GlassMobileNav
+      items={navItems}
+      activeTab={activeTab}
+      onTabChange={setActiveTab}
+    />
+  )
+}
+```
+
+## Examples
+
+### Bottom Navigation
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
+    <div className="absolute bottom-0 left-0 right-0">
+      <GlassMobileNav
+        items={[
+          { id: 'home', label: 'Home', icon: HomeIcon },
+          { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
+          { id: 'profile', label: 'Profile', icon: UserIcon },
+          { id: 'settings', label: 'Settings', icon: CogIcon }
+        ]}
+        activeTab="home"
+      />
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<GlassMobileNav
+  items={[
+    { id: 'home', label: 'Home', icon: HomeIcon },
+    { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'settings', label: 'Settings', icon: CogIcon }
+  ]}
+  activeTab="home"
+/>
+```
+
+### With Badge Notifications
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
+  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
+    <div className="absolute bottom-0 left-0 right-0">
+      <GlassMobileNav
+        items={[
+          { id: 'home', label: 'Home', icon: HomeIcon },
+          { id: 'notifications', label: 'Notifications', icon: BellIcon, badge: 5 },
+          { id: 'profile', label: 'Profile', icon: UserIcon },
+          { id: 'settings', label: 'Settings', icon: CogIcon }
+        ]}
+        activeTab="notifications"
+      />
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<GlassMobileNav
+  items={[
+    { id: 'home', label: 'Home', icon: HomeIcon },
+    { id: 'notifications', label: 'Notifications', icon: BellIcon, badge: 5 },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'settings', label: 'Settings', icon: CogIcon }
+  ]}
+  activeTab="notifications"
+/>
+```
+
+### Compact Mode
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
+    <div className="absolute bottom-0 left-0 right-0">
+      <GlassMobileNav
+        items={[
+          { id: 'home', icon: HomeIcon },
+          { id: 'search', icon: MagnifyingGlassIcon },
+          { id: 'profile', icon: UserIcon },
+          { id: 'settings', icon: CogIcon }
+        ]}
+        activeTab="home"
+        compact={true}
+      />
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<GlassMobileNav
+  items={[
+    { id: 'home', icon: HomeIcon },
+    { id: 'search', icon: MagnifyingGlassIcon },
+    { id: 'profile', icon: UserIcon },
+    { id: 'settings', icon: CogIcon }
+  ]}
+  activeTab="home"
+  compact={true}
+/>
+```
+
+### Floating Style
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
+    <div className="absolute bottom-4 left-4 right-4">
+      <GlassMobileNav
+        items={[
+          { id: 'home', label: 'Home', icon: HomeIcon },
+          { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
+          { id: 'profile', label: 'Profile', icon: UserIcon },
+          { id: 'settings', label: 'Settings', icon: CogIcon }
+        ]}
+        activeTab="search"
+        floating={true}
+      />
+    </div>
+  </div>
+</div>
+```
+
+```jsx
+<GlassMobileNav
+  items={[
+    { id: 'home', label: 'Home', icon: HomeIcon },
+    { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'settings', label: 'Settings', icon: CogIcon }
+  ]}
+  activeTab="search"
+  floating={true}
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `NavItem[]` | `[]` | Array of navigation items |
+| `activeTab` | `string` | - | Currently active tab ID |
+| `onTabChange` | `(tabId: string) => void` | - | Callback fired when tab changes |
+| `compact` | `boolean` | `false` | Hide labels and show icons only |
+| `floating` | `boolean` | `false` | Floating navigation bar style |
+| `position` | `'bottom' \| 'top'` | `'bottom'` | Position of the navigation bar |
+| `disabled` | `boolean` | `false` | Disable all navigation items |
+| `className` | `string` | - | Additional CSS classes |
+| `style` | `CSSProperties` | - | Inline styles |
+
+### NavItem Interface
+
+```typescript
+interface NavItem {
+  id: string
+  label?: string
+  icon: React.ComponentType<any>
+  badge?: number | string
+  disabled?: boolean
+  href?: string
+  onClick?: () => void
+}
+```
+
+### Styling
+
+The component uses CSS variables for theming:
+
+```css
+.glass-mobile-nav {
+  --glass-mobile-nav-bg: rgba(255, 255, 255, 0.1);
+  --glass-mobile-nav-border: rgba(255, 255, 255, 0.2);
+  --glass-mobile-nav-text: rgba(255, 255, 255, 0.7);
+  --glass-mobile-nav-active: rgba(255, 255, 255, 0.9);
+  --glass-mobile-nav-active-bg: rgba(255, 255, 255, 0.2);
+  --glass-mobile-nav-badge: #ff4444;
+}
+```
+
+## Accessibility
+
+- **Touch Targets**: Minimum 44px touch targets for better usability
+- **Screen Reader**: Properly labeled with ARIA attributes
+- **Focus Management**: Clear focus indicators and logical tab order
+- **Keyboard Support**: Full keyboard navigation support
+- **Badge Announcements**: Screen reader support for notification badges
+
+## Best Practices
+
+1. **Touch Targets**: Ensure touch targets are at least 44px for mobile usability
+2. **Icon Clarity**: Use clear, recognizable icons for navigation items
+3. **Badge Usage**: Use badges sparingly for important notifications only
+4. **Consistent Placement**: Keep navigation in consistent position across screens
+5. **Performance**: Optimize for smooth animations and transitions
+
+## Integration with GSAP
+
+The Glass Mobile Nav component leverages GSAP for smooth animations:
+
+```jsx
+import { gsap } from 'gsap'
+
+// Custom tab switching animation
+const handleTabChange = (tabId) => {
+  gsap.to('.glass-mobile-nav-indicator', {
+    x: getTabPosition(tabId),
+    duration: 0.3,
+    ease: 'power2.out'
+  })
+}
+```
+
+## Gesture Support
+
+The component supports swipe gestures for navigation:
+
+```jsx
+<GlassMobileNav
+  items={navItems}
+  activeTab={activeTab}
+  onTabChange={setActiveTab}
+  gestures={{
+    swipeLeft: () => setActiveTab(getNextTab()),
+    swipeRight: () => setActiveTab(getPrevTab())
+  }}
+/>
+```
+
+## Related Components
+
+- [Glass Navbar](/components/navigation/glass-navbar) - Desktop navigation
+- [Glass Sidebar](/components/navigation/glass-sidebar) - Collapsible sidebar
+- [Glass Menu](/components/navigation/glass-menu) - Context menus
+- [Glass Tabs](/components/navigation/glass-tabs) - Tab navigation

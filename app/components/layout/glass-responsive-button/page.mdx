@@ -1,0 +1,502 @@
+import { GlassResponsiveButton } from 'liquidify'
+import { PlusIcon, TrashIcon, PencilIcon, ShareIcon } from '@heroicons/react/24/outline'
+
+# Glass Responsive Button
+
+An adaptive button component with glassmorphism aesthetics, designed to respond to different screen sizes and contexts using Apple's Liquid Glass design language.
+
+## Features
+
+- **Responsive Design**: Adapts to different screen sizes and orientations
+- **Glassmorphism Effects**: Translucent background with blur effects
+- **Adaptive Layout**: Changes appearance based on available space
+- **Touch Optimized**: Enhanced touch targets for mobile devices
+- **Breakpoint Awareness**: Customizable behavior at different breakpoints
+- **Accessibility**: Full keyboard navigation and screen reader support
+- **Customizable**: Extensive theming and styling options
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```jsx
+import { GlassResponsiveButton } from 'liquidify'
+
+function App() {
+  return (
+    <GlassResponsiveButton
+      icon={<PlusIcon className="w-5 h-5" />}
+      label="Add Item"
+      onClick={() => console.log('Button clicked')}
+      responsive={{
+        mobile: { showLabel: false },
+        tablet: { showLabel: true },
+        desktop: { showLabel: true }
+      }}
+    />
+  )
+}
+```
+
+## Examples
+
+### Basic Responsive Button
+
+<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+  <div className="flex space-x-4">
+    <GlassResponsiveButton
+      icon={<PlusIcon className="w-5 h-5" />}
+      label="Add Item"
+      onClick={() => console.log('Add clicked')}
+    />
+    <GlassResponsiveButton
+      icon={<PencilIcon className="w-5 h-5" />}
+      label="Edit"
+      onClick={() => console.log('Edit clicked')}
+      variant="secondary"
+    />
+    <GlassResponsiveButton
+      icon={<TrashIcon className="w-5 h-5" />}
+      label="Delete"
+      onClick={() => console.log('Delete clicked')}
+      variant="danger"
+    />
+  </div>
+</div>
+
+```jsx
+<GlassResponsiveButton
+  icon={<PlusIcon className="w-5 h-5" />}
+  label="Add Item"
+  onClick={() => handleAdd()}
+/>
+<GlassResponsiveButton
+  icon={<PencilIcon className="w-5 h-5" />}
+  label="Edit"
+  onClick={() => handleEdit()}
+  variant="secondary"
+/>
+<GlassResponsiveButton
+  icon={<TrashIcon className="w-5 h-5" />}
+  label="Delete"
+  onClick={() => handleDelete()}
+  variant="danger"
+/>
+```
+
+### Mobile-First Design
+
+<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
+  <div className="flex space-x-4">
+    <GlassResponsiveButton
+      icon={<ShareIcon className="w-5 h-5" />}
+      label="Share"
+      onClick={() => console.log('Share clicked')}
+      responsive={{
+        mobile: { showLabel: false, size: 'small' },
+        tablet: { showLabel: true, size: 'medium' },
+        desktop: { showLabel: true, size: 'large' }
+      }}
+    />
+    <GlassResponsiveButton
+      icon={<PlusIcon className="w-5 h-5" />}
+      label="Create New"
+      onClick={() => console.log('Create clicked')}
+      responsive={{
+        mobile: { showLabel: false, variant: 'icon' },
+        tablet: { showLabel: true, variant: 'primary' },
+        desktop: { showLabel: true, variant: 'primary' }
+      }}
+    />
+  </div>
+</div>
+
+```jsx
+<GlassResponsiveButton
+  icon={<ShareIcon className="w-5 h-5" />}
+  label="Share"
+  onClick={() => handleShare()}
+  responsive={{
+    mobile: { showLabel: false, size: 'small' },
+    tablet: { showLabel: true, size: 'medium' },
+    desktop: { showLabel: true, size: 'large' }
+  }}
+/>
+```
+
+### Adaptive Toolbar
+
+<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+  <div className="flex justify-between items-center">
+    <div className="flex space-x-2">
+      <GlassResponsiveButton
+        icon={<PlusIcon className="w-5 h-5" />}
+        label="New"
+        onClick={() => console.log('New clicked')}
+        responsive={{
+          mobile: { showLabel: false, size: 'small' },
+          desktop: { showLabel: true, size: 'medium' }
+        }}
+      />
+      <GlassResponsiveButton
+        icon={<PencilIcon className="w-5 h-5" />}
+        label="Edit"
+        onClick={() => console.log('Edit clicked')}
+        responsive={{
+          mobile: { showLabel: false, size: 'small' },
+          desktop: { showLabel: true, size: 'medium' }
+        }}
+        variant="secondary"
+      />
+    </div>
+    <GlassResponsiveButton
+      icon={<ShareIcon className="w-5 h-5" />}
+      label="Share"
+      onClick={() => console.log('Share clicked')}
+      responsive={{
+        mobile: { showLabel: false, size: 'small' },
+        desktop: { showLabel: true, size: 'medium' }
+      }}
+      variant="outline"
+    />
+  </div>
+</div>
+
+```jsx
+<div className="flex justify-between items-center">
+  <div className="flex space-x-2">
+    <GlassResponsiveButton
+      icon={<PlusIcon className="w-5 h-5" />}
+      label="New"
+      onClick={() => handleNew()}
+      responsive={{
+        mobile: { showLabel: false, size: 'small' },
+        desktop: { showLabel: true, size: 'medium' }
+      }}
+    />
+    <GlassResponsiveButton
+      icon={<PencilIcon className="w-5 h-5" />}
+      label="Edit"
+      onClick={() => handleEdit()}
+      responsive={{
+        mobile: { showLabel: false, size: 'small' },
+        desktop: { showLabel: true, size: 'medium' }
+      }}
+      variant="secondary"
+    />
+  </div>
+</div>
+```
+
+### Floating Action Button
+
+<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+  <div className="relative h-64">
+    <GlassResponsiveButton
+      icon={<PlusIcon className="w-6 h-6" />}
+      label="Add"
+      onClick={() => console.log('FAB clicked')}
+      floating={true}
+      responsive={{
+        mobile: { showLabel: false, size: 'large', position: 'bottom-right' },
+        tablet: { showLabel: true, size: 'large', position: 'bottom-right' },
+        desktop: { showLabel: true, size: 'large', position: 'bottom-right' }
+      }}
+      className="absolute bottom-4 right-4"
+    />
+  </div>
+</div>
+
+```jsx
+<GlassResponsiveButton
+  icon={<PlusIcon className="w-6 h-6" />}
+  label="Add"
+  onClick={() => handleAdd()}
+  floating={true}
+  responsive={{
+    mobile: { showLabel: false, size: 'large', position: 'bottom-right' },
+    tablet: { showLabel: true, size: 'large', position: 'bottom-right' },
+    desktop: { showLabel: true, size: 'large', position: 'bottom-right' }
+  }}
+  className="fixed bottom-4 right-4"
+/>
+```
+
+### Contextual Adaptation
+
+<div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
+  <div className="space-y-4">
+    <div className="flex space-x-2">
+      <GlassResponsiveButton
+        icon={<PlusIcon className="w-5 h-5" />}
+        label="Add Item"
+        onClick={() => console.log('Add clicked')}
+        responsive={{
+          mobile: { showLabel: false, variant: 'icon' },
+          tablet: { showLabel: true, variant: 'primary' },
+          desktop: { showLabel: true, variant: 'primary' }
+        }}
+      />
+    </div>
+    <div className="text-white/70 text-sm">
+      This button adapts its appearance based on screen size
+    </div>
+  </div>
+</div>
+
+```jsx
+<GlassResponsiveButton
+  icon={<PlusIcon className="w-5 h-5" />}
+  label="Add Item"
+  onClick={() => handleAdd()}
+  responsive={{
+    mobile: { showLabel: false, variant: 'icon' },
+    tablet: { showLabel: true, variant: 'primary' },
+    desktop: { showLabel: true, variant: 'primary' }
+  }}
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `icon` | `React.ReactNode` | - | Button icon |
+| `label` | `string` | - | Button label |
+| `onClick` | `() => void` | - | Click handler |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'danger' \| 'icon'` | `'primary'` | Button variant |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Button size |
+| `responsive` | `ResponsiveConfig` | - | Responsive configuration |
+| `floating` | `boolean` | `false` | Floating action button |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `loading` | `boolean` | `false` | Loading state |
+| `className` | `string` | - | Additional CSS classes |
+| `style` | `CSSProperties` | - | Inline styles |
+
+### ResponsiveConfig Interface
+
+```typescript
+interface ResponsiveConfig {
+  mobile?: {
+    showLabel?: boolean
+    size?: 'small' | 'medium' | 'large'
+    variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'icon'
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+  }
+  tablet?: {
+    showLabel?: boolean
+    size?: 'small' | 'medium' | 'large'
+    variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'icon'
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+  }
+  desktop?: {
+    showLabel?: boolean
+    size?: 'small' | 'medium' | 'large'
+    variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'icon'
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+  }
+}
+```
+
+### Styling
+
+The component uses CSS variables for theming:
+
+```css
+.glass-responsive-button {
+  --glass-button-bg: rgba(255, 255, 255, 0.1);
+  --glass-button-border: rgba(255, 255, 255, 0.2);
+  --glass-button-text: rgba(255, 255, 255, 0.9);
+  --glass-button-hover: rgba(255, 255, 255, 0.2);
+  --glass-button-active: rgba(255, 255, 255, 0.3);
+  --glass-button-mobile-size: 44px;
+  --glass-button-tablet-size: 48px;
+  --glass-button-desktop-size: 52px;
+}
+```
+
+## Accessibility
+
+- **Touch Targets**: Minimum 44px touch targets on mobile
+- **Screen Reader**: Proper ARIA labels and button roles
+- **Keyboard Navigation**: Full keyboard support
+- **Focus Management**: Clear focus indicators
+- **High Contrast**: Maintains visibility in high contrast mode
+
+## Best Practices
+
+1. **Touch Targets**: Ensure minimum 44px touch targets on mobile
+2. **Label Visibility**: Show labels when space permits
+3. **Icon Clarity**: Use recognizable icons for icon-only buttons
+4. **Consistent Behavior**: Maintain consistent behavior across breakpoints
+5. **Performance**: Optimize for smooth responsive transitions
+
+## Integration with GSAP
+
+The Glass Responsive Button component leverages GSAP for smooth animations:
+
+```jsx
+import { gsap } from 'gsap'
+
+// Responsive transition animation
+const animateResponsiveChange = (element, newProps) => {
+  gsap.to(element, {
+    ...newProps,
+    duration: 0.3,
+    ease: 'power2.out'
+  })
+}
+
+// Floating button entrance
+const animateFloatingButton = (element) => {
+  gsap.fromTo(element,
+    { scale: 0, opacity: 0 },
+    {
+      scale: 1,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'back.out(1.7)'
+    }
+  )
+}
+```
+
+## Advanced Features
+
+### Custom Breakpoints
+
+```jsx
+const customBreakpoints = {
+  mobile: { maxWidth: 640 },
+  tablet: { minWidth: 641, maxWidth: 1024 },
+  desktop: { minWidth: 1025 }
+}
+
+<GlassResponsiveButton
+  icon={<PlusIcon className="w-5 h-5" />}
+  label="Add Item"
+  onClick={() => handleAdd()}
+  breakpoints={customBreakpoints}
+  responsive={{
+    mobile: { showLabel: false },
+    tablet: { showLabel: true },
+    desktop: { showLabel: true }
+  }}
+/>
+```
+
+### Context-Aware Adaptation
+
+```jsx
+const useResponsiveButton = (containerWidth) => {
+  const [config, setConfig] = useState({})
+
+  useEffect(() => {
+    if (containerWidth < 200) {
+      setConfig({ showLabel: false, size: 'small' })
+    } else if (containerWidth < 400) {
+      setConfig({ showLabel: true, size: 'medium' })
+    } else {
+      setConfig({ showLabel: true, size: 'large' })
+    }
+  }, [containerWidth])
+
+  return config
+}
+
+const ResponsiveToolbar = () => {
+  const containerRef = useRef()
+  const [containerWidth, setContainerWidth] = useState(0)
+  const buttonConfig = useResponsiveButton(containerWidth)
+
+  return (
+    <div ref={containerRef} className="flex space-x-2">
+      <GlassResponsiveButton
+        icon={<PlusIcon className="w-5 h-5" />}
+        label="Add"
+        onClick={() => handleAdd()}
+        {...buttonConfig}
+      />
+    </div>
+  )
+}
+```
+
+### Adaptive Icon Sizing
+
+```jsx
+<GlassResponsiveButton
+  icon={<PlusIcon />}
+  label="Add Item"
+  onClick={() => handleAdd()}
+  responsive={{
+    mobile: { 
+      showLabel: false, 
+      iconSize: 'w-4 h-4' 
+    },
+    tablet: { 
+      showLabel: true, 
+      iconSize: 'w-5 h-5' 
+    },
+    desktop: { 
+      showLabel: true, 
+      iconSize: 'w-6 h-6' 
+    }
+  }}
+/>
+```
+
+## Layout Integration
+
+### Responsive Toolbar
+
+```jsx
+const ResponsiveToolbar = () => (
+  <div className="flex items-center justify-between p-4">
+    <div className="flex space-x-2">
+      <GlassResponsiveButton
+        icon={<PlusIcon className="w-5 h-5" />}
+        label="New"
+        onClick={() => handleNew()}
+        responsive={{
+          mobile: { showLabel: false, size: 'small' },
+          desktop: { showLabel: true, size: 'medium' }
+        }}
+      />
+      <GlassResponsiveButton
+        icon={<PencilIcon className="w-5 h-5" />}
+        label="Edit"
+        onClick={() => handleEdit()}
+        responsive={{
+          mobile: { showLabel: false, size: 'small' },
+          desktop: { showLabel: true, size: 'medium' }
+        }}
+        variant="secondary"
+      />
+    </div>
+    <GlassResponsiveButton
+      icon={<ShareIcon className="w-5 h-5" />}
+      label="Share"
+      onClick={() => handleShare()}
+      responsive={{
+        mobile: { showLabel: false, size: 'small' },
+        desktop: { showLabel: true, size: 'medium' }
+      }}
+      variant="outline"
+    />
+  </div>
+)
+```
+
+## Related Components
+
+- [Glass Button](/components/actions/glass-button) - Standard button component
+- [Glass Responsive Card](/components/layout/glass-responsive-card) - Responsive card layout
+- [Glass Mobile Nav](/components/navigation/glass-mobile-nav) - Mobile navigation
+- [Glass Floating Action](/components/actions/glass-floating-action) - Floating action button

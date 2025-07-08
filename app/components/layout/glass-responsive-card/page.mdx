@@ -1,0 +1,597 @@
+import { GlassResponsiveCard } from 'liquidify'
+import { ChartBarIcon, UserGroupIcon, CogIcon } from '@heroicons/react/24/outline'
+
+# Glass Responsive Card
+
+An adaptive card component with glassmorphism aesthetics, designed to respond to different screen sizes and layouts using Apple's Liquid Glass design language.
+
+## Features
+
+- **Responsive Design**: Adapts to different screen sizes and orientations
+- **Glassmorphism Effects**: Translucent background with blur effects
+- **Flexible Layout**: Automatic layout adjustments based on content
+- **Breakpoint Awareness**: Customizable behavior at different breakpoints
+- **Content Stacking**: Intelligent content reorganization on smaller screens
+- **Accessibility**: Full keyboard navigation and screen reader support
+- **Customizable**: Extensive theming and styling options
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```jsx
+import { GlassResponsiveCard } from 'liquidify'
+
+function App() {
+  return (
+    <GlassResponsiveCard
+      title="Dashboard Stats"
+      content="View your key metrics and performance indicators."
+      image="/dashboard-image.jpg"
+      responsive={{
+        mobile: { layout: 'vertical', padding: 'small' },
+        tablet: { layout: 'horizontal', padding: 'medium' },
+        desktop: { layout: 'horizontal', padding: 'large' }
+      }}
+    />
+  )
+}
+```
+
+## Examples
+
+### Basic Responsive Card
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+  <GlassResponsiveCard
+    title="Analytics Dashboard"
+    content="Track your performance metrics and user engagement across all platforms."
+    icon={<ChartBarIcon className="w-8 h-8" />}
+    responsive={{
+      mobile: { layout: 'vertical', showIcon: true },
+      tablet: { layout: 'horizontal', showIcon: true },
+      desktop: { layout: 'horizontal', showIcon: true }
+    }}
+  />
+</div>
+```
+
+```jsx
+<GlassResponsiveCard
+  title="Analytics Dashboard"
+  content="Track your performance metrics and user engagement across all platforms."
+  icon={<ChartBarIcon className="w-8 h-8" />}
+  responsive={{
+    mobile: { layout: 'vertical', showIcon: true },
+    tablet: { layout: 'horizontal', showIcon: true },
+    desktop: { layout: 'horizontal', showIcon: true }
+  }}
+/>
+```
+
+### Card Grid Layout
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <GlassResponsiveCard
+      title="Users"
+      content="1,234 active users"
+      icon={<UserGroupIcon className="w-6 h-6" />}
+      responsive={{
+        mobile: { layout: 'compact', padding: 'small' },
+        tablet: { layout: 'default', padding: 'medium' },
+        desktop: { layout: 'default', padding: 'medium' }
+      }}
+    />
+    <GlassResponsiveCard
+      title="Revenue"
+      content="$45,678 this month"
+      icon={<ChartBarIcon className="w-6 h-6" />}
+      responsive={{
+        mobile: { layout: 'compact', padding: 'small' },
+        tablet: { layout: 'default', padding: 'medium' },
+        desktop: { layout: 'default', padding: 'medium' }
+      }}
+    />
+    <GlassResponsiveCard
+      title="Settings"
+      content="Manage preferences"
+      icon={<CogIcon className="w-6 h-6" />}
+      responsive={{
+        mobile: { layout: 'compact', padding: 'small' },
+        tablet: { layout: 'default', padding: 'medium' },
+        desktop: { layout: 'default', padding: 'medium' }
+      }}
+    />
+  </div>
+</div>
+```
+
+```jsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <GlassResponsiveCard
+    title="Users"
+    content="1,234 active users"
+    icon={<UserGroupIcon className="w-6 h-6" />}
+    responsive={{
+      mobile: { layout: 'compact', padding: 'small' },
+      tablet: { layout: 'default', padding: 'medium' },
+      desktop: { layout: 'default', padding: 'medium' }
+    }}
+  />
+  {/* More cards... */}
+</div>
+```
+
+### Feature Card
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+  <GlassResponsiveCard
+    title="Advanced Analytics"
+    content="Get detailed insights into your application performance with real-time monitoring and custom dashboards."
+    image="/analytics-preview.jpg"
+    actions={[
+      { label: 'Learn More', onClick: () => console.log('Learn more clicked') },
+      { label: 'Get Started', onClick: () => console.log('Get started clicked'), variant: 'primary' }
+    ]}
+    responsive={{
+      mobile: { 
+        layout: 'vertical', 
+        showImage: false, 
+        actionsLayout: 'stacked' 
+      },
+      tablet: { 
+        layout: 'horizontal', 
+        showImage: true, 
+        actionsLayout: 'inline' 
+      },
+      desktop: { 
+        layout: 'horizontal', 
+        showImage: true, 
+        actionsLayout: 'inline' 
+      }
+    }}
+  />
+</div>
+```
+
+```jsx
+<GlassResponsiveCard
+  title="Advanced Analytics"
+  content="Get detailed insights into your application performance with real-time monitoring and custom dashboards."
+  image="/analytics-preview.jpg"
+  actions={[
+    { label: 'Learn More', onClick: () => handleLearnMore() },
+    { label: 'Get Started', onClick: () => handleGetStarted(), variant: 'primary' }
+  ]}
+  responsive={{
+    mobile: { 
+      layout: 'vertical', 
+      showImage: false, 
+      actionsLayout: 'stacked' 
+    },
+    tablet: { 
+      layout: 'horizontal', 
+      showImage: true, 
+      actionsLayout: 'inline' 
+    },
+    desktop: { 
+      layout: 'horizontal', 
+      showImage: true, 
+      actionsLayout: 'inline' 
+    }
+  }}
+/>
+```
+
+### Dashboard Widget
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+  <GlassResponsiveCard
+    title="System Status"
+    content="All systems operational"
+    badge={{ text: 'Online', variant: 'success' }}
+    metric={{ value: '99.9%', label: 'Uptime' }}
+    responsive={{
+      mobile: { 
+        layout: 'compact', 
+        showBadge: true, 
+        showMetric: false 
+      },
+      tablet: { 
+        layout: 'default', 
+        showBadge: true, 
+        showMetric: true 
+      },
+      desktop: { 
+        layout: 'extended', 
+        showBadge: true, 
+        showMetric: true 
+      }
+    }}
+  />
+</div>
+```
+
+```jsx
+<GlassResponsiveCard
+  title="System Status"
+  content="All systems operational"
+  badge={{ text: 'Online', variant: 'success' }}
+  metric={{ value: '99.9%', label: 'Uptime' }}
+  responsive={{
+    mobile: { 
+      layout: 'compact', 
+      showBadge: true, 
+      showMetric: false 
+    },
+    tablet: { 
+      layout: 'default', 
+      showBadge: true, 
+      showMetric: true 
+    },
+    desktop: { 
+      layout: 'extended', 
+      showBadge: true, 
+      showMetric: true 
+    }
+  }}
+/>
+```
+
+### Product Card
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
+  <GlassResponsiveCard
+    title="Liquidify Pro"
+    content="Advanced component library with premium features and dedicated support."
+    image="/product-image.jpg"
+    price={{ amount: '$49', period: '/month' }}
+    features={['Premium Components', 'Priority Support', 'Custom Themes']}
+    actions={[
+      { label: 'Try Free', onClick: () => console.log('Try free clicked') },
+      { label: 'Buy Now', onClick: () => console.log('Buy now clicked'), variant: 'primary' }
+    ]}
+    responsive={{
+      mobile: { 
+        layout: 'vertical', 
+        showImage: true, 
+        showFeatures: false,
+        actionsLayout: 'stacked' 
+      },
+      tablet: { 
+        layout: 'vertical', 
+        showImage: true, 
+        showFeatures: true,
+        actionsLayout: 'inline' 
+      },
+      desktop: { 
+        layout: 'horizontal', 
+        showImage: true, 
+        showFeatures: true,
+        actionsLayout: 'inline' 
+      }
+    }}
+  />
+</div>
+```
+
+```jsx
+<GlassResponsiveCard
+  title="Liquidify Pro"
+  content="Advanced component library with premium features and dedicated support."
+  image="/product-image.jpg"
+  price={{ amount: '$49', period: '/month' }}
+  features={['Premium Components', 'Priority Support', 'Custom Themes']}
+  actions={[
+    { label: 'Try Free', onClick: () => handleTryFree() },
+    { label: 'Buy Now', onClick: () => handleBuyNow(), variant: 'primary' }
+  ]}
+  responsive={{
+    mobile: { 
+      layout: 'vertical', 
+      showImage: true, 
+      showFeatures: false,
+      actionsLayout: 'stacked' 
+    },
+    tablet: { 
+      layout: 'vertical', 
+      showImage: true, 
+      showFeatures: true,
+      actionsLayout: 'inline' 
+    },
+    desktop: { 
+      layout: 'horizontal', 
+      showImage: true, 
+      showFeatures: true,
+      actionsLayout: 'inline' 
+    }
+  }}
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | - | Card title |
+| `content` | `string \| React.ReactNode` | - | Card content |
+| `image` | `string` | - | Card image URL |
+| `icon` | `React.ReactNode` | - | Card icon |
+| `badge` | `BadgeConfig` | - | Badge configuration |
+| `metric` | `MetricConfig` | - | Metric display |
+| `price` | `PriceConfig` | - | Price information |
+| `features` | `string[]` | - | Feature list |
+| `actions` | `ActionConfig[]` | - | Action buttons |
+| `responsive` | `ResponsiveConfig` | - | Responsive configuration |
+| `onClick` | `() => void` | - | Card click handler |
+| `className` | `string` | - | Additional CSS classes |
+| `style` | `CSSProperties` | - | Inline styles |
+
+### Interface Definitions
+
+```typescript
+interface ResponsiveConfig {
+  mobile?: {
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
+    padding?: 'small' | 'medium' | 'large'
+    showImage?: boolean
+    showIcon?: boolean
+    showBadge?: boolean
+    showMetric?: boolean
+    showFeatures?: boolean
+    actionsLayout?: 'inline' | 'stacked'
+  }
+  tablet?: {
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
+    padding?: 'small' | 'medium' | 'large'
+    showImage?: boolean
+    showIcon?: boolean
+    showBadge?: boolean
+    showMetric?: boolean
+    showFeatures?: boolean
+    actionsLayout?: 'inline' | 'stacked'
+  }
+  desktop?: {
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
+    padding?: 'small' | 'medium' | 'large'
+    showImage?: boolean
+    showIcon?: boolean
+    showBadge?: boolean
+    showMetric?: boolean
+    showFeatures?: boolean
+    actionsLayout?: 'inline' | 'stacked'
+  }
+}
+
+interface BadgeConfig {
+  text: string
+  variant: 'success' | 'warning' | 'error' | 'info'
+}
+
+interface MetricConfig {
+  value: string
+  label: string
+}
+
+interface PriceConfig {
+  amount: string
+  period?: string
+}
+
+interface ActionConfig {
+  label: string
+  onClick: () => void
+  variant?: 'primary' | 'secondary'
+  disabled?: boolean
+}
+```
+
+### Styling
+
+The component uses CSS variables for theming:
+
+```css
+.glass-responsive-card {
+  --glass-card-bg: rgba(255, 255, 255, 0.1);
+  --glass-card-border: rgba(255, 255, 255, 0.2);
+  --glass-card-text: rgba(255, 255, 255, 0.9);
+  --glass-card-text-muted: rgba(255, 255, 255, 0.7);
+  --glass-card-hover: rgba(255, 255, 255, 0.05);
+  --glass-card-mobile-padding: 16px;
+  --glass-card-tablet-padding: 24px;
+  --glass-card-desktop-padding: 32px;
+}
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Full keyboard support with Tab navigation
+- **Screen Reader**: Proper ARIA labels and semantic structure
+- **Focus Management**: Clear focus indicators and logical tab order
+- **Touch Targets**: Appropriate touch targets for mobile devices
+- **Content Hierarchy**: Clear heading structure and content organization
+
+## Best Practices
+
+1. **Content Prioritization**: Show most important content first on mobile
+2. **Touch Targets**: Ensure buttons meet minimum touch target sizes
+3. **Image Optimization**: Use appropriate image sizes for different breakpoints
+4. **Performance**: Lazy load images and optimize for mobile networks
+5. **Consistent Spacing**: Maintain consistent spacing across breakpoints
+
+## Integration with GSAP
+
+The Glass Responsive Card component leverages GSAP for smooth animations:
+
+```jsx
+import { gsap } from 'gsap'
+
+// Layout transition animation
+const animateLayoutChange = (element, newLayout) => {
+  gsap.to(element, {
+    duration: 0.3,
+    ease: 'power2.out',
+    onComplete: () => {
+      // Apply new layout
+      element.setAttribute('data-layout', newLayout)
+    }
+  })
+}
+
+// Card entrance animation
+const animateCardEntrance = (element) => {
+  gsap.fromTo(element,
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out'
+    }
+  )
+}
+```
+
+## Advanced Features
+
+### Dynamic Content
+
+```jsx
+const [cardData, setCardData] = useState({
+  title: 'Dynamic Card',
+  content: 'This content changes based on data'
+})
+
+useEffect(() => {
+  // Update card data based on API response
+  fetchCardData().then(data => setCardData(data))
+}, [])
+
+<GlassResponsiveCard
+  title={cardData.title}
+  content={cardData.content}
+  responsive={{
+    mobile: { layout: 'vertical' },
+    desktop: { layout: 'horizontal' }
+  }}
+/>
+```
+
+### Conditional Rendering
+
+```jsx
+const ResponsiveCard = ({ data, userRole }) => {
+  const getResponsiveConfig = () => {
+    const baseConfig = {
+      mobile: { layout: 'vertical', padding: 'small' },
+      desktop: { layout: 'horizontal', padding: 'large' }
+    }
+
+    if (userRole === 'admin') {
+      return {
+        ...baseConfig,
+        mobile: { ...baseConfig.mobile, showMetric: true },
+        desktop: { ...baseConfig.desktop, showMetric: true }
+      }
+    }
+
+    return baseConfig
+  }
+
+  return (
+    <GlassResponsiveCard
+      title={data.title}
+      content={data.content}
+      metric={userRole === 'admin' ? data.metric : undefined}
+      responsive={getResponsiveConfig()}
+    />
+  )
+}
+```
+
+### Container Query Support
+
+```jsx
+const useContainerQuery = (ref) => {
+  const [containerSize, setContainerSize] = useState('large')
+
+  useEffect(() => {
+    const observer = new ResizeObserver(entries => {
+      const { width } = entries[0].contentRect
+      if (width < 300) setContainerSize('small')
+      else if (width < 600) setContainerSize('medium')
+      else setContainerSize('large')
+    })
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => observer.disconnect()
+  }, [ref])
+
+  return containerSize
+}
+
+const ContainerAwareCard = ({ children }) => {
+  const containerRef = useRef()
+  const containerSize = useContainerQuery(containerRef)
+
+  return (
+    <div ref={containerRef}>
+      <GlassResponsiveCard
+        title="Container Aware"
+        content="This card adapts to its container size"
+        responsive={{
+          [containerSize]: {
+            layout: containerSize === 'small' ? 'compact' : 'default',
+            padding: containerSize === 'small' ? 'small' : 'medium'
+          }
+        }}
+      />
+    </div>
+  )
+}
+```
+
+## Layout Patterns
+
+### Masonry Grid
+
+```jsx
+const MasonryGrid = ({ cards }) => (
+  <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
+    {cards.map((card, index) => (
+      <div key={index} className="break-inside-avoid mb-4">
+        <GlassResponsiveCard
+          {...card}
+          responsive={{
+            mobile: { layout: 'vertical', padding: 'small' },
+            tablet: { layout: 'vertical', padding: 'medium' },
+            desktop: { layout: 'vertical', padding: 'medium' }
+          }}
+        />
+      </div>
+    ))}
+  </div>
+)
+```
+
+## Related Components
+
+- [Glass Card](/components/containment/glass-card) - Standard card component
+- [Glass Responsive Button](/components/layout/glass-responsive-button) - Responsive button
+- [Glass Grid](/components/layout/glass-grid) - Grid layout system
+- [Glass Badge](/components/presentation/glass-badge) - Status badges

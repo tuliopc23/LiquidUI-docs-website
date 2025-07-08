@@ -1,0 +1,182 @@
+# Glass Radio
+
+A component for selecting one option from a group of choices, ensuring mutually exclusive selections with accessible keyboard navigation.
+
+## Overview
+
+The `GlassRadio` component allows users to select a single option from a closely related group, supporting both horizontal and vertical layouts. It's ideal for demographic data and settings.
+
+## Basic Usage
+
+```tsx
+import { GlassRadio } from 'liquidify'
+
+function App() {
+  const [choice, setChoice] = useState('')
+
+  return (
+    cGlassRadio 
+      name="fruits"
+      options={['Apple', 'Banana', 'Orange']}
+      value={choice}
+      onChange={setChoice}
+    e
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassRadio } from 'liquidify'
+
+export default function RadioDemo() {
+  const [color, setColor] = useState('')
+  const [layout, setLayout] = useState('horizontal')
+
+  const colors = [
+    { value: 'red', label: 'Red' },
+    { value: 'green', label: 'Green' },
+    { value: 'blue', label: 'Blue' }
+  ]
+
+  return (
+    cdiv className="space-y-6 p-6"e
+      {/* Basic Radio Group */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eFavorite Colorc/h3e
+        cGlassRadio 
+          name="colors"
+          options={colors}
+          value={color}
+          onChange={setColor}
+          direction={layout}
+        /e
+        cp className="mt-2 text-sm text-tertiary"eSelected: {color}c/pe
+      c/sectione
+
+      {/* Layout Direction */}
+      csectione
+        ch3 className="hig-title-3 mb-4"eLayout Directionc/h3e
+        cGlassRadio 
+          name="layout"
+          options={['horizontal', 'vertical']}
+          value={layout}
+          onChange={setLayout}
+        /e
+      c/sectione
+    c/dive
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `options` | `Option[]` | `[]` | Array of option objects or strings |
+| `value` | `string` | - | Currently selected value |
+| `onChange` | `(value: string) =e void` | - | Callback when selection changes |
+| `direction` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout direction |
+| `name` | `string` | - | HTML name attribute, required for grouping |
+| `disabled` | `boolean` | `false` | Disable the entire radio group |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size variant |
+| `className` | `string` | - | Additional CSS classes |
+
+### Option Interface
+
+```tsx
+interface Option {
+  value: string
+  label: string
+  disabled?: boolean
+}
+```
+
+## Features
+
+### Custom Layouts
+Set different layouts for various use cases:
+
+```tsx
+cGlassRadio 
+  name="preference"
+  options={['Morning', 'Evening']}
+  direction="horizontal"
+  value={preference}
+  onChange={setPreference}
+/e
+```
+
+### Grouping
+Automatically groups related radio buttons:
+
+```tsx
+cfieldsete
+  legendeSelect Payment Method/legende
+  cGlassRadio 
+    name="payment"
+    options={['Credit Card', 'Paypal', 'Bank Transfer']}
+    value={paymentMethod}
+    onChange={setPaymentMethod}
+  /e
+/fieldsete
+```
+
+## Accessibility
+
+### Keyboard Navigation
+- **Arrow keys**: Move between radio options
+- **Space/Enter**: Select focused option
+
+### Screen Reader Support
+```tsx
+cGlassRadio 
+  name="experience"
+  options={['Beginner', 'Intermediate', 'Expert']}
+  aria-labelledby="experience-level"
+/e
+```
+
+## Best Practices
+
+### Do's ✅
+- **Use descriptive labels** for all options
+- **Group related options** with a clear heading or legend
+- **Ensure a default selection** when appropriate
+
+```tsx
+// ✅ Good - Clear labels and grouping
+clegendeChoose Difficulty/legende
+cGlassRadio 
+  name="difficulty"
+  options={['Easy', 'Medium', 'Hard']}
+  value={difficulty}
+  onChange={setDifficulty}
+/e
+```
+
+### Don'ts ❌
+- **Don't use for multiple selections** (use checkboxes instead)
+- **Avoid long option lists** without clear separation
+
+```tsx
+// ❌ Avoid - Use checkboxes for non-exclusive selections
+cGlassRadio 
+  name="skills"
+  options={['HTML', 'CSS', 'JavaScript']}
+/e
+```
+
+## Related Components
+
+- [**Glass Checkbox**](/components/inputs/glass-checkbox) - Multiple selections
+- [**Glass Select**](/components/inputs/glass-select) - Dropdown selections
+- [**Glass Switch**](/components/inputs/glass-switch) - Toggle switch
+
+---
+
+*Glass Radio ensures clear, accessible selection between exclusive options, fitting seamlessly into Liquidify's design system.*

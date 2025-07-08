@@ -1,0 +1,427 @@
+# GlassMenu
+
+A versatile dropdown menu component for relevant actions or links, featuring smooth transitions and Apple HIG-compliant interactions.
+
+## Overview
+
+GlassMenu provides a customizable menu system designed to deliver contextual actions or links in an elegant way. Built with Liquidify's Liquid Glass material system, it offers responsive behavior and supports nested menus for complex use cases.
+
+## Basic Usage
+
+```tsx
+import { GlassMenu } from '@liquidify/ui'
+
+function BasicMenu() {
+  const items = [
+    { id: 'profile', label: 'Profile' },
+    { id: 'settings', label: 'Settings' },
+    { id: 'logout', label: 'Logout' }
+  ]
+
+  return (
+    <GlassMenu
+      items={items}
+      trigger={<button>Open Menu</button>}
+      onSelect={(id) => console.log(`Selected ${id}`)}
+    />
+  )
+}
+```
+
+## Interactive Demo
+
+<LiquidifyInteractiveDemo>
+  <GlassMenu
+    items={[
+      { 
+        id: 'file', 
+        label: 'File', 
+        submenu: [
+          { id: 'new', label: 'New' },
+          { id: 'open', label: 'Open' },
+          { id: 'save', label: 'Save' },
+          { id: 'exit', label: 'Exit' }
+        ]
+      },
+      { 
+        id: 'edit', 
+        label: 'Edit',
+        submenu: [
+          { id: 'undo', label: 'Undo' },
+          { id: 'redo', label: 'Redo' },
+          { id: 'cut', label: 'Cut' },
+          { id: 'copy', label: 'Copy' },
+          { id: 'paste', label: 'Paste' }
+        ]
+      },
+      { id: 'help', label: 'Help' }
+    ]}
+    trigger={<button className="bg-blue-500 text-white py-2 px-4 rounded">Options</button>}
+    variant="default"
+    placement="bottom-end"
+  />
+</LiquidifyInteractiveDemo>
+
+## API Reference
+
+### GlassMenu Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `MenuItem[]` | - | Array of menu items to display |
+| `trigger` | `React.ReactNode` | - | Component to trigger the menu |
+| `onSelect` | `(id: string) => void` | - | Callback on item selection |
+| `open` | `boolean` | `false` | Control menu open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Callback on open state change |
+| `placement` | `'top' \| 'bottom' \| 'left' \| 'right' \| 'top-start' \| 'top-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end' \| 'right-start' \| 'right-end'` | `'bottom'` | Menu position relative to trigger |
+| `variant` | `'default' \| 'minimal' \| 'outlined'` | `'default'` | Visual style variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
+| `disabled` | `boolean` | `false` | Disable the entire menu |
+| `className` | `string` | - | Additional CSS classes |
+| `menuClassName` | `string` | - | CSS classes for the menu container |
+
+### MenuItem Interface
+
+```typescript
+interface MenuItem {
+  id: string
+  label: string
+  icon?: string // SF Symbol name
+  submenu?: MenuItem[]
+  disabled?: boolean
+  divider?: boolean
+  description?: string
+  onSelect?: (id: string) => void
+}
+```
+
+## Variants
+
+### Default Menu
+
+```tsx
+<GlassMenu
+  items={items}
+  trigger={<button>Menu</button>}
+  variant="default"
+/>
+```
+
+### Minimal Style
+
+```tsx
+<GlassMenu
+  items={items}
+  trigger={<button>More</button>}
+  variant="minimal"
+/>
+```
+
+### Outlined Style
+
+```tsx
+<GlassMenu
+  items={items}
+  trigger={<button>Options</button>}
+  variant="outlined"
+/>
+```
+
+## Features
+
+### Nested Menus
+
+```tsx
+<GlassMenu
+  items={[
+    { 
+      id: 'actions', 
+      label: 'Actions', 
+      submenu: [
+        { id: 'create', label: 'Create' },
+        { id: 'update', label: 'Update' },
+        { id: 'delete', label: 'Delete' }
+      ]
+    }
+  ]}
+  trigger={<button>Actions</button>}
+/>
+```
+
+### Custom Icons
+
+```tsx
+<GlassMenu
+  items={[
+    { id: 'home', label: 'Home', icon: 'house' },
+    { id: 'profile', label: 'Profile', icon: 'person' },
+    { id: 'settings', label: 'Settings', icon: 'gear' }
+  ]}
+  trigger={<button>Menu</button>}
+/>
+```
+
+### Divider Item
+
+```tsx
+<GlassMenu
+  items={[
+    { id: 'edit', label: 'Edit' },
+    { divider: true },
+    { id: 'copy', label: 'Copy' },
+    { id: 'paste', label: 'Paste' }
+  ]}
+  trigger={<button>Edit</button>}
+/>
+```
+
+### Custom Event Handlers
+
+```tsx
+<GlassMenu
+  items={[
+    { id: 'print', label: 'Print', onSelect: () => handlePrint() },
+    { id: 'export', label: 'Export', onSelect: () => handleExport() },
+    { id: 'forward', label: 'Forward', onSelect: () => handleForward(), disabled: true }
+  ]}
+  trigger={<button>Actions</button>}
+/>
+```
+
+### Controlled Menu
+
+```tsx
+function ControlledMenu() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <GlassMenu
+      items={items}
+      trigger={<button onClick={() => setOpen((prev) => !prev)}>Toggle Menu</button>}
+      open={open}
+      onOpenChange={setOpen}
+    />
+  )
+}
+```
+
+## Accessibility
+
+### ARIA Support
+
+- **`role="menu"`**: Applied to the menu container
+- **`role="menuitem"`**: Applied to each item
+- **`aria-haspopup="true"`**: Indicates a menu trigger
+- **`aria-expanded`**: Indicates menu open state
+- **`aria-disabled`**: For disabled items
+- **`aria-controls`**: Links trigger to menu
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Focus next/previous menu item |
+| `Enter` / `Space` | Activate focused item |
+| `Arrow Down` | Next item |
+| `Arrow Up` | Previous item |
+| `Esc` | Close the menu |
+
+### Screen Reader Support
+
+```tsx
+[36m<GlassMenu[0m
+  items={items}
+  trigger={[36m<button[0m>More Options[36m</button[0m>
+  aria-label="Main menu"
+/[0m
+```
+
+## Styling and Customization
+
+### CSS Custom Properties
+
+```css
+.glass-menu {
+  --menu-bg: rgba(255, 255, 255, 0.1);
+  --menu-border: rgba(255, 255, 255, 0.2);
+  --menu-border-radius: 8px;
+  --menu-item-padding: 8px 12px;
+  --menu-item-font-size: 14px;
+  --menu-item-bg-hover: rgba(255, 255, 255, 0.15);
+  --menu-item-text-color: rgba(255, 255, 255, 0.8);
+  --menu-item-text-active: rgba(255, 255, 255, 1);
+  --menu-transition: all 0.2s ease;
+}
+```
+
+### Theme Integration
+
+```tsx
+[36m<GlassMenu[0m
+  items={items}
+  trigger={[36m<button[0m>Customize[36m</button[0m>
+  className="dark:bg-gray-900/50 light:bg-white/50"
+  menuClassName="dark:border-gray-600 light:border-gray-300"
+/[0m
+```
+
+### Custom Styling
+
+```tsx
+[36m<GlassMenu[0m
+  items={items}
+  trigger={[36m<button[0m>Styled Menu[36m</button[0m>
+  className="my-custom-menu"
+  menuClassName="custom-menu-items"
+/[0m
+```
+
+## Integration Examples
+
+### With Toolbar
+
+```tsx
+function ToolbarWithMenu() {
+  return (
+    [36m<div[0m className="flex items-center space-x-4"[36m>
+      <GlassMenu
+        items={[
+          { id: 'new', label: 'New' },
+          { id: 'open', label: 'Open' }
+        ]}
+        trigger={[36m<button[0m>File[36m</button[0m>
+      />
+      [36m<button[0m>Save[36m</button[0m>
+    [36m/div[0m
+  )
+}
+```
+
+### With Context Menu
+
+```tsx
+function RightClickMenu() {
+  const [anchor, setAnchor] = useState<HTMLElement | null>(null)
+
+  const handleContextMenu = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    setAnchor(event.currentTarget)
+  }
+
+  return (
+    [36m<div[0m onContextMenu={handleContextMenu}[36m>
+      <GlassMenu
+        items={[
+          { id: 'cut', label: 'Cut' },
+          { id: 'copy', label: 'Copy' },
+          { id: 'paste', label: 'Paste' }
+        ]}
+        anchor={anchor}
+        open={Boolean(anchor)}
+        onOpenChange={() => setAnchor(null)}
+      />
+      [36m<p[0m>Right-click to open the context menu.[36m</p[0m>
+    [36m/div[0m
+  )
+}
+```
+
+### Mobile Menu
+
+```tsx
+function MobileMenu() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    [36m<div[0m>
+      <GlassMenu
+        items={[
+          { id: 'home', label: 'Home' },
+          { id: 'profile', label: 'Profile' },
+          { id: 'settings', label: 'Settings' }
+        ]}
+        trigger={[36m<button[0m onClick={() => setVisible((prev) => !prev)}[36m>
+          {visible ? 'Close' : 'Menu'}
+        </button>[0m
+        open={visible}
+        onOpenChange={setVisible}
+      />
+    [36m</div[0m
+  )
+}
+```
+
+## Best Practices
+
+### Do's
+
+- **Use clear labels**: Make menu item labels descriptive and concise
+- **Support keyboard navigation**: Ensure items can be navigated via keyboard
+- **Provide submenu icons**: Indicate submenu presence with icons
+- **Consider placement**: Set menu position based on context
+- **Distribute actions logically**: Group related actions together with dividers
+- **Use appropriate size**: Match size to context (e.g., larger touch targets for mobile)
+
+### Don'ts
+
+- **Don't overpopulate**: Limit menu to necessary actions only
+- **Don't disable without reason**: Clarify why items are disabled
+- **Don't hinder accessibility**: Maintain clear ARIA roles and keyboard support
+- **Don't force submenu clicks**: Allow mouse hover for easy access
+- **Don't disrupt focus**: Manage focus state changes gracefully
+
+## Common Use Cases
+
+### File Menu
+
+```tsx
+[36m<GlassMenu[0m
+  items={[
+    { id: 'new', label: 'New File' },
+    { id: 'open', label: 'Open File...' },
+    { id: 'save', label: 'Save' },
+    { divider: true },
+    { id: 'exit', label: 'Exit' }
+  ]}
+  trigger={[36m<button[0m>File[36m</button[0m>
+/[0m
+```
+
+### Action Menu
+
+```tsx
+ 1B[36m<GlassMenu 1B[0m
+  items={[
+    { id: 'copy', label: 'Copy' },
+    { id: 'cut', label: 'Cut' },
+    { id: 'paste', label: 'Paste' }
+  ]}
+  trigger={[36m<button[0m>Actions[36m</button[0m>
+/[0m
+```
+
+### User Profile Menu
+
+```tsx
+ 1B[36m<GlassMenu 1B[0m
+  items={[
+    { id: 'account', label: 'Account Settings', icon: 'gear' },
+    { id: 'profile', label: 'Profile', icon: 'person' },
+    { id: 'logout', label: 'Logout', icon: 'arrow.down.right.square' }
+  ]}
+  trigger={[36m<button[0m className="flex items-center"[36m> 1B[36m
+    <Avatar src="user.jpg" className="mr-2" />[0m
+    <span>Menu</span>
+  </button[0m>
+/ 1B[0m
+```
+
+## Related Components
+
+- [GlassDropdown](/components/navigation/glass-dropdown) - For toggling contextual overlays
+- [GlassTabs](/components/navigation/glass-tabs) - For tabbed content organization
+- [GlassPopover](/components/overlay/glass-popover) - For non-modal overlays
+
+---
+
+*GlassMenu provides a flexible and accessible way to offer contextual actions, ensuring a seamless integration with Apple's Human Interface Guidelines.*

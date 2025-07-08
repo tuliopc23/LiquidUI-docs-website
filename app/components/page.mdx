@@ -1,0 +1,187 @@
+# Components
+
+Comprehensive collection of React components built with Apple's Liquid Glass design language and Human Interface Guidelines.
+
+## Overview
+
+Liquidify provides a complete set of UI components that implement Apple's newest design paradigm: Liquid Glass. Each component follows strict accessibility standards, supports all Apple platforms, and provides delightful user interactions through sophisticated material properties.
+
+## Component Categories
+
+### Actions
+Interactive elements that enable users to perform tasks and make choices.
+
+- [Glass Button](/components/actions/glass-button) - Primary interactive buttons
+- [Glass Icon Button](/components/actions/glass-icon-button) - Icon-only actions
+- [Glass Button Group](/components/actions/glass-button-group) - Related action sets
+- [Glass Toggle Button](/components/actions/glass-toggle-button) - Binary state actions
+- [Glass Floating Action](/components/actions/glass-floating-action) - Prominent action button
+
+### Inputs
+Form controls that allow users to enter and edit information.
+
+- [Glass Input](/components/inputs/glass-input) - Single-line text entry
+- [Glass Textarea](/components/inputs/glass-textarea) - Multi-line text entry
+- [Glass Select](/components/inputs/glass-select) - Selection from options
+- [Glass Checkbox](/components/inputs/glass-checkbox) - Binary selections
+- [Glass Switch](/components/inputs/glass-switch) - Toggle controls
+- [Glass Slider](/components/inputs/glass-slider) - Range selection
+- [Glass Search](/components/inputs/glass-search) - Search interfaces
+
+### Containment
+Components that group and organize related content.
+
+- [Glass Card](/components/containment/glass-card) - Content containers
+- [Glass Modal](/components/containment/glass-modal) - Overlay dialogs
+- [Glass Popover](/components/containment/glass-popover) - Contextual overlays
+- [Glass Command](/components/containment/glass-command) - Command interfaces
+
+### Navigation
+Components that help users move through interfaces and content.
+
+- [Glass Navbar](/components/navigation/glass-navbar) - Primary navigation
+- [Glass Sidebar](/components/navigation/glass-sidebar) - Secondary navigation
+- [Glass Tabs](/components/navigation/glass-tabs) - Content organization
+- [Glass Mobile Nav](/components/navigation/glass-mobile-nav) - Mobile navigation
+
+### Presentation
+Components that display information and content to users.
+
+- [Glass Avatar](/components/presentation/glass-avatar) - User representation
+- [Glass Badge](/components/presentation/glass-badge) - Status indicators
+- [Glass Loading](/components/presentation/glass-loading) - Loading states
+- [Glass Tooltip](/components/presentation/glass-tooltip) - Contextual information
+
+### Data
+Components for displaying and manipulating structured information.
+
+- [Glass Table](/components/data/glass-table) - Tabular data display
+- [Glass Progress](/components/data/glass-progress) - Progress indicators
+
+### Layout
+Structural components that define page and section organization.
+
+- [Glass Responsive Button](/components/layout/glass-responsive-button) - Adaptive buttons
+- [Glass Responsive Card](/components/layout/glass-responsive-card) - Adaptive containers
+
+## Design Principles
+
+### Liquid Glass Material
+All components use Apple's Liquid Glass material, which:
+- Adapts to surrounding content intelligently
+- Provides consistent visual hierarchy
+- Maintains accessibility in all lighting conditions
+- Supports both light and dark environments seamlessly
+
+### Apple Human Interface Guidelines
+Every component strictly follows Apple HIG principles:
+- **Clarity**: Clear visual communication
+- **Deference**: Content over chrome
+- **Depth**: Realistic layering and motion
+
+### Accessibility First
+Built with comprehensive accessibility support:
+- **VoiceOver**: Full screen reader compatibility
+- **Voice Control**: Complete voice navigation
+- **Keyboard Navigation**: Full keyboard accessibility
+- **High Contrast**: Enhanced visibility options
+- **Reduced Motion**: Respects user preferences
+
+### Performance Optimized
+- Tree-shakable imports for minimal bundle size
+- Optimized rendering with React 19
+- Efficient animation with GSAP
+- Lazy loading for complex components
+
+## Interactive Demo
+
+import dynamic from 'next/dynamic'
+
+export const LiquidifyInteractiveDemo = dynamic(
+  () => import('../../components/LiquidifyInteractiveDemo'),
+  { ssr: false }
+)
+
+<LiquidifyInteractiveDemo />
+
+## Getting Started
+
+### Installation
+
+```bash
+npm install liquidify
+```
+
+### Basic Usage
+
+```tsx
+import { GlassButton, GlassCard } from 'liquidify'
+
+export default function App() {
+  return (
+    <GlassCard>
+      <h1 className="hig-title-1 mb-4">Welcome to Liquidify</h1>
+      <p className="hig-body mb-6">
+        Experience the future of interface design with Liquid Glass.
+      </p>
+      <GlassButton variant="primary">
+        Get Started
+      </GlassButton>
+    </GlassCard>
+  )
+}
+```
+
+### Theme Configuration
+
+```tsx
+import { ThemeProvider } from 'liquidify'
+
+export default function RootLayout({ children }) {
+  return (
+    <ThemeProvider>
+      {children}
+    </ThemeProvider>
+  )
+}
+```
+
+## Design Tokens
+
+Liquidify uses Apple's design token system:
+- **Colors**: Official Apple system colors
+- **Typography**: SF Pro Display and SF Pro Text fonts
+- **Spacing**: 4pt grid system
+- **Elevation**: Consistent shadow system
+- **Motion**: Apple spring animations
+
+## Platform Support
+
+### iOS & iPadOS
+- Native haptic feedback
+- Dynamic Type support
+- Smart Invert compatibility
+- Context menu integration
+
+### macOS
+- Menu bar integration
+- Keyboard shortcuts
+- Window vibrancy effects
+- Accessibility Inspector support
+
+### watchOS
+- Digital Crown support
+- Haptic feedback
+- Force Touch integration
+- Optimized layouts
+
+## Resources
+
+- [Design Tokens](/design-tokens) - Complete token reference
+- [Getting Started](/getting-started) - Setup and installation guide
+- [Hooks & Utilities](/hooks) - React hooks and utility functions
+- [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/) - Official design guidelines
+
+---
+
+*All components implement Apple's Liquid Glass design language introduced at WWDC 2025.*

@@ -1,0 +1,92 @@
+# Colors
+
+Explore the rich color palette of Liquidify, designed to seamlessly integrate with Apple's Human Interface Guidelines.
+
+## Apple System Colors
+
+Liquidify embraces Apple's color palette for a cohesive and familiar visual experience.
+
+### Primary Colors
+
+```json
+{
+  "blue": "#007AFF",
+  "green": "#34C759",
+  "indigo": "#5856D6",
+  "orange": "#FF9500",
+  "pink": "#FF2D92",
+  "purple": "#AF52DE",
+  "red": "#FF3B30",
+  "teal": "#30B0C7",
+  "yellow": "#FFCC00"
+}
+```
+
+### Grays
+
+Gradation of Apple's gray tones for balanced design.
+
+```json
+{
+  "gray50": "#F2F2F7",
+  "gray100": "#E5E5EA",
+  "gray200": "#D1D1D6",
+  "gray300": "#C7C7CC",
+  "gray400": "#AEAEB2",
+  "gray500": "#8E8E93",
+  "gray600": "#636366",
+  "gray700": "#48484A",
+  "gray800": "#3A3A3C",
+  "gray900": "#1C1C1E"
+}
+```
+
+## Semantic Colors
+
+Specifically tailored for components to convey meaning and intention.
+
+### Usage
+```tsx
+import { colors } from 'liquidify/tokens'
+
+const primary = colors.blue // #007AFF for primary actions
+const warning = colors.orange // #FF9500 for warnings
+```
+
+## Glass Material Colors
+
+Unique colors that enhance the Liquid Glass aesthetic.
+
+### Light Glass
+
+```json
+{
+  "background": "rgba(255, 255, 255, 0.15)",
+  "border": "rgba(255, 255, 255, 0.3)"
+}
+```
+
+### Dark Glass
+
+```json
+{
+  "background": "rgba(0, 0, 0, 0.15)",
+  "border": "rgba(0, 0, 0, 0.3)"
+}
+```
+
+## Custom Themes
+
+All colors can be customized to create unique themes while maintaining accessibility and brand guidelines.
+
+### Example
+```tsx
+const customTheme = {
+  ...colors,
+  primary: '#4A90E2', // Custom brand primary color
+}
+```
+
+---
+
+*Colors align visually with Apple's UI standards while maintaining unique Liquidify branding.*

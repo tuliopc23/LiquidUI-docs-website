@@ -1,0 +1,383 @@
+# Actions
+
+Interactive elements that enable users to perform tasks and make choices with confidence and clarity.
+
+## Overview
+
+Action components in Liquidify are designed following Apple's Human Interface Guidelines to provide clear, accessible, and delightful interactions. Each component features advanced Liquid Glass effects, haptic feedback support, and comprehensive accessibility features.
+
+## Components
+
+### [Glass Button](/components/actions/glass-button)
+Primary interactive element for triggering actions and navigating through interfaces.
+
+- **5 variants**: primary, secondary, tertiary, ghost, destructive
+- **5 sizes**: xs, sm, md, lg, xl
+- **Advanced features**: Loading states, icons, magnetic hover
+- **Accessibility**: Full VoiceOver and Voice Control support
+
+```tsx
+import { GlassButton } from 'liquidify'
+
+<GlassButton variant="primary" size="lg">
+  Get Started
+</GlassButton>
+```
+
+### [Glass Icon Button](/components/actions/glass-icon-button)
+Compact button designed specifically for icon-only actions.
+
+- **Perfect for**: Toolbars, navigation, quick actions
+- **Icon integration**: SF Symbols and Lucide React support
+- **Touch optimized**: 44px minimum touch target
+- **Haptic feedback**: Native iOS/macOS haptic responses
+
+```tsx
+import { GlassIconButton } from 'liquidify'
+import { Heart } from 'lucide-react'
+
+<GlassIconButton aria-label="Add to favorites">
+  <Heart size={20} />
+</GlassIconButton>
+```
+
+### [Glass Button Group](/components/actions/glass-button-group)
+Related actions grouped together for cohesive interaction patterns.
+
+- **Segmented control**: Radio-style selection
+- **Toolbar mode**: Multiple independent actions
+- **Responsive**: Adapts to screen size
+- **Consistent spacing**: 4pt grid alignment
+
+```tsx
+import { GlassButtonGroup, GlassButton } from 'liquidify'
+
+<GlassButtonGroup>
+  <GlassButton variant="secondary">Day</GlassButton>
+  <GlassButton variant="secondary">Week</GlassButton>
+  <GlassButton variant="primary">Month</GlassButton>
+</GlassButtonGroup>
+```
+
+### [Glass Toggle Button](/components/actions/glass-toggle-button)
+Binary state button for on/off or selected/unselected interactions.
+
+- **Visual feedback**: Clear pressed and unpressed states
+- **Smooth transitions**: GSAP-powered state changes
+- **Accessible**: Proper ARIA attributes and states
+- **Customizable**: Icons, text, or both
+
+```tsx
+import { GlassToggleButton } from 'liquidify'
+import { Star } from 'lucide-react'
+
+<GlassToggleButton 
+  aria-label="Toggle favorite"
+  onToggle={(pressed) => console.log('Favorite:', pressed)}
+>
+  <Star size={16} />
+  Favorite
+</GlassToggleButton>
+```
+
+### [Glass Floating Action](/components/actions/glass-floating-action)
+Prominent action button that floats above content for primary actions.
+
+- **Material design**: Elevation and shadow effects
+- **Responsive positioning**: Adapts to screen size
+- **Extended FAB**: Support for text labels
+- **Smooth morphing**: Expands and contracts fluidly
+
+```tsx
+import { GlassFloatingAction } from 'liquidify'
+import { Plus } from 'lucide-react'
+
+<GlassFloatingAction 
+  position="bottom-right"
+  extended
+  onClick={() => createNew()}
+>
+  <Plus size={24} />
+  Create New
+</GlassFloatingAction>
+```
+
+## Design Principles
+
+### Apple Human Interface Guidelines Compliance
+
+#### Clarity
+- **Clear labels**: Descriptive text or universally understood icons
+- **Consistent styling**: Unified visual language across all actions
+- **Appropriate sizing**: Touch-optimized targets (minimum 44pt)
+
+#### Deference
+- **Content-first**: Actions support content without overwhelming
+- **Subtle animations**: Enhance rather than distract
+- **Contextual placement**: Actions appear where users expect them
+
+#### Depth
+- **Layered interactions**: Visual hierarchy through elevation
+- **Realistic motion**: Physics-based animations and transitions
+- **Spatial relationships**: Clear parent-child relationships
+
+### Liquid Glass Integration
+
+All action components leverage Liquidify's advanced Liquid Glass material system:
+
+- **Adaptive transparency**: Responds to background content
+- **Dynamic blur**: Creates depth without obscuring content  
+- **Intelligent contrast**: Maintains readability in all contexts
+- **Smooth morphing**: Seamless state transitions
+
+### Accessibility Standards
+
+#### VoiceOver Support
+- **Semantic roles**: Proper button, tab, and toggle roles
+- **Descriptive labels**: Clear purpose and current state
+- **State announcements**: Changes communicated to users
+- **Logical tab order**: Intuitive navigation flow
+
+#### Voice Control
+- **Text-based targeting**: "Tap [button text]" commands
+- **Number overlays**: Grid-based navigation support
+- **Context sensitivity**: Commands adapt to current state
+
+#### Keyboard Navigation
+- **Tab navigation**: Full keyboard accessibility
+- **Enter/Space activation**: Standard key behaviors
+- **Focus indicators**: Clear visual feedback
+- **Escape handling**: Proper modal and overlay dismissal
+
+#### Motor Accessibility
+- **Large touch targets**: Minimum 44pt iOS compliance
+- **Generous spacing**: Prevents accidental activation
+- **Sticky interactions**: Forgiving touch and drag behavior
+- **Alternative input**: Switch control and assistive touch support
+
+## Usage Patterns
+
+### Primary Actions
+Use GlassButton with `variant="primary"` for the most important action on a screen.
+
+```tsx
+// ✅ Good - One primary action per screen
+<GlassButton variant="primary">Sign Up</GlassButton>
+<GlassButton variant="secondary">Learn More</GlassButton>
+
+// ❌ Avoid - Multiple primary actions
+<GlassButton variant="primary">Save</GlassButton>
+<GlassButton variant="primary">Cancel</GlassButton>
+```
+
+### Secondary Actions
+Use secondary variants for supporting actions and navigation.
+
+```tsx
+// Navigation
+<GlassButton variant="secondary" size="sm">
+  Back
+</GlassButton>
+
+// Supporting actions
+<GlassButton variant="tertiary">
+  Skip for now
+</GlassButton>
+```
+
+### Destructive Actions
+Use the destructive variant for actions that delete or remove content.
+
+```tsx
+<GlassButton 
+  variant="destructive"
+  onClick={() => deleteItem()}
+>
+  Delete Forever
+</GlassButton>
+```
+
+### Loading States
+Show progress during asynchronous operations.
+
+```tsx
+<GlassButton 
+  variant="primary"
+  loading={isSubmitting}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? 'Saving...' : 'Save Changes'}
+</GlassButton>
+```
+
+## Interactive Showcase
+
+```tsx
+import { useState } from 'react'
+import { 
+  GlassButton, 
+  GlassIconButton, 
+  GlassButtonGroup,
+  GlassToggleButton,
+  GlassFloatingAction 
+} from 'liquidify'
+import { Heart, Share, Download, Plus, Settings } from 'lucide-react'
+
+export default function ActionsShowcase() {
+  const [liked, setLiked] = useState(false)
+  const [view, setView] = useState('grid')
+  const [loading, setLoading] = useState(false)
+
+  const handleDownload = async () => {
+    setLoading(true)
+    // Simulate download
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    setLoading(false)
+  }
+
+  return (
+    <div className="space-y-8 p-6">
+      {/* Buttons */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Buttons</h3>
+        <div className="flex flex-wrap gap-4">
+          <GlassButton variant="primary">Primary</GlassButton>
+          <GlassButton variant="secondary">Secondary</GlassButton>
+          <GlassButton variant="tertiary">Tertiary</GlassButton>
+          <GlassButton variant="ghost">Ghost</GlassButton>
+          <GlassButton variant="destructive">Destructive</GlassButton>
+        </div>
+      </section>
+
+      {/* Sizes */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Sizes</h3>
+        <div className="flex items-end gap-4">
+          <GlassButton size="xs">XS</GlassButton>
+          <GlassButton size="sm">Small</GlassButton>
+          <GlassButton size="md">Medium</GlassButton>
+          <GlassButton size="lg">Large</GlassButton>
+          <GlassButton size="xl">XL</GlassButton>
+        </div>
+      </section>
+
+      {/* With Icons */}
+      <section>
+        <h3 className="hig-title-3 mb-4">With Icons</h3>
+        <div className="flex gap-4">
+          <GlassButton 
+            variant="primary" 
+            leftIcon={<Download size={16} />}
+            loading={loading}
+            onClick={handleDownload}
+          >
+            {loading ? 'Downloading...' : 'Download'}
+          </GlassButton>
+          <GlassButton 
+            variant="secondary" 
+            rightIcon={<Share size={16} />}
+          >
+            Share
+          </GlassButton>
+        </div>
+      </section>
+
+      {/* Icon Buttons */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Icon Buttons</h3>
+        <div className="flex gap-4">
+          <GlassIconButton 
+            variant="primary"
+            aria-label="Add to favorites"
+            onClick={() => setLiked(!liked)}
+          >
+            <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
+          </GlassIconButton>
+          <GlassIconButton 
+            variant="secondary"
+            aria-label="Settings"
+          >
+            <Settings size={20} />
+          </GlassIconButton>
+        </div>
+      </section>
+
+      {/* Button Group */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Button Group</h3>
+        <GlassButtonGroup 
+          value={view} 
+          onValueChange={setView}
+        >
+          <GlassButton value="list">List</GlassButton>
+          <GlassButton value="grid">Grid</GlassButton>
+          <GlassButton value="card">Cards</GlassButton>
+        </GlassButtonGroup>
+      </section>
+
+      {/* Toggle Button */}
+      <section>
+        <h3 className="hig-title-3 mb-4">Toggle Button</h3>
+        <GlassToggleButton 
+          pressed={liked}
+          onToggle={setLiked}
+          aria-label="Toggle favorite"
+        >
+          <Heart size={16} fill={liked ? 'currentColor' : 'none'} />
+          {liked ? 'Favorited' : 'Add to Favorites'}
+        </GlassToggleButton>
+      </section>
+
+      {/* Floating Action Button */}
+      <GlassFloatingAction 
+        position="bottom-right"
+        extended
+        aria-label="Create new item"
+      >
+        <Plus size={24} />
+        Create
+      </GlassFloatingAction>
+    </div>
+  )
+}
+```
+
+## Best Practices
+
+### Do's
+- **Use semantic HTML**: Proper button elements for accessibility
+- **Provide clear labels**: Descriptive text or aria-labels
+- **Group related actions**: Use button groups for related choices
+- **Show loading states**: Provide feedback during async operations
+- **Follow platform conventions**: iOS/macOS interaction patterns
+
+### Don'ts
+- **Overuse primary buttons**: One primary action per screen
+- **Use tiny touch targets**: Minimum 44pt for accessibility
+- **Forget loading states**: Always show progress feedback
+- **Mix interaction patterns**: Be consistent within contexts
+- **Ignore keyboard users**: Ensure full keyboard accessibility
+
+## Platform Considerations
+
+### iOS & iPadOS
+- **Haptic feedback**: Native UIImpactFeedback integration
+- **Dynamic Type**: Automatic text scaling support
+- **Context menus**: Long-press interaction support
+- **Accessibility shortcuts**: Voice Control and Switch Control
+
+### macOS
+- **Pointer precision**: Precise hover and click interactions
+- **Keyboard shortcuts**: Command key combinations
+- **Menu integration**: Context and main menu support
+- **Window management**: Proper focus and activation
+
+### watchOS
+- **Digital Crown**: Scroll and selection optimization
+- **Force Touch**: Pressure-sensitive interactions
+- **Reduced animations**: Battery-conscious motion
+- **Large touch targets**: Optimized for small screens
+
+---
+
+*Action components form the foundation of user interaction in Liquidify, providing accessible, beautiful, and intuitive ways for users to accomplish their goals.*

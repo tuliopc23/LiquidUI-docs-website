@@ -1,0 +1,85 @@
+# GlassBadge
+
+Status indicators and labels with contextual styling using Apple's Liquid Glass design language.
+
+## Overview
+
+GlassBadges provide clear visual indicators for status, notifications, labels, and categorization. They incorporate Liquid Glass effects while maintaining excellent readability and accessibility.
+
+## Basic Usage
+
+```tsx
+import { GlassBadge } from '@liquidify/ui'
+
+function BasicBadge() {
+  return <GlassBadge>New</GlassBadge>
+}
+```
+
+## API Reference
+
+### GlassBadge Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Badge color scheme |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
+| `dot` | `boolean` | `false` | Show as dot indicator |
+| `count` | `number` | - | Numeric counter display |
+| `max` | `number` | `99` | Maximum count before showing "+" |
+| `showZero` | `boolean` | `false` | Show badge when count is 0 |
+
+## Variants
+
+### Status Badges
+
+```tsx
+<GlassBadge variant="success">Active</GlassBadge>
+<GlassBadge variant="warning">Pending</GlassBadge>
+<GlassBadge variant="error">Error</GlassBadge>
+<GlassBadge variant="info">Info</GlassBadge>
+```
+
+### Dot Indicators
+
+```tsx
+<GlassBadge dot variant="success" />
+<GlassBadge dot variant="error" />
+```
+
+### Counter Badges
+
+```tsx
+<GlassBadge count={5} />
+<GlassBadge count={99} />
+<GlassBadge count={100} max={99} /> // Shows "99+"
+```
+
+## Common Use Cases
+
+### Notification Indicators
+
+```tsx
+<div className="relative">
+  <button className="p-2">
+    <BellIcon />
+  </button>
+  <GlassBadge 
+    count={3} 
+    className="absolute -top-1 -right-1"
+  />
+</div>
+```
+
+### Status Labels
+
+```tsx
+<div className="flex items-center gap-2">
+  <span>Service Status</span>
+  <GlassBadge variant="success">Online</GlassBadge>
+</div>
+```
+
+---
+
+*GlassBadge provides clear visual communication for status and notifications.*

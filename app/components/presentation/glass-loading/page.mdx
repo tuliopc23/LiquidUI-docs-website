@@ -1,0 +1,368 @@
+import { GlassLoading } from 'liquidify'
+
+# Glass Loading
+
+A collection of loading components with glassmorphism aesthetics, designed to provide elegant loading states using Apple's Liquid Glass design language.
+
+## Features
+
+- **Multiple Loading Types**: Spinner, skeleton, progress bar, and dots
+- **Glassmorphism Design**: Translucent background with blur effects
+- **Smooth Animations**: GSAP-powered loading animations
+- **Responsive Design**: Adapts to different screen sizes
+- **Customizable**: Extensive theming and styling options
+- **Accessibility**: Screen reader support and reduced motion preferences
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```jsx
+import { GlassLoading } from 'liquidify'
+
+function App() {
+  return (
+    <GlassLoading
+      type="spinner"
+      size="medium"
+      message="Loading..."
+    />
+  )
+}
+```
+
+## Examples
+
+### Spinner Loading
+
+<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+  <div className="flex items-center justify-center h-32">
+    <GlassLoading
+      type="spinner"
+      size="large"
+      message="Loading components..."
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="spinner"
+  size="large"
+  message="Loading components..."
+/>
+```
+
+### Skeleton Loading
+
+<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
+  <div className="space-y-4">
+    <GlassLoading
+      type="skeleton"
+      variant="text"
+      lines={3}
+      className="w-full"
+    />
+    <GlassLoading
+      type="skeleton"
+      variant="card"
+      className="w-full h-32"
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="skeleton"
+  variant="text"
+  lines={3}
+/>
+<GlassLoading
+  type="skeleton"
+  variant="card"
+  className="w-full h-32"
+/>
+```
+
+### Progress Bar Loading
+
+<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+  <div className="space-y-4">
+    <GlassLoading
+      type="progress"
+      value={65}
+      message="Processing... 65%"
+      className="w-full"
+    />
+    <GlassLoading
+      type="progress"
+      indeterminate={true}
+      message="Please wait..."
+      className="w-full"
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="progress"
+  value={65}
+  message="Processing... 65%"
+/>
+<GlassLoading
+  type="progress"
+  indeterminate={true}
+  message="Please wait..."
+/>
+```
+
+### Dots Loading
+
+<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+  <div className="flex items-center justify-center h-32">
+    <GlassLoading
+      type="dots"
+      size="large"
+      message="Uploading files..."
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="dots"
+  size="large"
+  message="Uploading files..."
+/>
+```
+
+### Pulse Loading
+
+<div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
+  <div className="flex items-center justify-center h-32">
+    <GlassLoading
+      type="pulse"
+      size="large"
+      message="Connecting..."
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="pulse"
+  size="large"
+  message="Connecting..."
+/>
+```
+
+### Card Skeleton
+
+<div className="p-6 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <GlassLoading
+      type="skeleton"
+      variant="card"
+      className="h-48"
+    />
+    <GlassLoading
+      type="skeleton"
+      variant="card"
+      className="h-48"
+    />
+  </div>
+</div>
+
+```jsx
+<GlassLoading
+  type="skeleton"
+  variant="card"
+  className="h-48"
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'spinner' \| 'skeleton' \| 'progress' \| 'dots' \| 'pulse'` | `'spinner'` | Loading type |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Loading size |
+| `message` | `string` | - | Loading message text |
+| `variant` | `'text' \| 'card' \| 'avatar' \| 'button'` | `'text'` | Skeleton variant |
+| `lines` | `number` | `3` | Number of skeleton lines |
+| `value` | `number` | - | Progress value (0-100) |
+| `indeterminate` | `boolean` | `false` | Indeterminate progress |
+| `color` | `string` | - | Custom color |
+| `speed` | `'slow' \| 'normal' \| 'fast'` | `'normal'` | Animation speed |
+| `overlay` | `boolean` | `false` | Full screen overlay |
+| `className` | `string` | - | Additional CSS classes |
+| `style` | `CSSProperties` | - | Inline styles |
+
+### Styling
+
+The component uses CSS variables for theming:
+
+```css
+.glass-loading {
+  --glass-loading-bg: rgba(255, 255, 255, 0.1);
+  --glass-loading-border: rgba(255, 255, 255, 0.2);
+  --glass-loading-text: rgba(255, 255, 255, 0.9);
+  --glass-loading-primary: #8B5CF6;
+  --glass-loading-skeleton: rgba(255, 255, 255, 0.1);
+  --glass-loading-skeleton-shimmer: rgba(255, 255, 255, 0.2);
+}
+```
+
+## Accessibility
+
+- **Screen Reader**: Proper ARIA labels and live regions
+- **Reduced Motion**: Respects user's motion preferences
+- **Focus Management**: Proper focus handling during loading states
+- **Progress Announcements**: Screen reader announcements for progress changes
+- **Loading States**: Clear indication of loading states
+
+## Best Practices
+
+1. **Loading Messages**: Provide clear, descriptive loading messages
+2. **Progress Indication**: Show progress for long-running operations
+3. **Skeleton Matching**: Match skeleton layout to actual content
+4. **Timeout Handling**: Implement timeouts for loading states
+5. **Error States**: Handle loading errors gracefully
+
+## Integration with GSAP
+
+The Glass Loading component leverages GSAP for smooth animations:
+
+```jsx
+import { gsap } from 'gsap'
+
+// Custom spinner animation
+const animateSpinner = () => {
+  gsap.to('.glass-loading-spinner', {
+    rotation: 360,
+    duration: 1,
+    repeat: -1,
+    ease: 'none'
+  })
+}
+
+// Skeleton shimmer effect
+const animateSkeleton = () => {
+  gsap.to('.glass-loading-skeleton-shimmer', {
+    x: '100%',
+    duration: 1.5,
+    repeat: -1,
+    ease: 'power2.inOut'
+  })
+}
+```
+
+## Advanced Usage
+
+### Custom Loading Component
+
+```jsx
+<GlassLoading
+  type="custom"
+  render={() => (
+    <div className="flex items-center space-x-2">
+      <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce" />
+      <div className="w-4 h-4 bg-purple-500 rounded-full animate-bounce delay-100" />
+      <div className="w-4 h-4 bg-pink-500 rounded-full animate-bounce delay-200" />
+    </div>
+  )}
+  message="Custom loading..."
+/>
+```
+
+### Loading with Timeout
+
+```jsx
+const [isLoading, setIsLoading] = useState(true)
+
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setIsLoading(false)
+  }, 5000)
+
+  return () => clearTimeout(timer)
+}, [])
+
+if (isLoading) {
+  return (
+    <GlassLoading
+      type="spinner"
+      message="Loading will timeout in 5 seconds..."
+      overlay={true}
+    />
+  )
+}
+```
+
+### Progressive Loading
+
+```jsx
+const [progress, setProgress] = useState(0)
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setProgress(prev => {
+      if (prev >= 100) {
+        clearInterval(interval)
+        return 100
+      }
+      return prev + 10
+    })
+  }, 500)
+
+  return () => clearInterval(interval)
+}, [])
+
+<GlassLoading
+  type="progress"
+  value={progress}
+  message={`Loading... ${progress}%`}
+/>
+```
+
+## Loading States
+
+### Global Loading Context
+
+```jsx
+import { createContext, useContext } from 'react'
+
+const LoadingContext = createContext()
+
+export const LoadingProvider = ({ children }) => {
+  const [loading, setLoading] = useState(false)
+
+  return (
+    <LoadingContext.Provider value={{ loading, setLoading }}>
+      {children}
+      {loading && (
+        <GlassLoading
+          type="spinner"
+          overlay={true}
+          message="Please wait..."
+        />
+      )}
+    </LoadingContext.Provider>
+  )
+}
+
+export const useLoading = () => useContext(LoadingContext)
+```
+
+## Related Components
+
+- [Glass Progress](/components/data/glass-progress) - Progress indicators
+- [Glass Button](/components/actions/glass-button) - Loading button states
+- [Glass Card](/components/containment/glass-card) - Loading card states
+- [Glass Modal](/components/containment/glass-modal) - Loading modal states

@@ -1,0 +1,487 @@
+# Glass Sidebar
+
+A collapsible side navigation panel for secondary navigation, tools, and contextual content.
+
+## Overview
+
+The `GlassSidebar` component provides a flexible sidebar solution with support for collapsible behavior, nested navigation items, and responsive design.
+
+## Basic Usage
+
+```tsx
+import { GlassSidebar } from 'liquidify'
+
+function App() {
+  const [isOpen, setIsOpen] = useState(true)
+
+  return (
+    <GlassSidebar
+      isOpen={isOpen}
+      onToggle={setIsOpen}
+      items={[
+        { id: 'dashboard', label: 'Dashboard', icon: <Home size={20} /> },
+        { id: 'analytics', label: 'Analytics', icon: <BarChart size={20} /> },
+        { id: 'settings', label: 'Settings', icon: <Settings size={20} /> }
+      ]}
+    />
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+import { useState } from 'react'
+import { GlassSidebar } from 'liquidify'
+import { 
+  Home, 
+  BarChart, 
+  Users, 
+  Settings, 
+  FileText,
+  Folder,
+  Plus
+} from 'lucide-react'
+
+export default function SidebarDemo() {
+  const [isOpen, setIsOpen] = useState(true)
+  const [activeItem, setActiveItem] = useState('dashboard')
+
+  const sidebarItems = [
+    { 
+      id: 'dashboard', 
+      label: 'Dashboard', 
+      icon: <Home size={20} />,
+      href: '/dashboard'
+    },
+    { 
+      id: 'analytics', 
+      label: 'Analytics', 
+      icon: <BarChart size={20} />,
+      href: '/analytics',
+      badge: '3'
+    },
+    { 
+      id: 'users', 
+      label: 'Users', 
+      icon: <Users size={20} />,
+      children: [
+        { id: 'all-users', label: 'All Users', href: '/users' },
+        { id: 'admins', label: 'Administrators', href: '/users/admins' },
+        { id: 'pending', label: 'Pending', href: '/users/pending', badge: '2' }
+      ]
+    },
+    { 
+      id: 'content', 
+      label: 'Content', 
+      icon: <FileText size={20} />,
+      children: [
+        { id: 'posts', label: 'Posts', href: '/posts' },
+        { id: 'pages', label: 'Pages', href: '/pages' },
+        { id: 'media', label: 'Media', href: '/media' }
+      ]
+    },
+    { 
+      id: 'settings', 
+      label: 'Settings', 
+      icon: <Settings size={20} />,
+      href: '/settings'
+    }
+  ]
+
+  return (
+    <div className="flex h-screen bg-gray-50">
+      <GlassSidebar
+        isOpen={isOpen}
+        onToggle={setIsOpen}
+        items={sidebarItems}
+        activeItem={activeItem}
+        onItemClick={setActiveItem}
+        width={280}
+        collapsedWidth={80}
+      />
+      
+      <main className="flex-1 p-6 overflow-auto">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="hig-title-1 mb-4">Main Content</h1>
+          <p className="hig-body mb-4">
+            Sidebar is {isOpen ? 'open' : 'collapsed'}
+          </p>
+          <p className="hig-body">
+            Active item: {activeItem}
+          </p>
+        </div>
+      </main>
+    </div>
+  )
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `isOpen` | `boolean` | `true` | Whether sidebar is expanded |
+| `onToggle` | `(open: boolean) => void` | - | Toggle handler |
+| `items` | `SidebarItem[]` | `[]` | Navigation items |
+| `activeItem` | `string` | - | Currently active item ID |
+| `onItemClick` | `(id: string) => void` | - | Item click handler |
+| `width` | `number` | `280` | Expanded width in pixels |
+| `collapsedWidth` | `number` | `80` | Collapsed width in pixels |
+| `position` | `'left' \| 'right'` | `'left'` | Sidebar position |
+| `overlay` | `boolean` | `false` | Show overlay on mobile |
+| `className` | `string` | - | Additional CSS classes |
+
+### Interface Definitions
+
+```tsx
+interface SidebarItem {
+  id: string
+  label: string
+  icon?: ReactNode
+  href?: string
+  onClick?: () => void
+  badge?: string | number
+  children?: SidebarItem[]
+  disabled?: boolean
+}
+```
+
+## Features
+
+### Collapsible Behavior
+Toggle between expanded and collapsed states:
+
+```tsx
+<GlassSidebar
+  isOpen={isExpanded}
+  onToggle={setIsExpanded}
+  width={300}
+  collapsedWidth={60}
+/>
+```
+
+### Nested Navigation
+Support for hierarchical menu items:
+
+```tsx
+const items = [
+  {
+    id: 'products',
+    label: 'Products',
+    icon: <Package size={20} />,
+    children: [
+      { id: 'all-products', label: 'All Products' },
+      { id: 'categories', label: 'Categories' },
+      { id: 'inventory', label: 'Inventory', badge: 'Low' }
+    ]
+  }
+]
+
+<GlassSidebar items={items} />
+```
+
+### Badge Support
+Show notifications or counts on menu items:
+
+```tsx
+const items = [
+  { 
+    id: 'messages', 
+    label: 'Messages', 
+    icon: <Mail size={20} />,
+    badge: 5 
+  },
+  { 
+    id: 'tasks', 
+    label: 'Tasks', 
+    icon: <CheckSquare size={20} />,
+    badge: 'New' 
+  }
+]
+```
+
+### Responsive Design
+Automatic mobile behavior with overlay:
+
+```tsx
+<GlassSidebar
+  isOpen={isMobileMenuOpen}
+  overlay={isMobile}
+  onToggle={setIsMobileMenuOpen}
+/>
+```
+
+## Accessibility
+
+### Keyboard Navigation
+- **Arrow keys**: Navigate through items
+- **Enter/Space**: Activate item
+- **Escape**: Close sidebar (on mobile)
+
+### Screen Reader Support
+```tsx
+<GlassSidebar
+  items={items}
+  aria-label="Main navigation"
+  role="navigation"
+/>
+```
+
+### Focus Management
+Proper focus handling when sidebar opens/closes:
+
+```tsx
+<GlassSidebar
+  autoFocus={true}
+  trapFocus={isOpen && overlay}
+/>
+```
+
+## Use Cases
+
+### Dashboard Application
+```tsx
+function DashboardSidebar() {
+  const [isOpen, setIsOpen] = useState(true)
+
+  const dashboardItems = [
+    { 
+      id: 'overview', 
+      label: 'Overview', 
+      icon: <BarChart3 size={20} />,
+      href: '/dashboard'
+    },
+    { 
+      id: 'analytics', 
+      label: 'Analytics', 
+      icon: <TrendingUp size={20} />,
+      children: [
+        { id: 'traffic', label: 'Traffic', href: '/analytics/traffic' },
+        { id: 'conversions', label: 'Conversions', href: '/analytics/conversions' },
+        { id: 'revenue', label: 'Revenue', href: '/analytics/revenue' }
+      ]
+    },
+    { 
+      id: 'users', 
+      label: 'Users', 
+      icon: <Users size={20} />,
+      href: '/users',
+      badge: 12
+    },
+    { 
+      id: 'settings', 
+      label: 'Settings', 
+      icon: <Settings size={20} />,
+      href: '/settings'
+    }
+  ]
+
+  return (
+    <GlassSidebar
+      isOpen={isOpen}
+      onToggle={setIsOpen}
+      items={dashboardItems}
+      width={280}
+    />
+  )
+}
+```
+
+### File Manager
+```tsx
+function FileManagerSidebar() {
+  const [folders, setFolders] = useState([
+    { 
+      id: 'documents', 
+      label: 'Documents', 
+      icon: <Folder size={20} />,
+      children: [
+        { id: 'work', label: 'Work' },
+        { id: 'personal', label: 'Personal' }
+      ]
+    },
+    { 
+      id: 'images', 
+      label: 'Images', 
+      icon: <Image size={20} />
+    },
+    { 
+      id: 'downloads', 
+      label: 'Downloads', 
+      icon: <Download size={20} />,
+      badge: '3 new'
+    }
+  ])
+
+  return (
+    <GlassSidebar
+      items={folders}
+      width={250}
+      collapsedWidth={60}
+    />
+  )
+}
+```
+
+### E-commerce Admin
+```tsx
+function AdminSidebar() {
+  const adminItems = [
+    { 
+      id: 'dashboard', 
+      label: 'Dashboard', 
+      icon: <Home size={20} />
+    },
+    { 
+      id: 'orders', 
+      label: 'Orders', 
+      icon: <ShoppingBag size={20} />,
+      badge: 5,
+      children: [
+        { id: 'pending', label: 'Pending', badge: 3 },
+        { id: 'processing', label: 'Processing', badge: 2 },
+        { id: 'completed', label: 'Completed' }
+      ]
+    },
+    { 
+      id: 'products', 
+      label: 'Products', 
+      icon: <Package size={20} />,
+      children: [
+        { id: 'all-products', label: 'All Products' },
+        { id: 'categories', label: 'Categories' },
+        { id: 'inventory', label: 'Inventory' }
+      ]
+    },
+    { 
+      id: 'customers', 
+      label: 'Customers', 
+      icon: <Users size={20} />
+    }
+  ]
+
+  return <GlassSidebar items={adminItems} />
+}
+```
+
+## Styling and Customization
+
+### Custom Width
+```tsx
+<GlassSidebar
+  width={320}
+  collapsedWidth={70}
+  className="border-r border-glass-secondary"
+/>
+```
+
+### Theme Variants
+```tsx
+<GlassSidebar
+  variant="glass" // glass, solid, transparent
+  blur="lg"
+  className="backdrop-blur-xl"
+/>
+```
+
+### Custom Item Styling
+```tsx
+<GlassSidebar
+  itemClassName="hover:bg-glass-hover rounded-lg mx-2"
+  activeClassName="bg-primary-100 text-primary-700"
+  iconClassName="text-glass-secondary"
+/>
+```
+
+## Integration with State Management
+
+### React Context
+```tsx
+const SidebarContext = createContext()
+
+function SidebarProvider({ children }) {
+  const [isOpen, setIsOpen] = useState(true)
+  const [activeItem, setActiveItem] = useState('')
+
+  return (
+    <SidebarContext.Provider value={{
+      isOpen,
+      setIsOpen,
+      activeItem,
+      setActiveItem
+    }}>
+      {children}
+    </SidebarContext.Provider>
+  )
+}
+```
+
+### Redux/Zustand
+```tsx
+// With Zustand
+const useSidebarStore = create((set) => ({
+  isOpen: true,
+  activeItem: '',
+  toggleSidebar: () => set((state) => ({ isOpen: !state.isOpen })),
+  setActiveItem: (item) => set({ activeItem: item })
+}))
+
+function AppSidebar() {
+  const { isOpen, activeItem, toggleSidebar, setActiveItem } = useSidebarStore()
+
+  return (
+    <GlassSidebar
+      isOpen={isOpen}
+      onToggle={toggleSidebar}
+      activeItem={activeItem}
+      onItemClick={setActiveItem}
+    />
+  )
+}
+```
+
+## Best Practices
+
+### Do's ✅
+- **Keep navigation hierarchies shallow** (max 2-3 levels)
+- **Use clear, descriptive labels** for all items
+- **Group related items** logically
+- **Provide visual feedback** for active states
+- **Support keyboard navigation**
+
+```tsx
+// ✅ Good - Clear hierarchy and grouping
+<GlassSidebar
+  items={[
+    { id: 'dashboard', label: 'Dashboard', icon: <Home /> },
+    { 
+      id: 'content', 
+      label: 'Content Management',
+      children: [
+        { id: 'posts', label: 'Blog Posts' },
+        { id: 'pages', label: 'Static Pages' }
+      ]
+    }
+  ]}
+/>
+```
+
+### Don'ts ❌
+- **Don't create overly deep hierarchies**
+- **Avoid unclear or technical labels**
+- **Don't hide important actions** in collapsed state
+- **Avoid inconsistent icon usage**
+
+## Related Components
+
+- [**Glass Navbar**](/components/navigation/glass-navbar) - Top navigation bar
+- [**Glass Menu**](/components/navigation/glass-menu) - Dropdown menus
+- [**Glass Tabs**](/components/navigation/glass-tabs) - Tab navigation
+- [**Glass Breadcrumb**](/components/navigation/glass-breadcrumb) - Hierarchical navigation
+
+---
+
+*Glass Sidebar provides a flexible, accessible side navigation solution that adapts to different screen sizes while maintaining the elegant Liquid Glass aesthetic.*

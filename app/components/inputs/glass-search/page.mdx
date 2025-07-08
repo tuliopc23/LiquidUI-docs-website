@@ -1,0 +1,190 @@
+import { GlassSearch } from 'liquidify'
+import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon } from '@heroicons/react/24/outline'
+
+# Glass Search
+
+A modern search input component with glassmorphism aesthetics, perfect for implementing search functionality with Apple's Liquid Glass design language.
+
+## Features
+
+- **Glassmorphism Design**: Translucent background with blur effects
+- **Search Icon Integration**: Built-in search icon with customizable placement
+- **Real-time Search**: Instant feedback and suggestions
+- **Responsive Design**: Adapts to different screen sizes
+- **Accessibility**: Full keyboard navigation and screen reader support
+- **Customizable**: Extensive theming and styling options
+
+## Installation
+
+```bash
+npm install liquidify
+```
+
+## Basic Usage
+
+```jsx
+import { GlassSearch } from 'liquidify'
+
+function App() {
+  const [searchValue, setSearchValue] = useState('')
+
+  return (
+    <GlassSearch
+      value={searchValue}
+      onChange={(value) => setSearchValue(value)}
+      placeholder="Search components..."
+    />
+  )
+}
+```
+
+## Examples
+
+### Basic Search
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+  <GlassSearch 
+    placeholder="Search documentation..." 
+    className="w-full max-w-md mx-auto"
+  />
+</div>
+```
+
+```jsx
+<GlassSearch 
+  placeholder="Search documentation..." 
+  className="w-full max-w-md mx-auto"
+/>
+```
+
+### With Custom Icon
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
+  <GlassSearch 
+    placeholder="Filter results..."
+    icon={<FunnelIcon className="w-5 h-5" />}
+    className="w-full max-w-md mx-auto"
+  />
+</div>
+```
+
+```jsx
+<GlassSearch 
+  placeholder="Filter results..."
+  icon={<FunnelIcon className="w-5 h-5" />}
+/>
+```
+
+### With Suggestions
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+  <GlassSearch 
+    placeholder="Search with suggestions..."
+    suggestions={['Button', 'Card', 'Modal', 'Navigation']}
+    className="w-full max-w-md mx-auto"
+  />
+</div>
+```
+
+```jsx
+<GlassSearch 
+  placeholder="Search with suggestions..."
+  suggestions={['Button', 'Card', 'Modal', 'Navigation']}
+/>
+```
+
+### Loading State
+
+```jsx
+<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+  <GlassSearch 
+    placeholder="Searching..."
+    loading={true}
+    className="w-full max-w-md mx-auto"
+  />
+</div>
+```
+
+```jsx
+<GlassSearch 
+  placeholder="Searching..."
+  loading={true}
+/>
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `""` | The search input value |
+| `onChange` | `(value: string) => void` | - | Callback fired when value changes |
+| `placeholder` | `string` | `"Search..."` | Placeholder text |
+| `icon` | `React.ReactNode` | `<MagnifyingGlassIcon />` | Icon to display in the search input |
+| `suggestions` | `string[]` | `[]` | Array of suggestion items |
+| `loading` | `boolean` | `false` | Show loading state |
+| `disabled` | `boolean` | `false` | Disable the search input |
+| `clearable` | `boolean` | `true` | Show clear button when input has value |
+| `onClear` | `() => void` | - | Callback fired when clear button is clicked |
+| `onFocus` | `() => void` | - | Callback fired when input is focused |
+| `onBlur` | `() => void` | - | Callback fired when input loses focus |
+| `className` | `string` | - | Additional CSS classes |
+| `style` | `CSSProperties` | - | Inline styles |
+
+### Styling
+
+The component uses CSS variables for theming:
+
+```css
+.glass-search {
+  --glass-search-bg: rgba(255, 255, 255, 0.1);
+  --glass-search-border: rgba(255, 255, 255, 0.2);
+  --glass-search-text: rgba(255, 255, 255, 0.9);
+  --glass-search-placeholder: rgba(255, 255, 255, 0.6);
+  --glass-search-icon: rgba(255, 255, 255, 0.7);
+  --glass-search-focus: rgba(255, 255, 255, 0.3);
+}
+```
+
+## Accessibility
+
+- **Keyboard Navigation**: Full keyboard support with Tab navigation
+- **Screen Reader**: Properly labeled with ARIA attributes
+- **Focus Management**: Clear focus indicators and logical tab order
+- **Search Suggestions**: Accessible suggestion dropdown with arrow key navigation
+
+## Best Practices
+
+1. **Placeholder Text**: Use descriptive placeholder text that guides users
+2. **Search Suggestions**: Provide relevant suggestions to improve user experience
+3. **Loading States**: Show loading indicators for async search operations
+4. **Error Handling**: Provide clear feedback when search fails
+5. **Responsive Design**: Ensure search works well on all screen sizes
+
+## Integration with GSAP
+
+The Glass Search component leverages GSAP for smooth animations:
+
+```jsx
+import { gsap } from 'gsap'
+
+// Custom animation on focus
+const handleFocus = () => {
+  gsap.to('.glass-search', {
+    scale: 1.02,
+    duration: 0.2,
+    ease: 'power2.out'
+  })
+}
+```
+
+## Related Components
+
+- [Glass Input](/components/inputs/glass-input) - Basic input component
+- [Glass Select](/components/inputs/glass-select) - Dropdown selection
+- [Glass Command](/components/containment/glass-command) - Command palette
+- [Glass Dropdown](/components/navigation/glass-dropdown) - Navigation dropdown

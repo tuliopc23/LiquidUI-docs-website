@@ -1,0 +1,205 @@
+# GlassCommand
+
+Command palette interface for quick actions, search, and navigation with capabilities for fuzzy search, keyboard shortcuts, and extensions.
+
+## Overview
+
+GlassCommand offers a powerful interface for quick command execution, navigation, and search across your application. It's designed to increase productivity by providing users with a searchable list of actions and shortcuts.
+
+## Basic Usage
+
+```tsx
+import { GlassCommand } from '@liquidify/ui'
+
+function CommandPalette({ open, onClose }) {
+  const commands = [
+    { id: 'new-file', name: 'New File', shortcut: 'Ctrl+N' },
+    { id: 'open-file', name: 'Open File', shortcut: 'Ctrl+O' },
+    { id: 'save-file', name: 'Save File', shortcut: 'Ctrl+S' }
+  ]
+
+  return (
+    <GlassCommand
+      commands={commands}
+      open={open}
+      onClose={onClose}
+    />
+  )
+}
+```
+
+## Interactive Demo
+
+```tsx
+<GlassCommand
+  open={true}
+  commands={[
+    { id: 'copy', name: 'Copy', shortcut: 'Ctrl+C' },
+    { id: 'paste', name: 'Paste', shortcut: 'Ctrl+V' },
+    { id: 'delete', name: 'Delete', shortcut: 'Del' }
+  ]}
+  categories={{
+    'File Operations': ['copy', 'paste'],
+    'Manage Files': ['delete']
+  }}
+  placeholder="Type a command or search..."
+/>
+```
+
+## API Reference
+
+### GlassCommand Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | - | Controls visibility |
+|| `onClose` | `() => void` | - | Callback when command palette should close |
+| `commands` | `CommandItem[]` | - | List of command items |
+| `categories` | `{ [key: string]: string[] }` | - | Categorization of commands |
+| `placeholder` | `string` | `'Type a command...'` | Input placeholder text |
+|| `onCommand` | `(id: string) => void` | - | Callback when a command is executed |
+| `fuzzy` | `boolean` | `true` | Enable fuzzy search |
+| `showShortcuts` | `boolean` | `true` | Display keyboard shortcuts |
+| `highlight` | `boolean` | `true` | Highlight search matches |
+
+### CommandItem Interface
+
+```typescript
+interface CommandItem {
+  id: string
+  name: string
+  shortcut?: string
+  category?: string
+  onExecute?: () => void
+}
+```
+
+## Execution and Search
+
+### Basic Command Execution
+
+```tsx
+<GlassCommand
+  open={open}
+  onCommand={(id) => console.log('Command executed:', id)}
+/>
+```
+
+### Fuzzy Search
+
+```tsx
+<GlassCommand
+  fuzzy={true}
+  highlight={true}
+/>
+```
+
+## Features
+
+### Categorization
+
+```tsx
+<GlassCommand
+  categories={{
+    'Editing': ['copy', 'paste', 'undo'],
+    'File Operations': ['new-file', 'delete'],
+    'Navigation': ['go-to-file', 'search']
+  }}
+/>
+```
+
+### Custom Keyboard Shortcuts
+
+```tsx
+<GlassCommand
+  showShortcuts={true}
+/>
+```
+
+### Extensibility
+
+Allow for custom commands or plugins to extend the command palette.
+
+```tsx
+<GlassCommand
+  commands={[...basicCommands, ...customCommands]}
+/>
+```
+
+## Common Use Cases
+
+### Quick Actions
+
+```tsx
+<GlassCommand
+  commands={[
+    { id: 'save', name: 'Save Project', shortcut: 'Ctrl+S' },
+    { id: 'run', name: 'Run Tests', shortcut: 'Ctrl+R' },
+    { id: 'deploy', name: 'Deploy', shortcut: 'Ctrl+D' }
+  ]}
+/>
+```
+
+### Search and Navigation
+
+```tsx
+<GlassCommand
+  commands={[
+    { id: 'search-files', name: 'Search Files', shortcut: 'Ctrl+P' },
+    { id: 'go-to-line', name: 'Go to Line', shortcut: 'Ctrl+G' }
+  ]}
+/>
+```
+
+### Developer Utilities
+
+```tsx
+<GlassCommand
+  commands={[
+    { id: 'format-code', name: 'Format Code', shortcut: 'Ctrl+Shift+F' },
+    { id: 'show-terminal', name: 'Show Terminal', shortcut: '`' }
+  ]}
+/>
+```
+
+## Accessibility
+
+### ARIA Support
+
+- **`role="listbox"`**: For the command list
+- **`aria-expanded`**: Indicates open state
+- **`aria-activedescendant`**: Points to current active command
+- **`aria-controls`**: Links to command content
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `Escape` | Close command palette |
+| `Enter` | Execute current command |
+| `Arrow Up` / `Arrow Down` | Navigate commands |
+
+## Best Practices
+
+### Do's
+
+- **Provide meaningful commands**: Align commands with user tasks
+- **Use consistent naming**: Ensure command names are intuitive
+- **Group related commands**: Use categories for better organization
+- **Include common shortcuts**: Match platform conventions
+
+### Don'ts
+
+- **Don't overload commands**: Keep command list clear and concise
+- **Don't use vague action names**: Ensure command actions are clear
+- **Don't ignore keyboard users**: Ensure full navigation capability
+
+## Related Components
+
+- [GlassPopover](/components/containment/glass-popover) - For context-specific actions
+- [GlassModal](/components/containment/glass-modal) - For more detailed interactions
+
+---
+
+*GlassCommand enhances productivity by providing a streamlined interface for executing commands and navigating your application efficiently.*
+
