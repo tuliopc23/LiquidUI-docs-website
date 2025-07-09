@@ -1,3 +1,7 @@
+// Core Apple HIG Liquid Glass Component
+export { default as AppleLiquidGlass } from './AppleLiquidGlass'
+
+// Legacy components (for backward compatibility)
 export { default as GlassEffect } from './GlassEffect'
 export { default as GlassCard } from './GlassCard'
 export { default as GlassButton } from './GlassButton'
@@ -34,7 +38,21 @@ export { default as GlassCommand } from './GlassCommand'
 export { default as GlassHeader } from './GlassHeader'
 export { default as GlassFooter } from './GlassFooter'
 
-// Type exports
+// Demo & Animation Components
+export { default as AnimationDemo } from '../AnimationDemo'
+export { default as PageTransition } from '../PageTransition'
+export { default as LiquidifyInteractiveDemo } from '../LiquidifyInteractiveDemo'
+export { default as SimpleShowcase } from '../SimpleShowcase'
+
+// Utility Functions & Performance
+export { default as performanceUtils, usePerformanceOptimization } from '../../lib/performance-utils'
+export * from '../../lib/enhanced-animations'
+export * from '../../lib/liquid-glass-animations'
+
+// Core Apple HIG Type exports
+export type { AppleLiquidGlassProps } from './AppleLiquidGlass'
+
+// Legacy type exports (for backward compatibility)
 export type { GlassEffectProps } from './GlassEffect'
 export type { GlassCardProps } from './GlassCard'
 export type { GlassButtonProps } from './GlassButton'
@@ -70,3 +88,10 @@ export type { GlassCommandProps } from './GlassCommand'
 // Layout Category Types
 export type { GlassHeaderProps } from './GlassHeader'
 export type { GlassFooterProps } from './GlassFooter'
+
+// Apple HIG Design System Utilities
+export * from '../../lib/apple-design-system'
+export * from '../../lib/apple-hig-system'
+
+// Common utilities
+export { cn } from '../../lib/utils'
