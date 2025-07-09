@@ -106,8 +106,6 @@ export default function LiquidifyInteractiveDemo() {
               <label className="hig-callout block mb-2">Glass Search</label>
               <GlassSearch
                 placeholder="Search components..."
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
                 className="w-full max-w-sm"
               />
             </div>
@@ -249,12 +247,10 @@ export default function LiquidifyInteractiveDemo() {
             <div>
               <label className="hig-callout block mb-2">Glass Tabs</label>
               <GlassTabs
-                value={activeTab}
-                onValueChange={setActiveTab}
                 tabs={[
-                  { value: 'tab1', label: 'Tab 1', content: 'Content for tab 1' },
-                  { value: 'tab2', label: 'Tab 2', content: 'Content for tab 2' },
-                  { value: 'tab3', label: 'Tab 3', content: 'Content for tab 3' }
+                  { id: 'tab1', label: 'Tab 1', content: 'Content for tab 1' },
+                  { id: 'tab2', label: 'Tab 2', content: 'Content for tab 2' },
+                  { id: 'tab3', label: 'Tab 3', content: 'Content for tab 3' }
                 ]}
               />
             </div>
@@ -268,9 +264,9 @@ export default function LiquidifyInteractiveDemo() {
                   </GlassButton>
                 }
                 items={[
-                  { label: 'Profile', onClick: () => alert('Profile clicked') },
-                  { label: 'Settings', onClick: () => alert('Settings clicked') },
-                  { label: 'Logout', onClick: () => alert('Logout clicked') }
+                  { label: 'Profile', value: 'profile' },
+                  { label: 'Settings', value: 'settings' },
+                  { label: 'Logout', value: 'logout' }
                 ]}
               />
             </div>

@@ -245,18 +245,273 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800 rounded-full;
+  background-color: #F2F2F7;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: #3A3A3C;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gradient-to-br from-blue-500 to-purple-600 rounded-full;
+  background: linear-gradient(to bottom right, #3b82f6, #9333ea);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply from-blue-600 to-purple-700;
+  background: linear-gradient(to bottom right, #2563eb, #7c3aed);
 }
 
 /* Enhanced styling will be handled by GlassEffect components */
+
+/* Haptic feedback styles */
+.glass-button:active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: inherit;
+  animation: pulse-glow 0.5s ease-out;
+  pointer-events: none;
+}
+
+/* Enhanced haptic feedback animations */
+@keyframes haptic-light {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@keyframes haptic-medium {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.95); }
+  75% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes haptic-heavy {
+  0% { transform: scale(1); }
+  20% { transform: scale(0.9); }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Magnetic hover effects */
+@keyframes magnetic-hover {
+  0% { transform: scale(1) rotateX(0deg) rotateY(0deg); }
+  100% { transform: scale(1.05) rotateX(2deg) rotateY(-1deg); }
+}
+
+/* Spring entrance animation */
+@keyframes spring-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(50px) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+}
+
+/* Utility classes for animations */
+.animate-haptic-light {
+  animation: haptic-light 0.15s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-haptic-medium {
+  animation: haptic-medium 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-haptic-heavy {
+  animation: haptic-heavy 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-magnetic-hover {
+  animation: magnetic-hover 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-spring-entrance {
+  animation: spring-entrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Apple HIG Liquid Glass System - Now handled by AppleLiquidGlass component */
+.apple-liquid-glass {
+  @apply relative;
+  /* Apple HIG translucent material */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  /* Apple HIG shadows */
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  /* Apple HIG motion */
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.apple-liquid-glass::before {
+  @apply content-[''] absolute inset-0 rounded-inherit z-10 pointer-events-none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+}
+
+.apple-liquid-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 60%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Apple HIG hover states */
+.apple-liquid-glass:hover {
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  box-shadow: 
+    0 12px 40px rgba(31, 38, 135, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Legacy glass-card for backwards compatibility */
+.glass-card {
+  @apply apple-liquid-glass;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: inherit;
+  backdrop-filter: blur(1px);
+  box-shadow: 
+    inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
+    inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
+  opacity: 0.6;
+  z-index: -1;
+  filter: blur(1px) drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.1)) brightness(115%);
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.3), inset 0 4px 20px rgba(255, 255, 255, 0.4);
+}
+
+.glass-button {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(4px);
+  filter: url(#liquid-lens);
+  border-radius: inherit;
+}
+
+.glass-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 
+    inset 1px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 0 5px rgba(255, 255, 255, 0.75);
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.glass-button:hover {
+  transform: scale(1.05) rotateX(2deg) rotateY(-1deg);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Apple Liquid Glass Layers */
+.glass-filter {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.glass-specular {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  box-shadow:
+    inset 1px 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 0 5px rgba(255, 255, 255, 0.75);
+}
+
+.glass-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Apple-style liquid distortion filter */
+.liquid-distortion {
+  filter: url(#liquid-lens);
+}
+
+/* Enhanced magnetic hover for Apple-style interactions */
+.glass-magnetic {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
+}
+
+.glass-magnetic:hover {
+  transform: scale(1.05) rotateX(2deg) rotateY(-1deg);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+/* Apple-style focus states */
+.glass-focus:focus-visible {
+  outline: 2px solid rgba(0, 102, 255, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.2);
+}
 
 /* Focus styles */
 *:focus-visible {

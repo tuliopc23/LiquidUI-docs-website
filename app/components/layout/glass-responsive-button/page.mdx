@@ -46,6 +46,7 @@ function App() {
 
 ### Basic Responsive Button
 
+```jsx
 <div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
   <div className="flex space-x-4">
     <GlassResponsiveButton
@@ -65,8 +66,9 @@ function App() {
       onClick={() => console.log('Delete clicked')}
       variant="danger"
     />
-  </div>
 </div>
+</div>
+```
 
 ```jsx
 <GlassResponsiveButton
@@ -90,6 +92,7 @@ function App() {
 
 ### Mobile-First Design
 
+```jsx
 <div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
   <div className="flex space-x-4">
     <GlassResponsiveButton
@@ -112,8 +115,9 @@ function App() {
         desktop: { showLabel: true, variant: 'primary' }
       }}
     />
-  </div>
 </div>
+</div>
+```
 
 ```jsx
 <GlassResponsiveButton
@@ -130,6 +134,7 @@ function App() {
 
 ### Adaptive Toolbar
 
+```jsx
 <div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
   <div className="flex justify-between items-center">
     <div className="flex space-x-2">
@@ -165,6 +170,7 @@ function App() {
     />
   </div>
 </div>
+```
 
 ```jsx
 <div className="flex justify-between items-center">
@@ -194,6 +200,7 @@ function App() {
 
 ### Floating Action Button
 
+```jsx
 <div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
   <div className="relative h-64">
     <GlassResponsiveButton
@@ -210,6 +217,7 @@ function App() {
     />
   </div>
 </div>
+```
 
 ```jsx
 <GlassResponsiveButton
@@ -228,6 +236,7 @@ function App() {
 
 ### Contextual Adaptation
 
+```jsx
 <div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
   <div className="space-y-4">
     <div className="flex space-x-2">
@@ -247,6 +256,7 @@ function App() {
     </div>
   </div>
 </div>
+```
 
 ```jsx
 <GlassResponsiveButton
@@ -394,6 +404,9 @@ const customBreakpoints = {
 ### Context-Aware Adaptation
 
 ```jsx
+import { useState, useEffect, useRef } from 'react'
+
+// Example hook for responsive button configuration
 const useResponsiveButton = (containerWidth) => {
   const [config, setConfig] = useState({})
 
@@ -410,6 +423,7 @@ const useResponsiveButton = (containerWidth) => {
   return config
 }
 
+// Example responsive toolbar component
 const ResponsiveToolbar = () => {
   const containerRef = useRef()
   const [containerWidth, setContainerWidth] = useState(0)

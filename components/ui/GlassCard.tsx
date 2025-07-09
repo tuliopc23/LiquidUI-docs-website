@@ -1,17 +1,18 @@
 'use client';
 
-import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
+import React, { useEffect, useRef } from 'react';
+import AppleLiquidGlass, { AppleLiquidGlassProps } from './AppleLiquidGlass';
 import { cn } from '@/lib/utils';
+import { scrollAnimations, springAnimations } from '@/lib/enhanced-animations';
 
-export interface GlassCardProps extends Omit<GlassEffectProps, 'variant'> {
+export interface GlassCardProps extends Omit<AppleLiquidGlassProps, 'variant'> {
   header?: React.ReactNode;
   footer?: React.ReactNode;
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  padding?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   spacing?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const GlassCard: React.FC<GlassCardProps> = ({
+const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(({ 
   children,
   header,
   footer,
@@ -19,15 +20,25 @@ const GlassCard: React.FC<GlassCardProps> = ({
   spacing = 'md',
   className,
   ...props
-}) => {
-  const paddingStyles = {
-    none: '',
-    sm: 'p-2',
-    md: 'p-4',
-    lg: 'p-6',
-    xl: 'p-8',
-  };
-
+}, ref) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const combinedRef = (ref as React.RefObject<HTMLDivElement>) || cardRef;
+  
+  useEffect(() => {
+    if (!cardRef.current) return;
+    
+    const element = cardRef.current;
+    
+    // Entrance animation
+    springAnimations.entrance(element, { delay: 0.2 });
+    
+    // Parallax effect on scroll
+    scrollAnimations.parallax(element, 0.3);
+    
+    return () => {
+      // Cleanup handled by animation utils
+    };
+  }, []);
   const spacingStyles = {
     none: '',
     sm: 'space-y-2',
@@ -36,12 +47,28 @@ const GlassCard: React.FC<GlassCardProps> = ({
     xl: 'space-y-8',
   };
 
+  const paddingToSize = {
+    none: 'xs' as const,
+    xs: 'xs' as const,
+    sm: 'sm' as const,
+    md: 'md' as const,
+    lg: 'lg' as const,
+    xl: 'xl' as const,
+    '2xl': '2xl' as const,
+  };
+
   return (
-    <GlassEffect
+    <AppleLiquidGlass
+      ref={combinedRef}
       variant="card"
+      size={paddingToSize[padding]}
+      prominence="secondary"
+      intensity="regular"
+      interactive={false}
+      magnetic={false}
+      glow={false}
       className={cn(
-        'flex flex-col',
-        paddingStyles[padding],
+        'flex flex-col glass-card',
         spacingStyles[spacing],
         className
       )}
@@ -62,8 +89,10 @@ const GlassCard: React.FC<GlassCardProps> = ({
           {footer}
         </div>
       )}
-    </GlassEffect>
+    </AppleLiquidGlass>
   );
-};
+});
+
+GlassCard.displayName = 'GlassCard';
 
 export default GlassCard;

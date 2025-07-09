@@ -225,37 +225,178 @@ export default {
   plugins: [
     function({ addUtilities, theme }) {
       const newUtilities = {
-        '.glass-effect': {
-          'backdrop-filter': 'blur(8px) saturate(180%)',
-          'background-color': 'rgba(255, 255, 255, 0.15)',
+        // Core Liquid Glass Effects
+        '.liquid-glass': {
+          'backdrop-filter': 'blur(12px) saturate(180%)',
+          'background': 'rgba(255, 255, 255, 0.15)',
           'border': '1px solid rgba(255, 255, 255, 0.2)',
-          'box-shadow': '0 8px 32px rgba(31, 38, 135, 0.2), inset 0 4px 20px rgba(255, 255, 255, 0.3)',
+          'box-shadow': '0 8px 32px rgba(31, 38, 135, 0.15), inset 0 4px 20px rgba(255, 255, 255, 0.25)',
         },
-        '.glass-light': {
-          'backdrop-filter': 'blur(4px) saturate(100%)',
-          'background-color': 'rgba(255, 255, 255, 0.1)',
+        '.liquid-glass-light': {
+          'backdrop-filter': 'blur(8px) saturate(120%)',
+          'background': 'rgba(255, 255, 255, 0.08)',
+          'border': '1px solid rgba(255, 255, 255, 0.15)',
+          'box-shadow': '0 4px 16px rgba(31, 38, 135, 0.1), inset 0 2px 10px rgba(255, 255, 255, 0.2)',
         },
-        '.glass-heavy': {
-          'backdrop-filter': 'blur(16px) saturate(200%)',
-          'background-color': 'rgba(255, 255, 255, 0.2)',
+        '.liquid-glass-medium': {
+          'backdrop-filter': 'blur(16px) saturate(150%)',
+          'background': 'rgba(255, 255, 255, 0.12)',
+          'border': '1px solid rgba(255, 255, 255, 0.25)',
+          'box-shadow': '0 12px 24px rgba(31, 38, 135, 0.2), inset 0 6px 15px rgba(255, 255, 255, 0.3)',
         },
-        '.glass-overlay': {
-          'backdrop-filter': 'blur(24px) saturate(150%)',
-          'background-color': 'rgba(255, 255, 255, 0.05)',
+        '.liquid-glass-heavy': {
+          'backdrop-filter': 'blur(24px) saturate(200%)',
+          'background': 'rgba(255, 255, 255, 0.2)',
+          'border': '1px solid rgba(255, 255, 255, 0.3)',
+          'box-shadow': '0 16px 48px rgba(31, 38, 135, 0.25), inset 0 8px 20px rgba(255, 255, 255, 0.35)',
         },
-        '.glass-reflection': {
-          'position': 'absolute',
-          'top': '0',
-          'left': '0',
-          'width': '100%',
-          'height': '100%',
+        '.liquid-glass-ultra': {
+          'backdrop-filter': 'blur(32px) saturate(250%)',
+          'background': 'rgba(255, 255, 255, 0.25)',
+          'border': '1px solid rgba(255, 255, 255, 0.4)',
+          'box-shadow': '0 20px 60px rgba(31, 38, 135, 0.3), inset 0 10px 25px rgba(255, 255, 255, 0.4)',
+        },
+        
+        // Lens Distortion Effects
+        '.liquid-glass-lens': {
+          'backdrop-filter': 'blur(16px) saturate(180%)',
           'background': 'rgba(255, 255, 255, 0.1)',
-          'backdrop-filter': 'blur(1px)',
-          'box-shadow': 'inset -10px -8px 0px -11px rgba(255, 255, 255, 1), inset 0px -9px 0px -8px rgba(255, 255, 255, 1)',
-          'opacity': '0.6',
-          'z-index': '-1',
-          'filter': 'blur(1px) drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.1)) brightness(115%)',
-          'pointer-events': 'none',
+          'border': '1px solid rgba(255, 255, 255, 0.2)',
+          'box-shadow': '0 12px 24px rgba(31, 38, 135, 0.15), inset 0 6px 15px rgba(255, 255, 255, 0.25)',
+          'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg)',
+          'transform-style': 'preserve-3d',
+          'filter': 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))',
+        },
+        '.liquid-glass-lens-convex': {
+          'backdrop-filter': 'blur(20px) saturate(200%)',
+          'background': 'radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 70%)',
+          'border': '1px solid rgba(255, 255, 255, 0.3)',
+          'box-shadow': '0 16px 32px rgba(31, 38, 135, 0.2), inset 0 8px 20px rgba(255, 255, 255, 0.3)',
+          'transform': 'perspective(1000px) rotateX(5deg) rotateY(-2deg)',
+          'filter': 'drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15))',
+        },
+        '.liquid-glass-lens-concave': {
+          'backdrop-filter': 'blur(18px) saturate(160%)',
+          'background': 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.15) 70%)',
+          'border': '1px solid rgba(255, 255, 255, 0.2)',
+          'box-shadow': 'inset 0 16px 32px rgba(31, 38, 135, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1)',
+          'transform': 'perspective(1000px) rotateX(-3deg) rotateY(1deg)',
+          'filter': 'drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08))',
+        },
+        
+        // Advanced Backdrop Filters
+        '.liquid-blur-xs': { 'backdrop-filter': 'blur(2px)' },
+        '.liquid-blur-sm': { 'backdrop-filter': 'blur(4px)' },
+        '.liquid-blur-md': { 'backdrop-filter': 'blur(8px)' },
+        '.liquid-blur-lg': { 'backdrop-filter': 'blur(12px)' },
+        '.liquid-blur-xl': { 'backdrop-filter': 'blur(16px)' },
+        '.liquid-blur-2xl': { 'backdrop-filter': 'blur(20px)' },
+        '.liquid-blur-3xl': { 'backdrop-filter': 'blur(24px)' },
+        
+        '.liquid-saturate-50': { 'backdrop-filter': 'saturate(0.5)' },
+        '.liquid-saturate-100': { 'backdrop-filter': 'saturate(1)' },
+        '.liquid-saturate-150': { 'backdrop-filter': 'saturate(1.5)' },
+        '.liquid-saturate-200': { 'backdrop-filter': 'saturate(2)' },
+        '.liquid-saturate-300': { 'backdrop-filter': 'saturate(3)' },
+        
+        '.liquid-contrast-50': { 'backdrop-filter': 'contrast(0.5)' },
+        '.liquid-contrast-100': { 'backdrop-filter': 'contrast(1)' },
+        '.liquid-contrast-150': { 'backdrop-filter': 'contrast(1.5)' },
+        '.liquid-contrast-200': { 'backdrop-filter': 'contrast(2)' },
+        
+        '.liquid-brightness-50': { 'backdrop-filter': 'brightness(0.5)' },
+        '.liquid-brightness-100': { 'backdrop-filter': 'brightness(1)' },
+        '.liquid-brightness-150': { 'backdrop-filter': 'brightness(1.5)' },
+        '.liquid-brightness-200': { 'backdrop-filter': 'brightness(2)' },
+        
+        // Combined backdrop effects
+        '.liquid-glass-blur-saturate': {
+          'backdrop-filter': 'blur(16px) saturate(180%)',
+        },
+        '.liquid-glass-blur-contrast': {
+          'backdrop-filter': 'blur(12px) contrast(120%)',
+        },
+        '.liquid-glass-blur-brightness': {
+          'backdrop-filter': 'blur(14px) brightness(110%)',
+        },
+        '.liquid-glass-complete': {
+          'backdrop-filter': 'blur(16px) saturate(180%) contrast(120%) brightness(110%)',
+        },
+        
+        // Reflection and Shine Effects
+        '.liquid-glass-reflection': {
+          'position': 'relative',
+          '&::before': {
+            'content': '""',
+            'position': 'absolute',
+            'top': '0',
+            'left': '0',
+            'width': '100%',
+            'height': '100%',
+            'background': 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1) 100%)',
+            'pointer-events': 'none',
+            'border-radius': 'inherit',
+            'z-index': '1',
+          },
+        },
+        '.liquid-glass-shine': {
+          'position': 'relative',
+          'overflow': 'hidden',
+          '&::after': {
+            'content': '""',
+            'position': 'absolute',
+            'top': '-50%',
+            'left': '-50%',
+            'width': '200%',
+            'height': '200%',
+            'background': 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%)',
+            'transform': 'rotate(45deg) translate(-100%, -100%)',
+            'transition': 'transform 0.6s ease',
+            'pointer-events': 'none',
+          },
+          '&:hover::after': {
+            'transform': 'rotate(45deg) translate(100%, 100%)',
+          },
+        },
+        
+        // Morphing Effects
+        '.liquid-glass-morph': {
+          'transition': 'all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)',
+          'transform-style': 'preserve-3d',
+        },
+        '.liquid-glass-morph:hover': {
+          'backdrop-filter': 'blur(20px) saturate(200%)',
+          'background': 'rgba(255, 255, 255, 0.2)',
+          'border': '1px solid rgba(255, 255, 255, 0.3)',
+          'transform': 'scale(1.02) rotateX(2deg) rotateY(-1deg)',
+          'box-shadow': '0 20px 40px rgba(31, 38, 135, 0.25), inset 0 10px 25px rgba(255, 255, 255, 0.35)',
+        },
+        
+        // Dark Mode Variants
+        '.dark .liquid-glass': {
+          'background': 'rgba(0, 0, 0, 0.15)',
+          'border': '1px solid rgba(255, 255, 255, 0.1)',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 4px 20px rgba(255, 255, 255, 0.1)',
+        },
+        '.dark .liquid-glass-light': {
+          'background': 'rgba(0, 0, 0, 0.08)',
+          'border': '1px solid rgba(255, 255, 255, 0.08)',
+          'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.2), inset 0 2px 10px rgba(255, 255, 255, 0.08)',
+        },
+        '.dark .liquid-glass-medium': {
+          'background': 'rgba(0, 0, 0, 0.12)',
+          'border': '1px solid rgba(255, 255, 255, 0.12)',
+          'box-shadow': '0 12px 24px rgba(0, 0, 0, 0.35), inset 0 6px 15px rgba(255, 255, 255, 0.12)',
+        },
+        '.dark .liquid-glass-heavy': {
+          'background': 'rgba(0, 0, 0, 0.2)',
+          'border': '1px solid rgba(255, 255, 255, 0.15)',
+          'box-shadow': '0 16px 48px rgba(0, 0, 0, 0.4), inset 0 8px 20px rgba(255, 255, 255, 0.15)',
+        },
+        '.dark .liquid-glass-ultra': {
+          'background': 'rgba(0, 0, 0, 0.25)',
+          'border': '1px solid rgba(255, 255, 255, 0.2)',
+          'box-shadow': '0 20px 60px rgba(0, 0, 0, 0.5), inset 0 10px 25px rgba(255, 255, 255, 0.2)',
         },
       };
       

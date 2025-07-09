@@ -64,8 +64,8 @@ export const performanceUtils = {
     
     // Apply optimized backdrop filter
     const backdropFilter = performanceUtils.getOptimizedBackdropFilter(intensity)
-    element.style.backdropFilter = backdropFilter
-    element.style.webkitBackdropFilter = backdropFilter
+    element.style.backdropFilter = backdropFilter;
+    (element.style as any).webkitBackdropFilter = backdropFilter;
     
     // Force hardware acceleration
     element.style.transform = 'translateZ(0)'
