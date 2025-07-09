@@ -26,7 +26,8 @@
     "a11y-test": "pa11y-ci --sitemap http://localhost:3000/sitemap.xml",
     "type-check": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:all": "npm run type-check && npm run lint && npm run test:ci"
+    "test:all": "npm run type-check && npm run lint && npm run test:ci",
+    "postinstall": "node -e \"try { require('@napi-rs/simple-git') } catch (e) { console.log('simple-git optional dependency not available, continuing...') }\""
   },
   "keywords": [
     "liquidify",
@@ -63,6 +64,12 @@
     "remark-emoji": "^5.0.1",
     "tailwind-merge": "^3.3.1",
     "web-vitals": "^5.0.3"
+  },
+  "optionalDependencies": {
+    "@napi-rs/simple-git-linux-x64-gnu": "^0.1.19",
+    "@napi-rs/simple-git-linux-x64-musl": "^0.1.19",
+    "@napi-rs/simple-git-linux-arm64-gnu": "^0.1.19",
+    "@napi-rs/simple-git-linux-arm64-musl": "^0.1.19"
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
