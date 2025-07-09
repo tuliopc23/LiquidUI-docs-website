@@ -3,6 +3,7 @@
 ## Complete Site Structure (65+ Pages) - App Router
 
 ### Nextra 5.0 App Router Structure
+
 Using Nextra's new App Router support with MDX pages and proper navigation.
 
 ```
@@ -16,6 +17,7 @@ app/
 ### Core Documentation Categories
 
 #### 1. Getting Started (5 pages)
+
 ```
 app/getting-started/
 ├── page.mdx (Installation & Quick Start)
@@ -30,6 +32,7 @@ app/getting-started/
 ```
 
 #### 2. Design System (8 pages)
+
 ```
 app/design-system/
 ├── page.mdx (Design System Overview)
@@ -50,6 +53,7 @@ app/design-system/
 ```
 
 #### 3. Components (38 pages) ✅ Partially Implemented
+
 ```
 app/components/
 ├── page.mdx ✅ (Components Overview)
@@ -136,6 +140,7 @@ app/components/
 ```
 
 #### 4. Hooks & Utilities (7 pages)
+
 ```
 app/hooks/
 ├── page.mdx (Hooks Overview)
@@ -154,6 +159,7 @@ app/hooks/
 ```
 
 #### 5. Examples & Patterns (5 pages)
+
 ```
 app/examples/
 ├── page.mdx (Examples Overview)
@@ -168,6 +174,7 @@ app/examples/
 ```
 
 #### 6. Apple HIG Integration (4 pages)
+
 ```
 app/apple-hig/
 ├── page.mdx (Apple HIG Overview)
@@ -180,6 +187,7 @@ app/apple-hig/
 ```
 
 #### 7. Developer Resources (3 pages)
+
 ```
 app/developers/
 ├── page.mdx (Developer Overview)
@@ -192,77 +200,93 @@ app/developers/
 ## Nextra 5.0 Navigation Configuration
 
 ### Root Layout Structure
+
 ```tsx
 // app/layout.tsx
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="nextra-docs" suppressHydrationWarning>
+    <html lang='en' className='nextra-docs' suppressHydrationWarning>
       <body>
-        <NextraProvider>
-          {children}
-        </NextraProvider>
+        <NextraProvider>{children}</NextraProvider>
       </body>
     </html>
-  )
+  );
 }
 ```
 
 ### Navigation Metadata (Nextra 5.0 Pattern)
+
 Nextra 5.0 with App Router uses file-based routing with automatic navigation generation based on:
+
 1. Folder structure
 2. `page.mdx` files
 3. Optional navigation configuration in `layout.tsx` or configuration files
 
 ### Page Template Structure (MDX)
+
 Each component page follows this structure:
-```mdx
+
+````mdx
 # Component Name
 
 Brief description with key features.
 
 ## Overview
+
 Component introduction and use cases.
 
 ## Features
+
 - Feature 1
 - Feature 2
 - etc.
 
 ## Installation
+
 ```bash
 npm install liquidify
 ```
+````
 
 ## Basic Usage
+
 ```tsx
-import { ComponentName } from 'liquidify'
+import { ComponentName } from 'liquidify';
 
 export default function Example() {
-  return <ComponentName />
+  return <ComponentName />;
 }
 ```
 
 ## API Reference
+
 ### Props
+
 | Prop | Type | Default | Description |
-|------|------|---------|-------------|
+| ---- | ---- | ------- | ----------- |
 
 ## Examples
+
 ### Basic Example
+
 ### Advanced Example
 
 ## Accessibility
+
 VoiceOver, Voice Control, Keyboard navigation details.
 
 ## Apple HIG Compliance
+
 Platform-specific considerations.
 
 ## Related Components
+
 Links to related components.
+
 ```
 
 ## Technical Implementation Details
@@ -297,7 +321,7 @@ The existing Pages Router structure will be fully migrated to App Router:
 ## Total Page Count: 70+ Pages
 - Root: 1 page (homepage)
 - Getting Started: 5 pages
-- Design System: 8 pages  
+- Design System: 8 pages
 - Components: 38 pages (7 categories + 31 components)
 - Hooks: 7 pages
 - Examples: 5 pages
@@ -305,3 +329,4 @@ The existing Pages Router structure will be fully migrated to App Router:
 - Developers: 3 pages
 
 This architecture is fully compatible with Nextra 5.0's App Router support and provides comprehensive coverage following Apple Human Interface Guidelines.
+```

@@ -1,0 +1,435 @@
+# useMagneticHover
+
+The `useMagneticHover` hook provides magnetic attraction effects for React components, creating smooth, physics-based interactions when users hover over elements.
+
+## Overview
+
+This hook creates a magnetic field around an element that attracts the mouse cursor, providing subtle but engaging hover effects. It uses spring physics to create natural-feeling animations that respond to mouse movement.
+
+## Import
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+```
+
+## Basic Usage
+
+```typescript
+function MagneticButton() {
+  const magneticRef = useMagneticHover();
+
+  return (
+    <button ref={magneticRef} className="magnetic-button">
+      Hover me!
+    </button>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+useMagneticHover(options?: MagneticHoverOptions): RefObject<HTMLElement>
+```
+
+#### MagneticHoverOptions
+
+```typescript
+interface MagneticHoverOptions {
+  strength?: number; // Magnetic strength (default: 0.3)
+  distance?: number; // Activation distance in pixels (default: 100)
+  restoreSpeed?: number; // Speed of returning to rest (default: 0.5)
+  spring?: SpringOptions; // Spring physics configuration
+  disabled?: boolean; // Disable the effect (default: false)
+}
+```
+
+#### SpringOptions
+
+```typescript
+interface SpringOptions {
+  stiffness?: number; // Spring stiffness (default: 100)
+  damping?: number; // Spring damping (default: 10)
+  mass?: number; // Spring mass (default: 1)
+  precision?: number; // Precision threshold (default: 0.001)
+}
+```
+
+### Return Value
+
+Returns a `RefObject<HTMLElement>` that should be attached to the target element.
+
+## Examples
+
+### Basic Magnetic Button
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+
+function MagneticButton() {
+  const magneticRef = useMagneticHover();
+
+  return (
+    <button
+      ref={magneticRef}
+      className="px-6 py-3 bg-blue-500 text-white rounded-lg"
+    >
+      Hover me!
+    </button>
+  );
+}
+```
+
+### Customized Magnetic Effect
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+
+function StrongMagneticCard() {
+  const magneticRef = useMagneticHover({
+    strength: 0.5,      // Stronger attraction
+    distance: 150,      // Larger activation area
+    restoreSpeed: 0.8   // Faster return to rest
+  });
+
+  return (
+    <div
+      ref={magneticRef}
+      className="w-64 h-48 bg-white rounded-lg shadow-lg p-6"
+    >
+      <h3>Magnetic Card</h3>
+      <p>This card has a strong magnetic effect!</p>
+    </div>
+  );
+}
+```
+
+### Custom Spring Configuration
+
+```typescript
+import { useMagneticHover, SPRING_PRESETS } from 'liquidify';
+
+function BouncyMagneticElement() {
+  const magneticRef = useMagneticHover({
+    strength: 0.4,
+    distance: 120,
+    spring: SPRING_PRESETS.bouncy
+  });
+
+  return (
+    <div
+      ref={magneticRef}
+      className="magnetic-element"
+    >
+      Bouncy magnetic effect!
+    </div>
+  );
+}
+```
+
+### Conditional Magnetic Effect
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+import { useState } from 'react';
+
+function ConditionalMagneticButton() {
+  const [isEnabled, setIsEnabled] = useState(true);
+
+  const magneticRef = useMagneticHover({
+    disabled: !isEnabled,
+    strength: 0.3,
+    distance: 100
+  });
+
+  return (
+    <div>
+      <button
+        onClick={() => setIsEnabled(!isEnabled)}
+        className="mb-4 px-4 py-2 bg-gray-500 text-white rounded"
+      >
+        {isEnabled ? 'Disable' : 'Enable'} Magnetic Effect
+      </button>
+
+      <button
+        ref={magneticRef}
+        className="px-6 py-3 bg-blue-500 text-white rounded-lg"
+      >
+        Magnetic Button
+      </button>
+    </div>
+  );
+}
+```
+
+### Multiple Magnetic Elements
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+
+function MagneticGrid() {
+  const magneticConfigs = [
+    { strength: 0.2, distance: 80 },   // Gentle
+    { strength: 0.4, distance: 100 },  // Medium
+    { strength: 0.6, distance: 120 }   // Strong
+  ];
+
+  const magneticRefs = magneticConfigs.map(config =>
+    useMagneticHover(config)
+  );
+
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      {magneticRefs.map((ref, index) => (
+        <div
+          key={index}
+          ref={ref}
+          className="w-24 h-24 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold"
+        >
+          {index + 1}
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+### Magnetic Navigation Menu
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+
+function MagneticNavigation() {
+  const magneticRef = useMagneticHover({
+    strength: 0.25,
+    distance: 80,
+    spring: {
+      stiffness: 150,
+      damping: 12,
+      mass: 1
+    }
+  });
+
+  const menuItems = ['Home', 'About', 'Services', 'Contact'];
+
+  return (
+    <nav className="flex space-x-8">
+      {menuItems.map((item) => {
+        const itemRef = useMagneticHover({
+          strength: 0.2,
+          distance: 60
+        });
+
+        return (
+          <a
+            key={item}
+            ref={itemRef}
+            href={`#${item.toLowerCase()}`}
+            className="text-gray-700 hover:text-blue-500 transition-colors duration-200"
+          >
+            {item}
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+```
+
+## Advanced Usage
+
+### With Custom Animation
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+import { useEffect, useRef } from 'react';
+
+function AnimatedMagneticCard() {
+  const magneticRef = useMagneticHover({
+    strength: 0.4,
+    distance: 100
+  });
+
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    // Add additional animations on magnetic activation
+    const handleMouseEnter = () => {
+      card.style.transform += ' scale(1.05)';
+      card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
+    };
+
+    const handleMouseLeave = () => {
+      card.style.transform = card.style.transform.replace(' scale(1.05)', '');
+      card.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.1)';
+    };
+
+    card.addEventListener('mouseenter', handleMouseEnter);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mouseenter', handleMouseEnter);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={magneticRef}
+      className="w-64 h-48 bg-white rounded-lg shadow-lg p-6 transition-all duration-300"
+    >
+      <h3 className="text-xl font-bold mb-2">Animated Card</h3>
+      <p className="text-gray-600">This card combines magnetic effects with additional animations.</p>
+    </div>
+  );
+}
+```
+
+### Performance Optimization
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+import { useMemo, useCallback } from 'react';
+
+function OptimizedMagneticList({ items }: { items: string[] }) {
+  // Memoize the magnetic configuration
+  const magneticConfig = useMemo(() => ({
+    strength: 0.3,
+    distance: 100,
+    spring: {
+      stiffness: 120,
+      damping: 12,
+      mass: 1
+    }
+  }), []);
+
+  const magneticRef = useMagneticHover(magneticConfig);
+
+  // Memoize the click handler
+  const handleItemClick = useCallback((item: string) => {
+    console.log(`Clicked: ${item}`);
+  }, []);
+
+  return (
+    <div className="space-y-2">
+      {items.map((item) => (
+        <button
+          key={item}
+          ref={magneticRef}
+          onClick={() => handleItemClick(item)}
+          className="w-full p-4 text-left bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200"
+        >
+          {item}
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+## CSS Integration
+
+You can enhance the magnetic effect with CSS transitions:
+
+```css
+.magnetic-button {
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
+  transform-origin: center;
+}
+
+.magnetic-button:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Prevent conflicts with magnetic transforms */
+.magnetic-button {
+  will-change: transform;
+}
+```
+
+## Configuration Guide
+
+### Strength Values
+
+- **0.1 - 0.2**: Subtle, gentle magnetic effect
+- **0.3 - 0.4**: Moderate, noticeable effect
+- **0.5 - 0.8**: Strong, pronounced effect
+- **0.8+**: Very strong, dramatic effect
+
+### Distance Values
+
+- **50-80px**: Close proximity activation
+- **80-120px**: Standard activation distance
+- **120-200px**: Wide activation area
+
+### Spring Configuration
+
+- **Gentle**: Use `SPRING_PRESETS.gentle` for smooth, refined motion
+- **Snappy**: Use `SPRING_PRESETS.snappy` for quick, responsive feedback
+- **Bouncy**: Use `SPRING_PRESETS.bouncy` for playful, animated effects
+
+## Best Practices
+
+1. **Use appropriate strength**: Start with 0.3 and adjust based on element size
+2. **Consider activation distance**: Larger elements can have larger activation areas
+3. **Maintain performance**: Avoid using too many magnetic elements simultaneously
+4. **Test on different devices**: Magnetic effects may feel different on touch devices
+5. **Provide fallbacks**: Consider users who prefer reduced motion
+
+## Accessibility Considerations
+
+```typescript
+import { useMagneticHover } from 'liquidify';
+
+function AccessibleMagneticButton() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const magneticRef = useMagneticHover({
+    disabled: prefersReducedMotion,
+    strength: 0.3,
+    distance: 100
+  });
+
+  return (
+    <button
+      ref={magneticRef}
+      className="magnetic-button"
+      aria-label="Interactive button with magnetic hover effect"
+    >
+      Accessible Magnetic Button
+    </button>
+  );
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Effect not working**: Ensure the ref is properly attached to a DOM element
+2. **Jerky motion**: Try reducing the spring stiffness or increasing damping
+3. **Performance issues**: Reduce the number of magnetic elements or decrease activation distance
+4. **Conflicting animations**: Ensure CSS transitions don't interfere with magnetic transforms
+
+### Debug Mode
+
+```typescript
+const magneticRef = useMagneticHover({
+  strength: 0.3,
+  distance: 100,
+  debug: true, // Enable debug logging
+});
+```
+
+## Related
+
+- [useRepulsionEffect](/physics-system/hooks/use-repulsion-effect) - Opposite magnetic effect
+- [Spring2D](/physics-system/core-classes/spring2d) - The underlying physics system
+- [SPRING_PRESETS](/physics-system/constants/spring-presets) - Pre-configured spring settings

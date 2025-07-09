@@ -22,7 +22,7 @@ function BasicAvatar() {
 
 ### Image Avatar
 
-```tsx
+````tsx
 ```tsx
 import { GlassAvatar } from '@liquidify/ui'
 
@@ -30,17 +30,15 @@ function ImageAvatar() {
   return 
 
 }
-```
+````
 
 ### Initials Avatar
 
 ```tsx
-import { GlassAvatar } from '@liquidify/ui'
+import { GlassAvatar } from '@liquidify/ui';
 
 function InitialsAvatar() {
-  return (
-     initials="JD"
-  )
+  return (initials = 'JD');
 }
 ```
 
@@ -58,29 +56,29 @@ function IconAvatar() {
 ## Interactive Demo
 
 
-  icon="gear"
-  status="online"
-  
-    p-2"
-       
-      New Message
-    
-  
+icon="gear"
+status="online"
+
+p-2"
+ 
+New Message
+
+
 
 
 ## API Reference
 
 ### GlassAvatar Props
 
-| Prop | Type | Default | Description |
-|-----|------|---------|-------------|
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Avatar size |
-| `image` | `string` | - | URL to avatar image |
-| `initials` | `string` | - | Initials for the avatar |
-| `icon`  | `string` | - | Icon name if no image or initials |
-| `status` | `'online' \| 'offline' \| 'busy' \| 'away'` | - | Status indicator |
-| `shape` | `'circle' \| 'square' \| 'rounded'` | `'circle'` | Avatar shape |
-| `className` | `string` | '' | Additional CSS classes |
+| Prop        | Type                                        | Default    | Description                       |
+| ----------- | ------------------------------------------- | ---------- | --------------------------------- |
+| `size`      | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`      | `'md'`     | Avatar size                       |
+| `image`     | `string`                                    | -          | URL to avatar image               |
+| `initials`  | `string`                                    | -          | Initials for the avatar           |
+| `icon`      | `string`                                    | -          | Icon name if no image or initials |
+| `status`    | `'online' \| 'offline' \| 'busy' \| 'away'` | -          | Status indicator                  |
+| `shape`     | `'circle' \| 'square' \| 'rounded'`         | `'circle'` | Avatar shape                      |
+| `className` | `string`                                    | ''         | Additional CSS classes            |
 
 ## Features
 
@@ -198,10 +196,10 @@ Ensure avatars provide proper labels for accessibility.
 
 Ensure avatars are accessible through keyboard navigation when interactive.
 
-| Key | Description |
----|---|
-| `Tab` | Navigate to focusable avatars |
-| `Enter`/`Space` | Activate avatar action |
+| Key             | Description                   |
+| --------------- | ----------------------------- |
+| `Tab`           | Navigate to focusable avatars |
+| `Enter`/`Space` | Activate avatar action        |
 
 ## Best Practices
 
@@ -218,4 +216,4 @@ Ensure avatars are accessible through keyboard navigation when interactive.
 
 ---
 
-*GlassAvatar encapsulates user representation in a visually appealing and accessible manner, aligned with Apple's design principles.*
+_GlassAvatar encapsulates user representation in a visually appealing and accessible manner, aligned with Apple's design principles._

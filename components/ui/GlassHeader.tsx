@@ -4,7 +4,8 @@ import React from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassHeaderProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassHeaderProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   title: string;
   subtitle?: string;
   actions?: React.ReactNode;
@@ -36,34 +37,16 @@ const GlassHeader: React.FC<GlassHeaderProps> = ({
   );
 
   return (
-    <GlassEffect
-      variant="card"
-      className={baseClasses}
-      {...props}
-    >
-      <div className="flex-1">
-        {breadcrumb && (
-          <div className="mb-3">
-            {breadcrumb}
-          </div>
-        )}
-        
-        <h1 className="text-2xl font-bold text-white mb-2">
-          {title}
-        </h1>
-        
-        {subtitle && (
-          <p className="text-white/70 text-sm">
-            {subtitle}
-          </p>
-        )}
+    <GlassEffect variant='card' className={baseClasses} {...props}>
+      <div className='flex-1'>
+        {breadcrumb && <div className='mb-3'>{breadcrumb}</div>}
+
+        <h1 className='text-2xl font-bold text-white mb-2'>{title}</h1>
+
+        {subtitle && <p className='text-white/70 text-sm'>{subtitle}</p>}
       </div>
 
-      {actions && (
-        <div className="flex items-center space-x-2">
-          {actions}
-        </div>
-      )}
+      {actions && <div className='flex items-center space-x-2'>{actions}</div>}
     </GlassEffect>
   );
 };

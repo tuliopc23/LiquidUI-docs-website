@@ -22,8 +22,8 @@ function App() {
   const [favorited, setFavorited] = useState(false)
 
   return (
-    cGlassToggleButton 
-      pressed={favorited} 
+    cGlassToggleButton
+      pressed={favorited}
       onToggle={() =e setFavorited(!favorited)}
     e
       cStar size={16} /e
@@ -53,7 +53,7 @@ export default function ToggleButtonDemo() {
       {/* Theme Toggle */}
       csectione
         ch3 className="hig-title-3 mb-4"eTheme Togglec/h3e
-        cGlassToggleButton 
+        cGlassToggleButton
           pressed={theme === 'dark'}
           onToggle={toggleTheme}
           aria-label="Toggle theme"
@@ -66,7 +66,7 @@ export default function ToggleButtonDemo() {
       {/* Favorite Toggle */}
       csectione
         ch3 className="hig-title-3 mb-4"eFavorite Togglec/h3e
-        cGlassToggleButton 
+        cGlassToggleButton
           pressed={favorited}
           onToggle={() =e setFavorited(!favorited)}
           aria-label="Add to favorites"
@@ -84,23 +84,24 @@ export default function ToggleButtonDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `pressed` | `boolean` | `false` | Current toggle state |
-| `onToggle` | `(pressed: boolean) =e void` | - | Callback when toggle state changes |
-| `disabled` | `boolean` | `false` | Disables interaction |
-| `loading` | `boolean` | `false` | Shows loading spinner |
-| `aria-label` | `string` | - | Accessibility label (required) |
-| `className` | `string` | - | Additional CSS classes |
+| Prop         | Type                         | Default | Description                        |
+| ------------ | ---------------------------- | ------- | ---------------------------------- |
+| `pressed`    | `boolean`                    | `false` | Current toggle state               |
+| `onToggle`   | `(pressed: boolean) =e void` | -       | Callback when toggle state changes |
+| `disabled`   | `boolean`                    | `false` | Disables interaction               |
+| `loading`    | `boolean`                    | `false` | Shows loading spinner              |
+| `aria-label` | `string`                     | -       | Accessibility label (required)     |
+| `className`  | `string`                     | -       | Additional CSS classes             |
 
 ## Interaction Patterns
 
 ### Theme Toggle
+
 Switch between light and dark mode using a persistent toggle button:
 
 ```tsx
-cGlassToggleButton 
-  pressed={isDarkMode} 
+cGlassToggleButton
+  pressed={isDarkMode}
   onToggle={toggleTheme}
   aria-label="Toggle theme"
 e
@@ -110,11 +111,12 @@ Switch between light and dark mode using a persistent toggle button:
 ```
 
 ### Favorite Toggle
+
 Toggle favorite state, reflecting visually with icon:
 
 ```tsx
-cGlassToggleButton 
-  pressed={isFavorited} 
+cGlassToggleButton
+  pressed={isFavorited}
   onToggle={() =e setFavorited(!isFavorited)}
   aria-label="Add to favorites"
 e
@@ -136,4 +138,4 @@ Toggle favorite state, reflecting visually with icon:
 
 ---
 
-*Glass Toggle Button offers dynamic, accessible toggling with sleek design and smooth transitions, keeping your applications both functional and visually appealing.*
+_Glass Toggle Button offers dynamic, accessible toggling with sleek design and smooth transitions, keeping your applications both functional and visually appealing._

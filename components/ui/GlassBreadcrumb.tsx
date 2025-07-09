@@ -11,7 +11,8 @@ export interface BreadcrumbItem {
   current?: boolean;
 }
 
-export interface GlassBreadcrumbProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassBreadcrumbProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   items: BreadcrumbItem[];
   separator?: React.ReactNode;
   maxItems?: number;
@@ -32,11 +33,11 @@ const GlassBreadcrumb: React.FC<GlassBreadcrumbProps> = ({
 
     const firstItem = items[0];
     const lastItems = items.slice(-maxItems + 2);
-    
+
     return [
       firstItem,
       { label: '...', href: undefined, current: false },
-      ...lastItems
+      ...lastItems,
     ];
   }, [items, maxItems]);
 
@@ -47,28 +48,22 @@ const GlassBreadcrumb: React.FC<GlassBreadcrumbProps> = ({
   );
 
   return (
-    <GlassEffect
-      variant="widget"
-      className={baseClasses}
-      {...props}
-    >
-      <nav aria-label="Breadcrumb">
-        <ol className="flex items-center space-x-2">
+    <GlassEffect variant='widget' className={baseClasses} {...props}>
+      <nav aria-label='Breadcrumb'>
+        <ol className='flex items-center space-x-2'>
           {processedItems.map((item, index) => (
-            <li key={index} className="flex items-center">
+            <li key={index} className='flex items-center'>
               {index > 0 && (
-                <span className="mx-2 text-white/40" aria-hidden="true">
+                <span className='mx-2 text-white/40' aria-hidden='true'>
                   {separator}
                 </span>
               )}
-              
-              <div className="flex items-center space-x-1">
+
+              <div className='flex items-center space-x-1'>
                 {item.icon && (
-                  <span className="w-4 h-4 text-white/60">
-                    {item.icon}
-                  </span>
+                  <span className='w-4 h-4 text-white/60'>{item.icon}</span>
                 )}
-                
+
                 {item.href && !item.current ? (
                   <a
                     href={item.href}

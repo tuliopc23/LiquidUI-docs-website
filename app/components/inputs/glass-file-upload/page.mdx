@@ -81,20 +81,21 @@ export default function FileUploadDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `files` | `File[]` | `[]` | Array of uploaded files |
-| `onChange` | `(files: File[]) =e void` | - | Callback when files are selected or removed |
-| `maxSize` | `number` | `Infinity` | Maximum size per file in bytes |
-| `multiple` | `boolean` | `false` | Allow multiple file uploads |
-| `accept` | `string` | `'*/*'` | Accepted file types (e.g., 'image/*') |
-| `disabled` | `boolean` | `false` | Disables the upload component |
-| `dragAndDrop` | `boolean` | `false` | Enables drag-and-drop functionality |
-| `className` | `string` | - | Additional CSS classes |
+| Prop          | Type                      | Default    | Description                                 |
+| ------------- | ------------------------- | ---------- | ------------------------------------------- |
+| `files`       | `File[]`                  | `[]`       | Array of uploaded files                     |
+| `onChange`    | `(files: File[]) =e void` | -          | Callback when files are selected or removed |
+| `maxSize`     | `number`                  | `Infinity` | Maximum size per file in bytes              |
+| `multiple`    | `boolean`                 | `false`    | Allow multiple file uploads                 |
+| `accept`      | `string`                  | `'*/*'`    | Accepted file types (e.g., 'image/\*')      |
+| `disabled`    | `boolean`                 | `false`    | Disables the upload component               |
+| `dragAndDrop` | `boolean`                 | `false`    | Enables drag-and-drop functionality         |
+| `className`   | `string`                  | -          | Additional CSS classes                      |
 
 ## Features
 
 ### Multiple Files
+
 Enable selection of multiple files at once:
 
 ```tsx
@@ -106,6 +107,7 @@ Enable selection of multiple files at once:
 ```
 
 ### Drag-and-Drop Support
+
 Intuitive drag-and-drop zone for file uploads:
 
 ```tsx
@@ -117,6 +119,7 @@ Intuitive drag-and-drop zone for file uploads:
 ```
 
 ### File Validation
+
 Utilize various validation strategies:
 
 ```tsx
@@ -151,6 +154,7 @@ function ValidatedFileUpload() {
 - **Screen Reader**: Announces drop zone and errors where applicable
 
 ### ARIA Attributes
+
 ```tsx
 cGlassFileUpload
   aria-label="Upload images"
@@ -164,6 +168,7 @@ function ValidatedFileUpload() {
 ## Best Practices
 
 ### Do's ✅
+
 - **Provide clear instructions** on file types and size limits
 - **Use drag-and-drop** to enhance user experience
 - **Validate on both client and server** to ensure security and performance
@@ -179,6 +184,7 @@ function ValidatedFileUpload() {
 ```
 
 ### Don'ts ❌
+
 - **Don't accept sensitive file types** without extensive security checks
 - **Avoid complex upload flows** that confuse users
 
@@ -193,6 +199,7 @@ function ValidatedFileUpload() {
 ## Styling Customization
 
 ### Custom Themes
+
 Adapt theme styles to match your application:
 
 ```tsx
@@ -204,6 +211,7 @@ Adapt theme styles to match your application:
 ## Use Cases
 
 ### Profile Picture Upload
+
 ```tsx
 function ProfileUploader() {
   const [profilePic, setProfilePic] = useState(null)
@@ -221,6 +229,7 @@ function ProfileUploader() {
 ```
 
 ### Document Submission
+
 ```tsx
 function DocumentSubmission() {
   const [documents, setDocuments] = useState([])
@@ -244,4 +253,4 @@ function DocumentSubmission() {
 
 ---
 
-*Glass File Upload offers an elegant and accessible way to handle file uploads, adapting to various needs while maintaining the Liquid Glass design aesthetic.*
+_Glass File Upload offers an elegant and accessible way to handle file uploads, adapting to various needs while maintaining the Liquid Glass design aesthetic._

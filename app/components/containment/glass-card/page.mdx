@@ -9,6 +9,7 @@ Glass cards provide a sophisticated way to organize and present related informat
 ## Anatomy
 
 The Glass Card consists of:
+
 - **Container**: Liquid glass surface with backdrop blur
 - **Header** (optional): Title and metadata area
 - **Content Area**: Main content with proper padding
@@ -18,15 +19,18 @@ The Glass Card consists of:
 ## States
 
 ### Default State
+
 Clean liquid glass appearance with backdrop blur and subtle border definition.
 
 ### Interactive States
+
 - **Hover**: Enhanced glass clarity with gentle elevation
 - **Focus**: Accessibility focus outline when card is interactive
 - **Pressed**: Subtle compression for interactive cards
 - **Elevated**: Increased blur and shadow for overlays
 
 ### Responsive Behavior
+
 - **Mobile**: Full-width with appropriate margins
 - **Tablet**: Flexible grid layouts
 - **Desktop**: Optimized spacing and proportions
@@ -34,6 +38,7 @@ Clean liquid glass appearance with backdrop blur and subtle border definition.
 ## Usage Guidelines
 
 ### When to Use
+
 - Grouping related content logically
 - Creating visual hierarchy in layouts
 - Presenting information cards or tiles
@@ -41,6 +46,7 @@ Clean liquid glass appearance with backdrop blur and subtle border definition.
 - Product or feature showcases
 
 ### When Not to Use
+
 - Single pieces of content that don't need grouping
 - When content transparency would reduce readability
 - Overly complex nested card structures
@@ -48,39 +54,44 @@ Clean liquid glass appearance with backdrop blur and subtle border definition.
 ## Accessibility
 
 ### Voice Control
+
 Cards with interactive elements support Voice Control navigation.
 
 ### Keyboard Navigation
+
 - **Tab**: Navigate through interactive elements within card
 - **Enter/Space**: Activate card if clickable
 - **Arrow Keys**: Navigate between cards in grid layouts
 
 ### Screen Reader Support
+
 - Proper semantic structure with headings
 - Clear content organization
 - Descriptive labels for interactive cards
 
 ### High Contrast Mode
+
 Maintains proper contrast and border visibility.
 
 ### Reduced Motion
+
 Respects motion preferences for hover and interaction animations.
 
 ## API Reference
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'subtle' \| 'prominent' \| 'overlay'` | `'default'` | Visual prominence level |
-| `padding` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Internal spacing |
-| `radius` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'lg'` | Corner radius following Apple guidelines |
-| `shadow` | `'none' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Elevation shadow |
-| `interactive` | `boolean` | `false` | Enables hover and click states |
-| `header` | `ReactNode` | `undefined` | Optional header content |
-| `footer` | `ReactNode` | `undefined` | Optional footer content |
-| `children` | `ReactNode` | - | Main card content |
-| `onClick` | `(event: MouseEvent) => void` | - | Click handler for interactive cards |
+| Prop          | Type                                                | Default     | Description                              |
+| ------------- | --------------------------------------------------- | ----------- | ---------------------------------------- |
+| `variant`     | `'default' \| 'subtle' \| 'prominent' \| 'overlay'` | `'default'` | Visual prominence level                  |
+| `padding`     | `'none' \| 'sm' \| 'md' \| 'lg'`                    | `'md'`      | Internal spacing                         |
+| `radius`      | `'sm' \| 'md' \| 'lg' \| 'xl'`                      | `'lg'`      | Corner radius following Apple guidelines |
+| `shadow`      | `'none' \| 'sm' \| 'md' \| 'lg'`                    | `'md'`      | Elevation shadow                         |
+| `interactive` | `boolean`                                           | `false`     | Enables hover and click states           |
+| `header`      | `ReactNode`                                         | `undefined` | Optional header content                  |
+| `footer`      | `ReactNode`                                         | `undefined` | Optional footer content                  |
+| `children`    | `ReactNode`                                         | -           | Main card content                        |
+| `onClick`     | `(event: MouseEvent) => void`                       | -           | Click handler for interactive cards      |
 
 ### Variants
 
@@ -94,152 +105,156 @@ Respects motion preferences for hover and interaction animations.
 ### Basic Card
 
 ```tsx
-import { GlassCard } from '@liquidify/ui'
+import { GlassCard } from '@liquidify/ui';
 
 export default function BasicCard() {
   return (
     <GlassCard>
-      <h3 className="hig-headline mb-2">Card Title</h3>
-      <p className="hig-body text-apple-gray-600">
-        This is a basic glass card with liquid glass styling
-        that adapts to its environment.
+      <h3 className='hig-headline mb-2'>Card Title</h3>
+      <p className='hig-body text-apple-gray-600'>
+        This is a basic glass card with liquid glass styling that adapts to its
+        environment.
       </p>
     </GlassCard>
-  )
+  );
 }
 ```
 
 ### Card with Header and Footer
 
 ```tsx
-import { GlassCard, GlassButton } from '@liquidify/ui'
+import { GlassCard, GlassButton } from '@liquidify/ui';
 
 export default function CompleteCard() {
   return (
     <GlassCard
       header={
-        <div className="flex items-center justify-between">
-          <h3 className="hig-headline">Feature Card</h3>
-          <span className="hig-caption-1 text-apple-gray-500">New</span>
+        <div className='flex items-center justify-between'>
+          <h3 className='hig-headline'>Feature Card</h3>
+          <span className='hig-caption-1 text-apple-gray-500'>New</span>
         </div>
       }
       footer={
-        <div className="flex gap-2">
-          <GlassButton variant="ghost" size="sm">
+        <div className='flex gap-2'>
+          <GlassButton variant='ghost' size='sm'>
             Learn More
           </GlassButton>
-          <GlassButton variant="primary" size="sm">
+          <GlassButton variant='primary' size='sm'>
             Get Started
           </GlassButton>
         </div>
       }
     >
-      <p className="hig-body text-apple-gray-600 mb-4">
-        Discover powerful features with elegant liquid glass design
-        that enhances your user experience.
+      <p className='hig-body text-apple-gray-600 mb-4'>
+        Discover powerful features with elegant liquid glass design that
+        enhances your user experience.
       </p>
     </GlassCard>
-  )
+  );
 }
 ```
 
 ### Interactive Card Grid
 
 ```tsx
-import { GlassCard } from '@liquidify/ui'
+import { GlassCard } from '@liquidify/ui';
 
 const features = [
   { title: 'Performance', description: 'Optimized rendering', icon: '⚡' },
   { title: 'Accessibility', description: 'Built for everyone', icon: '♿' },
-  { title: 'Responsive', description: 'Works everywhere', icon: '📱' }
-]
+  { title: 'Responsive', description: 'Works everywhere', icon: '📱' },
+];
 
 export default function CardGrid() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {features.map((feature) => (
-        <GlassCard 
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+      {features.map(feature => (
+        <GlassCard
           key={feature.title}
           interactive
-          variant="subtle"
-          className="text-center"
+          variant='subtle'
+          className='text-center'
         >
-          <div className="text-4xl mb-3">{feature.icon}</div>
-          <h3 className="hig-headline mb-2">{feature.title}</h3>
-          <p className="hig-body text-apple-gray-600">
-            {feature.description}
-          </p>
+          <div className='text-4xl mb-3'>{feature.icon}</div>
+          <h3 className='hig-headline mb-2'>{feature.title}</h3>
+          <p className='hig-body text-apple-gray-600'>{feature.description}</p>
         </GlassCard>
       ))}
     </div>
-  )
+  );
 }
 ```
 
 ### Product Card
 
 ```tsx
-import { GlassCard, GlassButton, GlassBadge } from '@liquidify/ui'
+import { GlassCard, GlassButton, GlassBadge } from '@liquidify/ui';
 
 export default function ProductCard() {
   return (
-    <GlassCard variant="prominent" className="max-w-sm">
-      <div className="aspect-video liquid-glass rounded-apple-lg mb-4 flex items-center justify-center">
-        <span className="text-6xl">🎨</span>
+    <GlassCard variant='prominent' className='max-w-sm'>
+      <div className='aspect-video liquid-glass rounded-apple-lg mb-4 flex items-center justify-center'>
+        <span className='text-6xl'>🎨</span>
       </div>
-      
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="hig-headline">Design System</h3>
-        <GlassBadge variant="success">Pro</GlassBadge>
+
+      <div className='flex items-start justify-between mb-2'>
+        <h3 className='hig-headline'>Design System</h3>
+        <GlassBadge variant='success'>Pro</GlassBadge>
       </div>
-      
-      <p className="hig-body text-apple-gray-600 mb-4">
-        Complete design system with liquid glass components
-        following Apple's Human Interface Guidelines.
+
+      <p className='hig-body text-apple-gray-600 mb-4'>
+        Complete design system with liquid glass components following Apple's
+        Human Interface Guidelines.
       </p>
-      
-      <div className="flex items-center justify-between">
-        <span className="hig-title-3 text-apple-blue">$49/month</span>
-        <GlassButton variant="primary" size="sm">
+
+      <div className='flex items-center justify-between'>
+        <span className='hig-title-3 text-apple-blue'>$49/month</span>
+        <GlassButton variant='primary' size='sm'>
           Subscribe
         </GlassButton>
       </div>
     </GlassCard>
-  )
+  );
 }
 ```
 
 ## Interactive Playground
 
-*[Interactive component playground would be implemented here with live editing capabilities]*
+_[Interactive component playground would be implemented here with live editing capabilities]_
 
 ## Design Tokens
 
 ### Colors
+
 - **Default**: 15% white/black opacity with backdrop blur
 - **Subtle**: 8% white/black opacity with light blur
 - **Prominent**: 25% white/black opacity with enhanced blur
 - **Border**: 1px solid with 18% white/black opacity
 
 ### Typography
+
 Cards should use proper Apple HIG typography hierarchy:
+
 - **Titles**: `hig-headline` or `hig-title-3`
 - **Body**: `hig-body` for main content
 - **Metadata**: `hig-caption-1` for secondary information
 
 ### Spacing
+
 - **Small**: 12pt padding
 - **Medium**: 16pt padding (default)
 - **Large**: 24pt padding
 - **XLarge**: 32pt padding
 
 ### Elevation
+
 - **None**: No shadow
 - **Small**: 2pt blur, 1pt offset
 - **Medium**: 8pt blur, 4pt offset (default)
 - **Large**: 16pt blur, 8pt offset
 
 ### Motion
+
 - **Hover**: `translateY(-2px)` over 200ms
 - **Press**: `scale(0.98)` over 100ms
 - **Glass Enhancement**: Opacity increase over 150ms
@@ -247,16 +262,19 @@ Cards should use proper Apple HIG typography hierarchy:
 ## Platform Considerations
 
 ### iOS/iPadOS
+
 - Touch-optimized spacing and targets
 - Support for Dynamic Type
 - Respects Dark Mode preferences
 
 ### macOS
+
 - Optimized for pointer interactions
 - Window vibrancy integration
 - Proper focus management
 
 ### watchOS
+
 - Simplified layouts for small screens
 - Essential content prioritization
 - Enhanced touch targets
@@ -276,4 +294,4 @@ Cards should use proper Apple HIG typography hierarchy:
 
 ---
 
-*This component follows Apple's Human Interface Guidelines and implements the Liquid Glass design language introduced at WWDC 2025.*
+_This component follows Apple's Human Interface Guidelines and implements the Liquid Glass design language introduced at WWDC 2025._

@@ -1,0 +1,601 @@
+# Liquidify Hooks
+
+Advanced React hooks for building performant, interactive, and beautiful glass effect interfaces.
+
+## Overview
+
+Liquidify provides a comprehensive suite of hooks that work together to create sophisticated glassmorphism effects with optimal performance and user experience.
+
+## Hook Categories
+
+### Core Glass Effects
+
+- [`useLiquidGlass`](/hooks/use-liquid-glass) - Complete glass effect configuration
+- [`useContentAwareGlass`](/hooks/use-content-aware-glass) - Adaptive glass effects based on content
+
+### Performance & Monitoring
+
+- [`useGlassEffectPerformance`](/hooks/use-glass-effect-performance) - Performance optimization for glass effects
+- [`usePerformanceMonitor`](/hooks/use-performance-monitor) - Comprehensive performance monitoring
+
+### Utility Hooks
+
+- [`useTheme`](/hooks/use-theme) - Theme management
+- [`useToast`](/hooks/use-toast) - Toast notifications
+- [`useIsMobile`](/hooks/use-mobile) - Mobile detection
+
+## Quick Start
+
+```bash
+npm install liquidify
+```
+
+```tsx
+import {
+  LiquidGlassProvider,
+  useLiquidGlass,
+  useContentAwareGlass,
+  useGlassEffectPerformance,
+  usePerformanceMonitor,
+} from 'liquidify';
+```
+
+## Integration Example
+
+Here's how to use multiple hooks together for a complete glass effect solution:
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import {
+  LiquidGlassProvider,
+  useLiquidGlass,
+  useContentAwareGlass,
+  useGlassEffectPerformance,
+  usePerformanceMonitor,
+} from 'liquidify';
+
+function App() {
+  return (
+    <LiquidGlassProvider
+      config={{
+        performanceMode: 'adaptive',
+        enableBackdropFilter: true,
+        enableAnimations: true,
+        enablePhysics: true,
+        adaptivePerformance: true,
+        debugMode: process.env.NODE_ENV === 'development',
+      }}
+    >
+      <IntegratedGlassDemo />
+    </LiquidGlassProvider>
+  );
+}
+
+function IntegratedGlassDemo() {
+  const [contentType, setContentType] = useState<'text' | 'image' | 'video'>(
+    'text'
+  );
+
+  // Performance monitoring
+  const { metrics, startMonitoring } = usePerformanceMonitor({
+    enableFPSMonitoring: true,
+    enableMemoryMonitoring: true,
+    enableRenderTimeMonitoring: true,
+    reportInterval: 1000,
+  });
+
+  // Glass effect performance optimization
+  const { optimizedConfig, performance, isOptimized } =
+    useGlassEffectPerformance({
+      targetFPS: 60,
+      adaptiveQuality: true,
+      monitorEnabled: true,
+    });
+
+  // Content-aware glass effects
+  const { glassStyle: contentAwareStyle, updateContent } = useContentAwareGlass(
+    {
+      contentType,
+      backgroundType: 'dynamic',
+      priority:
+        performance.deviceClass === 'low' ? 'readability' : 'aesthetics',
+    }
+  );
+
+  // Manual glass configuration
+  const { glassStyle: manualStyle, updateConfig } = useLiquidGlass({
+    blur: optimizedConfig.blur,
+    opacity: optimizedConfig.opacity,
+    color: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+    animation: {
+      hover: {
+        blur: optimizedConfig.blur * 1.2,
+        opacity: optimizedConfig.opacity * 1.1,
+        duration: 200,
+      },
+    },
+  });
+
+  useEffect(() => {
+    startMonitoring();
+  }, [startMonitoring]);
+
+  // Merge glass styles based on performance
+  const mergedStyle = {
+    ...contentAwareStyle,
+    ...optimizedConfig.glassStyle,
+    // Use manual style for specific overrides
+    borderRadius: manualStyle.borderRadius,
+  };
+
+  return (
+    <div className='min-h-screen p-8 space-y-8'>
+      {/* Performance Dashboard */}
+      <div className='bg-black bg-opacity-20 backdrop-blur-sm p-6 rounded-lg'>
+        <h2 className='text-xl font-bold mb-4'>Performance Dashboard</h2>
+        <div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
+          <div className='text-center'>
+            <div className='text-2xl font-bold'>
+              {metrics.fps.current.toFixed(1)}
+            </div>
+            <div className='text-sm opacity-70'>FPS</div>
+          </div>
+          <div className='text-center'>
+            <div className='text-2xl font-bold'>
+              {(metrics.memory.used / 1024 / 1024).toFixed(1)}MB
+            </div>
+            <div className='text-sm opacity-70'>Memory</div>
+          </div>
+          <div className='text-center'>
+            <div className='text-2xl font-bold'>{performance.qualityLevel}</div>
+            <div className='text-sm opacity-70'>Quality</div>
+          </div>
+          <div className='text-center'>
+            <div className='text-2xl font-bold'>{performance.deviceClass}</div>
+            <div className='text-sm opacity-70'>Device</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content Type Selector */}
+      <div className='flex space-x-4 mb-6'>
+        {['text', 'image', 'video'].map(type => (
+          <button
+            key={type}
+            onClick={() => {
+              setContentType(type as 'text' | 'image' | 'video');
+              updateContent({
+                contentType: type as 'text' | 'image' | 'video',
+              });
+            }}
+            className={`px-4 py-2 rounded-lg ${
+              contentType === type
+                ? 'bg-blue-500 text-white'
+                : 'bg-white bg-opacity-20 hover:bg-opacity-30'
+            }`}
+          >
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      {/* Adaptive Glass Cards */}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div style={mergedStyle} className='p-6 rounded-lg'>
+          <h3 className='text-lg font-semibold mb-2'>Content-Aware Glass</h3>
+          <p className='text-sm opacity-80'>
+            This card adapts its glass effect based on content type:{' '}
+            {contentType}
+          </p>
+          <div className='mt-4 text-xs opacity-60'>
+            Blur: {optimizedConfig.blur}px | Opacity: {optimizedConfig.opacity}
+          </div>
+        </div>
+
+        <div style={manualStyle} className='p-6 rounded-lg'>
+          <h3 className='text-lg font-semibold mb-2'>
+            Manual Glass Configuration
+          </h3>
+          <p className='text-sm opacity-80'>
+            This card uses manual glass configuration with hover effects
+          </p>
+          <div className='mt-4 text-xs opacity-60'>
+            Performance: {isOptimized ? 'Optimized' : 'Full Quality'}
+          </div>
+        </div>
+
+        <div style={contentAwareStyle} className='p-6 rounded-lg'>
+          <h3 className='text-lg font-semibold mb-2'>Pure Content-Aware</h3>
+          <p className='text-sm opacity-80'>
+            This card uses only content-aware glass effects
+          </p>
+          <div className='mt-4 text-xs opacity-60'>
+            Priority:{' '}
+            {performance.deviceClass === 'low' ? 'Readability' : 'Aesthetics'}
+          </div>
+        </div>
+      </div>
+
+      {/* Performance Metrics */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+        <div style={optimizedConfig.glassStyle} className='p-6 rounded-lg'>
+          <h3 className='text-lg font-semibold mb-4'>Performance Metrics</h3>
+          <div className='space-y-2'>
+            <div className='flex justify-between'>
+              <span>Current FPS:</span>
+              <span
+                className={
+                  metrics.fps.current > 55
+                    ? 'text-green-400'
+                    : metrics.fps.current > 45
+                      ? 'text-yellow-400'
+                      : 'text-red-400'
+                }
+              >
+                {metrics.fps.current.toFixed(1)}
+              </span>
+            </div>
+            <div className='flex justify-between'>
+              <span>Render Time:</span>
+              <span>{metrics.renderTime.average.toFixed(2)}ms</span>
+            </div>
+            <div className='flex justify-between'>
+              <span>Memory Pressure:</span>
+              <span>{(metrics.memory.pressure * 100).toFixed(1)}%</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={mergedStyle} className='p-6 rounded-lg'>
+          <h3 className='text-lg font-semibold mb-4'>Optimization Status</h3>
+          <div className='space-y-2'>
+            <div className='flex justify-between'>
+              <span>Quality Level:</span>
+              <span>{performance.qualityLevel}</span>
+            </div>
+            <div className='flex justify-between'>
+              <span>Device Class:</span>
+              <span>{performance.deviceClass}</span>
+            </div>
+            <div className='flex justify-between'>
+              <span>Adaptive:</span>
+              <span>{isOptimized ? 'Enabled' : 'Disabled'}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Hook Combinations
+
+### Performance-First Approach
+
+```tsx
+import {
+  useGlassEffectPerformance,
+  usePerformanceMonitor,
+  useLiquidGlass,
+} from 'liquidify';
+
+function PerformanceFirstGlass() {
+  const { metrics } = usePerformanceMonitor({
+    enableFPSMonitoring: true,
+    enableMemoryMonitoring: true,
+  });
+
+  const { optimizedConfig } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useLiquidGlass({
+    blur: optimizedConfig.blur,
+    opacity: optimizedConfig.opacity,
+    performance: {
+      enableTransform3d: metrics.fps.current > 45,
+      enableWillChange: metrics.memory.pressure < 0.8,
+    },
+  });
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Performance-First Glass Component</h2>
+      <p>Optimized for {metrics.fps.current.toFixed(1)} FPS</p>
+    </div>
+  );
+}
+```
+
+### Content-Aware Approach
+
+```tsx
+import { useContentAwareGlass, useGlassEffectPerformance } from 'liquidify';
+
+function ContentAwareGlass({ contentType, backgroundType }) {
+  const { performance } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useContentAwareGlass({
+    contentType,
+    backgroundType,
+    priority: performance.deviceClass === 'low' ? 'readability' : 'aesthetics',
+  });
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Content-Aware Glass Component</h2>
+      <p>Optimized for {contentType} content</p>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+### 1. Always Use LiquidGlassProvider
+
+```tsx
+// ✅ Good
+function App() {
+  return (
+    <LiquidGlassProvider
+      config={
+        {
+          /* global config */
+        }
+      }
+    >
+      <YourApp />
+    </LiquidGlassProvider>
+  );
+}
+
+// ❌ Bad
+function App() {
+  return <YourApp />; // No provider
+}
+```
+
+### 2. Monitor Performance in Development
+
+```tsx
+// ✅ Good
+const { metrics } = usePerformanceMonitor({
+  enableFPSMonitoring: process.env.NODE_ENV === 'development',
+  enableMemoryMonitoring: true,
+});
+
+// ❌ Bad
+const { metrics } = usePerformanceMonitor({
+  enableFPSMonitoring: true, // Always enabled
+  enableMemoryMonitoring: true,
+});
+```
+
+### 3. Use Appropriate Content Types
+
+```tsx
+// ✅ Good
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'text', // Specific content type
+  backgroundType: 'image',
+  priority: 'readability',
+});
+
+// ❌ Bad
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'text',
+  backgroundType: 'dynamic', // Too generic
+  priority: 'blur', // Wrong priority for text
+});
+```
+
+### 4. Combine Hooks Thoughtfully
+
+```tsx
+// ✅ Good - Hooks complement each other
+function OptimizedGlassCard() {
+  const { performance } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useContentAwareGlass({
+    contentType: 'text',
+    backgroundType: 'dynamic',
+    priority: performance.deviceClass === 'low' ? 'readability' : 'aesthetics',
+  });
+
+  return <div style={glassStyle}>Content</div>;
+}
+
+// ❌ Bad - Conflicting configurations
+function ConflictingGlassCard() {
+  const { glassStyle: style1 } = useLiquidGlass({ blur: 20 });
+  const { glassStyle: style2 } = useContentAwareGlass({
+    contentType: 'text',
+    priority: 'readability', // This will reduce blur
+  });
+
+  return <div style={{ ...style1, ...style2 }}>Content</div>;
+}
+```
+
+## Performance Considerations
+
+### Device Classification
+
+- **High-end devices**: Use full glass effects with animations
+- **Medium devices**: Use moderate glass effects with reduced animations
+- **Low-end devices**: Use minimal glass effects, prioritize readability
+
+### Memory Management
+
+- Monitor memory pressure and reduce effects when needed
+- Clean up unused effects and event listeners
+- Use performance budgeting for expensive operations
+
+### FPS Optimization
+
+- Target 60 FPS for smooth interactions
+- Reduce quality on low FPS devices
+- Use adaptive quality based on performance metrics
+
+## Common Patterns
+
+### Responsive Glass Navigation
+
+```tsx
+function ResponsiveGlassNav() {
+  const { performance } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useContentAwareGlass({
+    contentType: 'navigation',
+    backgroundType: 'dynamic',
+    priority: 'contrast',
+  });
+
+  return (
+    <nav style={glassStyle} className='fixed top-0 w-full'>
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex justify-between items-center'>
+          <div className='text-xl font-bold'>Logo</div>
+          <div className='space-x-6'>
+            <a href='#' className='hover:text-opacity-80'>
+              Home
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              About
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Contact
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+### Adaptive Modal
+
+```tsx
+function AdaptiveModal({ isOpen, onClose, children }) {
+  const { glassStyle, animateIn, animateOut } = useLiquidGlass({
+    blur: 0,
+    opacity: 0,
+    animation: {
+      enter: { blur: 16, opacity: 0.9, duration: 300 },
+      exit: { blur: 0, opacity: 0, duration: 200 },
+    },
+  });
+
+  const { performance } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const handleOpen = () => {
+    if (performance.deviceClass !== 'low') {
+      animateIn();
+    }
+  };
+
+  return isOpen ? (
+    <div className='fixed inset-0 z-50 flex items-center justify-center'>
+      <div style={glassStyle} className='max-w-md w-full mx-4 p-6 rounded-lg'>
+        {children}
+      </div>
+    </div>
+  ) : null;
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Glass effects not rendering**: Check browser support for `backdrop-filter`
+2. **Poor performance**: Enable adaptive quality and monitor FPS
+3. **Memory leaks**: Ensure proper cleanup of event listeners
+4. **Accessibility concerns**: Test with screen readers and high contrast mode
+
+### Debugging
+
+```tsx
+// Enable debug mode in development
+<LiquidGlassProvider
+  config={{
+    debugMode: process.env.NODE_ENV === 'development',
+    // ... other config
+  }}
+>
+  <App />
+</LiquidGlassProvider>
+```
+
+## Migration Guide
+
+### From v1.x to v2.x
+
+```tsx
+// v1.x
+import { useGlass } from 'liquidify';
+const { style } = useGlass({ blur: 12 });
+
+// v2.x
+import { useLiquidGlass } from 'liquidify';
+const { glassStyle } = useLiquidGlass({ blur: 12 });
+```
+
+### Adding Performance Monitoring
+
+```tsx
+// Before
+function MyComponent() {
+  const { glassStyle } = useLiquidGlass({ blur: 12 });
+  return <div style={glassStyle}>Content</div>;
+}
+
+// After
+function MyComponent() {
+  const { optimizedConfig } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useLiquidGlass({
+    blur: optimizedConfig.blur,
+    opacity: optimizedConfig.opacity,
+  });
+
+  return <div style={glassStyle}>Content</div>;
+}
+```
+
+## Next Steps
+
+1. **Start with the basics**: Use `useLiquidGlass` for simple glass effects
+2. **Add performance monitoring**: Integrate `useGlassEffectPerformance`
+3. **Make it adaptive**: Use `useContentAwareGlass` for smart adaptations
+4. **Monitor in production**: Use `usePerformanceMonitor` for real-world insights
+5. **Optimize continuously**: Use performance data to improve your implementation
+
+## Resources
+
+- [Component Library](/components) - Pre-built components using these hooks
+- [Performance Guide](/docs/performance) - Detailed performance optimization
+- [Accessibility Guide](/docs/accessibility) - Making glass effects accessible
+- [API Reference](/docs/api) - Complete API documentation

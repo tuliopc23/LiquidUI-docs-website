@@ -1,5 +1,11 @@
-import { GlassMobileNav } from 'liquidify'
-import { HomeIcon, UserIcon, CogIcon, BellIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { GlassMobileNav } from 'liquidify';
+import {
+  HomeIcon,
+  UserIcon,
+  CogIcon,
+  BellIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
 
 # Glass Mobile Nav
 
@@ -24,17 +30,17 @@ npm install liquidify
 ## Basic Usage
 
 ```jsx
-import { GlassMobileNav } from 'liquidify'
+import { GlassMobileNav } from 'liquidify';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('home')
+  const [activeTab, setActiveTab] = useState('home');
 
   const navItems = [
     { id: 'home', label: 'Home', icon: HomeIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
     { id: 'notifications', label: 'Notifications', icon: BellIcon },
-    { id: 'settings', label: 'Settings', icon: CogIcon }
-  ]
+    { id: 'settings', label: 'Settings', icon: CogIcon },
+  ];
 
   return (
     <GlassMobileNav
@@ -42,7 +48,7 @@ function App() {
       activeTab={activeTab}
       onTabChange={setActiveTab}
     />
-  )
+  );
 }
 ```
 
@@ -51,17 +57,17 @@ function App() {
 ### Bottom Navigation
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
-  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
-    <div className="absolute bottom-0 left-0 right-0">
+<div className='p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg'>
+  <div className='relative h-96 bg-black/20 rounded-lg overflow-hidden'>
+    <div className='absolute bottom-0 left-0 right-0'>
       <GlassMobileNav
         items={[
           { id: 'home', label: 'Home', icon: HomeIcon },
           { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
           { id: 'profile', label: 'Profile', icon: UserIcon },
-          { id: 'settings', label: 'Settings', icon: CogIcon }
+          { id: 'settings', label: 'Settings', icon: CogIcon },
         ]}
-        activeTab="home"
+        activeTab='home'
       />
     </div>
   </div>
@@ -74,26 +80,31 @@ function App() {
     { id: 'home', label: 'Home', icon: HomeIcon },
     { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'settings', label: 'Settings', icon: CogIcon }
+    { id: 'settings', label: 'Settings', icon: CogIcon },
   ]}
-  activeTab="home"
+  activeTab='home'
 />
 ```
 
 ### With Badge Notifications
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
-  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
-    <div className="absolute bottom-0 left-0 right-0">
+<div className='p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg'>
+  <div className='relative h-96 bg-black/20 rounded-lg overflow-hidden'>
+    <div className='absolute bottom-0 left-0 right-0'>
       <GlassMobileNav
         items={[
           { id: 'home', label: 'Home', icon: HomeIcon },
-          { id: 'notifications', label: 'Notifications', icon: BellIcon, badge: 5 },
+          {
+            id: 'notifications',
+            label: 'Notifications',
+            icon: BellIcon,
+            badge: 5,
+          },
           { id: 'profile', label: 'Profile', icon: UserIcon },
-          { id: 'settings', label: 'Settings', icon: CogIcon }
+          { id: 'settings', label: 'Settings', icon: CogIcon },
         ]}
-        activeTab="notifications"
+        activeTab='notifications'
       />
     </div>
   </div>
@@ -106,26 +117,26 @@ function App() {
     { id: 'home', label: 'Home', icon: HomeIcon },
     { id: 'notifications', label: 'Notifications', icon: BellIcon, badge: 5 },
     { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'settings', label: 'Settings', icon: CogIcon }
+    { id: 'settings', label: 'Settings', icon: CogIcon },
   ]}
-  activeTab="notifications"
+  activeTab='notifications'
 />
 ```
 
 ### Compact Mode
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
-  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
-    <div className="absolute bottom-0 left-0 right-0">
+<div className='p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg'>
+  <div className='relative h-96 bg-black/20 rounded-lg overflow-hidden'>
+    <div className='absolute bottom-0 left-0 right-0'>
       <GlassMobileNav
         items={[
           { id: 'home', icon: HomeIcon },
           { id: 'search', icon: MagnifyingGlassIcon },
           { id: 'profile', icon: UserIcon },
-          { id: 'settings', icon: CogIcon }
+          { id: 'settings', icon: CogIcon },
         ]}
-        activeTab="home"
+        activeTab='home'
         compact={true}
       />
     </div>
@@ -139,9 +150,9 @@ function App() {
     { id: 'home', icon: HomeIcon },
     { id: 'search', icon: MagnifyingGlassIcon },
     { id: 'profile', icon: UserIcon },
-    { id: 'settings', icon: CogIcon }
+    { id: 'settings', icon: CogIcon },
   ]}
-  activeTab="home"
+  activeTab='home'
   compact={true}
 />
 ```
@@ -149,17 +160,17 @@ function App() {
 ### Floating Style
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
-  <div className="relative h-96 bg-black/20 rounded-lg overflow-hidden">
-    <div className="absolute bottom-4 left-4 right-4">
+<div className='p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg'>
+  <div className='relative h-96 bg-black/20 rounded-lg overflow-hidden'>
+    <div className='absolute bottom-4 left-4 right-4'>
       <GlassMobileNav
         items={[
           { id: 'home', label: 'Home', icon: HomeIcon },
           { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
           { id: 'profile', label: 'Profile', icon: UserIcon },
-          { id: 'settings', label: 'Settings', icon: CogIcon }
+          { id: 'settings', label: 'Settings', icon: CogIcon },
         ]}
-        activeTab="search"
+        activeTab='search'
         floating={true}
       />
     </div>
@@ -173,9 +184,9 @@ function App() {
     { id: 'home', label: 'Home', icon: HomeIcon },
     { id: 'search', label: 'Search', icon: MagnifyingGlassIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'settings', label: 'Settings', icon: CogIcon }
+    { id: 'settings', label: 'Settings', icon: CogIcon },
   ]}
-  activeTab="search"
+  activeTab='search'
   floating={true}
 />
 ```
@@ -184,29 +195,29 @@ function App() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `items` | `NavItem[]` | `[]` | Array of navigation items |
-| `activeTab` | `string` | - | Currently active tab ID |
-| `onTabChange` | `(tabId: string) => void` | - | Callback fired when tab changes |
-| `compact` | `boolean` | `false` | Hide labels and show icons only |
-| `floating` | `boolean` | `false` | Floating navigation bar style |
-| `position` | `'bottom' \| 'top'` | `'bottom'` | Position of the navigation bar |
-| `disabled` | `boolean` | `false` | Disable all navigation items |
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties` | - | Inline styles |
+| Prop          | Type                      | Default    | Description                     |
+| ------------- | ------------------------- | ---------- | ------------------------------- |
+| `items`       | `NavItem[]`               | `[]`       | Array of navigation items       |
+| `activeTab`   | `string`                  | -          | Currently active tab ID         |
+| `onTabChange` | `(tabId: string) => void` | -          | Callback fired when tab changes |
+| `compact`     | `boolean`                 | `false`    | Hide labels and show icons only |
+| `floating`    | `boolean`                 | `false`    | Floating navigation bar style   |
+| `position`    | `'bottom' \| 'top'`       | `'bottom'` | Position of the navigation bar  |
+| `disabled`    | `boolean`                 | `false`    | Disable all navigation items    |
+| `className`   | `string`                  | -          | Additional CSS classes          |
+| `style`       | `CSSProperties`           | -          | Inline styles                   |
 
 ### NavItem Interface
 
 ```typescript
 interface NavItem {
-  id: string
-  label?: string
-  icon: React.ComponentType<any>
-  badge?: number | string
-  disabled?: boolean
-  href?: string
-  onClick?: () => void
+  id: string;
+  label?: string;
+  icon: React.ComponentType<any>;
+  badge?: number | string;
+  disabled?: boolean;
+  href?: string;
+  onClick?: () => void;
 }
 ```
 
@@ -246,16 +257,16 @@ The component uses CSS variables for theming:
 The Glass Mobile Nav component leverages GSAP for smooth animations:
 
 ```jsx
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
 // Custom tab switching animation
-const handleTabChange = (tabId) => {
+const handleTabChange = tabId => {
   gsap.to('.glass-mobile-nav-indicator', {
     x: getTabPosition(tabId),
     duration: 0.3,
-    ease: 'power2.out'
-  })
-}
+    ease: 'power2.out',
+  });
+};
 ```
 
 ## Gesture Support
@@ -269,7 +280,7 @@ The component supports swipe gestures for navigation:
   onTabChange={setActiveTab}
   gestures={{
     swipeLeft: () => setActiveTab(getNextTab()),
-    swipeRight: () => setActiveTab(getPrevTab())
+    swipeRight: () => setActiveTab(getPrevTab()),
   }}
 />
 ```

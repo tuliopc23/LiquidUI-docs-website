@@ -1,4 +1,4 @@
-import { GlassTooltip } from 'liquidify'
+import { GlassTooltip } from 'liquidify';
 
 # GlassTooltip
 
@@ -11,26 +11,26 @@ GlassTooltip provides lightweight contextual information that appears on hover o
 ## Basic Usage
 
 ```tsx
-import { GlassTooltip } from 'liquidify'
+import { GlassTooltip } from 'liquidify';
 
 function BasicTooltip() {
   return (
-    <GlassTooltip content="This button saves your work">
+    <GlassTooltip content='This button saves your work'>
       <button>Save</button>
     </GlassTooltip>
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-<GlassTooltip 
-  content="Click this button to save your changes"
-  placement="top"
+<GlassTooltip
+  content='Click this button to save your changes'
+  placement='top'
   showArrow={true}
 >
-  <button className="bg-blue-500 text-white px-4 py-2 rounded">
+  <button className='bg-blue-500 text-white px-4 py-2 rounded'>
     Save Changes
   </button>
 </GlassTooltip>
@@ -40,16 +40,16 @@ function BasicTooltip() {
 
 ### GlassTooltip Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `content` | `React.ReactNode` | - | Tooltip content |
-| `children` | `React.ReactNode` | - | Element that triggers tooltip |
-| `placement` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Tooltip position |
-| `trigger` | `'hover' \| 'focus' \| 'click'` | `'hover'` | How to show tooltip |
-| `delay` | `number` | `500` | Delay before showing |
-| `hideDelay` | `number` | `0` | Delay before hiding |
-| `showArrow` | `boolean` | `true` | Show arrow pointer |
-| `disabled` | `boolean` | `false` | Disable tooltip |
+| Prop        | Type                                     | Default   | Description                   |
+| ----------- | ---------------------------------------- | --------- | ----------------------------- |
+| `content`   | `React.ReactNode`                        | -         | Tooltip content               |
+| `children`  | `React.ReactNode`                        | -         | Element that triggers tooltip |
+| `placement` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`   | Tooltip position              |
+| `trigger`   | `'hover' \| 'focus' \| 'click'`          | `'hover'` | How to show tooltip           |
+| `delay`     | `number`                                 | `500`     | Delay before showing          |
+| `hideDelay` | `number`                                 | `0`       | Delay before hiding           |
+| `showArrow` | `boolean`                                | `true`    | Show arrow pointer            |
+| `disabled`  | `boolean`                                | `false`   | Disable tooltip               |
 
 ## Placement Options
 
@@ -92,11 +92,7 @@ function BasicTooltip() {
 ### Custom Delays
 
 ```tsx
-<GlassTooltip 
-  content="Appears quickly"
-  delay={100}
-  hideDelay={200}
->
+<GlassTooltip content='Appears quickly' delay={100} hideDelay={200}>
   <button>Quick Tooltip</button>
 </GlassTooltip>
 ```
@@ -111,10 +107,10 @@ function BasicTooltip() {
 
 ### Keyboard Support
 
-| Key | Action |
-|-----|--------|
-| `Escape` | Hide tooltip |
-| `Tab` | Navigate and show focus tooltips |
+| Key      | Action                           |
+| -------- | -------------------------------- |
+| `Escape` | Hide tooltip                     |
+| `Tab`    | Navigate and show focus tooltips |
 
 ## Best Practices
 
@@ -135,8 +131,8 @@ function BasicTooltip() {
 ### Icon Buttons
 
 ```tsx
-<GlassTooltip content="Delete item">
-  <button className="p-2">
+<GlassTooltip content='Delete item'>
+  <button className='p-2'>
     <TrashIcon />
   </button>
 </GlassTooltip>
@@ -147,11 +143,8 @@ function BasicTooltip() {
 ```tsx
 <div>
   <label>Password</label>
-  <GlassTooltip 
-    content="Must be at least 8 characters"
-    trigger="focus"
-  >
-    <input type="password" />
+  <GlassTooltip content='Must be at least 8 characters' trigger='focus'>
+    <input type='password' />
   </GlassTooltip>
 </div>
 ```
@@ -159,11 +152,11 @@ function BasicTooltip() {
 ### Help Text
 
 ```tsx
-<GlassTooltip content="This feature is only available to premium users">
-  <span className="text-gray-400">Premium Feature</span>
+<GlassTooltip content='This feature is only available to premium users'>
+  <span className='text-gray-400'>Premium Feature</span>
 </GlassTooltip>
 ```
 
 ---
 
-*GlassTooltip provides contextual assistance without overwhelming the interface.*
+_GlassTooltip provides contextual assistance without overwhelming the interface._

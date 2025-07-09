@@ -1,0 +1,739 @@
+# ParticleEmitter
+
+The `ParticleEmitter` class creates and manages complex particle systems for visual effects like sparks, smoke, liquid drops, and magical animations in Liquidify.
+
+## Overview
+
+`ParticleEmitter` provides a powerful particle system that can generate, animate, and manage thousands of particles with realistic physics, various behaviors, and customizable appearance. It's perfect for creating dynamic visual effects that enhance glass and liquid animations.
+
+## Import
+
+```typescript
+import { ParticleEmitter, Vector2D, PARTICLE_PRESETS } from 'liquidify';
+```
+
+## Constructor
+
+```typescript
+new ParticleEmitter(options: ParticleEmitterOptions)
+```
+
+### ParticleEmitterOptions
+
+```typescript
+interface ParticleEmitterOptions {
+  position: Vector2D; // Emitter position
+  rate: number; // Particles per second (default: 60)
+  maxParticles: number; // Maximum particle count (default: 1000)
+  particleLifetime: number; // Particle lifespan in ms (default: 2000)
+
+  // Initial particle properties
+  velocity: Vector2D; // Initial velocity (default: Vector2D(0, 0))
+  velocityVariation: Vector2D; // Velocity randomness (default: Vector2D(0, 0))
+  acceleration: Vector2D; // Constant acceleration (default: Vector2D(0, 0))
+
+  // Appearance
+  size: number; // Particle size (default: 2)
+  sizeVariation: number; // Size randomness (default: 0)
+  color: string; // Particle color (default: '#ffffff')
+  opacity: number; // Initial opacity (default: 1)
+
+  // Behavior
+  fadeOut: boolean; // Fade out over lifetime (default: true)
+  shrink: boolean; // Shrink over lifetime (default: false)
+  gravity: Vector2D; // Gravity force (default: Vector2D(0, 0))
+  airResistance: number; // Air resistance factor (default: 0)
+
+  // Emitter behavior
+  burst: boolean; // Emit all particles at once (default: false)
+  autoStart: boolean; // Start emitting immediately (default: true)
+  loop: boolean; // Loop emission (default: true)
+}
+```
+
+## Properties
+
+### `position: Vector2D`
+
+Current position of the particle emitter.
+
+### `isEmitting: boolean`
+
+Whether the emitter is currently generating particles.
+
+### `particleCount: number`
+
+Current number of active particles.
+
+### `particles: Particle[]`
+
+Array of all active particles.
+
+### `totalEmitted: number`
+
+Total number of particles emitted since creation.
+
+## Methods
+
+### `start(): void`
+
+Starts particle emission.
+
+```typescript
+const emitter = new ParticleEmitter({
+  position: new Vector2D(100, 100),
+  rate: 60,
+});
+emitter.start();
+```
+
+### `stop(): void`
+
+Stops particle emission (existing particles continue to live).
+
+```typescript
+emitter.stop();
+```
+
+### `pause(): void`
+
+Pauses the entire particle system.
+
+```typescript
+emitter.pause();
+```
+
+### `resume(): void`
+
+Resumes a paused particle system.
+
+```typescript
+emitter.resume();
+```
+
+### `clear(): void`
+
+Removes all existing particles immediately.
+
+```typescript
+emitter.clear();
+```
+
+### `burst(count: number): void`
+
+Emits a specific number of particles immediately.
+
+```typescript
+emitter.burst(50); // Emit 50 particles at once
+```
+
+### `setPosition(position: Vector2D): void`
+
+Updates the emitter position.
+
+```typescript
+emitter.setPosition(new Vector2D(200, 300));
+```
+
+### `setProperties(options: Partial<ParticleEmitterOptions>): void`
+
+Updates emitter properties during runtime.
+
+```typescript
+emitter.setProperties({
+  rate: 120,
+  color: '#ff0000',
+  gravity: new Vector2D(0, 50),
+});
+```
+
+### `update(deltaTime: number): void`
+
+Updates the particle system simulation.
+
+```typescript
+emitter.update(16); // 60fps update
+```
+
+### `render(context: CanvasRenderingContext2D): void`
+
+Renders all particles to a canvas context.
+
+```typescript
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
+emitter.render(ctx);
+```
+
+### `getParticlesInRadius(center: Vector2D, radius: number): Particle[]`
+
+Returns particles within a specified radius.
+
+```typescript
+const nearbyParticles = emitter.getParticlesInRadius(mousePosition, 50);
+```
+
+### `addForce(force: Vector2D, radius?: number): void`
+
+Applies a force to all particles (or within radius).
+
+```typescript
+// Apply explosion force
+emitter.addForce(new Vector2D(100, -100), 150);
+```
+
+### `clone(): ParticleEmitter`
+
+Creates a copy of the emitter with identical properties.
+
+```typescript
+const emitterCopy = emitter.clone();
+```
+
+## Usage Examples
+
+### Basic Particle Effect
+
+```typescript
+// Create a simple spark effect
+const sparkEmitter = new ParticleEmitter({
+  position: new Vector2D(200, 200),
+  rate: 100,
+  particleLifetime: 1000,
+  velocity: new Vector2D(0, -50),
+  velocityVariation: new Vector2D(100, 50),
+  gravity: new Vector2D(0, 98),
+  size: 2,
+  sizeVariation: 1,
+  color: '#ffaa00',
+  fadeOut: true,
+});
+
+// Animation loop
+function animate() {
+  sparkEmitter.update(16);
+
+  // Render to canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  sparkEmitter.render(ctx);
+
+  requestAnimationFrame(animate);
+}
+animate();
+```
+
+### Interactive Mouse Effects
+
+```typescript
+// Create particles that follow mouse
+const mouseEmitter = new ParticleEmitter({
+  position: new Vector2D(0, 0),
+  rate: 50,
+  particleLifetime: 2000,
+  velocity: new Vector2D(0, 0),
+  velocityVariation: new Vector2D(20, 20),
+  size: 3,
+  color: '#00aaff',
+  fadeOut: true,
+  autoStart: false,
+});
+
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mousePos = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);
+
+  mouseEmitter.setPosition(mousePos);
+  if (!mouseEmitter.isEmitting) {
+    mouseEmitter.start();
+  }
+});
+
+canvas.addEventListener('mouseleave', () => {
+  mouseEmitter.stop();
+});
+```
+
+### Explosion Effect
+
+```typescript
+// Create explosion particle system
+function createExplosion(position: Vector2D) {
+  const explosion = new ParticleEmitter({
+    position: position,
+    rate: 0, // Don't emit continuously
+    particleLifetime: 1500,
+    velocity: new Vector2D(0, 0),
+    velocityVariation: new Vector2D(200, 200),
+    size: 4,
+    sizeVariation: 2,
+    color: '#ff6600',
+    fadeOut: true,
+    shrink: true,
+    airResistance: 0.02,
+    burst: true,
+  });
+
+  // Emit all particles at once
+  explosion.burst(100);
+
+  return explosion;
+}
+
+// Usage
+canvas.addEventListener('click', e => {
+  const rect = canvas.getBoundingClientRect();
+  const clickPos = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);
+
+  const explosion = createExplosion(clickPos);
+  explosions.push(explosion);
+});
+```
+
+### Liquid Drop Effect
+
+```typescript
+// Create liquid-like particle system
+const liquidEmitter = new ParticleEmitter({
+  position: new Vector2D(300, 50),
+  rate: 30,
+  particleLifetime: 3000,
+  velocity: new Vector2D(0, 20),
+  velocityVariation: new Vector2D(10, 5),
+  gravity: new Vector2D(0, 98),
+  size: 5,
+  sizeVariation: 2,
+  color: '#0099ff',
+  opacity: 0.8,
+  fadeOut: false,
+  airResistance: 0.01,
+});
+
+// Add surface tension effect
+liquidEmitter.update = function (deltaTime) {
+  // Call parent update
+  ParticleEmitter.prototype.update.call(this, deltaTime);
+
+  // Apply surface tension between nearby particles
+  for (let i = 0; i < this.particles.length; i++) {
+    for (let j = i + 1; j < this.particles.length; j++) {
+      const p1 = this.particles[i];
+      const p2 = this.particles[j];
+
+      const distance = p1.position.subtract(p2.position).magnitude();
+      const minDistance = 20;
+
+      if (distance < minDistance && distance > 0) {
+        const force = (minDistance - distance) * 0.1;
+        const direction = p1.position.subtract(p2.position).normalize();
+
+        p1.velocity = p1.velocity.add(direction.multiply(force));
+        p2.velocity = p2.velocity.subtract(direction.multiply(force));
+      }
+    }
+  }
+};
+```
+
+### React Integration
+
+```typescript
+import { useParticleEmitter } from 'liquidify';
+
+function ParticleBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const emitter = useParticleEmitter({
+    position: new Vector2D(400, 300),
+    rate: 50,
+    particleLifetime: 4000,
+    velocity: new Vector2D(0, -20),
+    velocityVariation: new Vector2D(50, 20),
+    size: 2,
+    color: '#ffffff',
+    opacity: 0.6,
+    fadeOut: true
+  });
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    function animate() {
+      emitter.update(16);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      emitter.render(ctx);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }, [emitter]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={800}
+      height={600}
+      className="particle-background"
+    />
+  );
+}
+```
+
+## Particle Presets
+
+Common particle configurations are available in `PARTICLE_PRESETS`:
+
+### `PARTICLE_PRESETS.sparks`
+
+```typescript
+{
+  rate: 100,
+  particleLifetime: 800,
+  velocity: new Vector2D(0, -100),
+  velocityVariation: new Vector2D(150, 75),
+  gravity: new Vector2D(0, 200),
+  size: 2,
+  color: '#ffaa00',
+  fadeOut: true
+}
+```
+
+### `PARTICLE_PRESETS.smoke`
+
+```typescript
+{
+  rate: 40,
+  particleLifetime: 3000,
+  velocity: new Vector2D(0, -30),
+  velocityVariation: new Vector2D(20, 10),
+  size: 8,
+  sizeVariation: 4,
+  color: '#666666',
+  opacity: 0.7,
+  fadeOut: true,
+  airResistance: 0.01
+}
+```
+
+### `PARTICLE_PRESETS.magic`
+
+```typescript
+{
+  rate: 60,
+  particleLifetime: 2000,
+  velocity: new Vector2D(0, -40),
+  velocityVariation: new Vector2D(80, 40),
+  size: 3,
+  sizeVariation: 2,
+  color: '#aa00ff',
+  fadeOut: true,
+  shrink: true
+}
+```
+
+### `PARTICLE_PRESETS.rain`
+
+```typescript
+{
+  rate: 200,
+  particleLifetime: 1500,
+  velocity: new Vector2D(0, 300),
+  velocityVariation: new Vector2D(20, 50),
+  size: 1,
+  color: '#4499ff',
+  opacity: 0.8,
+  fadeOut: false
+}
+```
+
+## Advanced Features
+
+### Custom Particle Behaviors
+
+```typescript
+// Create custom particle behavior
+class CustomParticle extends Particle {
+  private oscillation: number = 0;
+  private amplitude: number = 20;
+  private frequency: number = 0.02;
+
+  update(deltaTime: number) {
+    super.update(deltaTime);
+
+    // Add oscillating motion
+    this.oscillation += this.frequency * deltaTime;
+    this.position.x +=
+      Math.sin(this.oscillation) * this.amplitude * (deltaTime / 1000);
+  }
+}
+
+// Use custom particles in emitter
+const customEmitter = new ParticleEmitter({
+  position: new Vector2D(200, 200),
+  rate: 50,
+  particleLifetime: 2000,
+  createParticle: options => new CustomParticle(options),
+});
+```
+
+### Particle Collision Detection
+
+```typescript
+// Add collision detection to particles
+class CollidingParticleEmitter extends ParticleEmitter {
+  private boundaries: { min: Vector2D; max: Vector2D };
+
+  constructor(
+    options: ParticleEmitterOptions,
+    boundaries: { min: Vector2D; max: Vector2D }
+  ) {
+    super(options);
+    this.boundaries = boundaries;
+  }
+
+  update(deltaTime: number) {
+    super.update(deltaTime);
+
+    // Check collisions with boundaries
+    this.particles.forEach(particle => {
+      if (
+        particle.position.x < this.boundaries.min.x ||
+        particle.position.x > this.boundaries.max.x
+      ) {
+        particle.velocity.x *= -0.8; // Bounce with energy loss
+      }
+
+      if (
+        particle.position.y < this.boundaries.min.y ||
+        particle.position.y > this.boundaries.max.y
+      ) {
+        particle.velocity.y *= -0.8;
+      }
+
+      // Keep particles within bounds
+      particle.position.x = Math.max(
+        this.boundaries.min.x,
+        Math.min(this.boundaries.max.x, particle.position.x)
+      );
+      particle.position.y = Math.max(
+        this.boundaries.min.y,
+        Math.min(this.boundaries.max.y, particle.position.y)
+      );
+    });
+  }
+}
+```
+
+### Particle Pooling for Performance
+
+```typescript
+// Optimize particle creation with object pooling
+class ParticlePool {
+  private particles: Particle[] = [];
+  private index: number = 0;
+
+  get(): Particle {
+    if (this.index >= this.particles.length) {
+      this.particles.push(new Particle());
+    }
+
+    return this.particles[this.index++];
+  }
+
+  release(particle: Particle): void {
+    particle.reset();
+    this.index--;
+  }
+}
+
+// Use pooled particles in emitter
+const pooledEmitter = new ParticleEmitter({
+  position: new Vector2D(200, 200),
+  rate: 200,
+  usePool: true,
+  poolSize: 1000,
+});
+```
+
+## Performance Optimization
+
+### Culling Off-Screen Particles
+
+```typescript
+// Remove particles outside viewport
+class CulledParticleEmitter extends ParticleEmitter {
+  private viewport: { width: number; height: number };
+
+  constructor(
+    options: ParticleEmitterOptions,
+    viewport: { width: number; height: number }
+  ) {
+    super(options);
+    this.viewport = viewport;
+  }
+
+  update(deltaTime: number) {
+    super.update(deltaTime);
+
+    // Remove particles outside viewport
+    this.particles = this.particles.filter(particle => {
+      return (
+        particle.position.x > -50 &&
+        particle.position.x < this.viewport.width + 50 &&
+        particle.position.y > -50 &&
+        particle.position.y < this.viewport.height + 50
+      );
+    });
+  }
+}
+```
+
+### Batch Rendering
+
+```typescript
+// Render particles in batches for better performance
+class BatchedParticleEmitter extends ParticleEmitter {
+  render(context: CanvasRenderingContext2D) {
+    if (this.particles.length === 0) return;
+
+    // Group particles by color/size for batch rendering
+    const batches = new Map<string, Particle[]>();
+
+    this.particles.forEach(particle => {
+      const key = `${particle.color}-${particle.size}`;
+      if (!batches.has(key)) {
+        batches.set(key, []);
+      }
+      batches.get(key)!.push(particle);
+    });
+
+    // Render each batch
+    batches.forEach((particles, key) => {
+      const [color, size] = key.split('-');
+
+      context.fillStyle = color;
+      context.beginPath();
+
+      particles.forEach(particle => {
+        context.moveTo(particle.position.x + Number(size), particle.position.y);
+        context.arc(
+          particle.position.x,
+          particle.position.y,
+          Number(size),
+          0,
+          Math.PI * 2
+        );
+      });
+
+      context.fill();
+    });
+  }
+}
+```
+
+## Integration with Other Systems
+
+### With Spring Physics
+
+```typescript
+// Combine particles with spring physics
+class SpringParticleEmitter extends ParticleEmitter {
+  private spring: Spring2D;
+
+  constructor(options: ParticleEmitterOptions) {
+    super(options);
+    this.spring = new Spring2D({
+      stiffness: 100,
+      damping: 10,
+      mass: 1,
+    });
+  }
+
+  setTargetPosition(target: Vector2D) {
+    this.spring.setTarget(target);
+  }
+
+  update(deltaTime: number) {
+    // Update spring position
+    this.spring.update(deltaTime);
+    this.setPosition(this.spring.position);
+
+    // Update particles
+    super.update(deltaTime);
+  }
+}
+```
+
+### With Magnetic Effects
+
+```typescript
+// Add magnetic attraction to particles
+class MagneticParticleEmitter extends ParticleEmitter {
+  private magneticPoints: { position: Vector2D; strength: number }[] = [];
+
+  addMagneticPoint(position: Vector2D, strength: number = 50) {
+    this.magneticPoints.push({ position, strength });
+  }
+
+  update(deltaTime: number) {
+    super.update(deltaTime);
+
+    // Apply magnetic forces
+    this.particles.forEach(particle => {
+      this.magneticPoints.forEach(({ position, strength }) => {
+        const direction = position.subtract(particle.position);
+        const distance = direction.magnitude();
+
+        if (distance > 0) {
+          const force = strength / (distance * distance);
+          const acceleration = direction.normalize().multiply(force);
+          particle.velocity = particle.velocity.add(
+            acceleration.multiply(deltaTime / 1000)
+          );
+        }
+      });
+    });
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Poor performance**: Use particle pooling and culling
+2. **Particles not appearing**: Check canvas size and position
+3. **Inconsistent behavior**: Ensure consistent deltaTime
+4. **Memory leaks**: Properly dispose of unused emitters
+
+### Debug Utilities
+
+```typescript
+// Debug particle emitter
+class DebugParticleEmitter extends ParticleEmitter {
+  renderDebug(context: CanvasRenderingContext2D) {
+    // Render normal particles
+    this.render(context);
+
+    // Draw emitter position
+    context.fillStyle = 'red';
+    context.fillRect(this.position.x - 2, this.position.y - 2, 4, 4);
+
+    // Draw particle count
+    context.fillStyle = 'white';
+    context.font = '12px Arial';
+    context.fillText(`Particles: ${this.particleCount}`, 10, 20);
+    context.fillText(`Total Emitted: ${this.totalEmitted}`, 10, 35);
+  }
+}
+```
+
+## Related
+
+- [Vector2D](/physics-system/core-classes/vector2d) - Used for particle positions and velocities
+- [FluidSimulation](/physics-system/core-classes/fluid-simulation) - Can work with particles for fluid effects
+- [createGlassRipple](/physics-system/utilities/create-glass-ripple) - May use particles for ripple effects
+- [PHYSICS_CONSTANTS](/physics-system/constants/physics-constants) - Contains particle-related constants

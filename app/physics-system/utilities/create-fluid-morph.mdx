@@ -1,0 +1,556 @@
+# createFluidMorph
+
+The `createFluidMorph` utility creates smooth, fluid-like morphing animations between different shapes, sizes, and properties with physics-based timing.
+
+## Overview
+
+This utility provides an easy way to create organic, liquid-like morphing animations that feel natural and smooth. It combines CSS transitions with physics-based timing curves to create morphing effects that mimic real fluid behavior.
+
+## Import
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+```
+
+## Basic Usage
+
+```typescript
+const morph = createFluidMorph({
+  element: '.morph-element',
+  from: { borderRadius: '0%', width: '100px', height: '100px' },
+  to: { borderRadius: '50%', width: '150px', height: '150px' },
+  duration: 1000,
+});
+
+// Start the morph animation
+morph.play();
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+createFluidMorph(options: FluidMorphOptions): FluidMorphInstance
+```
+
+#### FluidMorphOptions
+
+```typescript
+interface FluidMorphOptions {
+  element: string | HTMLElement; // Target element or selector
+  from: CSSProperties; // Starting CSS properties
+  to: CSSProperties; // Ending CSS properties
+  duration?: number; // Animation duration in ms (default: 1000)
+  easing?: string | EasingFunction; // Easing function (default: 'fluid')
+  delay?: number; // Delay before starting (default: 0)
+  repeat?: number | 'infinite'; // Repetition count (default: 1)
+  yoyo?: boolean; // Reverse animation on repeat (default: false)
+  onStart?: () => void; // Callback when animation starts
+  onComplete?: () => void; // Callback when animation completes
+  onUpdate?: (progress: number) => void; // Callback during animation
+}
+```
+
+#### FluidMorphInstance
+
+```typescript
+interface FluidMorphInstance {
+  play(): void; // Start the animation
+  pause(): void; // Pause the animation
+  reverse(): void; // Reverse the animation
+  restart(): void; // Restart from beginning
+  kill(): void; // Stop and cleanup
+  isActive(): boolean; // Check if animation is running
+  progress(): number; // Get current progress (0-1)
+  progress(value: number): void; // Set progress manually
+}
+```
+
+## Examples
+
+### Basic Shape Morphing
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+// Square to circle morph
+const shapemorph = createFluidMorph({
+  element: '#shape',
+  from: {
+    borderRadius: '0%',
+    width: '100px',
+    height: '100px',
+    backgroundColor: '#3b82f6',
+  },
+  to: {
+    borderRadius: '50%',
+    width: '150px',
+    height: '150px',
+    backgroundColor: '#ef4444',
+  },
+  duration: 1500,
+  easing: 'fluid',
+});
+
+// Trigger on button click
+document.getElementById('morphButton')?.addEventListener('click', () => {
+  shapemorph.play();
+});
+```
+
+### Size and Position Morphing
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+const cardMorph = createFluidMorph({
+  element: '.card',
+  from: {
+    width: '200px',
+    height: '100px',
+    transform: 'translate(0, 0) scale(1)',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+  },
+  to: {
+    width: '300px',
+    height: '200px',
+    transform: 'translate(50px, 25px) scale(1.1)',
+    boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+  },
+  duration: 1000,
+  easing: 'liquidSmooth',
+});
+```
+
+### Complex Multi-Property Morphing
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+const complexMorph = createFluidMorph({
+  element: '.complex-element',
+  from: {
+    width: '100px',
+    height: '100px',
+    borderRadius: '10px',
+    backgroundColor: '#3b82f6',
+    transform: 'rotate(0deg) scale(1)',
+    opacity: 0.8,
+    filter: 'blur(0px)',
+  },
+  to: {
+    width: '200px',
+    height: '80px',
+    borderRadius: '40px',
+    backgroundColor: '#ef4444',
+    transform: 'rotate(45deg) scale(1.2)',
+    opacity: 1,
+    filter: 'blur(2px)',
+  },
+  duration: 2000,
+  easing: 'fluid',
+  onStart: () => console.log('Morph started'),
+  onComplete: () => console.log('Morph completed'),
+});
+```
+
+### React Integration
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+import { useRef, useEffect } from 'react';
+
+function FluidMorphButton() {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const morphRef = useRef<FluidMorphInstance | null>(null);
+
+  useEffect(() => {
+    if (elementRef.current) {
+      morphRef.current = createFluidMorph({
+        element: elementRef.current,
+        from: {
+          borderRadius: '8px',
+          backgroundColor: '#3b82f6',
+          transform: 'scale(1)'
+        },
+        to: {
+          borderRadius: '50%',
+          backgroundColor: '#ef4444',
+          transform: 'scale(1.1)'
+        },
+        duration: 800,
+        easing: 'fluid'
+      });
+    }
+
+    return () => {
+      morphRef.current?.kill();
+    };
+  }, []);
+
+  const handleClick = () => {
+    morphRef.current?.play();
+  };
+
+  return (
+    <div className="text-center">
+      <div
+        ref={elementRef}
+        className="w-24 h-24 bg-blue-500 rounded-lg mx-auto mb-4 cursor-pointer"
+        onClick={handleClick}
+      />
+      <button
+        onClick={handleClick}
+        className="px-4 py-2 bg-gray-500 text-white rounded"
+      >
+        Morph Shape
+      </button>
+    </div>
+  );
+}
+```
+
+### Animated Morphing Sequence
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+function createMorphSequence() {
+  const element = document.querySelector('.sequence-element');
+  if (!element) return;
+
+  const morphs = [
+    // Step 1: Square to circle
+    createFluidMorph({
+      element,
+      from: { borderRadius: '0%', backgroundColor: '#3b82f6' },
+      to: { borderRadius: '50%', backgroundColor: '#ef4444' },
+      duration: 1000,
+      easing: 'fluid',
+    }),
+
+    // Step 2: Circle to oval
+    createFluidMorph({
+      element,
+      from: { width: '100px', height: '100px' },
+      to: { width: '150px', height: '75px' },
+      duration: 800,
+      easing: 'liquidSmooth',
+    }),
+
+    // Step 3: Oval to diamond
+    createFluidMorph({
+      element,
+      from: { transform: 'rotate(0deg)', borderRadius: '50%' },
+      to: { transform: 'rotate(45deg)', borderRadius: '10px' },
+      duration: 1200,
+      easing: 'fluid',
+    }),
+  ];
+
+  // Play sequence
+  let currentIndex = 0;
+
+  function playNext() {
+    if (currentIndex < morphs.length) {
+      morphs[currentIndex].play();
+      morphs[currentIndex].onComplete = () => {
+        currentIndex++;
+        setTimeout(playNext, 200); // Brief pause between morphs
+      };
+    }
+  }
+
+  playNext();
+}
+```
+
+### Hover-Triggered Morphing
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+function setupHoverMorph() {
+  const element = document.querySelector('.hover-morph');
+  if (!element) return;
+
+  const expandMorph = createFluidMorph({
+    element,
+    from: {
+      transform: 'scale(1)',
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    },
+    to: {
+      transform: 'scale(1.05)',
+      borderRadius: '16px',
+      boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+    },
+    duration: 300,
+    easing: 'fluid',
+  });
+
+  const shrinkMorph = createFluidMorph({
+    element,
+    from: {
+      transform: 'scale(1.05)',
+      borderRadius: '16px',
+      boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+    },
+    to: {
+      transform: 'scale(1)',
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    },
+    duration: 300,
+    easing: 'fluid',
+  });
+
+  element.addEventListener('mouseenter', () => expandMorph.play());
+  element.addEventListener('mouseleave', () => shrinkMorph.play());
+}
+```
+
+## Built-in Easing Functions
+
+### Fluid Easing
+
+```typescript
+// Smooth liquid-like motion
+easing: 'fluid';
+
+// Smooth with surface tension
+easing: 'liquidSmooth';
+
+// Viscous, honey-like motion
+easing: 'viscous';
+
+// Elastic, rubber-like motion
+easing: 'elastic';
+
+// Bouncy, droplet-like motion
+easing: 'droplet';
+```
+
+### Custom Easing Function
+
+```typescript
+const customEasing = (t: number) => {
+  // Custom easing calculation
+  return t * t * (3 - 2 * t); // Smoothstep function
+};
+
+const morph = createFluidMorph({
+  element: '.custom-element',
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+  duration: 1000,
+  easing: customEasing,
+});
+```
+
+## Advanced Features
+
+### Morph with Physics
+
+```typescript
+import { createFluidMorph, PHYSICS_CONSTANTS } from 'liquidify';
+
+const physicsMorph = createFluidMorph({
+  element: '.physics-element',
+  from: {
+    transform: 'translateY(0px)',
+    borderRadius: '0%',
+  },
+  to: {
+    transform: 'translateY(-50px)',
+    borderRadius: '50%',
+  },
+  duration: 1000,
+  easing: t => {
+    // Apply gravity-like easing
+    const gravity = PHYSICS_CONSTANTS.GRAVITY.y;
+    return 1 - Math.pow(1 - t, gravity / 10);
+  },
+});
+```
+
+### Responsive Morphing
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+function createResponsiveMorph() {
+  const isMobile = window.innerWidth < 768;
+
+  return createFluidMorph({
+    element: '.responsive-element',
+    from: {
+      width: isMobile ? '80px' : '120px',
+      height: isMobile ? '80px' : '120px',
+    },
+    to: {
+      width: isMobile ? '100px' : '180px',
+      height: isMobile ? '100px' : '180px',
+    },
+    duration: isMobile ? 600 : 1000,
+    easing: 'fluid',
+  });
+}
+```
+
+### Morphing with Callbacks
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+const callbackMorph = createFluidMorph({
+  element: '.callback-element',
+  from: { opacity: 0, transform: 'scale(0.8)' },
+  to: { opacity: 1, transform: 'scale(1)' },
+  duration: 1000,
+  easing: 'fluid',
+
+  onStart: () => {
+    console.log('Morph animation started');
+    // Add loading state
+  },
+
+  onUpdate: progress => {
+    console.log(`Animation progress: ${(progress * 100).toFixed(1)}%`);
+    // Update progress indicator
+  },
+
+  onComplete: () => {
+    console.log('Morph animation completed');
+    // Remove loading state, trigger next action
+  },
+});
+```
+
+## Performance Optimization
+
+### Batch Multiple Morphs
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+function batchMorphs() {
+  const elements = document.querySelectorAll('.batch-element');
+  const morphs: FluidMorphInstance[] = [];
+
+  elements.forEach((element, index) => {
+    const morph = createFluidMorph({
+      element,
+      from: { opacity: 0, transform: 'translateY(20px)' },
+      to: { opacity: 1, transform: 'translateY(0)' },
+      duration: 800,
+      delay: index * 100, // Stagger animation
+      easing: 'fluid',
+    });
+
+    morphs.push(morph);
+  });
+
+  // Play all morphs together
+  morphs.forEach(morph => morph.play());
+}
+```
+
+### Memory Management
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+class MorphManager {
+  private morphs: FluidMorphInstance[] = [];
+
+  createMorph(options: FluidMorphOptions) {
+    const morph = createFluidMorph(options);
+    this.morphs.push(morph);
+    return morph;
+  }
+
+  cleanup() {
+    this.morphs.forEach(morph => morph.kill());
+    this.morphs = [];
+  }
+}
+
+// Usage
+const manager = new MorphManager();
+const morph = manager.createMorph({
+  element: '.managed-element',
+  from: { opacity: 0 },
+  to: { opacity: 1 },
+  duration: 1000,
+});
+
+// Cleanup when done
+manager.cleanup();
+```
+
+## CSS Integration
+
+Enhance fluid morphs with CSS:
+
+```css
+.fluid-morph-element {
+  /* Ensure smooth transitions */
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+
+  /* Optimize for morphing */
+  will-change: transform, border-radius, background-color;
+}
+
+/* Add complementary CSS animations */
+.fluid-morph-element.morphing {
+  animation: subtle-glow 1s ease-in-out;
+}
+
+@keyframes subtle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+  }
+}
+```
+
+## Best Practices
+
+1. **Use appropriate durations**: 300-800ms for UI elements, 1000-2000ms for dramatic effects
+2. **Choose the right easing**: Use 'fluid' for organic shapes, 'liquidSmooth' for UI elements
+3. **Optimize performance**: Avoid morphing too many elements simultaneously
+4. **Consider accessibility**: Respect `prefers-reduced-motion` settings
+5. **Test on devices**: Fluid morphs may perform differently on various devices
+
+## Accessibility Considerations
+
+```typescript
+import { createFluidMorph } from 'liquidify';
+
+function createAccessibleMorph() {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  return createFluidMorph({
+    element: '.accessible-element',
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    duration: prefersReducedMotion ? 0 : 1000,
+    easing: prefersReducedMotion ? 'none' : 'fluid',
+  });
+}
+```
+
+## Related
+
+- [createGlassRipple](/physics-system/utilities/create-glass-ripple) - Creates ripple effects
+- [FluidSimulation](/physics-system/core-classes/fluid-simulation) - Advanced fluid physics
+- [PHYSICS_CONSTANTS](/physics-system/constants/physics-constants) - Physics constants for easing

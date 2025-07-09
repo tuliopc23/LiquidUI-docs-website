@@ -18,6 +18,7 @@ Liquid Glass simulates the effects of glass through dynamic blur, transparency, 
 Liquidify's Liquid Glass is implemented using advanced CSS and JS features:
 
 ### CSS Implementation
+
 ```css
 .glass {
   background: rgba(255, 255, 255, 0.08); /* Light glass effect */
@@ -33,15 +34,15 @@ Liquidify's Liquid Glass is implemented using advanced CSS and JS features:
 Using GSAP and Framer Motion for realistic animations and interactions.
 
 ```js
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 export const GlassEffect = () => (
-  <motion.div 
+  <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1, transition: { duration: 0.5 } }}
-    className="glass"
+    className='glass'
   />
-)
+);
 ```
 
 ## Best Practices
@@ -55,19 +56,18 @@ export const GlassEffect = () => (
 Create UI elements that leverage Liquid Glass to create a modern, polished interface.
 
 ```tsx
-import { Card } from 'liquidify'
+import { Card } from 'liquidify';
 
 export default function GlassCard() {
   return (
-    <Card className="glass p-4 m-6">
+    <Card className='glass p-4 m-6'>
       <h3>Title</h3>
       <p>Content over glass effect.</p>
     </Card>
-  )
+  );
 }
 ```
 
 ---
 
-*Liquid Glass propels the user interface into a new dimension of elegance and innovation.*
-
+_Liquid Glass propels the user interface into a new dimension of elegance and innovation._

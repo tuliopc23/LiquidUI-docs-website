@@ -1,0 +1,457 @@
+# SpringPhysics
+
+The `SpringPhysics` class simulates realistic spring dynamics for smooth, natural animations with configurable stiffness, damping, and mass properties.
+
+## Overview
+
+`SpringPhysics` implements a damped harmonic oscillator that creates natural-feeling animations with proper acceleration and deceleration. It's the foundation for smooth UI transitions, elastic effects, and physically-based animations in Liquidify.
+
+## Import
+
+```typescript
+import { SpringPhysics, SPRING_PRESETS } from 'liquidify';
+```
+
+## Constructor
+
+```typescript
+new SpringPhysics(options: SpringPhysicsOptions)
+```
+
+### SpringPhysicsOptions
+
+```typescript
+interface SpringPhysicsOptions {
+  stiffness?: number; // Spring stiffness (default: 100)
+  damping?: number; // Damping coefficient (default: 10)
+  mass?: number; // Mass of the object (default: 1)
+  initialPosition?: number; // Starting position (default: 0)
+  initialVelocity?: number; // Starting velocity (default: 0)
+  target?: number; // Target position (default: 0)
+  precision?: number; // Precision threshold (default: 0.001)
+}
+```
+
+## Properties
+
+### `position: number`
+
+Current position of the spring system.
+
+### `velocity: number`
+
+Current velocity of the spring system.
+
+### `target: number`
+
+Target position the spring is moving toward.
+
+### `stiffness: number`
+
+Spring stiffness constant. Higher values create faster, more rigid springs.
+
+### `damping: number`
+
+Damping coefficient. Higher values reduce oscillation and create smoother motion.
+
+### `mass: number`
+
+Mass of the object. Higher values create slower, more inertial motion.
+
+### `isAtRest: boolean`
+
+Indicates whether the spring has settled at its target position.
+
+## Methods
+
+### `setTarget(target: number): void`
+
+Sets a new target position for the spring.
+
+```typescript
+const spring = new SpringPhysics({ stiffness: 100, damping: 10 });
+spring.setTarget(100);
+```
+
+### `update(deltaTime: number): void`
+
+Updates the spring simulation by one time step.
+
+```typescript
+const deltaTime = 16; // 16ms for 60fps
+spring.update(deltaTime);
+```
+
+### `reset(position?: number, velocity?: number): void`
+
+Resets the spring to a new position and velocity.
+
+```typescript
+spring.reset(0, 0); // Reset to position 0 with no velocity
+```
+
+### `setProperties(options: Partial<SpringPhysicsOptions>): void`
+
+Updates spring properties during runtime.
+
+```typescript
+spring.setProperties({
+  stiffness: 200,
+  damping: 15,
+});
+```
+
+### `getEnergy(): number`
+
+Returns the total energy of the spring system.
+
+```typescript
+const energy = spring.getEnergy();
+```
+
+### `clone(): SpringPhysics`
+
+Creates a copy of the spring with identical properties.
+
+```typescript
+const springCopy = spring.clone();
+```
+
+## Usage Examples
+
+### Basic Spring Animation
+
+```typescript
+// Create a spring with gentle motion
+const spring = new SpringPhysics({
+  stiffness: 100,
+  damping: 10,
+  mass: 1,
+  initialPosition: 0,
+});
+
+// Set target and animate
+spring.setTarget(100);
+
+// Animation loop
+function animate() {
+  spring.update(16); // 60fps
+
+  // Apply position to DOM element
+  element.style.transform = `translateX(${spring.position}px)`;
+
+  if (!spring.isAtRest) {
+    requestAnimationFrame(animate);
+  }
+}
+animate();
+```
+
+### Using Spring Presets
+
+```typescript
+// Use predefined spring configurations
+const gentleSpring = new SpringPhysics(SPRING_PRESETS.gentle);
+const snappySpring = new SpringPhysics(SPRING_PRESETS.snappy);
+const bouncySpring = new SpringPhysics(SPRING_PRESETS.bouncy);
+```
+
+### Dynamic Spring Properties
+
+```typescript
+const spring = new SpringPhysics(SPRING_PRESETS.gentle);
+
+// Change spring behavior based on user interaction
+button.addEventListener('mousedown', () => {
+  spring.setProperties(SPRING_PRESETS.stiff);
+});
+
+button.addEventListener('mouseup', () => {
+  spring.setProperties(SPRING_PRESETS.gentle);
+});
+```
+
+### Chaining Springs
+
+```typescript
+// Create connected springs for complex animations
+const springs = [
+  new SpringPhysics(SPRING_PRESETS.gentle),
+  new SpringPhysics(SPRING_PRESETS.gentle),
+  new SpringPhysics(SPRING_PRESETS.gentle),
+];
+
+function updateChainedSprings(deltaTime: number) {
+  springs[0].update(deltaTime);
+
+  for (let i = 1; i < springs.length; i++) {
+    springs[i].setTarget(springs[i - 1].position);
+    springs[i].update(deltaTime);
+  }
+}
+```
+
+### React Integration
+
+```typescript
+import { useSpringPhysics } from 'liquidify';
+
+function SpringButton() {
+  const { position, setTarget, isAnimating } = useSpringPhysics({
+    stiffness: 150,
+    damping: 12,
+    mass: 1
+  });
+
+  return (
+    <button
+      style={{
+        transform: `scale(${1 + position * 0.1})`,
+        transition: isAnimating ? 'none' : 'transform 0.1s ease'
+      }}
+      onMouseDown={() => setTarget(1)}
+      onMouseUp={() => setTarget(0)}
+    >
+      Press me
+    </button>
+  );
+}
+```
+
+## Spring Presets
+
+Common spring configurations are available in `SPRING_PRESETS`:
+
+### `SPRING_PRESETS.gentle`
+
+Smooth, gentle motion with minimal overshoot.
+
+```typescript
+{ stiffness: 100, damping: 10, mass: 1 }
+```
+
+### `SPRING_PRESETS.snappy`
+
+Quick, responsive motion with slight bounce.
+
+```typescript
+{ stiffness: 200, damping: 15, mass: 1 }
+```
+
+### `SPRING_PRESETS.bouncy`
+
+Playful motion with pronounced bounce.
+
+```typescript
+{ stiffness: 300, damping: 8, mass: 1 }
+```
+
+### `SPRING_PRESETS.stiff`
+
+Rigid, immediate motion with no overshoot.
+
+```typescript
+{ stiffness: 400, damping: 25, mass: 1 }
+```
+
+### `SPRING_PRESETS.wobbly`
+
+Slow, wobbly motion with extended settling time.
+
+```typescript
+{ stiffness: 80, damping: 5, mass: 1 }
+```
+
+## Physics Calculations
+
+The spring system implements Hooke's Law with damping:
+
+```
+F = -k * x - d * v
+```
+
+Where:
+
+- `F` = Force
+- `k` = Stiffness (spring constant)
+- `x` = Displacement from target
+- `d` = Damping coefficient
+- `v` = Velocity
+
+### Understanding Parameters
+
+#### Stiffness
+
+- **Low (50-100)**: Slow, gentle motion
+- **Medium (100-200)**: Balanced, natural motion
+- **High (200-400)**: Fast, snappy motion
+
+#### Damping
+
+- **Low (5-10)**: Bouncy, oscillating motion
+- **Medium (10-20)**: Balanced settling
+- **High (20-30)**: Quick settling, no overshoot
+
+#### Mass
+
+- **Low (0.5-1)**: Light, responsive motion
+- **Medium (1-2)**: Natural inertia
+- **High (2-5)**: Heavy, slow motion
+
+## Performance Optimization
+
+```typescript
+// Use object pooling for multiple springs
+class SpringPool {
+  private springs: SpringPhysics[] = [];
+  private index = 0;
+
+  get(): SpringPhysics {
+    if (this.index >= this.springs.length) {
+      this.springs.push(new SpringPhysics());
+    }
+    return this.springs[this.index++];
+  }
+
+  release(spring: SpringPhysics): void {
+    spring.reset();
+    this.index--;
+  }
+}
+
+// Batch updates for better performance
+const springs: SpringPhysics[] = [];
+function updateAllSprings(deltaTime: number) {
+  for (const spring of springs) {
+    spring.update(deltaTime);
+  }
+}
+```
+
+## Advanced Usage
+
+### Variable Time Step
+
+```typescript
+let lastTime = 0;
+function animate(currentTime: number) {
+  const deltaTime = currentTime - lastTime;
+  lastTime = currentTime;
+
+  // Cap delta time to prevent large jumps
+  const cappedDelta = Math.min(deltaTime, 32); // Max 32ms
+  spring.update(cappedDelta);
+
+  requestAnimationFrame(animate);
+}
+```
+
+### Spring Interruption
+
+```typescript
+// Smoothly change target while spring is animating
+function smoothTransition(spring: SpringPhysics, newTarget: number) {
+  // Preserve current velocity for smooth transition
+  const currentVelocity = spring.velocity;
+  spring.setTarget(newTarget);
+
+  // Optionally adjust velocity for smoother transition
+  if (Math.abs(currentVelocity) > 50) {
+    spring.velocity = currentVelocity * 0.5;
+  }
+}
+```
+
+### Energy-Based Termination
+
+```typescript
+// Stop animation when energy is below threshold
+function updateWithEnergyCheck(spring: SpringPhysics, deltaTime: number) {
+  spring.update(deltaTime);
+
+  const energy = spring.getEnergy();
+  if (energy < 0.01) {
+    spring.reset(spring.target, 0); // Snap to target
+  }
+}
+```
+
+## Integration with Other Systems
+
+### With Vector2D for 2D Springs
+
+```typescript
+// Create 2D spring motion
+const springX = new SpringPhysics(SPRING_PRESETS.gentle);
+const springY = new SpringPhysics(SPRING_PRESETS.gentle);
+
+function setTarget2D(x: number, y: number) {
+  springX.setTarget(x);
+  springY.setTarget(y);
+}
+
+function update2D(deltaTime: number) {
+  springX.update(deltaTime);
+  springY.update(deltaTime);
+
+  return new Vector2D(springX.position, springY.position);
+}
+```
+
+### With Particle Systems
+
+```typescript
+// Apply spring forces to particles
+class SpringParticle {
+  position: Vector2D;
+  springX: SpringPhysics;
+  springY: SpringPhysics;
+
+  constructor(x: number, y: number) {
+    this.position = new Vector2D(x, y);
+    this.springX = new SpringPhysics(SPRING_PRESETS.gentle);
+    this.springY = new SpringPhysics(SPRING_PRESETS.gentle);
+  }
+
+  update(deltaTime: number) {
+    this.springX.update(deltaTime);
+    this.springY.update(deltaTime);
+    this.position.x = this.springX.position;
+    this.position.y = this.springY.position;
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Spring never settles**: Reduce damping or increase precision threshold
+2. **Motion too slow**: Increase stiffness or reduce mass
+3. **Too much overshoot**: Increase damping or reduce stiffness
+4. **Jerky motion**: Ensure consistent delta time in update calls
+
+### Debug Utilities
+
+```typescript
+// Add debug information
+class DebugSpringPhysics extends SpringPhysics {
+  getDebugInfo() {
+    return {
+      position: this.position,
+      velocity: this.velocity,
+      target: this.target,
+      energy: this.getEnergy(),
+      isAtRest: this.isAtRest,
+      displacement: this.target - this.position,
+    };
+  }
+}
+```
+
+## Related
+
+- [Spring2D](/physics-system/core-classes/spring2d) - 2D spring physics implementation
+- [Vector2D](/physics-system/core-classes/vector2d) - Used for 2D spring calculations
+- [SPRING_PRESETS](/physics-system/constants/spring-presets) - Pre-configured spring settings
+- [useMagneticHover](/physics-system/hooks/use-magnetic-hover) - Uses springs for magnetic effects

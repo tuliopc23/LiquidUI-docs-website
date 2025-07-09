@@ -1,0 +1,186 @@
+import { FluidDynamicsDemo } from '@/components/physics-demos/FluidDynamicsDemo';
+
+# Fluid Dynamics Demo
+
+Experience realistic fluid simulations with viscosity, surface tension, and flow dynamics.
+
+## Interactive Fluid Simulation
+
+<FluidDynamicsDemo />
+
+## Fluid Properties
+
+### Viscosity
+
+Controls how thick or thin the fluid behaves:
+
+- **Low (0.05-0.1)**: Water-like, flows easily
+- **Medium (0.1-0.3)**: Oil-like, moderate flow
+- **High (0.3-0.8)**: Honey-like, thick flow
+
+### Surface Tension
+
+Affects how particles stick together:
+
+- **Low**: Particles spread out quickly
+- **Medium**: Balanced cohesion
+- **High**: Strong particle attraction
+
+### Density
+
+Controls particle concentration:
+
+- **Low**: Sparse, gas-like
+- **Medium**: Liquid-like
+- **High**: Dense, heavy flow
+
+## Code Examples
+
+### Basic Fluid Simulation
+
+```typescript
+import { FluidSimulation, Vector2D } from 'liquidify';
+
+const fluidSim = new FluidSimulation({
+  gridWidth: 50,
+  gridHeight: 50,
+  cellSize: 10,
+  particleCount: 400,
+  viscosity: 0.2,
+  fade: 0.05,
+  gravity: new Vector2D(0, 98),
+});
+
+function animate() {
+  fluidSim.update(16);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  fluidSim.render(ctx);
+
+  requestAnimationFrame(animate);
+}
+```
+
+### Interactive Fluid
+
+```typescript
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const x = Math.floor((e.clientX - rect.left) / fluidSim.cellSize);
+  const y = Math.floor((e.clientY - rect.top) / fluidSim.cellSize);
+
+  fluidSim.addSourceDensity(x, y, 5);
+  fluidSim.addVelocity(x, y, new Vector2D(10, 10));
+});
+```
+
+### Custom Fluid Effects
+
+```typescript
+// Smoke effect
+const smokeFluid = new FluidSimulation({
+  gridWidth: 100,
+  gridHeight: 100,
+  cellSize: 5,
+  particleCount: 500,
+  viscosity: 0.1,
+  fade: 0.02,
+  gravity: new Vector2D(0, -20), // Upward flow
+});
+
+// Water effect
+const waterFluid = new FluidSimulation({
+  gridWidth: 80,
+  gridHeight: 80,
+  cellSize: 8,
+  particleCount: 600,
+  viscosity: 0.05,
+  fade: 0.01,
+  gravity: new Vector2D(0, 98), // Downward flow
+});
+```
+
+### Advanced Fluid Behaviors
+
+```typescript
+// Add impulse for interactions
+fluidSim.applyImpulse(new Vector2D(100, 100), 50);
+
+// Set custom boundary conditions
+fluidSim.setBoundaryConditions('reflect'); // or 'wrap'
+
+// Add velocity sources
+fluidSim.addVelocity(25, 25, new Vector2D(50, 0));
+```
+
+## Simulation Parameters
+
+### Grid Resolution
+
+- **Low (20x20)**: Fast, less detailed
+- **Medium (50x50)**: Balanced performance/quality
+- **High (100x100)**: Detailed, slower
+
+### Particle Count
+
+- **Low (100-300)**: Sparse simulation
+- **Medium (300-600)**: Good detail
+- **High (600-1000)**: Dense, realistic
+
+### Cell Size
+
+- **Small (5-10px)**: High resolution
+- **Medium (10-20px)**: Standard
+- **Large (20-40px)**: Low resolution, fast
+
+## Interactive Features
+
+1. **Mouse Interaction**: Click and drag to add fluid
+2. **Viscosity Control**: Adjust fluid thickness
+3. **Gravity Settings**: Change flow direction
+4. **Boundary Types**: Different edge behaviors
+5. **Real-time Adjustment**: Modify parameters live
+
+## Performance Optimization
+
+```typescript
+// Use culling for off-screen particles
+fluidSim.enableCulling(true);
+
+// Enable caching for better performance
+fluidSim.enableCaching(true);
+
+// Adjust grid size based on device
+const isMobile = window.innerWidth < 768;
+const gridSize = isMobile ? 30 : 50;
+```
+
+## Common Use Cases
+
+### Water Effects
+
+- Realistic water flow
+- Splash animations
+- Liquid containers
+
+### Smoke Simulation
+
+- Particle smoke
+- Steam effects
+- Gas dispersion
+
+### Artistic Effects
+
+- Fluid art
+- Organic animations
+- Abstract visuals
+
+## Tips for Better Results
+
+1. **Start with presets** before customizing
+2. **Adjust viscosity** for different materials
+3. **Use appropriate grid size** for your needs
+4. **Consider performance** on mobile devices
+5. **Experiment with boundaries** for different effects
+
+Try the interactive controls to see how different parameters affect the fluid behavior!

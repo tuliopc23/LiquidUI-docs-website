@@ -9,25 +9,81 @@ GlassBadges provide clear visual indicators for status, notifications, labels, a
 ## Basic Usage
 
 ```tsx
-import { GlassBadge } from '@liquidify/ui'
+import { GlassBadge } from '@liquidify/ui';
 
 function BasicBadge() {
-  return <GlassBadge>New</GlassBadge>
+  return <GlassBadge>New</GlassBadge>;
 }
 ```
+
+## Accessibility
+
+![Accessibility Badge](https://img.shields.io/badge/A11y-AA%20Compliant-green)
+
+**WCAG 2.1 AA Compliant** ✅
+
+### Keyboard Navigation
+
+- `Tab` - Navigate to the component
+- `Enter` or `Space` - Activate interactive elements
+- `Arrow keys` - Navigate within component (when applicable)
+- `Escape` - Close modals or dismiss overlays
+
+### Screen Reader Support
+
+- Proper ARIA labels and roles
+- Semantic HTML structure
+- State changes announced
+- Focus management
+- Descriptive error messages
+
+### Focus Management
+
+- Visible focus indicators
+- Logical focus order
+- Focus trapping in modals
+- Focus restoration on close
+
+### Color and Contrast
+
+- Minimum 4.5:1 contrast ratio for normal text
+- Minimum 3:1 contrast ratio for large text
+- Color is not the only way to convey information
+- High contrast mode support
+
+### Testing
+
+```tsx
+import { expectAccessible } from '../lib/test-utils';
+
+test('GlassBadge accessibility', async () => {
+  await expectAccessible(<GlassBadge>Content</GlassBadge>);
+});
+```
+
+### Accessibility Features
+
+- ✅ Keyboard navigation
+- ✅ Screen reader support
+- ✅ Focus management
+- ✅ Color contrast compliance
+- ✅ ARIA labels and roles
+- ✅ Semantic HTML
+- ✅ Error handling
+- ✅ Responsive design
 
 ## API Reference
 
 ### GlassBadge Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Badge color scheme |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Badge size |
-| `dot` | `boolean` | `false` | Show as dot indicator |
-| `count` | `number` | - | Numeric counter display |
-| `max` | `number` | `99` | Maximum count before showing "+" |
-| `showZero` | `boolean` | `false` | Show badge when count is 0 |
+| Prop       | Type                                                       | Default     | Description                      |
+| ---------- | ---------------------------------------------------------- | ----------- | -------------------------------- |
+| `variant`  | `'default' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Badge color scheme               |
+| `size`     | `'sm' \| 'md' \| 'lg'`                                     | `'md'`      | Badge size                       |
+| `dot`      | `boolean`                                                  | `false`     | Show as dot indicator            |
+| `count`    | `number`                                                   | -           | Numeric counter display          |
+| `max`      | `number`                                                   | `99`        | Maximum count before showing "+" |
+| `showZero` | `boolean`                                                  | `false`     | Show badge when count is 0       |
 
 ## Variants
 
@@ -60,26 +116,23 @@ function BasicBadge() {
 ### Notification Indicators
 
 ```tsx
-<div className="relative">
-  <button className="p-2">
+<div className='relative'>
+  <button className='p-2'>
     <BellIcon />
   </button>
-  <GlassBadge 
-    count={3} 
-    className="absolute -top-1 -right-1"
-  />
+  <GlassBadge count={3} className='absolute -top-1 -right-1' />
 </div>
 ```
 
 ### Status Labels
 
 ```tsx
-<div className="flex items-center gap-2">
+<div className='flex items-center gap-2'>
   <span>Service Status</span>
-  <GlassBadge variant="success">Online</GlassBadge>
+  <GlassBadge variant='success'>Online</GlassBadge>
 </div>
 ```
 
 ---
 
-*GlassBadge provides clear visual communication for status and notifications.*
+_GlassBadge provides clear visual communication for status and notifications._

@@ -1,0 +1,170 @@
+import { SpringAnimationsDemo } from '@/components/physics-demos/SpringAnimationsDemo';
+
+# Spring Animations Demo
+
+Explore the different spring physics configurations and their visual effects with these interactive demonstrations.
+
+## Interactive Spring Visualizer
+
+<SpringAnimationsDemo />
+
+## Spring Presets Overview
+
+### Gentle
+
+- **Stiffness**: 100
+- **Damping**: 10
+- **Feel**: Smooth, refined
+- **Best for**: Subtle UI animations, card hovers
+
+### Snappy
+
+- **Stiffness**: 200
+- **Damping**: 15
+- **Feel**: Quick, responsive
+- **Best for**: Button feedback, toggles
+
+### Bouncy
+
+- **Stiffness**: 300
+- **Damping**: 8
+- **Feel**: Playful, energetic
+- **Best for**: Game UI, fun interactions
+
+### Stiff
+
+- **Stiffness**: 400
+- **Damping**: 25
+- **Feel**: Rigid, immediate
+- **Best for**: Drag & drop, precise positioning
+
+### Wobbly
+
+- **Stiffness**: 80
+- **Damping**: 5
+- **Feel**: Organic, liquid-like
+- **Best for**: Fluid effects, casual interfaces
+
+### Elastic
+
+- **Stiffness**: 250
+- **Damping**: 12
+- **Feel**: Rubber-like, tactile
+- **Best for**: Pull-to-refresh, elastic scrolling
+
+## Code Examples
+
+### Basic Spring Usage
+
+```typescript
+import { SpringPhysics, SPRING_PRESETS } from 'liquidify';
+
+const spring = new SpringPhysics(SPRING_PRESETS.gentle);
+spring.setTarget(100);
+
+function animate() {
+  spring.update(16); // 60fps
+
+  // Apply to element
+  element.style.transform = `translateX(${spring.position}px)`;
+
+  if (!spring.isAtRest) {
+    requestAnimationFrame(animate);
+  }
+}
+```
+
+### React Hook Example
+
+```typescript
+import { useSpringPhysics, SPRING_PRESETS } from 'liquidify';
+
+function SpringButton() {
+  const { position, setTarget, isAnimating } = useSpringPhysics(SPRING_PRESETS.snappy);
+
+  return (
+    <button
+      style={{
+        transform: `scale(${1 + position * 0.1})`,
+      }}
+      onMouseDown={() => setTarget(1)}
+      onMouseUp={() => setTarget(0)}
+    >
+      Press me
+    </button>
+  );
+}
+```
+
+### 2D Spring Example
+
+```typescript
+import { Spring2D, SPRING_PRESETS, Vector2D } from 'liquidify';
+
+const spring = new Spring2D(SPRING_PRESETS.gentle);
+spring.setTarget(new Vector2D(100, 200));
+
+function animate() {
+  spring.update(16);
+
+  element.style.transform = `translate(${spring.position.x}px, ${spring.position.y}px)`;
+
+  if (!spring.isAtRest) {
+    requestAnimationFrame(animate);
+  }
+}
+```
+
+### Custom Spring Configuration
+
+```typescript
+const customSpring = new SpringPhysics({
+  stiffness: 150,
+  damping: 12,
+  mass: 1,
+  precision: 0.001,
+});
+```
+
+## Physics Concepts
+
+### Stiffness
+
+Controls how quickly the spring responds to changes:
+
+- **Low (50-100)**: Slow, gentle response
+- **Medium (100-200)**: Balanced motion
+- **High (200-400)**: Fast, immediate response
+
+### Damping
+
+Controls how much the spring oscillates:
+
+- **Low (5-10)**: Bouncy, lots of oscillation
+- **Medium (10-20)**: Balanced settling
+- **High (20-30)**: Quick settling, no overshoot
+
+### Mass
+
+Affects the inertia of the animation:
+
+- **Low (0.5-1)**: Light, quick to change direction
+- **Medium (1-2)**: Natural feeling
+- **High (2-5)**: Heavy, slow to start/stop
+
+## Interactive Features
+
+1. **Target Control**: Click anywhere to set a new target
+2. **Preset Selection**: Try different spring configurations
+3. **Real-time Parameters**: Adjust stiffness, damping, and mass
+4. **Visual Feedback**: See the spring motion in real-time
+5. **Performance Metrics**: Monitor animation performance
+
+## Performance Tips
+
+- Use `isAtRest` to stop animation loops
+- Clamp delta time to prevent large jumps
+- Consider using `SPRING_PRESETS` for consistency
+- Test on different devices for feel
+
+Experiment with the controls to understand how each parameter affects the spring's behavior!

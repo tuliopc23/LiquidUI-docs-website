@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassCommandProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassCommandProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   command: string;
   execute?: () => void;
   disableEditing?: boolean;
@@ -26,7 +27,7 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
 
     setExecuting(true);
     execute();
-    setTimeout(() => setExecuting(false), 2000);  // Mock async execution delay
+    setTimeout(() => setExecuting(false), 2000); // Mock async execution delay
   };
 
   const baseClasses = cn(
@@ -38,16 +39,12 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
   );
 
   return (
-    <GlassEffect
-      variant="button"
-      className={baseClasses}
-      {...props}
-    >
-      <div className="flex items-center justify-between w-full">
+    <GlassEffect variant='button' className={baseClasses} {...props}>
+      <div className='flex items-center justify-between w-full'>
         <input
-          type="text"
+          type='text'
           value={currentCommand}
-          onChange={(e) => setCurrentCommand(e.target.value)}
+          onChange={e => setCurrentCommand(e.target.value)}
           disabled={disableEditing}
           className={cn(
             'bg-transparent border-none flex-1 text-current mr-2',
@@ -57,7 +54,7 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
         <button
           onClick={handleExecute}
           disabled={executing}
-          className="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+          className='px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md'
         >
           {executing ? 'Executing' : 'Execute'}
         </button>
@@ -67,4 +64,3 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
 };
 
 export default GlassCommand;
-

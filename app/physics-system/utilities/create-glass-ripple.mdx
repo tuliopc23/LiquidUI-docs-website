@@ -1,0 +1,630 @@
+# createGlassRipple
+
+The `createGlassRipple` utility creates realistic ripple effects on glass surfaces, simulating the visual impact of interactions with liquid glass materials.
+
+## Overview
+
+This utility generates beautiful ripple effects that emanate from interaction points, creating the illusion of disturbing a glass surface. The ripples use physics-based timing and visual effects to create realistic glass surface disturbances.
+
+## Import
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+```
+
+## Basic Usage
+
+```typescript
+const ripple = createGlassRipple({
+  element: '.glass-surface',
+  x: 100,
+  y: 150,
+  size: 100,
+  duration: 1000,
+});
+
+// Create ripple effect
+ripple.play();
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+createGlassRipple(options: GlassRippleOptions): GlassRippleInstance
+```
+
+#### GlassRippleOptions
+
+```typescript
+interface GlassRippleOptions {
+  element: string | HTMLElement; // Target element or selector
+  x: number; // X position of ripple center
+  y: number; // Y position of ripple center
+  size?: number; // Maximum ripple size (default: 100)
+  duration?: number; // Animation duration in ms (default: 800)
+  color?: string; // Ripple color (default: 'rgba(255,255,255,0.3)')
+  intensity?: number; // Ripple intensity (default: 0.8)
+  blur?: number; // Blur amount (default: 2)
+  easing?: string | EasingFunction; // Easing function (default: 'glassRipple')
+  multiple?: boolean; // Allow multiple ripples (default: true)
+  onComplete?: () => void; // Callback when ripple completes
+}
+```
+
+#### GlassRippleInstance
+
+```typescript
+interface GlassRippleInstance {
+  play(): void; // Start the ripple animation
+  stop(): void; // Stop the ripple animation
+  destroy(): void; // Remove ripple and cleanup
+  isActive(): boolean; // Check if ripple is active
+}
+```
+
+## Examples
+
+### Basic Glass Ripple
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+// Create ripple on click
+document.addEventListener('click', e => {
+  const target = e.target as HTMLElement;
+  if (target.classList.contains('glass-surface')) {
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    createGlassRipple({
+      element: target,
+      x,
+      y,
+      size: 120,
+      duration: 1000,
+      color: 'rgba(255, 255, 255, 0.4)',
+    }).play();
+  }
+});
+```
+
+### Interactive Glass Panel
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function setupGlassPanel() {
+  const panel = document.querySelector('.glass-panel');
+  if (!panel) return;
+
+  panel.addEventListener('mousedown', e => {
+    const rect = panel.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    createGlassRipple({
+      element: panel,
+      x,
+      y,
+      size: 80,
+      duration: 600,
+      color: 'rgba(59, 130, 246, 0.3)',
+      intensity: 0.6,
+    }).play();
+  });
+}
+```
+
+### Multiple Ripple Effects
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function createMultipleRipples(
+  element: HTMLElement,
+  centerX: number,
+  centerY: number
+) {
+  const rippleCount = 3;
+  const baseSize = 60;
+  const delays = [0, 200, 400];
+
+  for (let i = 0; i < rippleCount; i++) {
+    setTimeout(() => {
+      createGlassRipple({
+        element,
+        x: centerX + (Math.random() - 0.5) * 40,
+        y: centerY + (Math.random() - 0.5) * 40,
+        size: baseSize + i * 20,
+        duration: 800 + i * 200,
+        color: `rgba(255, 255, 255, ${0.4 - i * 0.1})`,
+        intensity: 0.7 - i * 0.1,
+      }).play();
+    }, delays[i]);
+  }
+}
+```
+
+### React Integration
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+import { useRef, useCallback } from 'react';
+
+function GlassButton({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      createGlassRipple({
+        element: buttonRef.current,
+        x,
+        y,
+        size: 100,
+        duration: 600,
+        color: 'rgba(255, 255, 255, 0.3)',
+        intensity: 0.8
+      }).play();
+    }
+
+    onClick?.();
+  }, [onClick]);
+
+  return (
+    <button
+      ref={buttonRef}
+      onClick={handleClick}
+      className="relative overflow-hidden bg-white/10 backdrop-blur-md rounded-lg px-6 py-3 text-white border border-white/20"
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+### Animated Glass Card
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function AnimatedGlassCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleInteraction = useCallback((e: React.MouseEvent) => {
+    if (cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      createGlassRipple({
+        element: cardRef.current,
+        x,
+        y,
+        size: 150,
+        duration: 1200,
+        color: 'rgba(59, 130, 246, 0.2)',
+        intensity: 0.6,
+        blur: 3
+      }).play();
+    }
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      className="relative overflow-hidden bg-white/10 backdrop-blur-lg rounded-xl p-8 border border-white/20"
+      onMouseDown={handleInteraction}
+    >
+      <h3 className="text-xl font-semibold text-white mb-4">Glass Card</h3>
+      <p className="text-white/80">Click anywhere on this card to create glass ripples!</p>
+    </div>
+  );
+}
+```
+
+### Touch-Friendly Glass Interface
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function setupTouchGlass() {
+  const glassElements = document.querySelectorAll('.touch-glass');
+
+  glassElements.forEach(element => {
+    // Handle both mouse and touch events
+    const handleInteraction = (e: MouseEvent | TouchEvent) => {
+      const rect = element.getBoundingClientRect();
+      let x, y;
+
+      if (e instanceof TouchEvent) {
+        const touch = e.touches[0] || e.changedTouches[0];
+        x = touch.clientX - rect.left;
+        y = touch.clientY - rect.top;
+      } else {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+      }
+
+      createGlassRipple({
+        element: element as HTMLElement,
+        x,
+        y,
+        size: 120,
+        duration: 800,
+        color: 'rgba(255, 255, 255, 0.3)',
+        intensity: 0.7,
+      }).play();
+    };
+
+    element.addEventListener('mousedown', handleInteraction);
+    element.addEventListener('touchstart', handleInteraction);
+  });
+}
+```
+
+## Advanced Features
+
+### Custom Ripple Shapes
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+// Create oval ripple
+const ovalRipple = createGlassRipple({
+  element: '.glass-surface',
+  x: 100,
+  y: 100,
+  size: 100,
+  duration: 1000,
+  // Custom shape through CSS variables
+  customShape: {
+    scaleX: 1.5,
+    scaleY: 0.8,
+    rotation: 45,
+  },
+});
+
+// Create square ripple
+const squareRipple = createGlassRipple({
+  element: '.glass-surface',
+  x: 200,
+  y: 100,
+  size: 80,
+  duration: 800,
+  borderRadius: '10px',
+});
+```
+
+### Ripple with Particles
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function createParticleRipple(element: HTMLElement, x: number, y: number) {
+  // Main ripple
+  const ripple = createGlassRipple({
+    element,
+    x,
+    y,
+    size: 100,
+    duration: 1000,
+    color: 'rgba(255, 255, 255, 0.3)',
+    intensity: 0.6,
+  });
+
+  // Add particle effects
+  const particleCount = 8;
+  for (let i = 0; i < particleCount; i++) {
+    const angle = (i / particleCount) * Math.PI * 2;
+    const distance = 20 + Math.random() * 30;
+    const particleX = x + Math.cos(angle) * distance;
+    const particleY = y + Math.sin(angle) * distance;
+
+    setTimeout(() => {
+      createGlassRipple({
+        element,
+        x: particleX,
+        y: particleY,
+        size: 20 + Math.random() * 20,
+        duration: 600,
+        color: 'rgba(255, 255, 255, 0.2)',
+        intensity: 0.4,
+      }).play();
+    }, i * 50);
+  }
+
+  ripple.play();
+}
+```
+
+### Performance-Optimized Ripples
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+class RippleManager {
+  private activeRipples: GlassRippleInstance[] = [];
+  private maxRipples = 5;
+
+  createRipple(options: GlassRippleOptions): GlassRippleInstance {
+    // Limit active ripples for performance
+    if (this.activeRipples.length >= this.maxRipples) {
+      const oldestRipple = this.activeRipples.shift();
+      oldestRipple?.destroy();
+    }
+
+    const ripple = createGlassRipple({
+      ...options,
+      onComplete: () => {
+        this.removeRipple(ripple);
+        options.onComplete?.();
+      },
+    });
+
+    this.activeRipples.push(ripple);
+    return ripple;
+  }
+
+  private removeRipple(ripple: GlassRippleInstance) {
+    const index = this.activeRipples.indexOf(ripple);
+    if (index > -1) {
+      this.activeRipples.splice(index, 1);
+    }
+  }
+
+  cleanup() {
+    this.activeRipples.forEach(ripple => ripple.destroy());
+    this.activeRipples = [];
+  }
+}
+
+// Usage
+const rippleManager = new RippleManager();
+
+document.addEventListener('click', e => {
+  const target = e.target as HTMLElement;
+  if (target.classList.contains('glass-surface')) {
+    const rect = target.getBoundingClientRect();
+    rippleManager
+      .createRipple({
+        element: target,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        size: 100,
+        duration: 800,
+      })
+      .play();
+  }
+});
+```
+
+### Ripple Presets
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+const RIPPLE_PRESETS = {
+  gentle: {
+    size: 80,
+    duration: 1000,
+    color: 'rgba(255, 255, 255, 0.2)',
+    intensity: 0.4,
+    blur: 1,
+  },
+
+  strong: {
+    size: 120,
+    duration: 800,
+    color: 'rgba(255, 255, 255, 0.4)',
+    intensity: 0.8,
+    blur: 3,
+  },
+
+  subtle: {
+    size: 60,
+    duration: 1200,
+    color: 'rgba(255, 255, 255, 0.15)',
+    intensity: 0.3,
+    blur: 0.5,
+  },
+
+  colorful: {
+    size: 100,
+    duration: 900,
+    color: 'rgba(59, 130, 246, 0.3)',
+    intensity: 0.6,
+    blur: 2,
+  },
+};
+
+// Usage
+function createPresetRipple(
+  preset: keyof typeof RIPPLE_PRESETS,
+  element: HTMLElement,
+  x: number,
+  y: number
+) {
+  return createGlassRipple({
+    element,
+    x,
+    y,
+    ...RIPPLE_PRESETS[preset],
+  });
+}
+```
+
+## CSS Integration
+
+Enhance glass ripples with CSS:
+
+```css
+.glass-surface {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+/* Ripple container */
+.glass-ripple {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    transparent 70%
+  );
+  backdrop-filter: blur(2px);
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* Ripple animation */
+.glass-ripple.active {
+  animation: ripple-expand 0.8s ease-out forwards;
+}
+
+@keyframes ripple-expand {
+  0% {
+    transform: scale(0);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Enhanced glass effect */
+.glass-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+```
+
+## Best Practices
+
+1. **Use appropriate sizes**: 60-150px for most interfaces
+2. **Limit concurrent ripples**: Maximum 3-5 active ripples for performance
+3. **Choose suitable colors**: Semi-transparent whites or brand colors
+4. **Optimize for touch**: Ensure ripples work well on touch devices
+5. **Consider accessibility**: Provide option to disable for motion-sensitive users
+
+## Accessibility Considerations
+
+```typescript
+import { createGlassRipple } from 'liquidify';
+
+function createAccessibleRipple(options: GlassRippleOptions) {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  if (prefersReducedMotion) {
+    // Simplified effect for reduced motion
+    return createGlassRipple({
+      ...options,
+      duration: 200,
+      intensity: 0.3,
+      blur: 0,
+    });
+  }
+
+  return createGlassRipple(options);
+}
+```
+
+## Performance Tips
+
+1. **Limit active ripples**: Use a ripple manager to control concurrent effects
+2. **Use CSS transforms**: Leverage GPU acceleration for smooth animations
+3. **Cleanup properly**: Always destroy ripples when done
+4. **Optimize for mobile**: Consider reduced effects on lower-end devices
+5. **Use requestAnimationFrame**: For smooth custom animations
+
+## Integration with Other Systems
+
+### With Particle Systems
+
+```typescript
+import { createGlassRipple, ParticleEmitter } from 'liquidify';
+
+function createRippleWithParticles(element: HTMLElement, x: number, y: number) {
+  // Create glass ripple
+  const ripple = createGlassRipple({
+    element,
+    x,
+    y,
+    size: 100,
+    duration: 1000,
+    color: 'rgba(255, 255, 255, 0.3)',
+  });
+
+  // Add particle effect
+  const particles = new ParticleEmitter({
+    position: new Vector2D(x, y),
+    rate: 0, // Burst only
+    particleLifetime: 800,
+    velocity: new Vector2D(0, 0),
+    velocityVariation: new Vector2D(50, 50),
+    size: 2,
+    color: 'rgba(255, 255, 255, 0.8)',
+    fadeOut: true,
+  });
+
+  ripple.play();
+  particles.burst(10);
+}
+```
+
+### With Fluid Simulation
+
+```typescript
+import { createGlassRipple, FluidSimulation } from 'liquidify';
+
+function createFluidRipple(fluidSim: FluidSimulation, x: number, y: number) {
+  // Apply impulse to fluid simulation
+  fluidSim.applyImpulse(new Vector2D(x, y), 10);
+
+  // Create visual ripple effect
+  createGlassRipple({
+    element: fluidSim.canvas,
+    x,
+    y,
+    size: 80,
+    duration: 600,
+    color: 'rgba(0, 164, 219, 0.3)',
+  }).play();
+}
+```
+
+## Related
+
+- [createFluidMorph](/physics-system/utilities/create-fluid-morph) - Fluid morphing animations
+- [ParticleEmitter](/physics-system/core-classes/particle-emitter) - Particle effects
+- [FluidSimulation](/physics-system/core-classes/fluid-simulation) - Fluid dynamics

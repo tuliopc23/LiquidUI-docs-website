@@ -1,0 +1,502 @@
+# SPRING_PRESETS
+
+The `SPRING_PRESETS` object provides pre-configured spring settings for common animation patterns and feels in the Liquidify physics system.
+
+## Overview
+
+`SPRING_PRESETS` contains carefully tuned spring configurations that achieve specific animation characteristics. These presets save time and ensure consistent, professional-feeling animations across your application.
+
+## Import
+
+```typescript
+import { SPRING_PRESETS } from 'liquidify';
+```
+
+## Available Presets
+
+### `gentle`
+
+Smooth, gentle motion with minimal overshoot. Perfect for subtle UI animations.
+
+```typescript
+SPRING_PRESETS.gentle = {
+  stiffness: 100,
+  damping: 10,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Smooth acceleration and deceleration
+- Minimal bounce or overshoot
+- Settles quickly without oscillation
+- Feels natural and refined
+
+**Use Cases:**
+
+- Card hover effects
+- Menu transitions
+- Subtle element movements
+- Professional UI animations
+
+### `snappy`
+
+Quick, responsive motion with slight bounce. Great for interactive elements.
+
+```typescript
+SPRING_PRESETS.snappy = {
+  stiffness: 200,
+  damping: 15,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Fast response to input
+- Slight overshoot for liveliness
+- Quick settling time
+- Feels responsive and modern
+
+**Use Cases:**
+
+- Button press feedback
+- Toggle switches
+- Modal appearances
+- Interactive controls
+
+### `bouncy`
+
+Playful motion with pronounced bounce. Ideal for fun, engaging animations.
+
+```typescript
+SPRING_PRESETS.bouncy = {
+  stiffness: 300,
+  damping: 8,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Pronounced overshoot
+- Multiple oscillations
+- Playful, energetic feel
+- Longer settling time
+
+**Use Cases:**
+
+- Game UI elements
+- Playful notifications
+- Children's app animations
+- Fun micro-interactions
+
+### `stiff`
+
+Rigid, immediate motion with no overshoot. Perfect for precise movements.
+
+```typescript
+SPRING_PRESETS.stiff = {
+  stiffness: 400,
+  damping: 25,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Immediate response
+- No overshoot or bounce
+- Very quick settling
+- Feels rigid and precise
+
+**Use Cases:**
+
+- Drag and drop operations
+- Precise positioning
+- Technical interfaces
+- When exact positioning is required
+
+### `wobbly`
+
+Slow, wobbly motion with extended settling time. Creates organic, liquid-like movement.
+
+```typescript
+SPRING_PRESETS.wobbly = {
+  stiffness: 80,
+  damping: 5,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Slow, organic movement
+- Extended oscillations
+- Liquid-like feel
+- Long settling time
+
+**Use Cases:**
+
+- Liquid/water effects
+- Organic animations
+- Relaxed, casual interfaces
+- Artistic animations
+
+### `elastic`
+
+Rubber-like motion with elastic bounce. Great for tactile feedback.
+
+```typescript
+SPRING_PRESETS.elastic = {
+  stiffness: 250,
+  damping: 12,
+  mass: 2,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Elastic, rubber-like feel
+- Moderate bounce
+- Heavier mass for inertia
+- Tactile feedback sensation
+
+**Use Cases:**
+
+- Pull-to-refresh interactions
+- Elastic scrolling
+- Tactile button feedback
+- Rubber-band effects
+
+### `smooth`
+
+Ultra-smooth motion with no overshoot. Perfect for elegant animations.
+
+```typescript
+SPRING_PRESETS.smooth = {
+  stiffness: 120,
+  damping: 20,
+  mass: 1,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Perfectly smooth motion
+- No overshoot at all
+- Elegant feel
+- Balanced timing
+
+**Use Cases:**
+
+- Elegant page transitions
+- Smooth scroll animations
+- Refined UI movements
+- Luxury brand interfaces
+
+### `quick`
+
+Fast, efficient motion for responsive interactions.
+
+```typescript
+SPRING_PRESETS.quick = {
+  stiffness: 350,
+  damping: 20,
+  mass: 0.8,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Very fast response
+- Minimal overshoot
+- Light, quick feel
+- Efficient animation
+
+**Use Cases:**
+
+- Quick feedback
+- Responsive controls
+- Fast transitions
+- Performance-critical animations
+
+### `heavy`
+
+Slow, heavy motion with inertia. Creates weighty, substantial feeling.
+
+```typescript
+SPRING_PRESETS.heavy = {
+  stiffness: 100,
+  damping: 15,
+  mass: 3,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Heavy, substantial feel
+- Slow to start and stop
+- Inertial motion
+- Weighty presence
+
+**Use Cases:**
+
+- Large elements
+- Heavy objects simulation
+- Substantial UI components
+- Weighty interactions
+
+### `delicate`
+
+Very gentle, delicate motion for subtle effects.
+
+```typescript
+SPRING_PRESETS.delicate = {
+  stiffness: 60,
+  damping: 12,
+  mass: 0.5,
+  precision: 0.001,
+};
+```
+
+**Characteristics:**
+
+- Extremely gentle
+- Light, airy feel
+- Subtle movement
+- Delicate interactions
+
+**Use Cases:**
+
+- Subtle hover effects
+- Delicate animations
+- Gentle feedback
+- Refined micro-interactions
+
+## Usage Examples
+
+### Basic Usage
+
+```typescript
+import { SpringPhysics, SPRING_PRESETS } from 'liquidify';
+
+// Create springs with different presets
+const gentleSpring = new SpringPhysics(SPRING_PRESETS.gentle);
+const snappySpring = new SpringPhysics(SPRING_PRESETS.snappy);
+const bouncySpring = new SpringPhysics(SPRING_PRESETS.bouncy);
+```
+
+### React Hook Usage
+
+```typescript
+import { useSpringPhysics, SPRING_PRESETS } from 'liquidify';
+
+function AnimatedButton() {
+  const { position, setTarget } = useSpringPhysics(SPRING_PRESETS.snappy);
+
+  return (
+    <button
+      style={{
+        transform: `scale(${1 + position * 0.1})`,
+      }}
+      onMouseDown={() => setTarget(1)}
+      onMouseUp={() => setTarget(0)}
+    >
+      Press me
+    </button>
+  );
+}
+```
+
+### Conditional Presets
+
+```typescript
+import { SPRING_PRESETS } from 'liquidify';
+
+function getSpringPreset(context: string) {
+  switch (context) {
+    case 'button':
+      return SPRING_PRESETS.snappy;
+    case 'card':
+      return SPRING_PRESETS.gentle;
+    case 'game':
+      return SPRING_PRESETS.bouncy;
+    case 'drag':
+      return SPRING_PRESETS.stiff;
+    default:
+      return SPRING_PRESETS.gentle;
+  }
+}
+
+const spring = new SpringPhysics(getSpringPreset('button'));
+```
+
+### Custom Presets Based on Existing Ones
+
+```typescript
+import { SPRING_PRESETS } from 'liquidify';
+
+// Create custom preset based on existing one
+const CUSTOM_PRESETS = {
+  ...SPRING_PRESETS,
+
+  // Extra gentle version
+  ultraGentle: {
+    ...SPRING_PRESETS.gentle,
+    stiffness: 50,
+    damping: 15,
+  },
+
+  // Extra bouncy version
+  hyperBouncy: {
+    ...SPRING_PRESETS.bouncy,
+    stiffness: 400,
+    damping: 6,
+  },
+
+  // Custom for specific use case
+  cardHover: {
+    ...SPRING_PRESETS.gentle,
+    stiffness: 120,
+    damping: 12,
+  },
+};
+```
+
+### Dynamic Preset Selection
+
+```typescript
+import { SPRING_PRESETS } from 'liquidify';
+
+function DynamicSpringComponent() {
+  const [springType, setSpringType] = useState('gentle');
+  const spring = new SpringPhysics(SPRING_PRESETS[springType]);
+
+  const handlePresetChange = (newPreset: string) => {
+    setSpringType(newPreset);
+    spring.setProperties(SPRING_PRESETS[newPreset]);
+  };
+
+  return (
+    <div>
+      <select onChange={(e) => handlePresetChange(e.target.value)}>
+        <option value="gentle">Gentle</option>
+        <option value="snappy">Snappy</option>
+        <option value="bouncy">Bouncy</option>
+        <option value="stiff">Stiff</option>
+        <option value="wobbly">Wobbly</option>
+      </select>
+    </div>
+  );
+}
+```
+
+### 2D Spring Presets
+
+```typescript
+import { Spring2D, SPRING_PRESETS } from 'liquidify';
+
+// Use presets with 2D springs
+const magneticSpring = new Spring2D(SPRING_PRESETS.gentle);
+const dragSpring = new Spring2D(SPRING_PRESETS.stiff);
+const playfulSpring = new Spring2D(SPRING_PRESETS.bouncy);
+```
+
+## Preset Comparison
+
+| Preset     | Stiffness | Damping | Mass | Feel       | Speed     | Overshoot |
+| ---------- | --------- | ------- | ---- | ---------- | --------- | --------- |
+| `gentle`   | 100       | 10      | 1    | Smooth     | Medium    | Minimal   |
+| `snappy`   | 200       | 15      | 1    | Responsive | Fast      | Slight    |
+| `bouncy`   | 300       | 8       | 1    | Playful    | Fast      | High      |
+| `stiff`    | 400       | 25      | 1    | Rigid      | Very Fast | None      |
+| `wobbly`   | 80        | 5       | 1    | Organic    | Slow      | High      |
+| `elastic`  | 250       | 12      | 2    | Tactile    | Medium    | Moderate  |
+| `smooth`   | 120       | 20      | 1    | Elegant    | Medium    | None      |
+| `quick`    | 350       | 20      | 0.8  | Efficient  | Very Fast | Minimal   |
+| `heavy`    | 100       | 15      | 3    | Weighty    | Slow      | Low       |
+| `delicate` | 60        | 12      | 0.5  | Subtle     | Slow      | Minimal   |
+
+## Visual Characteristics
+
+### Motion Curves
+
+Each preset creates a distinct motion curve:
+
+- **Gentle**: Smooth S-curve with gradual acceleration/deceleration
+- **Snappy**: Quick acceleration with slight overshoot
+- **Bouncy**: Multiple oscillations with decreasing amplitude
+- **Stiff**: Linear motion with abrupt stop
+- **Wobbly**: Sine-wave-like oscillations
+- **Elastic**: Rubber-band stretch and release
+- **Smooth**: Perfect ease-in-out without overshoot
+- **Quick**: Sharp acceleration with quick settle
+- **Heavy**: Slow start with momentum
+- **Delicate**: Gentle curve with minimal energy
+
+### Timing Characteristics
+
+- **Fastest**: `stiff`, `quick`
+- **Fast**: `snappy`, `bouncy`
+- **Medium**: `gentle`, `smooth`, `elastic`
+- **Slow**: `wobbly`, `heavy`, `delicate`
+
+### Overshoot Levels
+
+- **No overshoot**: `stiff`, `smooth`
+- **Minimal overshoot**: `gentle`, `quick`, `delicate`
+- **Moderate overshoot**: `snappy`, `elastic`
+- **High overshoot**: `bouncy`, `wobbly`
+
+## Best Practices
+
+1. **Match preset to context**: Use `gentle` for subtle effects, `snappy` for interactions
+2. **Maintain consistency**: Use the same preset for similar interactions
+3. **Consider user expectations**: Match the animation feel to your brand
+4. **Test across devices**: Some presets may feel different on various devices
+5. **Customize when needed**: Extend presets rather than creating from scratch
+
+## Accessibility Considerations
+
+Respect user preferences for reduced motion:
+
+```typescript
+import { SPRING_PRESETS } from 'liquidify';
+
+const getAccessiblePreset = (originalPreset: any) => {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  if (prefersReducedMotion) {
+    return {
+      ...originalPreset,
+      stiffness: 400,
+      damping: 30,
+      mass: 1,
+    };
+  }
+
+  return originalPreset;
+};
+
+const spring = new SpringPhysics(getAccessiblePreset(SPRING_PRESETS.bouncy));
+```
+
+## Related
+
+- [SpringPhysics](/physics-system/core-classes/spring-physics) - The main class using these presets
+- [Spring2D](/physics-system/core-classes/spring2d) - 2D springs using these presets
+- [PHYSICS_CONSTANTS](/physics-system/constants/physics-constants) - Related physics constants
+- [useMagneticHover](/physics-system/hooks/use-magnetic-hover) - Hook that uses spring presets

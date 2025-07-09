@@ -16,13 +16,13 @@ function BasicPopover() {
     <GlassPopover
       trigger={<button>Show Info</button>}
       content={
-        <div className="p-4">
-          <h3 className="font-semibold mb-2">Additional Information</h3>
+        <div className='p-4'>
+          <h3 className='font-semibold mb-2'>Additional Information</h3>
           <p>This popover provides contextual details.</p>
         </div>
       }
     />
-  )
+  );
 }
 ```
 
@@ -33,24 +33,24 @@ function InteractiveDemo() {
   return (
     <GlassPopover
       trigger={
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button className='bg-blue-500 text-white px-4 py-2 rounded'>
           Hover for Details
         </button>
       }
       content={
-        <div className="p-4 max-w-xs">
-          <h3 className="font-semibold mb-2">Feature Information</h3>
-          <p className="text-sm text-gray-600 mb-3">
+        <div className='p-4 max-w-xs'>
+          <h3 className='font-semibold mb-2'>Feature Information</h3>
+          <p className='text-sm text-gray-600 mb-3'>
             This feature helps you organize your workflow more efficiently.
           </p>
-          <button className="text-blue-500 text-sm">Learn More →</button>
+          <button className='text-blue-500 text-sm'>Learn More →</button>
         </div>
       }
-      placement="top"
+      placement='top'
       showArrow={true}
-      triggerOn="hover"
+      triggerOn='hover'
     />
-  )
+  );
 }
 ```
 
@@ -58,20 +58,20 @@ function InteractiveDemo() {
 
 ### GlassPopover Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `trigger` | `React.ReactNode` | - | Element that triggers the popover |
-| `content` | `React.ReactNode` | - | Content to display in popover |
-| `open` | `boolean` | - | Controlled open state |
-| `onOpenChange` | `(open: boolean) => void` | - | Callback for open state changes |
-| `placement` | `'top' \| 'bottom' \| 'left' \| 'right' \| 'top-start' \| 'top-end' \| 'bottom-start' \| 'bottom-end'` | `'bottom'` | Popover position |
-| `triggerOn` | `'click' \| 'hover' \| 'focus' \| 'manual'` | `'click'` | How to trigger popover |
-| `showArrow` | `boolean` | `true` | Show arrow pointing to trigger |
-| `offset` | `number` | `8` | Distance from trigger |
-| `delay` | `number` | `200` | Delay before showing (hover) |
-| `closeDelay` | `number` | `300` | Delay before hiding (hover) |
-| `className` | `string` | - | Additional CSS classes |
-| `contentClassName` | `string` | - | CSS classes for content |
+| Prop               | Type                                                                                                   | Default    | Description                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------ | ---------- | --------------------------------- |
+| `trigger`          | `React.ReactNode`                                                                                      | -          | Element that triggers the popover |
+| `content`          | `React.ReactNode`                                                                                      | -          | Content to display in popover     |
+| `open`             | `boolean`                                                                                              | -          | Controlled open state             |
+| `onOpenChange`     | `(open: boolean) => void`                                                                              | -          | Callback for open state changes   |
+| `placement`        | `'top' \| 'bottom' \| 'left' \| 'right' \| 'top-start' \| 'top-end' \| 'bottom-start' \| 'bottom-end'` | `'bottom'` | Popover position                  |
+| `triggerOn`        | `'click' \| 'hover' \| 'focus' \| 'manual'`                                                            | `'click'`  | How to trigger popover            |
+| `showArrow`        | `boolean`                                                                                              | `true`     | Show arrow pointing to trigger    |
+| `offset`           | `number`                                                                                               | `8`        | Distance from trigger             |
+| `delay`            | `number`                                                                                               | `200`      | Delay before showing (hover)      |
+| `closeDelay`       | `number`                                                                                               | `300`      | Delay before hiding (hover)       |
+| `className`        | `string`                                                                                               | -          | Additional CSS classes            |
+| `contentClassName` | `string`                                                                                               | -          | CSS classes for content           |
 
 ## Placement Options
 
@@ -97,7 +97,7 @@ function InteractiveDemo() {
 
 ```tsx
 <GlassPopover
-  triggerOn="click"
+  triggerOn='click'
   trigger={<button>Click Me</button>}
   content={<div>Clicked content</div>}
 />
@@ -107,7 +107,7 @@ function InteractiveDemo() {
 
 ```tsx
 <GlassPopover
-  triggerOn="hover"
+  triggerOn='hover'
   delay={500}
   closeDelay={200}
   trigger={<button>Hover Me</button>}
@@ -119,8 +119,8 @@ function InteractiveDemo() {
 
 ```tsx
 <GlassPopover
-  triggerOn="focus"
-  trigger={<input placeholder="Focus me" />}
+  triggerOn='focus'
+  trigger={<input placeholder='Focus me' />}
   content={<div>Helper text appears on focus</div>}
 />
 ```
@@ -143,8 +143,8 @@ function InteractiveDemo() {
 <GlassPopover
   trigger={<button>Styled</button>}
   content={<div>Custom styled content</div>}
-  className="custom-popover"
-  contentClassName="bg-blue-50 border-blue-200"
+  className='custom-popover'
+  contentClassName='bg-blue-50 border-blue-200'
 />
 ```
 
@@ -152,7 +152,7 @@ function InteractiveDemo() {
 
 ```tsx
 function ControlledPopover() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <GlassPopover
@@ -161,7 +161,7 @@ function ControlledPopover() {
       trigger={<button onClick={() => setOpen(!open)}>Toggle</button>}
       content={<div>Controlled content</div>}
     />
-  )
+  );
 }
 ```
 
@@ -171,16 +171,12 @@ function ControlledPopover() {
 
 ```tsx
 <GlassPopover
-  triggerOn="hover"
+  triggerOn='hover'
   showArrow={true}
-  placement="top"
-  trigger={
-    <button className="underline text-blue-500">
-      Hover for help
-    </button>
-  }
+  placement='top'
+  trigger={<button className='underline text-blue-500'>Hover for help</button>}
   content={
-    <div className="p-2 text-sm">
+    <div className='p-2 text-sm'>
       This action will save your changes permanently.
     </div>
   }
@@ -191,19 +187,19 @@ function ControlledPopover() {
 
 ```tsx
 <GlassPopover
-  triggerOn="focus"
-  placement="right-start"
+  triggerOn='focus'
+  placement='right-start'
   trigger={
-    <input 
-      type="password" 
-      placeholder="Enter password"
-      className="border rounded px-3 py-2"
+    <input
+      type='password'
+      placeholder='Enter password'
+      className='border rounded px-3 py-2'
     />
   }
   content={
-    <div className="p-3 max-w-xs">
-      <h4 className="font-medium mb-2">Password Requirements</h4>
-      <ul className="text-sm space-y-1">
+    <div className='p-3 max-w-xs'>
+      <h4 className='font-medium mb-2'>Password Requirements</h4>
+      <ul className='text-sm space-y-1'>
         <li>• At least 8 characters</li>
         <li>• Include uppercase and lowercase</li>
         <li>• Include at least one number</li>
@@ -217,25 +213,21 @@ function ControlledPopover() {
 
 ```tsx
 <GlassPopover
-  trigger={
-    <button className="border rounded px-3 py-2">
-      More Actions ▼
-    </button>
-  }
+  trigger={<button className='border rounded px-3 py-2'>More Actions ▼</button>}
   content={
-    <div className="py-1">
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
+    <div className='py-1'>
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
         Edit Item
       </button>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
         Duplicate
       </button>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100 text-red-600">
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100 text-red-600'>
         Delete
       </button>
     </div>
   }
-  placement="bottom-start"
+  placement='bottom-start'
 />
 ```
 
@@ -250,10 +242,10 @@ function ControlledPopover() {
 
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Escape` | Close popover |
-| `Tab` | Navigate within popover content |
+| Key               | Action                          |
+| ----------------- | ------------------------------- |
+| `Escape`          | Close popover                   |
+| `Tab`             | Navigate within popover content |
 | `Enter` / `Space` | Activate trigger (when focused) |
 
 ## Best Practices
@@ -280,4 +272,4 @@ function ControlledPopover() {
 
 ---
 
-*GlassPopover provides contextual information overlay functionality following Apple's Human Interface Guidelines.*
+_GlassPopover provides contextual information overlay functionality following Apple's Human Interface Guidelines._

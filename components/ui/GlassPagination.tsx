@@ -4,7 +4,8 @@ import React from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassPaginationProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassPaginationProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
@@ -60,15 +61,16 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
     className
   );
 
-  const buttonClasses = (isActive = false, isDisabled = false) => cn(
-    'flex items-center justify-center min-w-8 rounded-md',
-    'font-medium transition-all duration-200',
-    'focus:outline-none focus:ring-2 focus:ring-white/50',
-    sizeStyles[size],
-    isActive && 'bg-white/30 text-white shadow-md',
-    !isActive && !isDisabled && 'bg-white/10 text-white/90 hover:bg-white/20',
-    isDisabled && 'bg-white/5 text-white/40 cursor-not-allowed'
-  );
+  const buttonClasses = (isActive = false, isDisabled = false) =>
+    cn(
+      'flex items-center justify-center min-w-8 rounded-md',
+      'font-medium transition-all duration-200',
+      'focus:outline-none focus:ring-2 focus:ring-white/50',
+      sizeStyles[size],
+      isActive && 'bg-white/30 text-white shadow-md',
+      !isActive && !isDisabled && 'bg-white/10 text-white/90 hover:bg-white/20',
+      isDisabled && 'bg-white/5 text-white/40 cursor-not-allowed'
+    );
 
   const handlePageClick = (page: number) => {
     if (page >= 1 && page <= totalPages && page !== currentPage) {
@@ -77,21 +79,27 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
   };
 
   return (
-    <GlassEffect
-      variant="widget"
-      className={baseClasses}
-      {...props}
-    >
-      <nav aria-label="Pagination" className="flex items-center space-x-1">
+    <GlassEffect variant='widget' className={baseClasses} {...props}>
+      <nav aria-label='Pagination' className='flex items-center space-x-1'>
         {showFirstLast && (
           <button
             onClick={() => handlePageClick(1)}
             disabled={currentPage === 1}
             className={buttonClasses(false, currentPage === 1)}
-            aria-label="First page"
+            aria-label='First page'
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+            <svg
+              className='w-4 h-4'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M11 19l-7-7 7-7m8 14l-7-7 7-7'
+              />
             </svg>
           </button>
         )}
@@ -101,10 +109,20 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
             onClick={() => handlePageClick(currentPage - 1)}
             disabled={currentPage === 1}
             className={buttonClasses(false, currentPage === 1)}
-            aria-label="Previous page"
+            aria-label='Previous page'
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className='w-4 h-4'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M15 19l-7-7 7-7'
+              />
             </svg>
           </button>
         )}
@@ -118,7 +136,7 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
               1
             </button>
             {visiblePages[0] > 2 && (
-              <span className="px-2 text-white/60">...</span>
+              <span className='px-2 text-white/60'>...</span>
             )}
           </>
         )}
@@ -138,7 +156,7 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
         {visiblePages[visiblePages.length - 1] < totalPages && (
           <>
             {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
-              <span className="px-2 text-white/60">...</span>
+              <span className='px-2 text-white/60'>...</span>
             )}
             <button
               onClick={() => handlePageClick(totalPages)}
@@ -154,10 +172,20 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
             onClick={() => handlePageClick(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={buttonClasses(false, currentPage === totalPages)}
-            aria-label="Next page"
+            aria-label='Next page'
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className='w-4 h-4'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M9 5l7 7-7 7'
+              />
             </svg>
           </button>
         )}
@@ -167,10 +195,20 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
             onClick={() => handlePageClick(totalPages)}
             disabled={currentPage === totalPages}
             className={buttonClasses(false, currentPage === totalPages)}
-            aria-label="Last page"
+            aria-label='Last page'
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+            <svg
+              className='w-4 h-4'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M13 5l7 7-7 7M5 5l7 7-7 7'
+              />
             </svg>
           </button>
         )}

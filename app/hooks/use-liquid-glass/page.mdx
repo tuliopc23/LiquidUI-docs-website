@@ -1,0 +1,692 @@
+# useLiquidGlass
+
+The `useLiquidGlass` hook provides comprehensive glass effect configuration for individual components with fine-grained control over glassmorphism properties.
+
+## Overview
+
+This hook offers a complete solution for implementing glassmorphism effects with customizable blur, opacity, color, and animation properties. It integrates seamlessly with the global LiquidGlassProvider configuration while allowing per-component customization.
+
+## Import
+
+```tsx
+import { useLiquidGlass } from 'liquidify';
+```
+
+## Basic Usage
+
+```tsx
+import React from 'react';
+import { useLiquidGlass } from 'liquidify';
+
+function BasicGlassCard() {
+  const { glassStyle, glassClassName } = useLiquidGlass({
+    blur: 12,
+    opacity: 0.8,
+    color: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 16,
+  });
+
+  return (
+    <div style={glassStyle} className={`p-6 ${glassClassName}`}>
+      <h2>Basic Glass Card</h2>
+      <p>This card uses basic glass effect configuration.</p>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Interactive Glass Button
+
+```tsx
+import React from 'react';
+import { useLiquidGlass } from 'liquidify';
+
+function InteractiveGlassButton() {
+  const { glassStyle, updateConfig, enable, disable } = useLiquidGlass({
+    blur: 8,
+    opacity: 0.7,
+    color: 'rgba(59, 130, 246, 0.1)',
+    borderRadius: 8,
+    animation: {
+      hover: {
+        blur: 12,
+        opacity: 0.9,
+        scale: 1.05,
+        duration: 200,
+      },
+      active: {
+        blur: 6,
+        opacity: 0.6,
+        scale: 0.95,
+        duration: 100,
+      },
+    },
+  });
+
+  return (
+    <button
+      style={glassStyle}
+      className='px-6 py-3 text-white font-medium'
+      onMouseEnter={() =>
+        updateConfig({
+          blur: 12,
+          opacity: 0.9,
+          transform: 'scale(1.05)',
+        })
+      }
+      onMouseLeave={() =>
+        updateConfig({
+          blur: 8,
+          opacity: 0.7,
+          transform: 'scale(1)',
+        })
+      }
+      onMouseDown={() =>
+        updateConfig({
+          blur: 6,
+          opacity: 0.6,
+          transform: 'scale(0.95)',
+        })
+      }
+      onMouseUp={() =>
+        updateConfig({
+          blur: 12,
+          opacity: 0.9,
+          transform: 'scale(1.05)',
+        })
+      }
+    >
+      Interactive Button
+    </button>
+  );
+}
+```
+
+### Animated Glass Modal
+
+```tsx
+import React, { useState } from 'react';
+import { useLiquidGlass } from 'liquidify';
+
+function AnimatedGlassModal() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { glassStyle, animateIn, animateOut } = useLiquidGlass({
+    blur: 0,
+    opacity: 0,
+    color: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 12,
+    animation: {
+      enter: {
+        blur: 16,
+        opacity: 0.9,
+        scale: 1,
+        duration: 300,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+      exit: {
+        blur: 0,
+        opacity: 0,
+        scale: 0.9,
+        duration: 200,
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+    },
+  });
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    animateIn();
+  };
+
+  const handleClose = () => {
+    animateOut(() => setIsOpen(false));
+  };
+
+  return (
+    <>
+      <button
+        onClick={handleOpen}
+        className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+      >
+        Open Modal
+      </button>
+
+      {isOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center'>
+          <div style={glassStyle} className='max-w-md w-full mx-4 p-6'>
+            <h2 className='text-xl font-bold mb-4'>Animated Glass Modal</h2>
+            <p className='mb-6'>
+              This modal animates in and out with smooth glass effect
+              transitions.
+            </p>
+            <div className='flex justify-end space-x-4'>
+              <button
+                onClick={handleClose}
+                className='px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600'
+              >
+                Close
+              </button>
+              <button className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'>
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+```
+
+### Responsive Glass Navigation
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { useLiquidGlass } from 'liquidify';
+
+function ResponsiveGlassNav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 0,
+    opacity: 0,
+    color: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 0,
+    responsive: {
+      mobile: {
+        blur: 8,
+        opacity: 0.9,
+        color: 'rgba(255, 255, 255, 0.15)',
+      },
+      tablet: {
+        blur: 12,
+        opacity: 0.8,
+        color: 'rgba(255, 255, 255, 0.12)',
+      },
+      desktop: {
+        blur: 16,
+        opacity: 0.7,
+        color: 'rgba(255, 255, 255, 0.1)',
+      },
+    },
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      setScrolled(isScrolled);
+
+      if (isScrolled) {
+        updateConfig({
+          blur: isMobile ? 8 : 16,
+          opacity: isMobile ? 0.9 : 0.8,
+          color: 'rgba(255, 255, 255, 0.1)',
+        });
+      } else {
+        updateConfig({
+          blur: 0,
+          opacity: 0,
+          color: 'rgba(255, 255, 255, 0)',
+        });
+      }
+    };
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobile, updateConfig]);
+
+  return (
+    <nav
+      style={glassStyle}
+      className='fixed top-0 w-full z-50 transition-all duration-300'
+    >
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex justify-between items-center'>
+          <div className='text-xl font-bold'>Logo</div>
+          <div className='hidden md:flex space-x-6'>
+            <a href='#' className='hover:text-opacity-80'>
+              Home
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              About
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Services
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Contact
+            </a>
+          </div>
+          <div className='md:hidden'>
+            <button className='text-2xl'>☰</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+interface LiquidGlassConfig {
+  blur?: number;
+  opacity?: number;
+  color?: string;
+  borderRadius?: number;
+  border?: {
+    width?: number;
+    color?: string;
+    style?: 'solid' | 'dashed' | 'dotted';
+  };
+  shadow?: {
+    color?: string;
+    blur?: number;
+    x?: number;
+    y?: number;
+    inset?: boolean;
+  };
+  animation?: {
+    hover?: AnimationConfig;
+    active?: AnimationConfig;
+    focus?: AnimationConfig;
+    enter?: AnimationConfig;
+    exit?: AnimationConfig;
+  };
+  responsive?: {
+    mobile?: Partial<LiquidGlassConfig>;
+    tablet?: Partial<LiquidGlassConfig>;
+    desktop?: Partial<LiquidGlassConfig>;
+  };
+  performance?: {
+    enableTransform3d?: boolean;
+    enableWillChange?: boolean;
+    enableContainment?: boolean;
+  };
+}
+```
+
+### Return Value
+
+```typescript
+interface LiquidGlassReturn {
+  glassStyle: React.CSSProperties;
+  glassClassName: string;
+  updateConfig: (config: Partial<LiquidGlassConfig>) => void;
+  animateIn: (callback?: () => void) => void;
+  animateOut: (callback?: () => void) => void;
+  enable: () => void;
+  disable: () => void;
+  reset: () => void;
+  isEnabled: boolean;
+}
+```
+
+## Configuration Options
+
+### Basic Glass Properties
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  blur: 12, // Backdrop blur intensity
+  opacity: 0.8, // Background opacity
+  color: 'rgba(255, 255, 255, 0.1)', // Background color
+  borderRadius: 16, // Border radius
+});
+```
+
+### Border Configuration
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  border: {
+    width: 1,
+    color: 'rgba(255, 255, 255, 0.2)',
+    style: 'solid',
+  },
+});
+```
+
+### Shadow Configuration
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  shadow: {
+    color: 'rgba(0, 0, 0, 0.1)',
+    blur: 20,
+    x: 0,
+    y: 8,
+    inset: false,
+  },
+});
+```
+
+### Animation Configuration
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  animation: {
+    hover: {
+      blur: 16,
+      opacity: 0.9,
+      scale: 1.02,
+      duration: 200,
+      easing: 'ease-out',
+    },
+    active: {
+      blur: 8,
+      opacity: 0.7,
+      scale: 0.98,
+      duration: 100,
+      easing: 'ease-in',
+    },
+  },
+});
+```
+
+## Responsive Design
+
+### Breakpoint-Based Configuration
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  blur: 16,
+  opacity: 0.8,
+  responsive: {
+    mobile: {
+      blur: 8,
+      opacity: 0.9,
+      color: 'rgba(255, 255, 255, 0.15)',
+    },
+    tablet: {
+      blur: 12,
+      opacity: 0.85,
+      color: 'rgba(255, 255, 255, 0.12)',
+    },
+    desktop: {
+      blur: 16,
+      opacity: 0.8,
+      color: 'rgba(255, 255, 255, 0.1)',
+    },
+  },
+});
+```
+
+### Dynamic Responsive Updates
+
+```tsx
+import { useLiquidGlass } from 'liquidify';
+import { useMediaQuery } from 'react-responsive';
+
+function ResponsiveGlassCard() {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
+
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 16,
+    opacity: 0.8,
+  });
+
+  React.useEffect(() => {
+    if (isMobile) {
+      updateConfig({ blur: 8, opacity: 0.9 });
+    } else if (isTablet) {
+      updateConfig({ blur: 12, opacity: 0.85 });
+    } else {
+      updateConfig({ blur: 16, opacity: 0.8 });
+    }
+  }, [isMobile, isTablet, updateConfig]);
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Responsive Glass Card</h2>
+      <p>This card adapts its glass effect based on screen size.</p>
+    </div>
+  );
+}
+```
+
+## Performance Optimization
+
+### Hardware Acceleration
+
+```tsx
+const { glassStyle } = useLiquidGlass({
+  blur: 12,
+  opacity: 0.8,
+  performance: {
+    enableTransform3d: true, // Enable 3D transforms
+    enableWillChange: true, // Enable will-change property
+    enableContainment: true, // Enable CSS containment
+  },
+});
+```
+
+### Conditional Rendering
+
+```tsx
+import { useLiquidGlass } from 'liquidify';
+
+function ConditionalGlassCard() {
+  const { glassStyle, enable, disable, isEnabled } = useLiquidGlass({
+    blur: 12,
+    opacity: 0.8,
+  });
+
+  React.useEffect(() => {
+    // Disable glass effects on low-end devices
+    if (navigator.deviceMemory && navigator.deviceMemory < 4) {
+      disable();
+    } else {
+      enable();
+    }
+  }, [enable, disable]);
+
+  return (
+    <div
+      style={
+        isEnabled ? glassStyle : { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+      }
+      className='p-6 rounded-lg'
+    >
+      <h2>Conditional Glass Card</h2>
+      <p>
+        Glass effects are {isEnabled ? 'enabled' : 'disabled'} based on device
+        capabilities.
+      </p>
+    </div>
+  );
+}
+```
+
+## Advanced Patterns
+
+### Stacked Glass Effects
+
+```tsx
+function StackedGlassLayers() {
+  const backgroundLayer = useLiquidGlass({
+    blur: 20,
+    opacity: 0.3,
+    color: 'rgba(255, 255, 255, 0.05)',
+  });
+
+  const contentLayer = useLiquidGlass({
+    blur: 8,
+    opacity: 0.8,
+    color: 'rgba(255, 255, 255, 0.1)',
+  });
+
+  return (
+    <div style={backgroundLayer.glassStyle} className='p-8 rounded-2xl'>
+      <div style={contentLayer.glassStyle} className='p-6 rounded-lg'>
+        <h2>Stacked Glass Layers</h2>
+        <p>Multiple glass layers create depth and visual interest.</p>
+      </div>
+    </div>
+  );
+}
+```
+
+### Context-Aware Glass
+
+```tsx
+import { useLiquidGlass } from 'liquidify';
+import { useTheme } from 'next-themes';
+
+function ContextAwareGlass() {
+  const { theme } = useTheme();
+
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 12,
+    opacity: 0.8,
+    color: 'rgba(255, 255, 255, 0.1)',
+  });
+
+  React.useEffect(() => {
+    if (theme === 'dark') {
+      updateConfig({
+        color: 'rgba(255, 255, 255, 0.05)',
+        opacity: 0.9,
+      });
+    } else {
+      updateConfig({
+        color: 'rgba(255, 255, 255, 0.1)',
+        opacity: 0.8,
+      });
+    }
+  }, [theme, updateConfig]);
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Context-Aware Glass</h2>
+      <p>Glass effects adapt to the current theme.</p>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Performance First**: Always consider performance implications on mobile devices
+2. **Accessibility**: Ensure sufficient contrast and test with screen readers
+3. **Responsive Design**: Adapt glass effects for different screen sizes
+4. **Consistent Theming**: Use the LiquidGlassProvider for consistent global settings
+5. **Progressive Enhancement**: Provide fallbacks for unsupported browsers
+
+## Common Patterns
+
+### Glass Card with Hover Effects
+
+```tsx
+function InteractiveGlassCard() {
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 12,
+    opacity: 0.8,
+    color: 'rgba(255, 255, 255, 0.1)',
+    animation: {
+      hover: {
+        blur: 16,
+        opacity: 0.9,
+        scale: 1.02,
+        duration: 200,
+      },
+    },
+  });
+
+  return (
+    <div
+      style={glassStyle}
+      className='p-6 rounded-lg cursor-pointer transition-transform duration-200'
+      onMouseEnter={() => updateConfig({ blur: 16, opacity: 0.9 })}
+      onMouseLeave={() => updateConfig({ blur: 12, opacity: 0.8 })}
+    >
+      <h3>Interactive Glass Card</h3>
+      <p>Hover to see the glass effect change.</p>
+    </div>
+  );
+}
+```
+
+### Glass Navigation with Scroll Effects
+
+```tsx
+function ScrollAwareGlassNav() {
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 0,
+    opacity: 0,
+    color: 'rgba(255, 255, 255, 0.1)',
+  });
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 50;
+      updateConfig({
+        blur: scrolled ? 16 : 0,
+        opacity: scrolled ? 0.9 : 0,
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [updateConfig]);
+
+  return (
+    <nav style={glassStyle} className='fixed top-0 w-full z-50'>
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex justify-between items-center'>
+          <div className='text-xl font-bold'>Logo</div>
+          <div className='space-x-6'>
+            <a href='#' className='hover:text-opacity-80'>
+              Home
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              About
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Contact
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+## Troubleshooting
+
+### Glass Effects Not Rendering
+
+- Check if backdrop-filter is supported in the browser
+- Verify that the parent element has a background
+- Ensure z-index is properly set
+
+### Performance Issues
+
+- Reduce blur intensity on mobile devices
+- Use will-change property sparingly
+- Consider disabling animations on low-end devices
+
+### Accessibility Concerns
+
+- Test color contrast ratios
+- Provide high-contrast alternatives
+- Ensure keyboard navigation works properly

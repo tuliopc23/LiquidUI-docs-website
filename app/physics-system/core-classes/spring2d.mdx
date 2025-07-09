@@ -1,0 +1,621 @@
+# Spring2D
+
+The `Spring2D` class extends spring physics to 2D space, enabling natural spring-based animations for positions, rotations, and transformations using `Vector2D` coordinates.
+
+## Overview
+
+`Spring2D` combines two `SpringPhysics` instances to create realistic 2D motion with independent X and Y spring behaviors. It's perfect for magnetic effects, smooth element positioning, and complex 2D animations.
+
+## Import
+
+```typescript
+import { Spring2D, Vector2D, SPRING_PRESETS } from 'liquidify';
+```
+
+## Constructor
+
+```typescript
+new Spring2D(options: Spring2DOptions)
+```
+
+### Spring2DOptions
+
+```typescript
+interface Spring2DOptions {
+  stiffness?: number; // Spring stiffness (default: 100)
+  damping?: number; // Damping coefficient (default: 10)
+  mass?: number; // Mass of the object (default: 1)
+  initialPosition?: Vector2D; // Starting position (default: Vector2D(0, 0))
+  initialVelocity?: Vector2D; // Starting velocity (default: Vector2D(0, 0))
+  target?: Vector2D; // Target position (default: Vector2D(0, 0))
+  precision?: number; // Precision threshold (default: 0.001)
+  independentAxes?: boolean; // Whether X and Y axes behave independently (default: false)
+}
+```
+
+## Properties
+
+### `position: Vector2D`
+
+Current position of the spring system.
+
+### `velocity: Vector2D`
+
+Current velocity of the spring system.
+
+### `target: Vector2D`
+
+Target position the spring is moving toward.
+
+### `stiffness: number`
+
+Spring stiffness constant for both axes.
+
+### `damping: number`
+
+Damping coefficient for both axes.
+
+### `mass: number`
+
+Mass of the object for both axes.
+
+### `isAtRest: boolean`
+
+Indicates whether both X and Y springs have settled.
+
+### `springX: SpringPhysics`
+
+The underlying X-axis spring physics instance.
+
+### `springY: SpringPhysics`
+
+The underlying Y-axis spring physics instance.
+
+## Methods
+
+### `setTarget(target: Vector2D): void`
+
+Sets a new target position for the 2D spring.
+
+```typescript
+const spring = new Spring2D({ stiffness: 100, damping: 10 });
+spring.setTarget(new Vector2D(100, 200));
+```
+
+### `setTargetX(x: number): void`
+
+Sets only the X-axis target position.
+
+```typescript
+spring.setTargetX(150);
+```
+
+### `setTargetY(y: number): void`
+
+Sets only the Y-axis target position.
+
+```typescript
+spring.setTargetY(250);
+```
+
+### `update(deltaTime: number): void`
+
+Updates the 2D spring simulation by one time step.
+
+```typescript
+const deltaTime = 16; // 16ms for 60fps
+spring.update(deltaTime);
+```
+
+### `reset(position?: Vector2D, velocity?: Vector2D): void`
+
+Resets the spring to a new position and velocity.
+
+```typescript
+spring.reset(
+  new Vector2D(0, 0), // Position
+  new Vector2D(0, 0) // Velocity
+);
+```
+
+### `setProperties(options: Partial<Spring2DOptions>): void`
+
+Updates spring properties during runtime.
+
+```typescript
+spring.setProperties({
+  stiffness: 200,
+  damping: 15,
+  independentAxes: true,
+});
+```
+
+### `setAxisProperties(axis: 'x' | 'y', options: Partial<SpringPhysicsOptions>): void`
+
+Updates properties for a specific axis.
+
+```typescript
+// Make X-axis more responsive
+spring.setAxisProperties('x', {
+  stiffness: 300,
+  damping: 20,
+});
+```
+
+### `getEnergy(): number`
+
+Returns the total energy of the 2D spring system.
+
+```typescript
+const energy = spring.getEnergy();
+```
+
+### `getDistance(): number`
+
+Returns the distance from current position to target.
+
+```typescript
+const distance = spring.getDistance();
+```
+
+### `getDirection(): Vector2D`
+
+Returns the normalized direction vector toward the target.
+
+```typescript
+const direction = spring.getDirection();
+```
+
+### `clone(): Spring2D`
+
+Creates a copy of the spring with identical properties.
+
+```typescript
+const springCopy = spring.clone();
+```
+
+## Usage Examples
+
+### Basic 2D Spring Animation
+
+```typescript
+// Create a 2D spring
+const spring = new Spring2D({
+  stiffness: 150,
+  damping: 12,
+  mass: 1,
+  initialPosition: new Vector2D(0, 0),
+});
+
+// Set target and animate
+spring.setTarget(new Vector2D(200, 150));
+
+// Animation loop
+function animate() {
+  spring.update(16); // 60fps
+
+  // Apply position to DOM element
+  element.style.transform = `translate(${spring.position.x}px, ${spring.position.y}px)`;
+
+  if (!spring.isAtRest) {
+    requestAnimationFrame(animate);
+  }
+}
+animate();
+```
+
+### Magnetic Hover Effect
+
+```typescript
+// Create magnetic spring for hover effects
+const magneticSpring = new Spring2D(SPRING_PRESETS.gentle);
+
+element.addEventListener('mousemove', e => {
+  const rect = element.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+
+  const mouseX = e.clientX - centerX;
+  const mouseY = e.clientY - centerY;
+
+  // Apply magnetic force with distance falloff
+  const distance = Math.sqrt(mouseX * mouseX + mouseY * mouseY);
+  const maxDistance = 100;
+  const strength = 0.3;
+
+  if (distance < maxDistance) {
+    const force = strength * (1 - distance / maxDistance);
+    magneticSpring.setTarget(new Vector2D(mouseX * force, mouseY * force));
+  }
+});
+
+element.addEventListener('mouseleave', () => {
+  magneticSpring.setTarget(new Vector2D(0, 0));
+});
+```
+
+### Independent Axis Behavior
+
+```typescript
+// Create spring with independent X and Y behavior
+const spring = new Spring2D({
+  stiffness: 100,
+  damping: 10,
+  independentAxes: true,
+});
+
+// Set different properties for each axis
+spring.setAxisProperties('x', {
+  stiffness: 200, // Faster X movement
+  damping: 15,
+});
+
+spring.setAxisProperties('y', {
+  stiffness: 50, // Slower Y movement
+  damping: 8,
+});
+```
+
+### Drag and Drop with Springs
+
+```typescript
+let isDragging = false;
+let dragOffset = new Vector2D(0, 0);
+
+element.addEventListener('mousedown', e => {
+  isDragging = true;
+  const rect = element.getBoundingClientRect();
+  dragOffset = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);
+
+  // Make spring more responsive while dragging
+  spring.setProperties(SPRING_PRESETS.stiff);
+});
+
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+
+  const targetPos = new Vector2D(
+    e.clientX - dragOffset.x,
+    e.clientY - dragOffset.y
+  );
+
+  spring.setTarget(targetPos);
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+
+  // Return to gentle spring behavior
+  spring.setProperties(SPRING_PRESETS.gentle);
+
+  // Optional: Return to original position
+  spring.setTarget(new Vector2D(0, 0));
+});
+```
+
+### React Hook Integration
+
+```typescript
+import { useSpring2D } from 'liquidify';
+
+function MagneticCard() {
+  const [mousePos, setMousePos] = useState(new Vector2D(0, 0));
+  const { position, setTarget, isAnimating } = useSpring2D({
+    stiffness: 150,
+    damping: 12,
+    mass: 1
+  });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const mouseX = e.clientX - rect.left - centerX;
+    const mouseY = e.clientY - rect.top - centerY;
+
+    const force = 0.1;
+    setTarget(new Vector2D(mouseX * force, mouseY * force));
+  };
+
+  const handleMouseLeave = () => {
+    setTarget(new Vector2D(0, 0));
+  };
+
+  return (
+    <div
+      className="magnetic-card"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        transition: isAnimating ? 'none' : 'transform 0.3s ease'
+      }}
+    >
+      Magnetic Card
+    </div>
+  );
+}
+```
+
+### Complex Animation Sequences
+
+```typescript
+// Create multiple springs for complex animations
+const springs = {
+  position: new Spring2D(SPRING_PRESETS.gentle),
+  rotation: new Spring2D(SPRING_PRESETS.snappy),
+  scale: new Spring2D(SPRING_PRESETS.bouncy),
+};
+
+function animateSequence() {
+  // Phase 1: Move to position
+  springs.position.setTarget(new Vector2D(100, 100));
+
+  setTimeout(() => {
+    // Phase 2: Rotate and scale
+    springs.rotation.setTarget(new Vector2D(45, 0)); // 45 degree rotation
+    springs.scale.setTarget(new Vector2D(1.2, 1.2));
+  }, 500);
+
+  setTimeout(() => {
+    // Phase 3: Return to normal
+    springs.rotation.setTarget(new Vector2D(0, 0));
+    springs.scale.setTarget(new Vector2D(1, 1));
+  }, 1000);
+}
+
+// Update all springs
+function updateSprings(deltaTime: number) {
+  Object.values(springs).forEach(spring => {
+    spring.update(deltaTime);
+  });
+
+  // Apply transforms
+  element.style.transform = `
+    translate(${springs.position.position.x}px, ${springs.position.position.y}px)
+    rotate(${springs.rotation.position.x}deg)
+    scale(${springs.scale.position.x}, ${springs.scale.position.y})
+  `;
+}
+```
+
+## Advanced Features
+
+### Constraints and Boundaries
+
+```typescript
+// Add boundary constraints to spring
+class BoundedSpring2D extends Spring2D {
+  private bounds: { min: Vector2D; max: Vector2D };
+
+  constructor(
+    options: Spring2DOptions,
+    bounds: { min: Vector2D; max: Vector2D }
+  ) {
+    super(options);
+    this.bounds = bounds;
+  }
+
+  update(deltaTime: number) {
+    super.update(deltaTime);
+
+    // Apply boundary constraints
+    this.position.x = Math.max(
+      this.bounds.min.x,
+      Math.min(this.bounds.max.x, this.position.x)
+    );
+    this.position.y = Math.max(
+      this.bounds.min.y,
+      Math.min(this.bounds.max.y, this.position.y)
+    );
+  }
+}
+```
+
+### Multiple Target Following
+
+```typescript
+// Spring that follows multiple targets with weights
+class MultiTargetSpring2D extends Spring2D {
+  private targets: { position: Vector2D; weight: number }[] = [];
+
+  addTarget(position: Vector2D, weight: number = 1) {
+    this.targets.push({ position, weight });
+    this.updateCombinedTarget();
+  }
+
+  removeTarget(index: number) {
+    this.targets.splice(index, 1);
+    this.updateCombinedTarget();
+  }
+
+  private updateCombinedTarget() {
+    if (this.targets.length === 0) return;
+
+    let totalWeight = 0;
+    let combinedTarget = new Vector2D(0, 0);
+
+    this.targets.forEach(({ position, weight }) => {
+      combinedTarget = combinedTarget.add(position.multiply(weight));
+      totalWeight += weight;
+    });
+
+    if (totalWeight > 0) {
+      combinedTarget = combinedTarget.divide(totalWeight);
+      this.setTarget(combinedTarget);
+    }
+  }
+}
+```
+
+### Spring Chaining
+
+```typescript
+// Create a chain of connected springs
+class SpringChain2D {
+  private springs: Spring2D[] = [];
+
+  constructor(count: number, options: Spring2DOptions) {
+    for (let i = 0; i < count; i++) {
+      this.springs.push(new Spring2D(options));
+    }
+  }
+
+  setLeaderTarget(target: Vector2D) {
+    this.springs[0].setTarget(target);
+  }
+
+  update(deltaTime: number) {
+    // Update first spring
+    this.springs[0].update(deltaTime);
+
+    // Update following springs to follow the previous one
+    for (let i = 1; i < this.springs.length; i++) {
+      this.springs[i].setTarget(this.springs[i - 1].position);
+      this.springs[i].update(deltaTime);
+    }
+  }
+
+  getPositions(): Vector2D[] {
+    return this.springs.map(spring => spring.position);
+  }
+}
+```
+
+## Performance Optimization
+
+```typescript
+// Optimize for multiple 2D springs
+class Spring2DManager {
+  private springs: Spring2D[] = [];
+  private activeCount = 0;
+
+  addSpring(spring: Spring2D) {
+    this.springs.push(spring);
+  }
+
+  updateAll(deltaTime: number) {
+    this.activeCount = 0;
+
+    for (const spring of this.springs) {
+      spring.update(deltaTime);
+
+      if (!spring.isAtRest) {
+        this.activeCount++;
+      }
+    }
+  }
+
+  getActiveCount(): number {
+    return this.activeCount;
+  }
+
+  // Batch operations for better performance
+  setAllTargets(targets: Vector2D[]) {
+    const maxIndex = Math.min(this.springs.length, targets.length);
+
+    for (let i = 0; i < maxIndex; i++) {
+      this.springs[i].setTarget(targets[i]);
+    }
+  }
+}
+```
+
+## Integration with CSS Transforms
+
+```typescript
+// Utility for applying 2D spring to CSS transforms
+class SpringTransform2D {
+  private spring: Spring2D;
+  private element: HTMLElement;
+
+  constructor(element: HTMLElement, options: Spring2DOptions) {
+    this.element = element;
+    this.spring = new Spring2D(options);
+  }
+
+  setTarget(x: number, y: number) {
+    this.spring.setTarget(new Vector2D(x, y));
+  }
+
+  update(deltaTime: number) {
+    this.spring.update(deltaTime);
+
+    const { x, y } = this.spring.position;
+    this.element.style.transform = `translate(${x}px, ${y}px)`;
+
+    return !this.spring.isAtRest;
+  }
+}
+
+// Usage
+const transform = new SpringTransform2D(element, SPRING_PRESETS.gentle);
+transform.setTarget(100, 200);
+
+function animate() {
+  const isAnimating = transform.update(16);
+
+  if (isAnimating) {
+    requestAnimationFrame(animate);
+  }
+}
+animate();
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Oscillation on one axis**: Check if `independentAxes` is needed
+2. **Jerky diagonal movement**: Ensure both axes have similar spring properties
+3. **Performance issues**: Use `Spring2DManager` for multiple springs
+4. **Unexpected behavior**: Verify Vector2D operations are not mutating original vectors
+
+### Debug Utilities
+
+```typescript
+// Debug information for 2D springs
+class DebugSpring2D extends Spring2D {
+  getDebugInfo() {
+    return {
+      position: this.position,
+      velocity: this.velocity,
+      target: this.target,
+      distance: this.getDistance(),
+      direction: this.getDirection(),
+      energy: this.getEnergy(),
+      isAtRest: this.isAtRest,
+      springX: this.springX.getDebugInfo?.(),
+      springY: this.springY.getDebugInfo?.(),
+    };
+  }
+
+  visualDebug(canvas: HTMLCanvasElement) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Draw current position
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(this.position.x - 2, this.position.y - 2, 4, 4);
+
+    // Draw target position
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.target.x - 2, this.target.y - 2, 4, 4);
+
+    // Draw connection line
+    ctx.strokeStyle = 'gray';
+    ctx.beginPath();
+    ctx.moveTo(this.position.x, this.position.y);
+    ctx.lineTo(this.target.x, this.target.y);
+    ctx.stroke();
+  }
+}
+```
+
+## Related
+
+- [SpringPhysics](/physics-system/core-classes/spring-physics) - The underlying 1D spring implementation
+- [Vector2D](/physics-system/core-classes/vector2d) - 2D vector operations used throughout
+- [useMagneticHover](/physics-system/hooks/use-magnetic-hover) - React hook using Spring2D
+- [SPRING_PRESETS](/physics-system/constants/spring-presets) - Pre-configured spring settings

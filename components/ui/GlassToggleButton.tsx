@@ -4,7 +4,8 @@ import React from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassToggleButtonProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassToggleButtonProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   children: React.ReactNode;
   pressed?: boolean;
   defaultPressed?: boolean;
@@ -27,19 +28,19 @@ const GlassToggleButton: React.FC<GlassToggleButtonProps> = ({
   ...props
 }) => {
   const [internalPressed, setInternalPressed] = React.useState(defaultPressed);
-  
+
   const isPressed = pressed !== undefined ? pressed : internalPressed;
   const isControlled = pressed !== undefined;
 
   const handleClick = () => {
     if (disabled) return;
-    
+
     const newPressed = !isPressed;
-    
+
     if (!isControlled) {
       setInternalPressed(newPressed);
     }
-    
+
     onPressedChange?.(newPressed);
   };
 
@@ -82,16 +83,12 @@ const GlassToggleButton: React.FC<GlassToggleButtonProps> = ({
   );
 
   return (
-    <GlassEffect
-      variant="button"
-      className={baseClasses}
-      {...props}
-    >
+    <GlassEffect variant='button' className={baseClasses} {...props}>
       <button
         onClick={handleClick}
         disabled={disabled}
         aria-pressed={isPressed}
-        className="inline-flex items-center justify-center gap-2 w-full h-full"
+        className='inline-flex items-center justify-center gap-2 w-full h-full'
       >
         {children}
       </button>

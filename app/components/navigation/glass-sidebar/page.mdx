@@ -9,10 +9,10 @@ The `GlassSidebar` component provides a flexible sidebar solution with support f
 ## Basic Usage
 
 ```tsx
-import { GlassSidebar } from 'liquidify'
+import { GlassSidebar } from 'liquidify';
 
 function App() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <GlassSidebar
@@ -21,76 +21,76 @@ function App() {
       items={[
         { id: 'dashboard', label: 'Dashboard', icon: <Home size={20} /> },
         { id: 'analytics', label: 'Analytics', icon: <BarChart size={20} /> },
-        { id: 'settings', label: 'Settings', icon: <Settings size={20} /> }
+        { id: 'settings', label: 'Settings', icon: <Settings size={20} /> },
       ]}
     />
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-import { useState } from 'react'
-import { GlassSidebar } from 'liquidify'
-import { 
-  Home, 
-  BarChart, 
-  Users, 
-  Settings, 
+import { useState } from 'react';
+import { GlassSidebar } from 'liquidify';
+import {
+  Home,
+  BarChart,
+  Users,
+  Settings,
   FileText,
   Folder,
-  Plus
-} from 'lucide-react'
+  Plus,
+} from 'lucide-react';
 
 export default function SidebarDemo() {
-  const [isOpen, setIsOpen] = useState(true)
-  const [activeItem, setActiveItem] = useState('dashboard')
+  const [isOpen, setIsOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState('dashboard');
 
   const sidebarItems = [
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
       icon: <Home size={20} />,
-      href: '/dashboard'
+      href: '/dashboard',
     },
-    { 
-      id: 'analytics', 
-      label: 'Analytics', 
+    {
+      id: 'analytics',
+      label: 'Analytics',
       icon: <BarChart size={20} />,
       href: '/analytics',
-      badge: '3'
+      badge: '3',
     },
-    { 
-      id: 'users', 
-      label: 'Users', 
+    {
+      id: 'users',
+      label: 'Users',
       icon: <Users size={20} />,
       children: [
         { id: 'all-users', label: 'All Users', href: '/users' },
         { id: 'admins', label: 'Administrators', href: '/users/admins' },
-        { id: 'pending', label: 'Pending', href: '/users/pending', badge: '2' }
-      ]
+        { id: 'pending', label: 'Pending', href: '/users/pending', badge: '2' },
+      ],
     },
-    { 
-      id: 'content', 
-      label: 'Content', 
+    {
+      id: 'content',
+      label: 'Content',
       icon: <FileText size={20} />,
       children: [
         { id: 'posts', label: 'Posts', href: '/posts' },
         { id: 'pages', label: 'Pages', href: '/pages' },
-        { id: 'media', label: 'Media', href: '/media' }
-      ]
+        { id: 'media', label: 'Media', href: '/media' },
+      ],
     },
-    { 
-      id: 'settings', 
-      label: 'Settings', 
+    {
+      id: 'settings',
+      label: 'Settings',
       icon: <Settings size={20} />,
-      href: '/settings'
-    }
-  ]
+      href: '/settings',
+    },
+  ];
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className='flex h-screen bg-gray-50'>
       <GlassSidebar
         isOpen={isOpen}
         onToggle={setIsOpen}
@@ -100,20 +100,18 @@ export default function SidebarDemo() {
         width={280}
         collapsedWidth={80}
       />
-      
-      <main className="flex-1 p-6 overflow-auto">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="hig-title-1 mb-4">Main Content</h1>
-          <p className="hig-body mb-4">
+
+      <main className='flex-1 p-6 overflow-auto'>
+        <div className='max-w-4xl mx-auto'>
+          <h1 className='hig-title-1 mb-4'>Main Content</h1>
+          <p className='hig-body mb-4'>
             Sidebar is {isOpen ? 'open' : 'collapsed'}
           </p>
-          <p className="hig-body">
-            Active item: {activeItem}
-          </p>
+          <p className='hig-body'>Active item: {activeItem}</p>
         </div>
       </main>
     </div>
-  )
+  );
 }
 ```
 
@@ -121,37 +119,38 @@ export default function SidebarDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `isOpen` | `boolean` | `true` | Whether sidebar is expanded |
-| `onToggle` | `(open: boolean) => void` | - | Toggle handler |
-| `items` | `SidebarItem[]` | `[]` | Navigation items |
-| `activeItem` | `string` | - | Currently active item ID |
-| `onItemClick` | `(id: string) => void` | - | Item click handler |
-| `width` | `number` | `280` | Expanded width in pixels |
-| `collapsedWidth` | `number` | `80` | Collapsed width in pixels |
-| `position` | `'left' \| 'right'` | `'left'` | Sidebar position |
-| `overlay` | `boolean` | `false` | Show overlay on mobile |
-| `className` | `string` | - | Additional CSS classes |
+| Prop             | Type                      | Default  | Description                 |
+| ---------------- | ------------------------- | -------- | --------------------------- |
+| `isOpen`         | `boolean`                 | `true`   | Whether sidebar is expanded |
+| `onToggle`       | `(open: boolean) => void` | -        | Toggle handler              |
+| `items`          | `SidebarItem[]`           | `[]`     | Navigation items            |
+| `activeItem`     | `string`                  | -        | Currently active item ID    |
+| `onItemClick`    | `(id: string) => void`    | -        | Item click handler          |
+| `width`          | `number`                  | `280`    | Expanded width in pixels    |
+| `collapsedWidth` | `number`                  | `80`     | Collapsed width in pixels   |
+| `position`       | `'left' \| 'right'`       | `'left'` | Sidebar position            |
+| `overlay`        | `boolean`                 | `false`  | Show overlay on mobile      |
+| `className`      | `string`                  | -        | Additional CSS classes      |
 
 ### Interface Definitions
 
 ```tsx
 interface SidebarItem {
-  id: string
-  label: string
-  icon?: ReactNode
-  href?: string
-  onClick?: () => void
-  badge?: string | number
-  children?: SidebarItem[]
-  disabled?: boolean
+  id: string;
+  label: string;
+  icon?: ReactNode;
+  href?: string;
+  onClick?: () => void;
+  badge?: string | number;
+  children?: SidebarItem[];
+  disabled?: boolean;
 }
 ```
 
 ## Features
 
 ### Collapsible Behavior
+
 Toggle between expanded and collapsed states:
 
 ```tsx
@@ -164,6 +163,7 @@ Toggle between expanded and collapsed states:
 ```
 
 ### Nested Navigation
+
 Support for hierarchical menu items:
 
 ```tsx
@@ -184,26 +184,28 @@ const items = [
 ```
 
 ### Badge Support
+
 Show notifications or counts on menu items:
 
 ```tsx
 const items = [
-  { 
-    id: 'messages', 
-    label: 'Messages', 
+  {
+    id: 'messages',
+    label: 'Messages',
     icon: <Mail size={20} />,
-    badge: 5 
+    badge: 5,
   },
-  { 
-    id: 'tasks', 
-    label: 'Tasks', 
+  {
+    id: 'tasks',
+    label: 'Tasks',
     icon: <CheckSquare size={20} />,
-    badge: 'New' 
-  }
-]
+    badge: 'New',
+  },
+];
 ```
 
 ### Responsive Design
+
 Automatic mobile behavior with overlay:
 
 ```tsx
@@ -217,67 +219,68 @@ Automatic mobile behavior with overlay:
 ## Accessibility
 
 ### Keyboard Navigation
+
 - **Arrow keys**: Navigate through items
 - **Enter/Space**: Activate item
 - **Escape**: Close sidebar (on mobile)
 
 ### Screen Reader Support
+
 ```tsx
-<GlassSidebar
-  items={items}
-  aria-label="Main navigation"
-  role="navigation"
-/>
+<GlassSidebar items={items} aria-label='Main navigation' role='navigation' />
 ```
 
 ### Focus Management
+
 Proper focus handling when sidebar opens/closes:
 
 ```tsx
-<GlassSidebar
-  autoFocus={true}
-  trapFocus={isOpen && overlay}
-/>
+<GlassSidebar autoFocus={true} trapFocus={isOpen && overlay} />
 ```
 
 ## Use Cases
 
 ### Dashboard Application
+
 ```tsx
 function DashboardSidebar() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true);
 
   const dashboardItems = [
-    { 
-      id: 'overview', 
-      label: 'Overview', 
+    {
+      id: 'overview',
+      label: 'Overview',
       icon: <BarChart3 size={20} />,
-      href: '/dashboard'
+      href: '/dashboard',
     },
-    { 
-      id: 'analytics', 
-      label: 'Analytics', 
+    {
+      id: 'analytics',
+      label: 'Analytics',
       icon: <TrendingUp size={20} />,
       children: [
         { id: 'traffic', label: 'Traffic', href: '/analytics/traffic' },
-        { id: 'conversions', label: 'Conversions', href: '/analytics/conversions' },
-        { id: 'revenue', label: 'Revenue', href: '/analytics/revenue' }
-      ]
+        {
+          id: 'conversions',
+          label: 'Conversions',
+          href: '/analytics/conversions',
+        },
+        { id: 'revenue', label: 'Revenue', href: '/analytics/revenue' },
+      ],
     },
-    { 
-      id: 'users', 
-      label: 'Users', 
+    {
+      id: 'users',
+      label: 'Users',
       icon: <Users size={20} />,
       href: '/users',
-      badge: 12
+      badge: 12,
     },
-    { 
-      id: 'settings', 
-      label: 'Settings', 
+    {
+      id: 'settings',
+      label: 'Settings',
       icon: <Settings size={20} />,
-      href: '/settings'
-    }
-  ]
+      href: '/settings',
+    },
+  ];
 
   return (
     <GlassSidebar
@@ -286,151 +289,155 @@ function DashboardSidebar() {
       items={dashboardItems}
       width={280}
     />
-  )
+  );
 }
 ```
 
 ### File Manager
+
 ```tsx
 function FileManagerSidebar() {
   const [folders, setFolders] = useState([
-    { 
-      id: 'documents', 
-      label: 'Documents', 
+    {
+      id: 'documents',
+      label: 'Documents',
       icon: <Folder size={20} />,
       children: [
         { id: 'work', label: 'Work' },
-        { id: 'personal', label: 'Personal' }
-      ]
+        { id: 'personal', label: 'Personal' },
+      ],
     },
-    { 
-      id: 'images', 
-      label: 'Images', 
-      icon: <Image size={20} />
+    {
+      id: 'images',
+      label: 'Images',
+      icon: <Image size={20} />,
     },
-    { 
-      id: 'downloads', 
-      label: 'Downloads', 
+    {
+      id: 'downloads',
+      label: 'Downloads',
       icon: <Download size={20} />,
-      badge: '3 new'
-    }
-  ])
+      badge: '3 new',
+    },
+  ]);
 
-  return (
-    <GlassSidebar
-      items={folders}
-      width={250}
-      collapsedWidth={60}
-    />
-  )
+  return <GlassSidebar items={folders} width={250} collapsedWidth={60} />;
 }
 ```
 
 ### E-commerce Admin
+
 ```tsx
 function AdminSidebar() {
   const adminItems = [
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
-      icon: <Home size={20} />
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: <Home size={20} />,
     },
-    { 
-      id: 'orders', 
-      label: 'Orders', 
+    {
+      id: 'orders',
+      label: 'Orders',
       icon: <ShoppingBag size={20} />,
       badge: 5,
       children: [
         { id: 'pending', label: 'Pending', badge: 3 },
         { id: 'processing', label: 'Processing', badge: 2 },
-        { id: 'completed', label: 'Completed' }
-      ]
+        { id: 'completed', label: 'Completed' },
+      ],
     },
-    { 
-      id: 'products', 
-      label: 'Products', 
+    {
+      id: 'products',
+      label: 'Products',
       icon: <Package size={20} />,
       children: [
         { id: 'all-products', label: 'All Products' },
         { id: 'categories', label: 'Categories' },
-        { id: 'inventory', label: 'Inventory' }
-      ]
+        { id: 'inventory', label: 'Inventory' },
+      ],
     },
-    { 
-      id: 'customers', 
-      label: 'Customers', 
-      icon: <Users size={20} />
-    }
-  ]
+    {
+      id: 'customers',
+      label: 'Customers',
+      icon: <Users size={20} />,
+    },
+  ];
 
-  return <GlassSidebar items={adminItems} />
+  return <GlassSidebar items={adminItems} />;
 }
 ```
 
 ## Styling and Customization
 
 ### Custom Width
+
 ```tsx
 <GlassSidebar
   width={320}
   collapsedWidth={70}
-  className="border-r border-glass-secondary"
+  className='border-r border-glass-secondary'
 />
 ```
 
 ### Theme Variants
+
 ```tsx
 <GlassSidebar
-  variant="glass" // glass, solid, transparent
-  blur="lg"
-  className="backdrop-blur-xl"
+  variant='glass' // glass, solid, transparent
+  blur='lg'
+  className='backdrop-blur-xl'
 />
 ```
 
 ### Custom Item Styling
+
 ```tsx
 <GlassSidebar
-  itemClassName="hover:bg-glass-hover rounded-lg mx-2"
-  activeClassName="bg-primary-100 text-primary-700"
-  iconClassName="text-glass-secondary"
+  itemClassName='hover:bg-glass-hover rounded-lg mx-2'
+  activeClassName='bg-primary-100 text-primary-700'
+  iconClassName='text-glass-secondary'
 />
 ```
 
 ## Integration with State Management
 
 ### React Context
+
 ```tsx
-const SidebarContext = createContext()
+const SidebarContext = createContext();
 
 function SidebarProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(true)
-  const [activeItem, setActiveItem] = useState('')
+  const [isOpen, setIsOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState('');
 
   return (
-    <SidebarContext.Provider value={{
-      isOpen,
-      setIsOpen,
-      activeItem,
-      setActiveItem
-    }}>
+    <SidebarContext.Provider
+      value={{
+        isOpen,
+        setIsOpen,
+        activeItem,
+        setActiveItem,
+      }}
+    >
       {children}
     </SidebarContext.Provider>
-  )
+  );
 }
 ```
 
 ### Redux/Zustand
+
 ```tsx
 // With Zustand
-const useSidebarStore = create((set) => ({
+const useSidebarStore = create(set => ({
   isOpen: true,
   activeItem: '',
-  toggleSidebar: () => set((state) => ({ isOpen: !state.isOpen })),
-  setActiveItem: (item) => set({ activeItem: item })
-}))
+  toggleSidebar: () => set(state => ({ isOpen: !state.isOpen })),
+  setActiveItem: item => set({ activeItem: item }),
+}));
 
 function AppSidebar() {
-  const { isOpen, activeItem, toggleSidebar, setActiveItem } = useSidebarStore()
+  const { isOpen, activeItem, toggleSidebar, setActiveItem } =
+    useSidebarStore();
 
   return (
     <GlassSidebar
@@ -439,13 +446,14 @@ function AppSidebar() {
       activeItem={activeItem}
       onItemClick={setActiveItem}
     />
-  )
+  );
 }
 ```
 
 ## Best Practices
 
 ### Do's ✅
+
 - **Keep navigation hierarchies shallow** (max 2-3 levels)
 - **Use clear, descriptive labels** for all items
 - **Group related items** logically
@@ -457,19 +465,20 @@ function AppSidebar() {
 <GlassSidebar
   items={[
     { id: 'dashboard', label: 'Dashboard', icon: <Home /> },
-    { 
-      id: 'content', 
+    {
+      id: 'content',
       label: 'Content Management',
       children: [
         { id: 'posts', label: 'Blog Posts' },
-        { id: 'pages', label: 'Static Pages' }
-      ]
-    }
+        { id: 'pages', label: 'Static Pages' },
+      ],
+    },
   ]}
 />
 ```
 
 ### Don'ts ❌
+
 - **Don't create overly deep hierarchies**
 - **Avoid unclear or technical labels**
 - **Don't hide important actions** in collapsed state
@@ -484,4 +493,4 @@ function AppSidebar() {
 
 ---
 
-*Glass Sidebar provides a flexible, accessible side navigation solution that adapts to different screen sizes while maintaining the elegant Liquid Glass aesthetic.*
+_Glass Sidebar provides a flexible, accessible side navigation solution that adapts to different screen sizes while maintaining the elegant Liquid Glass aesthetic._

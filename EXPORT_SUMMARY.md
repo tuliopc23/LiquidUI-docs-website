@@ -3,13 +3,15 @@
 ## 🎯 Core Apple HIG Components
 
 ### Primary Component
+
 ```typescript
 import { AppleLiquidGlass } from 'liquidify';
 ```
 
 ### Updated Glass Components (Apple HIG Compliant)
+
 ```typescript
-import { 
+import {
   GlassButton,
   GlassCard,
   GlassNavbar,
@@ -20,127 +22,121 @@ import {
   GlassSidebar,
   GlassDatePicker,
   GlassFooter,
-  GlassRadio
+  GlassRadio,
 } from 'liquidify';
 ```
 
 ## 🎨 Complete Component Library
 
 ### Actions Category
+
 ```typescript
-import { 
+import {
   GlassButton,
   GlassButtonGroup,
   GlassIconButton,
   GlassToggleButton,
-  GlassFloatingAction
+  GlassFloatingAction,
 } from 'liquidify';
 ```
 
 ### Navigation Category
+
 ```typescript
-import { 
+import {
   GlassNavbar,
   GlassSidebar,
   GlassBreadcrumb,
   GlassMenu,
   GlassPagination,
-  GlassStepper
+  GlassStepper,
 } from 'liquidify';
 ```
 
 ### Inputs Category
+
 ```typescript
-import { 
-  GlassDatePicker,
-  GlassFileUpload,
-  GlassRadio
-} from 'liquidify';
+import { GlassDatePicker, GlassFileUpload, GlassRadio } from 'liquidify';
 ```
 
 ### Presentation Category
+
 ```typescript
-import { 
-  GlassNotification,
-  GlassToast,
-  GlassChart
-} from 'liquidify';
+import { GlassNotification, GlassToast, GlassChart } from 'liquidify';
 ```
 
 ### Layout Category
+
 ```typescript
-import { 
-  GlassCard,
-  GlassHeader,
-  GlassFooter
-} from 'liquidify';
+import { GlassCard, GlassHeader, GlassFooter } from 'liquidify';
 ```
 
 ### Containment Category
+
 ```typescript
-import { 
-  GlassCommand
-} from 'liquidify';
+import { GlassCommand } from 'liquidify';
 ```
 
 ## 🎭 Demo & Animation Components
 
 ```typescript
-import { 
+import {
   AnimationDemo,
   PageTransition,
   LiquidifyInteractiveDemo,
-  SimpleShowcase
+  SimpleShowcase,
 } from 'liquidify';
 ```
 
 ## ⚡ Performance & Animation Utilities
 
 ```typescript
-import { 
+import {
   performanceUtils,
   usePerformanceOptimization,
-  
+
   // Enhanced animations
   microInteractions,
   hapticFeedback,
   magneticHover,
   scrollAnimations,
   springAnimations,
-  
+
   // Liquid glass animations
   liquidGlassAnimations,
   glassDistortion,
-  glassTransitions
+  glassTransitions,
 } from 'liquidify';
 ```
 
 ## 🎨 Apple HIG Design System
 
 ```typescript
-import { 
+import {
   // Apple HIG utilities
   appleDesignSystem,
   appleHIGSystem,
-  
+
   // Common utilities
-  cn // Tailwind className utility
+  cn, // Tailwind className utility
 } from 'liquidify';
 ```
 
 ## 📝 TypeScript Types
 
 ### Core Types
+
 ```typescript
-import type { 
+import type {
   AppleLiquidGlassProps,
-  GlassEffectProps // Legacy
+  GlassEffectProps, // Legacy
 } from 'liquidify';
 ```
 
 ### Component Types
+
 ```typescript
-import type { 
+import type {
   GlassButtonProps,
   GlassCardProps,
   GlassNavbarProps,
@@ -159,12 +155,14 @@ import type {
 ## 🎯 Apple HIG Features
 
 ### Prominence Levels
+
 - `primary` - Most prominent elements
 - `secondary` - Secondary elements (default)
 - `tertiary` - Subtle elements
 - `quaternary` - Minimal elements
 
 ### Intensity Levels
+
 - `ultraThin` - 4px blur
 - `thin` - 8px blur
 - `regular` - 12px blur (default)
@@ -172,6 +170,7 @@ import type {
 - `ultraThick` - 24px blur
 
 ### Size System
+
 - `xs` - Extra small (8px padding)
 - `sm` - Small (12px padding)
 - `md` - Medium (16px padding) - default
@@ -180,6 +179,7 @@ import type {
 - `2xl` - Double extra large (40px padding)
 
 ### Variants
+
 - `card` - Standard card with 24px corner radius
 - `button` - Interactive button with 16px corner radius
 - `widget` - Widget with 12px corner radius
@@ -192,6 +192,7 @@ import type {
 ## 🚀 Usage Examples
 
 ### Basic Usage
+
 ```typescript
 import { AppleLiquidGlass } from 'liquidify';
 
@@ -209,6 +210,7 @@ import { AppleLiquidGlass } from 'liquidify';
 ```
 
 ### Button Usage
+
 ```typescript
 import { GlassButton } from 'liquidify';
 
@@ -222,6 +224,7 @@ import { GlassButton } from 'liquidify';
 ```
 
 ### Performance Usage
+
 ```typescript
 import { usePerformanceOptimization } from 'liquidify';
 
@@ -234,6 +237,7 @@ optimizeElement(elementRef.current, 'medium');
 ## 🔄 Backward Compatibility
 
 All legacy components are still available and maintain their original API:
+
 - `GlassEffect` - Legacy glass effect component
 - All existing component props and functionality preserved
 - Gradual migration path available

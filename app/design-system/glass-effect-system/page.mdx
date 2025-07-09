@@ -19,14 +19,15 @@ Our Glass Effect System provides a complete liquid glass morphism solution with:
 The base component for all glass effects:
 
 ```tsx
-import { GlassEffect } from '@/components/ui'
+import { GlassEffect } from '@/components/ui';
 
-<GlassEffect variant="card" intensity="medium" glow>
+<GlassEffect variant='card' intensity='medium' glow>
   <p>Content with liquid glass effect</p>
-</GlassEffect>
+</GlassEffect>;
 ```
 
 **Props:**
+
 - `variant`: `'default' | 'card' | 'modal' | 'button' | 'overlay' | 'widget'`
 - `intensity`: `'light' | 'medium' | 'heavy' | 'ultra'`
 - `borderRadius`: `'sm' | 'md' | 'lg' | 'xl' | 'full'`
@@ -40,16 +41,16 @@ import { GlassEffect } from '@/components/ui'
 Pre-configured card component with liquid glass effect:
 
 ```tsx
-import { GlassCard } from '@/components/ui'
+import { GlassCard } from '@/components/ui';
 
 <GlassCard
   header={<h3>Card Title</h3>}
   footer={<button>Action</button>}
-  padding="lg"
-  spacing="md"
+  padding='lg'
+  spacing='md'
 >
   <p>Card content with automatic glass styling</p>
-</GlassCard>
+</GlassCard>;
 ```
 
 ### GlassButton
@@ -57,16 +58,16 @@ import { GlassCard } from '@/components/ui'
 Interactive button with liquid glass effect:
 
 ```tsx
-import { GlassButton } from '@/components/ui'
+import { GlassButton } from '@/components/ui';
 
-<GlassButton 
-  variant="primary" 
-  size="lg" 
+<GlassButton
+  variant='primary'
+  size='lg'
   loading={false}
   onClick={() => alert('Clicked!')}
 >
   Click Me
-</GlassButton>
+</GlassButton>;
 ```
 
 ### GlassBackground
@@ -74,11 +75,11 @@ import { GlassButton } from '@/components/ui'
 Full-page background with animated glass orbs:
 
 ```tsx
-import { GlassBackground } from '@/components/ui'
+import { GlassBackground } from '@/components/ui';
 
-<GlassBackground variant="gradient" animated>
+<GlassBackground variant='gradient' animated>
   <div>Your page content</div>
-</GlassBackground>
+</GlassBackground>;
 ```
 
 ## Animation System
@@ -113,13 +114,13 @@ Optimized for production:
 
 If you're migrating from legacy CSS classes:
 
-| Old Class | New Component | Usage |
-|-----------|---------------|--------|
-| `.liquid-glass` | `<GlassEffect>` | `<GlassEffect variant="default">` |
-| `.liquid-glass-card` | `<GlassCard>` | `<GlassCard>` |
-| `.liquid-glass-button` | `<GlassButton>` | `<GlassButton>` |
-| `.liquid-glass-thin` | `<GlassEffect>` | `<GlassEffect intensity="light">` |
-| `.liquid-glass-thick` | `<GlassEffect>` | `<GlassEffect intensity="heavy">` |
+| Old Class              | New Component   | Usage                             |
+| ---------------------- | --------------- | --------------------------------- |
+| `.liquid-glass`        | `<GlassEffect>` | `<GlassEffect variant="default">` |
+| `.liquid-glass-card`   | `<GlassCard>`   | `<GlassCard>`                     |
+| `.liquid-glass-button` | `<GlassButton>` | `<GlassButton>`                   |
+| `.liquid-glass-thin`   | `<GlassEffect>` | `<GlassEffect intensity="light">` |
+| `.liquid-glass-thick`  | `<GlassEffect>` | `<GlassEffect intensity="heavy">` |
 
 ## Best Practices
 
@@ -143,12 +144,7 @@ If you're migrating from legacy CSS classes:
 ### Interactive Button
 
 ```tsx
-<GlassButton 
-  variant="primary" 
-  size="lg"
-  glow
-  onClick={handleClick}
->
+<GlassButton variant='primary' size='lg' glow onClick={handleClick}>
   Get Started
 </GlassButton>
 ```
@@ -156,8 +152,8 @@ If you're migrating from legacy CSS classes:
 ### Modal Overlay
 
 ```tsx
-<GlassEffect variant="modal" intensity="heavy">
-  <div className="p-8">
+<GlassEffect variant='modal' intensity='heavy'>
+  <div className='p-8'>
     <h2>Modal Title</h2>
     <p>Modal content with enhanced glass effect</p>
   </div>

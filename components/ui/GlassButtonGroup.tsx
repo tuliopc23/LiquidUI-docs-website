@@ -4,7 +4,8 @@ import React from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassButtonGroupProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassButtonGroupProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   children: React.ReactNode;
   orientation?: 'horizontal' | 'vertical';
   size?: 'sm' | 'md' | 'lg';
@@ -67,19 +68,21 @@ const GlassButtonGroup: React.FC<GlassButtonGroupProps> = ({
     if (React.isValidElement(child)) {
       const isFirst = index === 0;
       const isLast = index === React.Children.count(children) - 1;
-      
+
       const childClasses = cn(
         (child.props as any).className,
-        attached && orientation === 'horizontal' && {
-          'rounded-l-none': !isFirst,
-          'rounded-r-none': !isLast,
-          'border-l-0': !isFirst && variant === 'outline',
-        },
-        attached && orientation === 'vertical' && {
-          'rounded-t-none': !isFirst,
-          'rounded-b-none': !isLast,
-          'border-t-0': !isFirst && variant === 'outline',
-        },
+        attached &&
+          orientation === 'horizontal' && {
+            'rounded-l-none': !isFirst,
+            'rounded-r-none': !isLast,
+            'border-l-0': !isFirst && variant === 'outline',
+          },
+        attached &&
+          orientation === 'vertical' && {
+            'rounded-t-none': !isFirst,
+            'rounded-b-none': !isLast,
+            'border-t-0': !isFirst && variant === 'outline',
+          },
         disabled && 'pointer-events-none'
       );
 
@@ -96,9 +99,9 @@ const GlassButtonGroup: React.FC<GlassButtonGroupProps> = ({
 
   return (
     <GlassEffect
-      variant="button"
+      variant='button'
       className={baseClasses}
-      role="group"
+      role='group'
       aria-disabled={disabled}
       {...props}
     >

@@ -1,4 +1,4 @@
-import { GlassTabs } from 'liquidify'
+import { GlassTabs } from 'liquidify';
 
 # GlassTabs
 
@@ -11,22 +11,18 @@ GlassTabs provides an elegant way to organize content into multiple views, allow
 ## Basic Usage
 
 ```tsx
-import { GlassTabs } from 'liquidify'
+import { GlassTabs } from 'liquidify';
 
 function BasicTabs() {
   const tabs = [
     { id: 'overview', label: 'Overview', content: <OverviewContent /> },
     { id: 'features', label: 'Features', content: <FeaturesContent /> },
-    { id: 'pricing', label: 'Pricing', content: <PricingContent /> }
-  ]
+    { id: 'pricing', label: 'Pricing', content: <PricingContent /> },
+  ];
 
   return (
-    <GlassTabs
-      tabs={tabs}
-      defaultTab="overview"
-      orientation="horizontal"
-    />
-  )
+    <GlassTabs tabs={tabs} defaultTab='overview' orientation='horizontal' />
+  );
 }
 ```
 
@@ -35,43 +31,48 @@ function BasicTabs() {
 ```tsx
 <GlassTabs
   tabs={[
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
       icon: 'chart.bar',
       content: (
-        <div className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Dashboard Overview</h3>
-          <p>Welcome to your dashboard. Here you can view key metrics and insights.</p>
+        <div className='p-6'>
+          <h3 className='text-xl font-semibold mb-4'>Dashboard Overview</h3>
+          <p>
+            Welcome to your dashboard. Here you can view key metrics and
+            insights.
+          </p>
         </div>
-      )
+      ),
     },
-    { 
-      id: 'analytics', 
-      label: 'Analytics', 
+    {
+      id: 'analytics',
+      label: 'Analytics',
       icon: 'chart.line.uptrend.xyaxis',
       content: (
-        <div className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Analytics</h3>
-          <p>Detailed analytics and performance metrics for your application.</p>
+        <div className='p-6'>
+          <h3 className='text-xl font-semibold mb-4'>Analytics</h3>
+          <p>
+            Detailed analytics and performance metrics for your application.
+          </p>
         </div>
-      )
+      ),
     },
-    { 
-      id: 'settings', 
-      label: 'Settings', 
+    {
+      id: 'settings',
+      label: 'Settings',
       icon: 'gear',
       content: (
-        <div className="p-6">
-          <h3 className="text-xl font-semibold mb-4">Settings</h3>
+        <div className='p-6'>
+          <h3 className='text-xl font-semibold mb-4'>Settings</h3>
           <p>Configure your application settings and preferences.</p>
         </div>
-      )
-    }
+      ),
+    },
   ]}
-  defaultTab="dashboard"
-  orientation="horizontal"
-  variant="default"
+  defaultTab='dashboard'
+  orientation='horizontal'
+  variant='default'
 />
 ```
 
@@ -79,36 +80,36 @@ function BasicTabs() {
 
 ### GlassTabs Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `tabs` | `TabItem[]` | - | Array of tab items to display |
-| `defaultTab` | `string` | - | Initial active tab ID |
-| `activeTab` | `string` | - | Controlled active tab ID |
-| `onTabChange` | `(tabId: string) => void` | - | Callback when active tab changes |
-| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Tab orientation |
-| `variant` | `'default' \| 'pills' \| 'underline'` | `'default'` | Tab visual style |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Tab size |
-| `disabled` | `boolean` | `false` | Disable all tabs |
-| `disabledTabs` | `string[]` | `[]` | Array of disabled tab IDs |
-| `className` | `string` | - | Additional CSS classes |
-| `tabsClassName` | `string` | - | CSS classes for tabs container |
-| `contentClassName` | `string` | - | CSS classes for content container |
-| `animated` | `boolean` | `true` | Enable smooth transitions |
-| `lazy` | `boolean` | `false` | Lazy load tab content |
-| `keepMounted` | `boolean` | `false` | Keep inactive tabs mounted |
+| Prop               | Type                                  | Default        | Description                       |
+| ------------------ | ------------------------------------- | -------------- | --------------------------------- |
+| `tabs`             | `TabItem[]`                           | -              | Array of tab items to display     |
+| `defaultTab`       | `string`                              | -              | Initial active tab ID             |
+| `activeTab`        | `string`                              | -              | Controlled active tab ID          |
+| `onTabChange`      | `(tabId: string) => void`             | -              | Callback when active tab changes  |
+| `orientation`      | `'horizontal' \| 'vertical'`          | `'horizontal'` | Tab orientation                   |
+| `variant`          | `'default' \| 'pills' \| 'underline'` | `'default'`    | Tab visual style                  |
+| `size`             | `'sm' \| 'md' \| 'lg'`                | `'md'`         | Tab size                          |
+| `disabled`         | `boolean`                             | `false`        | Disable all tabs                  |
+| `disabledTabs`     | `string[]`                            | `[]`           | Array of disabled tab IDs         |
+| `className`        | `string`                              | -              | Additional CSS classes            |
+| `tabsClassName`    | `string`                              | -              | CSS classes for tabs container    |
+| `contentClassName` | `string`                              | -              | CSS classes for content container |
+| `animated`         | `boolean`                             | `true`         | Enable smooth transitions         |
+| `lazy`             | `boolean`                             | `false`        | Lazy load tab content             |
+| `keepMounted`      | `boolean`                             | `false`        | Keep inactive tabs mounted        |
 
 ### TabItem Interface
 
 ```typescript
 interface TabItem {
-  id: string
-  label: string
-  content: React.ReactNode
-  icon?: string // SF Symbol name
-  badge?: string | number
-  disabled?: boolean
-  closable?: boolean
-  tooltip?: string
+  id: string;
+  label: string;
+  content: React.ReactNode;
+  icon?: string; // SF Symbol name
+  badge?: string | number;
+  disabled?: boolean;
+  closable?: boolean;
+  tooltip?: string;
 }
 ```
 
@@ -117,41 +118,25 @@ interface TabItem {
 ### Default Tabs
 
 ```tsx
-<GlassTabs
-  tabs={tabs}
-  variant="default"
-  orientation="horizontal"
-/>
+<GlassTabs tabs={tabs} variant='default' orientation='horizontal' />
 ```
 
 ### Pills Style
 
 ```tsx
-<GlassTabs
-  tabs={tabs}
-  variant="pills"
-  orientation="horizontal"
-/>
+<GlassTabs tabs={tabs} variant='pills' orientation='horizontal' />
 ```
 
 ### Underline Style
 
 ```tsx
-<GlassTabs
-  tabs={tabs}
-  variant="underline"
-  orientation="horizontal"
-/>
+<GlassTabs tabs={tabs} variant='underline' orientation='horizontal' />
 ```
 
 ### Vertical Orientation
 
 ```tsx
-<GlassTabs
-  tabs={tabs}
-  orientation="vertical"
-  className="h-96"
-/>
+<GlassTabs tabs={tabs} orientation='vertical' className='h-96' />
 ```
 
 ## Features
@@ -184,29 +169,25 @@ const tabsWithBadges = [
 
 ```tsx
 function ClosableTabs() {
-  const [tabs, setTabs] = useState(initialTabs)
-  
+  const [tabs, setTabs] = useState(initialTabs);
+
   const handleTabClose = (tabId: string) => {
-    setTabs(tabs.filter(tab => tab.id !== tabId))
-  }
-  
+    setTabs(tabs.filter(tab => tab.id !== tabId));
+  };
+
   return (
     <GlassTabs
       tabs={tabs.map(tab => ({ ...tab, closable: true }))}
       onTabClose={handleTabClose}
     />
-  )
+  );
 }
 ```
 
 ### Lazy Loading
 
 ```tsx
-<GlassTabs
-  tabs={tabs}
-  lazy={true}
-  defaultTab="overview"
-/>
+<GlassTabs tabs={tabs} lazy={true} defaultTab='overview' />
 ```
 
 ## Accessibility
@@ -222,22 +203,22 @@ function ClosableTabs() {
 
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Tab` | Focus next/previous tab |
-| `Enter` / `Space` | Activate focused tab |
-| `Arrow Right` / `Arrow Down` | Next tab (horizontal/vertical) |
-| `Arrow Left` / `Arrow Up` | Previous tab (horizontal/vertical) |
-| `Home` | First tab |
-| `End` | Last tab |
+| Key                          | Action                             |
+| ---------------------------- | ---------------------------------- |
+| `Tab`                        | Focus next/previous tab            |
+| `Enter` / `Space`            | Activate focused tab               |
+| `Arrow Right` / `Arrow Down` | Next tab (horizontal/vertical)     |
+| `Arrow Left` / `Arrow Up`    | Previous tab (horizontal/vertical) |
+| `Home`                       | First tab                          |
+| `End`                        | Last tab                           |
 
 ### Screen Reader Support
 
 ```tsx
 <GlassTabs
   tabs={tabs}
-  aria-label="Main navigation tabs"
-  defaultTab="overview"
+  aria-label='Main navigation tabs'
+  defaultTab='overview'
 />
 ```
 
@@ -265,8 +246,8 @@ function ClosableTabs() {
 ```tsx
 <GlassTabs
   tabs={tabs}
-  className="dark:bg-gray-900/50 light:bg-white/50"
-  tabsClassName="border-gray-200 dark:border-gray-700"
+  className='dark:bg-gray-900/50 light:bg-white/50'
+  tabsClassName='border-gray-200 dark:border-gray-700'
 />
 ```
 
@@ -275,9 +256,9 @@ function ClosableTabs() {
 ```tsx
 <GlassTabs
   tabs={tabs}
-  className="my-custom-tabs"
-  tabsClassName="custom-tabs-container"
-  contentClassName="custom-content-area"
+  className='my-custom-tabs'
+  tabsClassName='custom-tabs-container'
+  contentClassName='custom-content-area'
 />
 ```
 
@@ -286,70 +267,66 @@ function ClosableTabs() {
 ### With React Router
 
 ```tsx
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function RouterTabs() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const tabs = [
     { id: 'overview', label: 'Overview', content: <Outlet /> },
     { id: 'details', label: 'Details', content: <Outlet /> },
-    { id: 'history', label: 'History', content: <Outlet /> }
-  ]
-  
+    { id: 'history', label: 'History', content: <Outlet /> },
+  ];
+
   return (
     <GlassTabs
       tabs={tabs}
       activeTab={location.pathname.split('/').pop()}
-      onTabChange={(tabId) => navigate(`/app/${tabId}`)}
+      onTabChange={tabId => navigate(`/app/${tabId}`)}
     />
-  )
+  );
 }
 ```
 
 ### With Next.js App Router
 
 ```tsx
-'use client'
+'use client';
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation';
 
 function NextTabs() {
-  const pathname = usePathname()
-  const router = useRouter()
-  
+  const pathname = usePathname();
+  const router = useRouter();
+
   const tabs = [
     { id: 'dashboard', label: 'Dashboard', content: <DashboardContent /> },
     { id: 'analytics', label: 'Analytics', content: <AnalyticsContent /> },
-    { id: 'settings', label: 'Settings', content: <SettingsContent /> }
-  ]
-  
+    { id: 'settings', label: 'Settings', content: <SettingsContent /> },
+  ];
+
   return (
     <GlassTabs
       tabs={tabs}
       activeTab={pathname.split('/').pop()}
-      onTabChange={(tabId) => router.push(`/app/${tabId}`)}
+      onTabChange={tabId => router.push(`/app/${tabId}`)}
     />
-  )
+  );
 }
 ```
 
 ### With State Management
 
 ```tsx
-import { useTabStore } from '@/store/tabs'
+import { useTabStore } from '@/store/tabs';
 
 function StatefulTabs() {
-  const { activeTab, setActiveTab } = useTabStore()
-  
+  const { activeTab, setActiveTab } = useTabStore();
+
   return (
-    <GlassTabs
-      tabs={tabs}
-      activeTab={activeTab}
-      onTabChange={setActiveTab}
-    />
-  )
+    <GlassTabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+  );
 }
 ```
 
@@ -379,10 +356,10 @@ function StatefulTabs() {
   tabs={[
     { id: 'overview', label: 'Overview', icon: 'chart.bar' },
     { id: 'users', label: 'Users', icon: 'person.2' },
-    { id: 'reports', label: 'Reports', icon: 'doc.text' }
+    { id: 'reports', label: 'Reports', icon: 'doc.text' },
   ]}
-  variant="pills"
-  orientation="horizontal"
+  variant='pills'
+  orientation='horizontal'
 />
 ```
 
@@ -393,10 +370,10 @@ function StatefulTabs() {
   tabs={[
     { id: 'general', label: 'General', icon: 'gear' },
     { id: 'security', label: 'Security', icon: 'lock' },
-    { id: 'notifications', label: 'Notifications', icon: 'bell' }
+    { id: 'notifications', label: 'Notifications', icon: 'bell' },
   ]}
-  orientation="vertical"
-  className="h-full"
+  orientation='vertical'
+  className='h-full'
 />
 ```
 
@@ -407,9 +384,9 @@ function StatefulTabs() {
   tabs={[
     { id: 'edit', label: 'Edit', icon: 'pencil' },
     { id: 'preview', label: 'Preview', icon: 'eye' },
-    { id: 'settings', label: 'Settings', icon: 'gear' }
+    { id: 'settings', label: 'Settings', icon: 'gear' },
   ]}
-  variant="underline"
+  variant='underline'
   lazy={true}
 />
 ```
@@ -423,4 +400,4 @@ function StatefulTabs() {
 
 ---
 
-*GlassTabs provides a flexible and accessible way to organize content into multiple views, following Apple's Human Interface Guidelines for optimal user experience.*
+_GlassTabs provides a flexible and accessible way to organize content into multiple views, following Apple's Human Interface Guidelines for optimal user experience._

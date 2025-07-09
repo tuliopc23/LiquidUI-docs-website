@@ -1,0 +1,329 @@
+# FluidSimulation
+
+The `FluidSimulation` class provides realistic fluid dynamics and morphing effects for animations in Liquidify, simulating liquid flows and interactions.
+
+## Overview
+
+`FluidSimulation` is used to create visually stunning fluid animations that emulate water, smoke, or other liquid-like behaviors. It handles the complex physics needed to mimic the natural movement and interaction of fluids with grids and particles.
+
+## Import
+
+```typescript
+import { FluidSimulation, FluidParticle, Vector2D } from 'liquidify';
+```
+
+## Constructor
+
+```typescript
+new FluidSimulation(options: FluidSimulationOptions)
+```
+
+### FluidSimulationOptions
+
+```typescript
+interface FluidSimulationOptions {
+  gridWidth: number; // Width of simulation grid
+  gridHeight: number; // Height of simulation grid
+  cellSize: number; // Size of each grid cell (default: 20)
+  particleCount: number; // Number of fluid particles
+  viscosity: number; // Viscosity coefficient (default: 0.1)
+  fade: number; // Fade rate for density (default: 0.01)
+  gravity: Vector2D; // Gravity force (default: Vector2D(0, 0))
+}
+```
+
+## Properties
+
+### `particles: FluidParticle[]`
+
+Array of all active fluid particles.
+
+### `densityField: number[][]`
+
+Density values for each grid cell.
+
+### `velocityField: Vector2D[][]`
+
+Velocity vectors for each grid cell.
+
+### `width: number`
+
+Width of the simulation grid.
+
+### `height: number`
+
+Height of the simulation grid.
+
+## Methods
+
+### `addSourceDensity(x: number, y: number, amount: number): void`
+
+Adds density to a specific grid cell.
+
+```typescript
+fluidSim.addSourceDensity(10, 5, 1);
+```
+
+### `addVelocity(x: number, y: number, velocity: Vector2D): void`
+
+Adds velocity to a specific grid cell.
+
+```typescript
+fluidSim.addVelocity(10, 5, new Vector2D(50, 0));
+```
+
+### `update(deltaTime: number): void`
+
+Advances the simulation by a time step.
+
+```typescript
+fluidSim.update(16); // 60fps update
+```
+
+### `render(context: CanvasRenderingContext2D): void`
+
+Renders the fluid simulation to a canvas context.
+
+```typescript
+fluidSim.render(ctx);
+```
+
+### `applyImpulse(source: Vector2D, strength: number): void`
+
+Applies an external impulse at a specific point.
+
+```typescript
+fluidSim.applyImpulse(new Vector2D(100, 100), 10);
+```
+
+### `getVelocityAt(x: number, y: number): Vector2D`
+
+Returns the velocity vector at a specific grid cell.
+
+```typescript
+const velocity = fluidSim.getVelocityAt(10, 5);
+```
+
+### `clone(): FluidSimulation`
+
+Creates a copy of the fluid simulation with identical properties.
+
+```typescript
+const fluidCopy = fluidSim.clone();
+```
+
+## Usage Examples
+
+### Basic Fluid Animation
+
+```typescript
+// Create fluid simulation
+const fluidSim = new FluidSimulation({
+  gridWidth: 50,
+  gridHeight: 50,
+  cellSize: 10,
+  particleCount: 400,
+  viscosity: 0.2,
+  fade: 0.05,
+});
+
+// Set initial conditions
+fluidSim.addSourceDensity(25, 25, 1);
+fluidSim.addVelocity(25, 25, new Vector2D(50, 0));
+
+// Animation loop
+function animate() {
+  fluidSim.update(16); // Update physics
+  fluidSim.render(ctx); // Render to canvas
+  requestAnimationFrame(animate);
+}
+animate();
+```
+
+### Interactive Water Effects
+
+```typescript
+// Interact with fluid using mouse
+canvas.addEventListener('mousemove', (e) = fromClientPos(el, clientX, clientY) {
+  const rect = el.getBoundingClientRect();
+  return new Vector2D(
+    Math.round((clientX - rect.left) / fluidSim.cellSize),
+    Math.round((clientY - rect.top) / fluidSim.cellSize)
+  );
+}
+
+canvas.addEventListener('mousemove', (e) => {
+  const mousePos = fromClientPos(canvas, e.clientX, e.clientY);
+  fluidSim.addSourceDensity(mousePos.x, mousePos.y, 5);
+  fluidSim.addVelocity(mousePos.x, mousePos.y, new Vector2D(10, 10));
+});
+
+canvas.addEventListener('mouseleave', () => {
+  fluidSim.clear(); // Clear all particles when the mouse leaves
+});
+```
+
+### Simulated Smoke
+
+```typescript
+// Create smoke effect with fluid simulation
+const smokeSim = new FluidSimulation({
+  gridWidth: 100,
+  gridHeight: 100,
+  cellSize: 5,
+  particleCount: 500,
+  viscosity: 0.1,
+  fade: 0.02,
+});
+
+// Update loop
+function updateSmoke() {
+  // Add density and velocity
+  smokeSim.addSourceDensity(50, 80, 0.5);
+  smokeSim.addVelocity(50, 80, new Vector2D(0, -60));
+
+  smokeSim.update(16);
+  smokeSim.render(ctx);
+
+  requestAnimationFrame(updateSmoke);
+}
+updateSmoke();
+```
+
+### React Integration
+
+```typescript
+import { useFluidSimulation } from 'liquidify';
+
+function FluidCanvas() {
+  const canvasRef = useRef<Elements() =>
+  const fluidSim = useFluidSimulation({
+    gridWidth: 100,
+    gridHeight: 100,
+    cellSize: 6,
+    particleCount: 300,
+    viscosity: 0.15
+  });
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    function animate() {
+      fluidSim.update(16);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fluidSim.render(ctx);
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }, [fluidSim]);
+
+  return (
+    | Animate Fluid Effects on Canvas
+      ref={canvasRef}
+       Reflected  // Width and height adjusted to fit fluid simulation grid
+      width={600}
+      height={600}
+      style={{ width: '100%', height: '100%' }}
+    /000/   Interact with the fluid using touch/mouse events etc.
+  );
+}
+```
+
+## Advanced Features
+
+### Viscosity and Diffusion
+
+Adjust viscosity for thick or thin fluid flow.
+
+```typescript
+fluidSim.setViscosity(0.5); // High viscosity for thicker flow
+```
+
+### Boundary Conditions
+
+Simulate different boundary interactions.
+
+```typescript
+// Reflecting boundaries
+fluidSim.setBoundaryConditions('reflect');
+
+// Wrap-around boundaries for infinite flow
+fluidSim.setBoundaryConditions('wrap');
+```
+
+### Density and Velocity Sources
+
+Control fluid properties dynamically.
+
+```typescript
+fluidSim.setDensitySource((x, y) => Math.sin(x * 0.1) * Math.cos(y * 0.1)); // Sinusoidal density field
+
+fluidSim.setVelocitySource(
+  (x, y) => new Vector2D(Math.sin(y * 0.1) * 10, Math.cos(x * 0.1) * 10)
+); // Swirling velocity field
+```
+
+### Advanced Impulse Application
+
+Apply customized impulses for unique effects.
+
+```typescript
+function customImpulse(
+  sim: FluidSimulation,
+  x: number,
+  y: number,
+  strength: number
+) {
+  sim.applyImpulse(new Vector2D(x, y), strength);
+  sim.addVelocity(x, y, new Vector2D(Math.random() * 10, Math.random() * 10));
+}
+```
+
+## Performance Optimization
+
+Use grid-based optimizations and particle pooling.
+
+### Grid Optimization
+
+Parallelize fluid updates with grid slices.
+
+### Particle Pooling
+
+Manage particle lifecycle efficiently.
+
+### Culling and Caching
+
+Use culling techniques for off-screen particles and cache fluid states to minimize calculations.
+
+```typescript
+fluidSim.enableCulling(true);
+fluidSim.enableCaching(true);
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Performance drop**: Increase cell size or reduce particle count.
+2. **Irregular flow**: Adjust viscosity and fade values.
+3. **Fluid not visible**: Check grid size and canvas alignment.
+4. **Inconsistent updates**: Ensure consistent deltaTime.
+
+### Debug Utilities
+
+Visualize fluid fields and particle states.
+
+```typescript
+fluidSim.renderDebugInfo(ctx);
+```
+
+## Related
+
+- [ParticleEmitter](/physics-system/core-classes/particle-emitter) - Combine particles for enhanced fluid visuals
+- [Vector2D](/physics-system/core-classes/vector2d) - Used for fluid particle positions and velocity
+- [createFluidMorph](/physics-system/utilities/create-fluid-morph) - Utility for morphing animations
+- [PHYSICS_CONSTANTS](/physics-system/constants/physics-constants) - Provides constants for fluid calculations
+- [createGlassRipple](/physics-system/utilities/create-glass-ripple) - Compatible with liquid-glass effects

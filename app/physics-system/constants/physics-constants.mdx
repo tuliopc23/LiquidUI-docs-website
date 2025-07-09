@@ -1,0 +1,526 @@
+# PHYSICS_CONSTANTS
+
+The `PHYSICS_CONSTANTS` object provides fundamental physics values, mathematical constants, and configuration defaults used throughout the Liquidify physics system.
+
+## Overview
+
+`PHYSICS_CONSTANTS` centralizes all physics-related constants to ensure consistency across the animation system. These constants are carefully tuned for optimal visual results and realistic physics behavior.
+
+## Import
+
+```typescript
+import { PHYSICS_CONSTANTS } from 'liquidify';
+```
+
+## Constants
+
+### Mathematical Constants
+
+#### `PI: number`
+
+The mathematical constant π (pi).
+
+```typescript
+PHYSICS_CONSTANTS.PI; // 3.141592653589793
+```
+
+#### `TWO_PI: number`
+
+2π, commonly used in circular motion calculations.
+
+```typescript
+PHYSICS_CONSTANTS.TWO_PI; // 6.283185307179586
+```
+
+#### `HALF_PI: number`
+
+π/2, useful for 90-degree rotations.
+
+```typescript
+PHYSICS_CONSTANTS.HALF_PI; // 1.5707963267948966
+```
+
+#### `DEG_TO_RAD: number`
+
+Conversion factor from degrees to radians.
+
+```typescript
+PHYSICS_CONSTANTS.DEG_TO_RAD; // 0.017453292519943295
+```
+
+#### `RAD_TO_DEG: number`
+
+Conversion factor from radians to degrees.
+
+```typescript
+PHYSICS_CONSTANTS.RAD_TO_DEG; // 57.29577951308232
+```
+
+### Physics Constants
+
+#### `GRAVITY: Vector2D`
+
+Standard Earth gravity acceleration.
+
+```typescript
+PHYSICS_CONSTANTS.GRAVITY; // Vector2D(0, 9.8)
+```
+
+#### `MOON_GRAVITY: Vector2D`
+
+Moon gravity acceleration (approximately 1/6 of Earth's).
+
+```typescript
+PHYSICS_CONSTANTS.MOON_GRAVITY; // Vector2D(0, 1.62)
+```
+
+#### `MARS_GRAVITY: Vector2D`
+
+Mars gravity acceleration (approximately 3/8 of Earth's).
+
+```typescript
+PHYSICS_CONSTANTS.MARS_GRAVITY; // Vector2D(0, 3.71)
+```
+
+#### `ZERO_GRAVITY: Vector2D`
+
+Zero gravity for space-like effects.
+
+```typescript
+PHYSICS_CONSTANTS.ZERO_GRAVITY; // Vector2D(0, 0)
+```
+
+#### `AIR_RESISTANCE: number`
+
+Standard air resistance coefficient.
+
+```typescript
+PHYSICS_CONSTANTS.AIR_RESISTANCE; // 0.01
+```
+
+#### `WATER_RESISTANCE: number`
+
+Water resistance coefficient (higher than air).
+
+```typescript
+PHYSICS_CONSTANTS.WATER_RESISTANCE; // 0.05
+```
+
+#### `FRICTION_COEFFICIENT: number`
+
+General friction coefficient for surface interactions.
+
+```typescript
+PHYSICS_CONSTANTS.FRICTION_COEFFICIENT; // 0.2
+```
+
+### Spring Constants
+
+#### `DEFAULT_STIFFNESS: number`
+
+Default spring stiffness value.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_STIFFNESS; // 100
+```
+
+#### `DEFAULT_DAMPING: number`
+
+Default spring damping value.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_DAMPING; // 10
+```
+
+#### `DEFAULT_MASS: number`
+
+Default mass for physics objects.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_MASS; // 1
+```
+
+#### `SPRING_PRECISION: number`
+
+Precision threshold for spring calculations.
+
+```typescript
+PHYSICS_CONSTANTS.SPRING_PRECISION; // 0.001
+```
+
+### Particle Constants
+
+#### `DEFAULT_PARTICLE_SIZE: number`
+
+Default particle size in pixels.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_PARTICLE_SIZE; // 2
+```
+
+#### `DEFAULT_PARTICLE_LIFETIME: number`
+
+Default particle lifetime in milliseconds.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_PARTICLE_LIFETIME; // 2000
+```
+
+#### `DEFAULT_EMISSION_RATE: number`
+
+Default particle emission rate per second.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_EMISSION_RATE; // 60
+```
+
+#### `MAX_PARTICLES: number`
+
+Maximum recommended particle count for performance.
+
+```typescript
+PHYSICS_CONSTANTS.MAX_PARTICLES; // 1000
+```
+
+### Fluid Constants
+
+#### `DEFAULT_VISCOSITY: number`
+
+Default fluid viscosity coefficient.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_VISCOSITY; // 0.1
+```
+
+#### `DEFAULT_DENSITY: number`
+
+Default fluid density value.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_DENSITY; // 1.0
+```
+
+#### `SURFACE_TENSION: number`
+
+Surface tension coefficient for liquid effects.
+
+```typescript
+PHYSICS_CONSTANTS.SURFACE_TENSION; // 0.072
+```
+
+#### `BOILING_POINT: number`
+
+Boiling point for particle effects (in arbitrary units).
+
+```typescript
+PHYSICS_CONSTANTS.BOILING_POINT; // 100
+```
+
+#### `FREEZING_POINT: number`
+
+Freezing point for particle effects (in arbitrary units).
+
+```typescript
+PHYSICS_CONSTANTS.FREEZING_POINT; // 0
+```
+
+### Animation Constants
+
+#### `DEFAULT_FPS: number`
+
+Default frames per second for animations.
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_FPS; // 60
+```
+
+#### `DEFAULT_DELTA_TIME: number`
+
+Default delta time in milliseconds (1000/60).
+
+```typescript
+PHYSICS_CONSTANTS.DEFAULT_DELTA_TIME; // 16.666666666666668
+```
+
+#### `MIN_DELTA_TIME: number`
+
+Minimum delta time to prevent large time steps.
+
+```typescript
+PHYSICS_CONSTANTS.MIN_DELTA_TIME; // 1
+```
+
+#### `MAX_DELTA_TIME: number`
+
+Maximum delta time to maintain stability.
+
+```typescript
+PHYSICS_CONSTANTS.MAX_DELTA_TIME; // 32
+```
+
+### Magnetic Constants
+
+#### `MAGNETIC_STRENGTH: number`
+
+Default magnetic field strength.
+
+```typescript
+PHYSICS_CONSTANTS.MAGNETIC_STRENGTH; // 0.3
+```
+
+#### `MAGNETIC_FALLOFF: number`
+
+Magnetic force falloff rate with distance.
+
+```typescript
+PHYSICS_CONSTANTS.MAGNETIC_FALLOFF; // 2.0
+```
+
+#### `REPULSION_STRENGTH: number`
+
+Default repulsion force strength.
+
+```typescript
+PHYSICS_CONSTANTS.REPULSION_STRENGTH; // 0.5
+```
+
+#### `ATTRACTION_STRENGTH: number`
+
+Default attraction force strength.
+
+```typescript
+PHYSICS_CONSTANTS.ATTRACTION_STRENGTH; // 0.3
+```
+
+### Performance Constants
+
+#### `CULLING_MARGIN: number`
+
+Margin for off-screen culling in pixels.
+
+```typescript
+PHYSICS_CONSTANTS.CULLING_MARGIN; // 50
+```
+
+#### `POOL_SIZE: number`
+
+Default object pool size for performance optimization.
+
+```typescript
+PHYSICS_CONSTANTS.POOL_SIZE; // 1000
+```
+
+#### `BATCH_SIZE: number`
+
+Default batch size for operations.
+
+```typescript
+PHYSICS_CONSTANTS.BATCH_SIZE; // 100
+```
+
+### Color Constants
+
+#### `PARTICLE_COLORS: string[]`
+
+Array of default particle colors.
+
+```typescript
+PHYSICS_CONSTANTS.PARTICLE_COLORS; // ['#ffffff', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24']
+```
+
+#### `FLUID_COLORS: string[]`
+
+Array of default fluid colors.
+
+```typescript
+PHYSICS_CONSTANTS.FLUID_COLORS; // ['#0077be', '#87ceeb', '#add8e6', '#b0e0e6', '#e0f6ff']
+```
+
+## Usage Examples
+
+### Basic Physics Setup
+
+```typescript
+import { PHYSICS_CONSTANTS, SpringPhysics, Vector2D } from 'liquidify';
+
+// Create spring with default constants
+const spring = new SpringPhysics({
+  stiffness: PHYSICS_CONSTANTS.DEFAULT_STIFFNESS,
+  damping: PHYSICS_CONSTANTS.DEFAULT_DAMPING,
+  mass: PHYSICS_CONSTANTS.DEFAULT_MASS,
+});
+
+// Apply gravity
+const gravity = PHYSICS_CONSTANTS.GRAVITY;
+```
+
+### Particle System with Constants
+
+```typescript
+import { PHYSICS_CONSTANTS, ParticleEmitter } from 'liquidify';
+
+const emitter = new ParticleEmitter({
+  position: new Vector2D(100, 100),
+  rate: PHYSICS_CONSTANTS.DEFAULT_EMISSION_RATE,
+  maxParticles: PHYSICS_CONSTANTS.MAX_PARTICLES,
+  particleLifetime: PHYSICS_CONSTANTS.DEFAULT_PARTICLE_LIFETIME,
+  size: PHYSICS_CONSTANTS.DEFAULT_PARTICLE_SIZE,
+  gravity: PHYSICS_CONSTANTS.GRAVITY,
+  airResistance: PHYSICS_CONSTANTS.AIR_RESISTANCE,
+});
+```
+
+### Fluid Simulation Setup
+
+```typescript
+import { PHYSICS_CONSTANTS, FluidSimulation } from 'liquidify';
+
+const fluidSim = new FluidSimulation({
+  gridWidth: 50,
+  gridHeight: 50,
+  cellSize: 10,
+  particleCount: 400,
+  viscosity: PHYSICS_CONSTANTS.DEFAULT_VISCOSITY,
+  fade: 0.05,
+  gravity: PHYSICS_CONSTANTS.GRAVITY,
+});
+```
+
+### Magnetic Effects
+
+```typescript
+import { PHYSICS_CONSTANTS, useMagneticHover } from 'liquidify';
+
+const { magneticRef } = useMagneticHover({
+  strength: PHYSICS_CONSTANTS.MAGNETIC_STRENGTH,
+  falloff: PHYSICS_CONSTANTS.MAGNETIC_FALLOFF,
+  maxDistance: 100,
+});
+```
+
+### Animation Timing
+
+```typescript
+import { PHYSICS_CONSTANTS } from 'liquidify';
+
+// Use consistent delta time
+const deltaTime = PHYSICS_CONSTANTS.DEFAULT_DELTA_TIME;
+
+// Clamp delta time for stability
+function clampDeltaTime(dt: number): number {
+  return Math.max(
+    PHYSICS_CONSTANTS.MIN_DELTA_TIME,
+    Math.min(PHYSICS_CONSTANTS.MAX_DELTA_TIME, dt)
+  );
+}
+```
+
+### Unit Conversions
+
+```typescript
+import { PHYSICS_CONSTANTS } from 'liquidify';
+
+// Convert degrees to radians
+const angleRad = 45 * PHYSICS_CONSTANTS.DEG_TO_RAD;
+
+// Convert radians to degrees
+const angleDeg = Math.PI * PHYSICS_CONSTANTS.RAD_TO_DEG;
+
+// Circular motion
+const x = Math.cos(angle);
+const y = Math.sin(angle);
+const fullCircle = PHYSICS_CONSTANTS.TWO_PI;
+```
+
+## Environment-Specific Constants
+
+### Different Gravity Environments
+
+```typescript
+// Earth-like environment
+const earthScene = {
+  gravity: PHYSICS_CONSTANTS.GRAVITY,
+  airResistance: PHYSICS_CONSTANTS.AIR_RESISTANCE,
+};
+
+// Moon-like environment
+const moonScene = {
+  gravity: PHYSICS_CONSTANTS.MOON_GRAVITY,
+  airResistance: 0, // No atmosphere
+};
+
+// Underwater environment
+const underwaterScene = {
+  gravity: PHYSICS_CONSTANTS.GRAVITY,
+  airResistance: PHYSICS_CONSTANTS.WATER_RESISTANCE,
+};
+
+// Space environment
+const spaceScene = {
+  gravity: PHYSICS_CONSTANTS.ZERO_GRAVITY,
+  airResistance: 0,
+};
+```
+
+### Performance Optimization
+
+```typescript
+// Use constants for performance optimization
+const usePerformanceConstants = () => {
+  const maxParticles = PHYSICS_CONSTANTS.MAX_PARTICLES;
+  const batchSize = PHYSICS_CONSTANTS.BATCH_SIZE;
+  const cullingMargin = PHYSICS_CONSTANTS.CULLING_MARGIN;
+
+  return {
+    maxParticles,
+    batchSize,
+    cullingMargin,
+    shouldCull: (
+      position: Vector2D,
+      viewport: { width: number; height: number }
+    ) => {
+      return (
+        position.x < -cullingMargin ||
+        position.x > viewport.width + cullingMargin ||
+        position.y < -cullingMargin ||
+        position.y > viewport.height + cullingMargin
+      );
+    },
+  };
+};
+```
+
+## Custom Constants
+
+You can extend or override constants for specific use cases:
+
+```typescript
+// Create custom constants
+const CUSTOM_PHYSICS_CONSTANTS = {
+  ...PHYSICS_CONSTANTS,
+  GRAVITY: new Vector2D(0, 15), // Stronger gravity
+  DEFAULT_STIFFNESS: 150, // Stiffer springs
+  PARTICLE_COLORS: ['#ff0000', '#00ff00', '#0000ff'], // Custom colors
+};
+
+// Use in your application
+const spring = new SpringPhysics({
+  stiffness: CUSTOM_PHYSICS_CONSTANTS.DEFAULT_STIFFNESS,
+  damping: CUSTOM_PHYSICS_CONSTANTS.DEFAULT_DAMPING,
+});
+```
+
+## Best Practices
+
+1. **Use constants consistently** across your application
+2. **Don't modify constants directly** - create custom versions instead
+3. **Use appropriate gravity** for your scene's environment
+4. **Clamp delta time** using MIN_DELTA_TIME and MAX_DELTA_TIME
+5. **Respect performance limits** like MAX_PARTICLES
+
+## Related
+
+- [SPRING_PRESETS](/physics-system/constants/spring-presets) - Pre-configured spring settings
+- [SpringPhysics](/physics-system/core-classes/spring-physics) - Uses many of these constants
+- [ParticleEmitter](/physics-system/core-classes/particle-emitter) - Particle-related constants
+- [FluidSimulation](/physics-system/core-classes/fluid-simulation) - Fluid-related constants

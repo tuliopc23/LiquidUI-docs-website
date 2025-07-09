@@ -1,0 +1,371 @@
+# useContentAwareGlass
+
+The `useContentAwareGlass` hook provides adaptive glass effects that automatically adjust based on content type, background, and environmental conditions.
+
+## Overview
+
+This hook analyzes the content and background to determine the optimal glass effect parameters, providing a seamless glassmorphism experience that adapts to different contexts.
+
+## Import
+
+```tsx
+import { useContentAwareGlass } from 'liquidify';
+```
+
+## Basic Usage
+
+```tsx
+import React from 'react';
+import { useContentAwareGlass } from 'liquidify';
+
+function AdaptiveGlassCard() {
+  const { glassStyle, updateContent } = useContentAwareGlass({
+    contentType: 'text',
+    backgroundType: 'image',
+    priority: 'readability',
+  });
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Adaptive Glass Card</h2>
+      <p>
+        This card automatically adjusts its glass effect based on the content
+        and background.
+      </p>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Content-Aware Navigation
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { useContentAwareGlass } from 'liquidify';
+
+function AdaptiveNavbar() {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const { glassStyle, updateContent, setIntensity } = useContentAwareGlass({
+    contentType: 'navigation',
+    backgroundType: 'dynamic',
+    priority: 'contrast',
+    adaptiveIntensity: true,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.scrollY;
+      setScrollPosition(position);
+
+      // Adjust glass intensity based on scroll position
+      const intensity = Math.min(position / 100, 1);
+      setIntensity(intensity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [setIntensity]);
+
+  return (
+    <nav style={glassStyle} className='fixed top-0 w-full z-50 p-4'>
+      <div className='container mx-auto flex justify-between items-center'>
+        <div className='text-xl font-bold'>Logo</div>
+        <div className='space-x-4'>
+          <a href='#' className='hover:text-opacity-80'>
+            Home
+          </a>
+          <a href='#' className='hover:text-opacity-80'>
+            About
+          </a>
+          <a href='#' className='hover:text-opacity-80'>
+            Contact
+          </a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+### Dynamic Content Card
+
+```tsx
+import React, { useState } from 'react';
+import { useContentAwareGlass } from 'liquidify';
+
+function DynamicContentCard() {
+  const [contentType, setContentType] = useState<'text' | 'image' | 'video'>(
+    'text'
+  );
+  const { glassStyle, updateContent } = useContentAwareGlass({
+    contentType,
+    backgroundType: 'gradient',
+    priority: 'aesthetics',
+    transitionDuration: 300,
+  });
+
+  const handleContentChange = (newType: 'text' | 'image' | 'video') => {
+    setContentType(newType);
+    updateContent({ contentType: newType });
+  };
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg max-w-md mx-auto'>
+      <div className='mb-4'>
+        <button
+          onClick={() => handleContentChange('text')}
+          className={`mr-2 px-4 py-2 rounded ${contentType === 'text' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Text
+        </button>
+        <button
+          onClick={() => handleContentChange('image')}
+          className={`mr-2 px-4 py-2 rounded ${contentType === 'image' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Image
+        </button>
+        <button
+          onClick={() => handleContentChange('video')}
+          className={`px-4 py-2 rounded ${contentType === 'video' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Video
+        </button>
+      </div>
+
+      <div className='content-area'>
+        {contentType === 'text' && (
+          <div>
+            <h3 className='text-lg font-semibold mb-2'>Text Content</h3>
+            <p>
+              This is optimized for text readability with adjusted contrast and
+              clarity.
+            </p>
+          </div>
+        )}
+        {contentType === 'image' && (
+          <div>
+            <h3 className='text-lg font-semibold mb-2'>Image Content</h3>
+            <div className='w-full h-32 bg-gradient-to-r from-blue-400 to-purple-500 rounded mb-2'></div>
+            <p>Glass effect optimized for image backgrounds.</p>
+          </div>
+        )}
+        {contentType === 'video' && (
+          <div>
+            <h3 className='text-lg font-semibold mb-2'>Video Content</h3>
+            <div className='w-full h-32 bg-black rounded mb-2 flex items-center justify-center text-white'>
+              Video Placeholder
+            </div>
+            <p>Glass effect optimized for video overlays.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+interface ContentAwareGlassOptions {
+  contentType: 'text' | 'image' | 'video' | 'navigation' | 'modal' | 'overlay';
+  backgroundType: 'solid' | 'gradient' | 'image' | 'video' | 'dynamic';
+  priority: 'readability' | 'aesthetics' | 'contrast' | 'blur';
+  adaptiveIntensity?: boolean;
+  transitionDuration?: number;
+  customAnalysis?: (element: HTMLElement) => AnalysisResult;
+}
+```
+
+### Return Value
+
+```typescript
+interface ContentAwareGlassReturn {
+  glassStyle: React.CSSProperties;
+  updateContent: (updates: Partial<ContentAwareGlassOptions>) => void;
+  setIntensity: (intensity: number) => void;
+  analyze: () => AnalysisResult;
+  reset: () => void;
+}
+```
+
+## Content Types
+
+### Text Content
+
+- **Optimization**: Enhanced readability with optimal contrast
+- **Blur**: Reduced blur to maintain text clarity
+- **Background**: Subtle glass effect to avoid text interference
+
+### Image Content
+
+- **Optimization**: Aesthetic enhancement without obscuring images
+- **Blur**: Moderate blur for artistic effect
+- **Background**: Dynamic adaptation to image colors
+
+### Video Content
+
+- **Optimization**: Overlay effects that don't interfere with video
+- **Blur**: Minimal blur to maintain video visibility
+- **Background**: Adaptive opacity based on video brightness
+
+### Navigation Content
+
+- **Optimization**: Clear visibility and hierarchy
+- **Blur**: Scroll-responsive blur intensity
+- **Background**: Consistent appearance across different page sections
+
+## Background Types
+
+### Solid Background
+
+```tsx
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'text',
+  backgroundType: 'solid',
+  priority: 'readability',
+});
+```
+
+### Gradient Background
+
+```tsx
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'image',
+  backgroundType: 'gradient',
+  priority: 'aesthetics',
+});
+```
+
+### Dynamic Background
+
+```tsx
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'navigation',
+  backgroundType: 'dynamic',
+  priority: 'contrast',
+});
+```
+
+## Priority Modes
+
+### Readability Priority
+
+- Maximizes text contrast and clarity
+- Reduces blur effects that might interfere with reading
+- Optimal for text-heavy content
+
+### Aesthetics Priority
+
+- Emphasizes visual appeal and artistic effect
+- Balanced blur and transparency for beautiful glass effects
+- Ideal for image galleries and portfolios
+
+### Contrast Priority
+
+- Ensures maximum contrast between content and background
+- Automatically adjusts based on background brightness
+- Perfect for navigation and important UI elements
+
+### Blur Priority
+
+- Maximizes blur effects for artistic glassmorphism
+- Suitable for decorative elements and backgrounds
+- Great for hero sections and visual emphasis
+
+## Performance Considerations
+
+The hook automatically optimizes performance by:
+
+- **Debouncing**: Rapid updates are debounced to prevent performance issues
+- **Caching**: Analysis results are cached to avoid repeated calculations
+- **Adaptive Quality**: Reduces effect quality on low-end devices
+- **Intersection Observer**: Only analyzes visible elements
+
+## Advanced Features
+
+### Custom Analysis
+
+```tsx
+const { glassStyle } = useContentAwareGlass({
+  contentType: 'text',
+  backgroundType: 'dynamic',
+  priority: 'readability',
+  customAnalysis: element => {
+    // Custom analysis logic
+    const brightness = analyzeBackgroundBrightness(element);
+    const contrast = analyzeTextContrast(element);
+
+    return {
+      brightness,
+      contrast,
+      recommendedBlur: brightness > 0.5 ? 8 : 12,
+      recommendedOpacity: contrast < 0.3 ? 0.9 : 0.7,
+    };
+  },
+});
+```
+
+### Responsive Glass Effects
+
+```tsx
+import { useContentAwareGlass } from 'liquidify';
+import { useMediaQuery } from 'react-responsive';
+
+function ResponsiveGlassCard() {
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+
+  const { glassStyle } = useContentAwareGlass({
+    contentType: 'text',
+    backgroundType: 'gradient',
+    priority: isMobile ? 'readability' : 'aesthetics',
+    adaptiveIntensity: true,
+  });
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Responsive Glass Card</h2>
+      <p>This card adapts its glass effect for different screen sizes.</p>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Choose Appropriate Content Types**: Select the content type that best matches your use case
+2. **Consider Background Complexity**: Simple backgrounds work better with more intense glass effects
+3. **Test Accessibility**: Ensure sufficient contrast for users with visual impairments
+4. **Performance Testing**: Test on various devices to ensure smooth performance
+5. **Gradual Transitions**: Use smooth transitions when changing glass effects
+
+## Common Use Cases
+
+- **Adaptive Navigation Bars**: Navigation that adjusts to page content
+- **Dynamic Modals**: Modals that adapt to their underlying content
+- **Content Cards**: Cards that optimize for their specific content type
+- **Overlay Elements**: Overlays that don't interfere with background content
+- **Responsive Designs**: Glass effects that work across all devices
+
+## Troubleshooting
+
+### Glass Effect Not Updating
+
+- Ensure you're calling `updateContent` when content changes
+- Check that the element is visible and properly mounted
+
+### Performance Issues
+
+- Reduce update frequency by increasing debounce time
+- Consider using simpler priority modes on mobile devices
+- Disable adaptive intensity on low-end devices
+
+### Accessibility Concerns
+
+- Always test with screen readers
+- Ensure sufficient color contrast
+- Provide alternative high-contrast modes

@@ -4,11 +4,18 @@ import React, { useState, useEffect } from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
-export interface GlassToastProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassToastProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   type?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
   message: string;
-  position?: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+  position?:
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right';
   duration?: number;
   closable?: boolean;
   onClose?: () => void;
@@ -31,7 +38,7 @@ const GlassToast: React.FC<GlassToastProps> = ({
 
   useEffect(() => {
     setIsAnimating(true);
-    
+
     if (duration > 0) {
       const timer = setTimeout(() => {
         handleClose();
@@ -98,49 +105,51 @@ const GlassToast: React.FC<GlassToastProps> = ({
     isVisible && isAnimating
       ? 'opacity-100 translate-y-0 scale-100'
       : isTop
-      ? 'opacity-0 -translate-y-2 scale-95'
-      : 'opacity-0 translate-y-2 scale-95',
+        ? 'opacity-0 -translate-y-2 scale-95'
+        : 'opacity-0 translate-y-2 scale-95',
     className
   );
 
   if (!isVisible && !isAnimating) return null;
 
   return (
-    <GlassEffect
-      variant="modal"
-      className={baseClasses}
-      {...props}
-    >
+    <GlassEffect variant='modal' className={baseClasses} {...props}>
       <div className={cn('flex-shrink-0 w-5 h-5 mt-0.5', currentStyle.color)}>
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinecap='round'
+            strokeLinejoin='round'
             strokeWidth={2}
             d={currentStyle.icon}
           />
         </svg>
       </div>
 
-      <div className="flex-1 min-w-0">
+      <div className='flex-1 min-w-0'>
         {title && (
-          <h4 className="text-sm font-semibold text-white mb-1">
-            {title}
-          </h4>
+          <h4 className='text-sm font-semibold text-white mb-1'>{title}</h4>
         )}
-        <p className="text-sm text-white/90">
-          {message}
-        </p>
+        <p className='text-sm text-white/90'>{message}</p>
       </div>
 
       {closable && (
         <button
           onClick={handleClose}
-          className="flex-shrink-0 p-1 rounded-md hover:bg-white/10 transition-colors"
-          aria-label="Close toast"
+          className='flex-shrink-0 p-1 rounded-md hover:bg-white/10 transition-colors'
+          aria-label='Close toast'
         >
-          <svg className="w-4 h-4 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className='w-4 h-4 text-white/70'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke='currentColor'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M6 18L18 6M6 6l12 12'
+            />
           </svg>
         </button>
       )}

@@ -1,6 +1,6 @@
 # Design Tokens
 
-Complete reference for Liquidify's design token system built on Apple's design principles and 4-point grid methodology.
+Complete reference for Liquidify's comprehensive design token system built on Apple's design principles and 4-point grid methodology.
 
 ## Overview
 
@@ -9,13 +9,38 @@ Design tokens are the visual design atoms of Liquidify — the smallest indivisi
 ## Import Tokens
 
 ```tsx
-import { designTokens } from 'liquidify/tokens'
-import type { 
-  ColorToken, 
-  SpacingToken, 
-  TypographyToken,
-  ComponentTokens 
-} from 'liquidify/tokens'
+import {
+  liquidGlassTokens,
+  componentTokens,
+  glassThemes,
+  generateCSSCustomProperties,
+} from 'liquidify';
+
+import type {
+  LiquidGlassTokens,
+  ComponentTokens,
+  GlassTheme,
+  TokenValue,
+} from 'liquidify';
+```
+
+## liquidGlassTokens
+
+The core design token system providing comprehensive spacing, typography, colors, and animation values.
+
+### Token Structure
+
+```tsx
+const liquidGlassTokens: LiquidGlassTokens = {
+  spacing: SpacingTokens,
+  typography: TypographyTokens,
+  colors: ColorTokens,
+  animation: AnimationTokens,
+  glass: GlassTokens,
+  breakpoints: BreakpointTokens,
+  borderRadius: BorderRadiusTokens,
+  shadows: ShadowTokens,
+};
 ```
 
 ## Spacing Tokens
@@ -23,27 +48,81 @@ import type {
 Based on Apple's 4-point grid system for consistent layouts and optimal touch targets.
 
 ### Grid System
+
 ```tsx
-const spacing = designTokens.spacing
+const spacing = liquidGlassTokens.spacing;
 
 // 4pt grid increments
-spacing[0]  // 0px
-spacing[1]  // 4px  - Smallest spacing
-spacing[2]  // 8px  - Compact spacing
-spacing[3]  // 12px - Close spacing
-spacing[4]  // 16px - Default spacing
-spacing[5]  // 20px - Comfortable spacing
-spacing[6]  // 24px - Loose spacing
-spacing[8]  // 32px - Section spacing
-spacing[10] // 40px - Large spacing
-spacing[12] // 48px - Extra large spacing
-spacing[16] // 64px - Section dividers
-spacing[20] // 80px - Page sections
-spacing[24] // 96px - Major sections
-spacing[32] // 128px - Hero sections
+spacing[0]; // 0px
+spacing[1]; // 4px   - Smallest spacing
+spacing[2]; // 8px   - Compact spacing
+spacing[3]; // 12px  - Close spacing
+spacing[4]; // 16px  - Default spacing
+spacing[5]; // 20px  - Comfortable spacing
+spacing[6]; // 24px  - Loose spacing
+spacing[8]; // 32px  - Section spacing
+spacing[10]; // 40px  - Large spacing
+spacing[12]; // 48px  - Extra large spacing
+spacing[16]; // 64px  - Section dividers
+spacing[20]; // 80px  - Page sections
+spacing[24]; // 96px  - Major sections
+spacing[32]; // 128px - Hero sections
+
+// Semantic spacing
+spacing.xs; // 4px   - Extra small
+spacing.sm; // 8px   - Small
+spacing.md; // 16px  - Medium (default)
+spacing.lg; // 24px  - Large
+spacing.xl; // 32px  - Extra large
+spacing.xxl; // 48px  - Double extra large
+spacing.xxxl; // 64px  - Triple extra large
+
+// Touch targets
+spacing.touchMin; // 44px - Minimum touch target
+spacing.touchComf; // 48px - Comfortable touch target
+spacing.touchLg; // 56px - Large touch target
+```
+
+### Visual Spacing Scale
+
+```tsx
+// Visual representation of spacing scale
+const spacingScale = {
+  0: { value: '0px', description: 'No spacing' },
+  1: { value: '4px', description: 'Hair line spacing', usage: 'Icon padding' },
+  2: { value: '8px', description: 'Tight spacing', usage: 'Form elements' },
+  3: { value: '12px', description: 'Close spacing', usage: 'Related content' },
+  4: {
+    value: '16px',
+    description: 'Default spacing',
+    usage: 'Standard padding',
+  },
+  5: {
+    value: '20px',
+    description: 'Comfortable spacing',
+    usage: 'Content blocks',
+  },
+  6: { value: '24px', description: 'Loose spacing', usage: 'Section padding' },
+  8: { value: '32px', description: 'Section spacing', usage: 'Major sections' },
+  10: { value: '40px', description: 'Large spacing', usage: 'Page sections' },
+  12: {
+    value: '48px',
+    description: 'Extra large spacing',
+    usage: 'Hero sections',
+  },
+  16: {
+    value: '64px',
+    description: 'Section dividers',
+    usage: 'Major dividers',
+  },
+  20: { value: '80px', description: 'Page sections', usage: 'Layout spacing' },
+  24: { value: '96px', description: 'Major sections', usage: 'Large layouts' },
+  32: { value: '128px', description: 'Hero sections', usage: 'Landing pages' },
+};
 ```
 
 ### Usage Examples
+
 ```tsx
 // Component spacing
 <GlassCard className="p-6 mb-8">  {/* 24px padding, 32px margin */}
@@ -55,79 +134,145 @@ spacing[32] // 128px - Hero sections
 <div style={{ padding: spacing[6], marginBottom: spacing[8] }}>
   Content with token-based spacing
 </div>
+
+// Programmatic spacing
+<GlassButton style={{
+  padding: `${spacing[2]} ${spacing[4]}`,
+  margin: spacing[1]
+}}>
+  Token-based Button
+</GlassButton>
 ```
 
 ## Typography Tokens
 
 ### Font Families
+
 ```tsx
-const fonts = designTokens.typography.fontFamily
+const fonts = liquidGlassTokens.typography.fontFamily;
 
 // Apple system fonts with fallbacks
-fonts.display // SF Pro Display for headings
-fonts.body    // SF Pro Text for body content
-fonts.sans    // Inter fallback for web
-fonts.mono    // SF Mono for code
+fonts.display; // SF Pro Display, system-ui, -apple-system
+fonts.body; // SF Pro Text, system-ui, -apple-system
+fonts.sans; // Inter, system-ui, sans-serif
+fonts.mono; // SF Mono, Monaco, Consolas, monospace
+fonts.rounded; // SF Pro Rounded, system-ui, -apple-system
+
+// Font stacks
+fonts.system = [
+  'system-ui',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  'SF Pro Display',
+  'SF Pro Text',
+  'Helvetica Neue',
+  'Helvetica',
+  'Arial',
+  'sans-serif',
+].join(', ');
 ```
 
 ### Font Sizes
+
 Apple HIG typography scale with optimized letter spacing and line heights:
 
 ```tsx
-const fontSize = designTokens.typography.fontSize
+const fontSize = liquidGlassTokens.typography.fontSize;
 
 // Apple HIG Text Styles
-fontSize.largeTitle  // 34px - iOS Large Title
-fontSize.title1      // 28px - Primary titles
-fontSize.title2      // 22px - Secondary titles  
-fontSize.title3      // 20px - Tertiary titles
-fontSize.headline    // 17px - Emphasized content
-fontSize.body        // 16px - Default body text
-fontSize.callout     // 16px - Emphasized body
-fontSize.subheadline // 15px - Secondary content
-fontSize.footnote    // 13px - Supplementary text
-fontSize.caption     // 12px - Image captions
+fontSize.largeTitle; // 34px - iOS Large Title
+fontSize.title1; // 28px - Primary titles
+fontSize.title2; // 22px - Secondary titles
+fontSize.title3; // 20px - Tertiary titles
+fontSize.headline; // 17px - Emphasized content
+fontSize.body; // 16px - Default body text
+fontSize.callout; // 16px - Emphasized body
+fontSize.subheadline; // 15px - Secondary content
+fontSize.footnote; // 13px - Supplementary text
+fontSize.caption1; // 12px - Image captions
+fontSize.caption2; // 11px - Fine print
 
 // Web-friendly sizes
-fontSize.xs   // 12px
-fontSize.sm   // 14px  
-fontSize.base // 16px (default)
-fontSize.lg   // 18px
-fontSize.xl   // 20px
-fontSize['2xl'] // 24px
-fontSize['3xl'] // 30px
-fontSize['4xl'] // 36px
-fontSize['5xl'] // 48px
-fontSize['6xl'] // 60px
-fontSize['7xl'] // 72px
-fontSize['8xl'] // 96px
-fontSize['9xl'] // 128px
+fontSize.xs; // 12px
+fontSize.sm; // 14px
+fontSize.base; // 16px (default)
+fontSize.lg; // 18px
+fontSize.xl; // 20px
+fontSize['2xl']; // 24px
+fontSize['3xl']; // 30px
+fontSize['4xl']; // 36px
+fontSize['5xl']; // 48px
+fontSize['6xl']; // 60px
+fontSize['7xl']; // 72px
+fontSize['8xl']; // 96px
+fontSize['9xl']; // 128px
+```
+
+### Typography Text Styles
+
+```tsx
+const textStyles = liquidGlassTokens.typography.textStyles
+
+// Complete text style objects with all properties
+textStyles.largeTitle = {
+  fontSize: '34px',
+  lineHeight: '41px',
+  fontWeight: '400',
+  letterSpacing: '0.374px',
+  textRendering: 'optimizeLegibility'
+}
+
+textStyles.title1 = {
+  fontSize: '28px',
+  lineHeight: '34px',
+  fontWeight: '400',
+  letterSpacing: '0.364px'
+}
+
+textStyles.body = {
+  fontSize: '17px',
+  lineHeight: '22px',
+  fontWeight: '400',
+  letterSpacing: '-0.408px'
+}
+
+// Usage with complete style objects
+<h1 style={textStyles.largeTitle}>Large Title</h1>
+<p style={textStyles.body}>Body text content</p>
 ```
 
 ### Font Weights
-```tsx
-const fontWeight = designTokens.typography.fontWeight
 
-fontWeight.light     // 300 - Light text
-fontWeight.normal    // 400 - Default body
-fontWeight.medium    // 500 - Emphasis
-fontWeight.semibold  // 600 - Strong emphasis
-fontWeight.bold      // 700 - Headings
-fontWeight.extrabold // 800 - Display text
-fontWeight.black     // 900 - Heavy display
+```tsx
+const fontWeight = liquidGlassTokens.typography.fontWeight;
+
+fontWeight.light; // 300 - Light text
+fontWeight.normal; // 400 - Default body
+fontWeight.medium; // 500 - Emphasis
+fontWeight.semibold; // 600 - Strong emphasis
+fontWeight.bold; // 700 - Headings
+fontWeight.extrabold; // 800 - Display text
+fontWeight.black; // 900 - Heavy display
 ```
 
 ### Usage Examples
+
 ```tsx
 // Using typography tokens
 <h1 style={{
-  fontSize: fontSize.title1[0],
-  lineHeight: fontSize.title1[1].lineHeight,
-  letterSpacing: fontSize.title1[1].letterSpacing,
+  fontSize: fontSize.title1,
+  lineHeight: textStyles.title1.lineHeight,
+  letterSpacing: textStyles.title1.letterSpacing,
   fontWeight: fontWeight.bold
 }}>
   Page Title
 </h1>
+
+// Using complete text styles (recommended)
+<h1 style={textStyles.largeTitle}>Large Title</h1>
+<h2 style={textStyles.title1}>Section Title</h2>
+<p style={textStyles.body}>Body content</p>
+<span style={textStyles.caption1}>Caption text</span>
 
 // CSS classes (recommended)
 <h1 className="hig-title-1">Page Title</h1>
@@ -138,159 +283,799 @@ fontWeight.black     // 900 - Heavy display
 ## Color Tokens
 
 ### Apple System Colors
+
 ```tsx
-const colors = designTokens.colors
+const colors = liquidGlassTokens.colors;
 
-// Apple Blue
-colors.blue50   // #EBF8FF
-colors.blue500  // #007AFF (Apple Blue)
-colors.blue900  // #1E3A8A
+// Apple System Colors
+colors.systemBlue; // #007AFF
+colors.systemGreen; // #34C759
+colors.systemIndigo; // #5856D6
+colors.systemOrange; // #FF9500
+colors.systemPink; // #FF2D92
+colors.systemPurple; // #AF52DE
+colors.systemRed; // #FF3B30
+colors.systemTeal; // #30B0C7
+colors.systemYellow; // #FFCC00
+colors.systemBrown; // #A2845E
+colors.systemMint; // #00C7BE
+colors.systemCyan; // #32ADE6
 
-// Apple Green  
-colors.green50  // #F0FDF4
-colors.green500 // #34C759 (Apple Green)
-colors.green900 // #14532D
+// Apple Gray Scale
+colors.systemGray; // #8E8E93
+colors.systemGray2; // #AEAEB2
+colors.systemGray3; // #C7C7CC
+colors.systemGray4; // #D1D1D6
+colors.systemGray5; // #E5E5EA
+colors.systemGray6; // #F2F2F7
 
-// Apple Red
-colors.red50    // #FEF2F2
-colors.red500   // #FF3B30 (Apple Red)
-colors.red900   // #7F1D1D
+// Label Colors (semantic text colors)
+colors.label = {
+  primary: '#000000',
+  secondary: 'rgba(60, 60, 67, 0.6)',
+  tertiary: 'rgba(60, 60, 67, 0.3)',
+  quaternary: 'rgba(60, 60, 67, 0.18)',
+};
 
-// Apple Orange
-colors.orange50  // #FFF7ED
-colors.orange500 // #FF9500 (Apple Orange)
-colors.orange900 // #9A3412
+// Background Colors
+colors.background = {
+  primary: '#FFFFFF',
+  secondary: '#F2F2F7',
+  tertiary: '#FFFFFF',
+};
 
-// Grays (Apple Gray palette)
-colors.gray50   // #F9FAFB
-colors.gray100  // #F3F4F6
-colors.gray200  // #E5E7EB
-colors.gray300  // #D1D5DB
-colors.gray400  // #9CA3AF
-colors.gray500  // #6B7280
-colors.gray600  // #4B5563
-colors.gray700  // #374151
-colors.gray800  // #1F2937
-colors.gray900  // #111827
+// Fill Colors (for UI elements)
+colors.fill = {
+  primary: 'rgba(120, 120, 128, 0.2)',
+  secondary: 'rgba(120, 120, 128, 0.16)',
+  tertiary: 'rgba(118, 118, 128, 0.12)',
+  quaternary: 'rgba(116, 116, 128, 0.08)',
+};
 ```
 
 ### Semantic Colors
+
 ```tsx
 // Semantic mappings for components
-colors.primary    // Apple Blue (#007AFF)
-colors.secondary  // Apple Purple (#AF52DE)
-colors.success    // Apple Green (#34C759)
-colors.warning    // Apple Orange (#FF9500)
-colors.error      // Apple Red (#FF3B30)
-colors.info       // Apple Teal (#30B0C7)
+colors.primary; // Apple Blue (#007AFF)
+colors.secondary; // Apple Purple (#AF52DE)
+colors.success; // Apple Green (#34C759)
+colors.warning; // Apple Orange (#FF9500)
+colors.error; // Apple Red (#FF3B30)
+colors.info; // Apple Teal (#30B0C7)
 ```
 
 ### Glass Material Colors
+
 ```tsx
 // Liquid Glass specific colors
-colors.glass.light       // rgba(255, 255, 255, 0.15)
-colors.glass.dark        // rgba(0, 0, 0, 0.15)
-colors.glass.blur        // rgba(255, 255, 255, 0.08)
-colors.glass.border.light // rgba(255, 255, 255, 0.2)
-colors.glass.border.dark  // rgba(255, 255, 255, 0.1)
+const glassColors = liquidGlassTokens.colors.glass;
+
+glassColors.backgrounds = {
+  ultraThin: 'rgba(255, 255, 255, 0.05)',
+  thin: 'rgba(255, 255, 255, 0.1)',
+  regular: 'rgba(255, 255, 255, 0.15)',
+  thick: 'rgba(255, 255, 255, 0.2)',
+  ultraThick: 'rgba(255, 255, 255, 0.25)',
+};
+
+glassColors.darkBackgrounds = {
+  ultraThin: 'rgba(0, 0, 0, 0.05)',
+  thin: 'rgba(0, 0, 0, 0.1)',
+  regular: 'rgba(0, 0, 0, 0.15)',
+  thick: 'rgba(0, 0, 0, 0.2)',
+  ultraThick: 'rgba(0, 0, 0, 0.25)',
+};
+
+glassColors.borders = {
+  subtle: '1px solid rgba(255, 255, 255, 0.1)',
+  regular: '1px solid rgba(255, 255, 255, 0.2)',
+  prominent: '1px solid rgba(255, 255, 255, 0.3)',
+};
 ```
 
-## Border Radius Tokens
-
-Apple-style rounded corners for different component types:
+### Dark Mode Colors
 
 ```tsx
-const borderRadius = designTokens.borderRadius
+// Dark mode variants
+const darkColors = liquidGlassTokens.colors.dark;
 
-borderRadius.none  // 0px
-borderRadius.sm    // 4px  - Small components
-borderRadius.md    // 8px  - Default buttons
-borderRadius.lg    // 12px - Cards, modals
-borderRadius.xl    // 16px - Large cards
-borderRadius['2xl'] // 20px - Hero sections
-borderRadius.full  // 9999px - Pills, avatars
+darkColors.label = {
+  primary: '#FFFFFF',
+  secondary: 'rgba(235, 235, 245, 0.6)',
+  tertiary: 'rgba(235, 235, 245, 0.3)',
+  quaternary: 'rgba(235, 235, 245, 0.16)',
+};
 
-// Apple-specific radii
-borderRadius.apple.button  // 8px
-borderRadius.apple.card    // 12px
-borderRadius.apple.modal   // 16px
-borderRadius.apple.sheet   // 20px
+darkColors.background = {
+  primary: '#000000',
+  secondary: '#1C1C1E',
+  tertiary: '#2C2C2E',
+};
+
+darkColors.fill = {
+  primary: 'rgba(120, 120, 128, 0.36)',
+  secondary: 'rgba(120, 120, 128, 0.32)',
+  tertiary: 'rgba(118, 118, 128, 0.24)',
+  quaternary: 'rgba(116, 116, 128, 0.18)',
+};
 ```
 
 ## Animation Tokens
 
 ### Duration
-```tsx
-const duration = designTokens.animation.duration
 
-duration.fast    // 150ms - Quick transitions
-duration.normal  // 250ms - Standard transitions
-duration.slow    // 350ms - Complex animations
-duration.slower  // 500ms - Major transitions
+```tsx
+const duration = liquidGlassTokens.animation.duration;
+
+duration.fast; // 150ms - Quick transitions
+duration.normal; // 250ms - Standard transitions
+duration.slow; // 350ms - Complex animations
+duration.slower; // 500ms - Major transitions
 
 // Apple-specific durations
-duration.apple.quick   // 200ms
-duration.apple.smooth  // 300ms
-duration.apple.gentle  // 500ms
+duration.apple.quick; // 200ms
+duration.apple.smooth; // 300ms
+duration.apple.gentle; // 500ms
 ```
 
 ### Easing
+
 ```tsx
-const easing = designTokens.animation.easing
+const easing = liquidGlassTokens.animation.easing;
 
 // Apple spring curves
-easing.apple.standard    // cubic-bezier(0.4, 0.0, 0.2, 1)
-easing.apple.decelerate  // cubic-bezier(0.0, 0.0, 0.2, 1)
-easing.apple.accelerate  // cubic-bezier(0.4, 0.0, 1, 1)
-easing.apple.sharp       // cubic-bezier(0.4, 0.0, 0.6, 1)
-easing.apple.bounce      // cubic-bezier(0.68, -0.55, 0.265, 1.55)
+easing.apple.standard; // cubic-bezier(0.4, 0.0, 0.2, 1)
+easing.apple.decelerate; // cubic-bezier(0.0, 0.0, 0.2, 1)
+easing.apple.accelerate; // cubic-bezier(0.4, 0.0, 1, 1)
+easing.apple.sharp; // cubic-bezier(0.4, 0.0, 0.6, 1)
+easing.apple.bounce; // cubic-bezier(0.68, -0.55, 0.265, 1.55)
+```
+
+## Glass Tokens
+
+The glass design system includes specific color, border, and blur tokens to achieve the glass morphism effect used across Liquidify components.
+
+### Glass Background
+
+```tsx
+const glassBackground = liquidGlassTokens.glass.backgrounds;
+// Different background opacities
+const glassDarkBackground = liquidGlassTokens.glass.darkBackgrounds;
+// Different blur amounts
+const glassBlur = liquidGlassTokens.glass.blur;
+```
+
+### Glass Borders
+
+```tsx
+const glassBorders = liquidGlassTokens.glass.borders;
+const glassDarkBorders = liquidGlassTokens.glass.darkBorders;
+```
+
+## componentTokens
+
+Component-specific tokens that define the appearance and behavior of individual UI components.
+
+### Button Tokens
+
+```tsx
+const buttonTokens = componentTokens.button;
+
+// Sizes
+buttonTokens.sizes = {
+  xs: {
+    height: '28px',
+    padding: '6px 12px',
+    fontSize: '12px',
+    borderRadius: '6px',
+  },
+  sm: {
+    height: '32px',
+    padding: '8px 16px',
+    fontSize: '14px',
+    borderRadius: '8px',
+  },
+  md: {
+    height: '40px',
+    padding: '10px 20px',
+    fontSize: '16px',
+    borderRadius: '8px',
+  },
+  lg: {
+    height: '44px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    borderRadius: '10px',
+  },
+  xl: {
+    height: '52px',
+    padding: '14px 28px',
+    fontSize: '18px',
+    borderRadius: '12px',
+  },
+};
+
+// Variants
+buttonTokens.variants = {
+  primary: {
+    backgroundColor: 'var(--color-primary)',
+    color: 'white',
+    border: 'none',
+  },
+  secondary: {
+    backgroundColor: 'transparent',
+    color: 'var(--color-primary)',
+    border: '1px solid var(--color-primary)',
+  },
+  glass: {
+    backgroundColor: 'var(--glass-background)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid var(--glass-border)',
+  },
+};
+```
+
+### Card Tokens
+
+```tsx
+const cardTokens = componentTokens.card;
+
+cardTokens.sizes = {
+  sm: {
+    padding: '12px',
+    borderRadius: '8px',
+  },
+  md: {
+    padding: '16px',
+    borderRadius: '12px',
+  },
+  lg: {
+    padding: '20px',
+    borderRadius: '16px',
+  },
+  xl: {
+    padding: '24px',
+    borderRadius: '20px',
+  },
+};
+
+cardTokens.variants = {
+  default: {
+    backgroundColor: 'var(--background-primary)',
+    border: '1px solid var(--border-color)',
+    boxShadow: 'var(--shadow-sm)',
+  },
+  glass: {
+    backgroundColor: 'var(--glass-background)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid var(--glass-border)',
+    boxShadow: 'var(--glass-shadow)',
+  },
+};
+```
+
+### Input Tokens
+
+```tsx
+const inputTokens = componentTokens.input;
+
+inputTokens.sizes = {
+  sm: {
+    height: '32px',
+    padding: '8px 12px',
+    fontSize: '14px',
+  },
+  md: {
+    height: '40px',
+    padding: '10px 16px',
+    fontSize: '16px',
+  },
+  lg: {
+    height: '48px',
+    padding: '12px 20px',
+    fontSize: '16px',
+  },
+};
+
+inputTokens.states = {
+  default: {
+    borderColor: 'var(--border-color)',
+    backgroundColor: 'var(--background-primary)',
+  },
+  focus: {
+    borderColor: 'var(--color-primary)',
+    boxShadow: '0 0 0 2px rgba(var(--color-primary-rgb), 0.2)',
+  },
+  error: {
+    borderColor: 'var(--color-error)',
+    boxShadow: '0 0 0 2px rgba(var(--color-error-rgb), 0.2)',
+  },
+};
+```
+
+## glassThemes
+
+Predefined theme configurations for light and dark modes that define the complete visual appearance of the glass design system.
+
+### Light Theme
+
+```tsx
+const lightTheme = glassThemes.light;
+
+lightTheme = {
+  colors: {
+    // Base colors
+    primary: '#007AFF',
+    secondary: '#AF52DE',
+    success: '#34C759',
+    warning: '#FF9500',
+    error: '#FF3B30',
+    info: '#30B0C7',
+
+    // Text colors
+    text: {
+      primary: '#000000',
+      secondary: 'rgba(60, 60, 67, 0.6)',
+      tertiary: 'rgba(60, 60, 67, 0.3)',
+      quaternary: 'rgba(60, 60, 67, 0.18)',
+    },
+
+    // Background colors
+    background: {
+      primary: '#FFFFFF',
+      secondary: '#F2F2F7',
+      tertiary: '#FFFFFF',
+    },
+
+    // Glass colors
+    glass: {
+      background: 'rgba(255, 255, 255, 0.15)',
+      border: 'rgba(255, 255, 255, 0.2)',
+      shadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+    },
+
+    // Border colors
+    border: {
+      primary: 'rgba(0, 0, 0, 0.1)',
+      secondary: 'rgba(0, 0, 0, 0.06)',
+      focus: '#007AFF',
+    },
+  },
+
+  blur: {
+    sm: '4px',
+    md: '8px',
+    lg: '16px',
+    xl: '24px',
+  },
+
+  shadows: {
+    sm: '0 1px 3px rgba(0, 0, 0, 0.12)',
+    md: '0 4px 16px rgba(0, 0, 0, 0.08)',
+    lg: '0 8px 32px rgba(0, 0, 0, 0.12)',
+    xl: '0 16px 48px rgba(0, 0, 0, 0.16)',
+  },
+};
+```
+
+### Dark Theme
+
+```tsx
+const darkTheme = glassThemes.dark;
+
+darkTheme = {
+  colors: {
+    // Base colors (same as light)
+    primary: '#007AFF',
+    secondary: '#AF52DE',
+    success: '#34C759',
+    warning: '#FF9500',
+    error: '#FF3B30',
+    info: '#30B0C7',
+
+    // Text colors
+    text: {
+      primary: '#FFFFFF',
+      secondary: 'rgba(235, 235, 245, 0.6)',
+      tertiary: 'rgba(235, 235, 245, 0.3)',
+      quaternary: 'rgba(235, 235, 245, 0.16)',
+    },
+
+    // Background colors
+    background: {
+      primary: '#000000',
+      secondary: '#1C1C1E',
+      tertiary: '#2C2C2E',
+    },
+
+    // Glass colors
+    glass: {
+      background: 'rgba(255, 255, 255, 0.1)',
+      border: 'rgba(255, 255, 255, 0.15)',
+      shadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+    },
+
+    // Border colors
+    border: {
+      primary: 'rgba(255, 255, 255, 0.1)',
+      secondary: 'rgba(255, 255, 255, 0.06)',
+      focus: '#007AFF',
+    },
+  },
+
+  blur: {
+    sm: '4px',
+    md: '8px',
+    lg: '16px',
+    xl: '24px',
+  },
+
+  shadows: {
+    sm: '0 1px 3px rgba(255, 255, 255, 0.08)',
+    md: '0 4px 16px rgba(255, 255, 255, 0.04)',
+    lg: '0 8px 32px rgba(255, 255, 255, 0.08)',
+    xl: '0 16px 48px rgba(255, 255, 255, 0.12)',
+  },
+};
+```
+
+### Using Themes
+
+```tsx
+import { glassThemes } from 'liquidify'
+
+// Apply theme to your application
+const theme = glassThemes.light // or glassThemes.dark
+
+// Use with ThemeProvider
+<ThemeProvider theme={theme}>
+  <App />
+</ThemeProvider>
+
+// Access theme values
+const glassBackground = theme.colors.glass.background
+const primaryColor = theme.colors.primary
+```
+
+## generateCSSCustomProperties
+
+Utility function that converts design tokens into CSS custom properties for easy integration with CSS and styling frameworks.
+
+### Basic Usage
+
+```tsx
+import { generateCSSCustomProperties, liquidGlassTokens } from 'liquidify';
+
+// Generate CSS custom properties from tokens
+const cssVariables = generateCSSCustomProperties(liquidGlassTokens);
+
+// Apply to document root
+const applyTokensToRoot = () => {
+  const root = document.documentElement;
+  Object.entries(cssVariables).forEach(([key, value]) => {
+    root.style.setProperty(key, value);
+  });
+};
+
+// Call on app initialization
+applyTokensToRoot();
+```
+
+### Generated CSS Variables
+
+```css
+/* Spacing tokens */
+:root {
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  /* Typography tokens */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-title-1: 28px;
+  --font-size-title-2: 22px;
+  --font-size-title-3: 20px;
+  --font-size-body: 17px;
+  --font-size-caption: 12px;
+
+  /* Color tokens */
+  --color-primary: #007aff;
+  --color-secondary: #af52de;
+  --color-success: #34c759;
+  --color-warning: #ff9500;
+  --color-error: #ff3b30;
+  --color-info: #30b0c7;
+
+  /* Glass tokens */
+  --glass-background: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 10px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  /* Animation tokens */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+```
+
+### Usage in CSS
+
+```css
+/* Using generated CSS variables */
+.glass-card {
+  background: var(--glass-background);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--duration-normal) var(--easing-standard);
+}
+
+.primary-button {
+  background: var(--color-primary);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-base);
+  transition: all var(--duration-fast) var(--easing-standard);
+}
+
+.heading {
+  font-size: var(--font-size-title-1);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+}
+```
+
+### Custom Token Generation
+
+```tsx
+import { generateCSSCustomProperties } from 'liquidify';
+
+// Generate CSS variables with custom prefix
+const customCSSVars = generateCSSCustomProperties(liquidGlassTokens, {
+  prefix: 'my-app',
+  scope: 'component',
+});
+
+// Results in variables like:
+// --my-app-spacing-4: 16px
+// --my-app-color-primary: #007AFF
+
+// Generate for specific token categories
+const spacingVars = generateCSSCustomProperties(liquidGlassTokens.spacing, {
+  prefix: 'space',
+});
+
+const colorVars = generateCSSCustomProperties(liquidGlassTokens.colors, {
+  prefix: 'color',
+});
+```
+
+## Token Customization Examples
+
+### Creating Custom Tokens
+
+```tsx
+import { liquidGlassTokens } from 'liquidify';
+
+// Extend existing tokens
+const customTokens = {
+  ...liquidGlassTokens,
+  spacing: {
+    ...liquidGlassTokens.spacing,
+    // Add custom spacing values
+    huge: '80px',
+    massive: '120px',
+  },
+  colors: {
+    ...liquidGlassTokens.colors,
+    // Add brand colors
+    brand: {
+      primary: '#FF6B6B',
+      secondary: '#4ECDC4',
+      accent: '#45B7D1',
+    },
+  },
+};
+
+// Use custom tokens
+const customCSSVars = generateCSSCustomProperties(customTokens);
+```
+
+### Theme-Specific Customization
+
+```tsx
+import { glassThemes } from 'liquidify';
+
+// Create custom theme variant
+const customTheme = {
+  ...glassThemes.light,
+  colors: {
+    ...glassThemes.light.colors,
+    primary: '#6366F1', // Custom primary color
+    glass: {
+      ...glassThemes.light.colors.glass,
+      background: 'rgba(99, 102, 241, 0.1)', // Tinted glass
+    },
+  },
+};
+
+// Apply custom theme
+const customThemeVars = generateCSSCustomProperties(customTheme);
+```
+
+### Runtime Token Updates
+
+```tsx
+import { generateCSSCustomProperties } from 'liquidify';
+
+// Update tokens dynamically
+const updateTokens = newTokens => {
+  const cssVars = generateCSSCustomProperties(newTokens);
+  const root = document.documentElement;
+
+  Object.entries(cssVars).forEach(([key, value]) => {
+    root.style.setProperty(key, value);
+  });
+};
+
+// Example: Update primary color
+const updatePrimaryColor = color => {
+  const updatedTokens = {
+    ...liquidGlassTokens,
+    colors: {
+      ...liquidGlassTokens.colors,
+      primary: color,
+    },
+  };
+  updateTokens(updatedTokens);
+};
+
+// Usage
+updatePrimaryColor('#FF6B6B');
+```
+
+### Component-Specific Token Overrides
+
+```tsx
+import { componentTokens } from 'liquidify';
+
+// Override button tokens for specific use case
+const heroButtonTokens = {
+  ...componentTokens.button,
+  sizes: {
+    ...componentTokens.button.sizes,
+    hero: {
+      height: '60px',
+      padding: '16px 32px',
+      fontSize: '20px',
+      borderRadius: '16px',
+    },
+  },
+};
+
+// Use in component
+const HeroButton = ({ children, ...props }) => {
+  const heroStyles = heroButtonTokens.sizes.hero;
+
+  return (
+    <button
+      style={{
+        ...heroStyles,
+        backgroundColor: 'var(--color-primary)',
+        color: 'white',
+        border: 'none',
+        cursor: 'pointer',
+        transition: 'all var(--duration-normal) var(--easing-standard)',
+      }}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+```
+
+## Animation Tokens
+
+### Duration
+
+```tsx
+const duration = designTokens.animation.duration;
+
+duration.fast; // 150ms - Quick transitions
+duration.normal; // 250ms - Standard transitions
+duration.slow; // 350ms - Complex animations
+duration.slower; // 500ms - Major transitions
+
+// Apple-specific durations
+duration.apple.quick; // 200ms
+duration.apple.smooth; // 300ms
+duration.apple.gentle; // 500ms
+```
+
+### Easing
+
+```tsx
+const easing = designTokens.animation.easing;
+
+// Apple spring curves
+easing.apple.standard; // cubic-bezier(0.4, 0.0, 0.2, 1)
+easing.apple.decelerate; // cubic-bezier(0.0, 0.0, 0.2, 1)
+easing.apple.accelerate; // cubic-bezier(0.4, 0.0, 1, 1)
+easing.apple.sharp; // cubic-bezier(0.4, 0.0, 0.6, 1)
+easing.apple.bounce; // cubic-bezier(0.68, -0.55, 0.265, 1.55)
 ```
 
 ## Component Tokens
 
 ### Button Tokens
+
 ```tsx
-const buttonTokens = designTokens.components.button
+const buttonTokens = designTokens.components.button;
 
 // Heights
-buttonTokens.height.xs  // 28px
-buttonTokens.height.sm  // 32px  
-buttonTokens.height.md  // 40px (default)
-buttonTokens.height.lg  // 44px (Touch-optimized)
-buttonTokens.height.xl  // 52px
+buttonTokens.height.xs; // 28px
+buttonTokens.height.sm; // 32px
+buttonTokens.height.md; // 40px (default)
+buttonTokens.height.lg; // 44px (Touch-optimized)
+buttonTokens.height.xl; // 52px
 
 // Padding
-buttonTokens.padding.xs  // 8px 10px
-buttonTokens.padding.sm  // 10px 12px
-buttonTokens.padding.md  // 12px 16px
-buttonTokens.padding.lg  // 14px 20px
-buttonTokens.padding.xl  // 16px 24px
+buttonTokens.padding.xs; // 8px 10px
+buttonTokens.padding.sm; // 10px 12px
+buttonTokens.padding.md; // 12px 16px
+buttonTokens.padding.lg; // 14px 20px
+buttonTokens.padding.xl; // 16px 24px
 ```
 
 ### Input Tokens
-```tsx
-const inputTokens = designTokens.components.input
 
-// Heights 
-inputTokens.height.sm  // 32px
-inputTokens.height.md  // 40px (default)
-inputTokens.height.lg  // 44px
+```tsx
+const inputTokens = designTokens.components.input;
+
+// Heights
+inputTokens.height.sm; // 32px
+inputTokens.height.md; // 40px (default)
+inputTokens.height.lg; // 44px
 
 // Padding
-inputTokens.padding.sm  // 8px 12px
-inputTokens.padding.md  // 10px 14px
-inputTokens.padding.lg  // 12px 16px
+inputTokens.padding.sm; // 8px 12px
+inputTokens.padding.md; // 10px 14px
+inputTokens.padding.lg; // 12px 16px
 ```
 
 ### Card Tokens
+
 ```tsx
-const cardTokens = designTokens.components.card
+const cardTokens = designTokens.components.card;
 
 // Padding
-cardTokens.padding.sm  // 16px
-cardTokens.padding.md  // 20px (default)
-cardTokens.padding.lg  // 24px
-cardTokens.padding.xl  // 32px
+cardTokens.padding.sm; // 16px
+cardTokens.padding.md; // 20px (default)
+cardTokens.padding.lg; // 24px
+cardTokens.padding.xl; // 32px
 ```
 
 ## Breakpoint Tokens
@@ -298,25 +1083,26 @@ cardTokens.padding.xl  // 32px
 Responsive design breakpoints following Apple's adaptive layout principles:
 
 ```tsx
-const breakpoints = designTokens.breakpoints
+const breakpoints = designTokens.breakpoints;
 
-breakpoints.xs   // 320px  - iPhone SE
-breakpoints.sm   // 375px  - iPhone standard
-breakpoints.md   // 768px  - iPad portrait
-breakpoints.lg   // 1024px - iPad landscape  
-breakpoints.xl   // 1280px - Desktop
-breakpoints['2xl'] // 1536px - Large desktop
+breakpoints.xs; // 320px  - iPhone SE
+breakpoints.sm; // 375px  - iPhone standard
+breakpoints.md; // 768px  - iPad portrait
+breakpoints.lg; // 1024px - iPad landscape
+breakpoints.xl; // 1280px - Desktop
+breakpoints['2xl']; // 1536px - Large desktop
 
 // Apple device specific
-breakpoints.iphone    // 375px
-breakpoints.ipad      // 768px
-breakpoints.mac       // 1280px
-breakpoints.studio    // 1536px
+breakpoints.iphone; // 375px
+breakpoints.ipad; // 768px
+breakpoints.mac; // 1280px
+breakpoints.studio; // 1536px
 ```
 
 ## Usage Best Practices
 
 ### 1. Use Semantic Tokens
+
 ```tsx
 // ✅ Good - semantic meaning
 <GlassButton variant="primary">Primary Action</GlassButton>
@@ -326,6 +1112,7 @@ breakpoints.studio    // 1536px
 ```
 
 ### 2. Leverage Component Tokens
+
 ```tsx
 // ✅ Good - consistent sizing
 <GlassButton size="lg">Touch-optimized</GlassButton>
@@ -337,6 +1124,7 @@ breakpoints.studio    // 1536px
 ```
 
 ### 3. Responsive Typography
+
 ```tsx
 // ✅ Good - responsive scale
 <h1 className="hig-title-1 lg:hig-large-title">
@@ -385,20 +1173,147 @@ All tokens are available as CSS custom properties:
 ## Platform Considerations
 
 ### iOS & iPadOS
+
 - Tokens adapt to Dynamic Type scaling
 - Respect user's preferred content size
 - Support Smart Invert and high contrast modes
 
 ### macOS
+
 - Optimized for pointer precision
 - Supports system accent colors
 - Adapts to window vibrancy settings
 
-### watchOS  
+### watchOS
+
 - Reduced token set for efficiency
 - Optimized for small screens
 - Battery-conscious animations
 
+## Best Practices
+
+### 1. Token Composition
+
+```tsx
+// ✅ Good - compose tokens for consistency
+const cardStyle = {
+  padding: liquidGlassTokens.spacing[6],
+  borderRadius: liquidGlassTokens.borderRadius.lg,
+  backgroundColor: liquidGlassTokens.colors.glass.backgrounds.regular,
+  backdropFilter: `blur(${liquidGlassTokens.glass.blur.lg})`,
+  border: liquidGlassTokens.colors.glass.borders.regular,
+  boxShadow: liquidGlassTokens.shadows.md,
+};
+```
+
+### 2. Theme Consistency
+
+```tsx
+// ✅ Good - use theme tokens
+const theme = glassThemes.light;
+const buttonStyle = {
+  backgroundColor: theme.colors.primary,
+  color: theme.colors.text.primary,
+  padding: `${theme.spacing[2]} ${theme.spacing[4]}`,
+};
+```
+
+### 3. Responsive Design
+
+```tsx
+// ✅ Good - responsive token usage
+const responsiveSpacing = {
+  padding: {
+    base: liquidGlassTokens.spacing[4],
+    md: liquidGlassTokens.spacing[6],
+    lg: liquidGlassTokens.spacing[8],
+  },
+};
+```
+
+### 4. Performance Optimization
+
+```tsx
+// ✅ Good - only generate needed CSS vars
+const generateOptimizedCSSVars = usedTokens => {
+  const optimizedTokens = Object.keys(usedTokens).reduce((acc, key) => {
+    if (liquidGlassTokens[key]) {
+      acc[key] = liquidGlassTokens[key];
+    }
+    return acc;
+  }, {});
+
+  return generateCSSCustomProperties(optimizedTokens);
+};
+```
+
+## Accessibility Considerations
+
+### High Contrast Mode
+
+```tsx
+// Tokens adapt to high contrast preferences
+const accessibleTokens = {
+  ...liquidGlassTokens,
+  colors: {
+    ...liquidGlassTokens.colors,
+    text: {
+      primary: window.matchMedia('(prefers-contrast: high)').matches
+        ? '#000000'
+        : liquidGlassTokens.colors.text.primary,
+    },
+  },
+};
+```
+
+### Reduced Motion
+
+```tsx
+// Respect user's motion preferences
+const motionTokens = {
+  ...liquidGlassTokens.animation,
+  duration: {
+    ...liquidGlassTokens.animation.duration,
+    fast: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? '0ms'
+      : liquidGlassTokens.animation.duration.fast,
+  },
+};
+```
+
+## Platform Considerations
+
+### iOS & iPadOS
+
+- Tokens adapt to Dynamic Type scaling
+- Respect user's preferred content size
+- Support Smart Invert and high contrast modes
+
+### macOS
+
+- Optimized for pointer precision
+- Supports system accent colors
+- Adapts to window vibrancy settings
+
+### watchOS
+
+- Reduced token set for efficiency
+- Optimized for small screens
+- Battery-conscious animations
+
+### Web
+
+- CSS custom properties for optimal performance
+- Responsive breakpoints for all device sizes
+- Progressive enhancement support
+
+## Related Resources
+
+- [Visual Token Guide](/design-system/design-tokens/visual-guide) - Interactive visual examples
+- [Token Customization Examples](/docs/design-tokens-examples) - Practical implementation examples
+- [Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
+- [Design System Components](/components) - Components using these tokens
+
 ---
 
-*Design tokens power the consistency and scalability of the entire Liquidify design system.*
+_Design tokens are the foundation of Liquidify's design system, enabling consistent, scalable, and maintainable user interfaces across all platforms and devices. They provide the building blocks for creating cohesive experiences while maintaining flexibility for customization and brand adaptation._

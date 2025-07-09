@@ -40,7 +40,8 @@
       "Bash(npm test)",
       "Bash(timeout 10s npm run dev)",
       "WebFetch(domain:developer.apple.com)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Bash(gh api:*)"
     ],
     "deny": []
   }

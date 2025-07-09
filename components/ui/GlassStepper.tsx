@@ -13,7 +13,8 @@ export interface Step {
   disabled?: boolean;
 }
 
-export interface GlassStepperProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassStepperProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   steps: Step[];
   currentStep: number;
   onStepClick?: (stepIndex: number) => void;
@@ -54,10 +55,12 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
     },
   };
 
-  const getStepStatus = (stepIndex: number): 'completed' | 'current' | 'upcoming' => {
+  const getStepStatus = (
+    stepIndex: number
+  ): 'completed' | 'current' | 'upcoming' => {
     const step = steps[stepIndex];
     if (step.status) return step.status;
-    
+
     if (stepIndex < currentStep) return 'completed';
     if (stepIndex === currentStep) return 'current';
     return 'upcoming';
@@ -95,7 +98,9 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
   const baseClasses = cn(
     'p-4 rounded-lg',
     orientation === 'horizontal' ? 'flex items-center' : 'flex flex-col',
-    orientation === 'horizontal' ? sizeStyles[size].spacing : sizeStyles[size].vSpacing,
+    orientation === 'horizontal'
+      ? sizeStyles[size].spacing
+      : sizeStyles[size].vSpacing,
     className
   );
 
@@ -127,8 +132,18 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
           )}
         >
           {status === 'completed' ? (
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className='w-4 h-4'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M5 13l4 4L19 7'
+              />
             </svg>
           ) : step.icon ? (
             step.icon
@@ -138,11 +153,14 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
         </div>
 
         <div className={cn('mt-2 text-center', sizeStyles[size].text)}>
-          <div className={cn('font-medium', styles.text)}>
-            {step.title}
-          </div>
+          <div className={cn('font-medium', styles.text)}>{step.title}</div>
           {step.description && (
-            <div className={cn('text-xs mt-1 text-white/60', sizeStyles[size].text)}>
+            <div
+              className={cn(
+                'text-xs mt-1 text-white/60',
+                sizeStyles[size].text
+              )}
+            >
               {step.description}
             </div>
           )}
@@ -169,11 +187,7 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
   };
 
   return (
-    <GlassEffect
-      variant="widget"
-      className={baseClasses}
-      {...props}
-    >
+    <GlassEffect variant='widget' className={baseClasses} {...props}>
       {steps.map((step, index) => (
         <React.Fragment key={step.id}>
           {renderStep(step, index)}

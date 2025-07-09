@@ -1,4 +1,4 @@
-import { GlassDropdown } from 'liquidify'
+import { GlassDropdown } from 'liquidify';
 
 # GlassDropdown
 
@@ -11,25 +11,25 @@ GlassDropdown provides a versatile overlay system for displaying contextual cont
 ## Basic Usage
 
 ```tsx
-import { GlassDropdown } from 'liquidify'
+import { GlassDropdown } from 'liquidify';
 
 function BasicDropdown() {
   return (
     <GlassDropdown
       trigger={<button>Open Dropdown</button>}
       content={
-        <div className="p-4">
-          <h3 className="font-semibold mb-2">Quick Actions</h3>
+        <div className='p-4'>
+          <h3 className='font-semibold mb-2'>Quick Actions</h3>
           <p>Choose an action to perform.</p>
-          <div className="mt-4 space-y-2">
-            <button className="block w-full text-left">Action 1</button>
-            <button className="block w-full text-left">Action 2</button>
-            <button className="block w-full text-left">Action 3</button>
+          <div className='mt-4 space-y-2'>
+            <button className='block w-full text-left'>Action 1</button>
+            <button className='block w-full text-left'>Action 2</button>
+            <button className='block w-full text-left'>Action 3</button>
           </div>
         </div>
       }
     />
-  )
+  );
 }
 ```
 
@@ -38,35 +38,35 @@ function BasicDropdown() {
 ```tsx
 <GlassDropdown
   trigger={
-    <button className="bg-blue-500 text-white py-2 px-4 rounded">
+    <button className='bg-blue-500 text-white py-2 px-4 rounded'>
       User Profile
     </button>
   }
   content={
-    <div className="p-6 min-w-[280px]">
-      <div className="flex items-center space-x-3 mb-4">
-        <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+    <div className='p-6 min-w-[280px]'>
+      <div className='flex items-center space-x-3 mb-4'>
+        <div className='w-10 h-10 bg-gray-300 rounded-full'></div>
         <div>
-          <p className="font-semibold">John Doe</p>
-          <p className="text-sm text-gray-600">john@example.com</p>
+          <p className='font-semibold'>John Doe</p>
+          <p className='text-sm text-gray-600'>john@example.com</p>
         </div>
       </div>
-      <hr className="my-4 border-gray-200" />
-      <div className="space-y-2">
-        <button className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+      <hr className='my-4 border-gray-200' />
+      <div className='space-y-2'>
+        <button className='block w-full text-left px-2 py-1 hover:bg-gray-100 rounded'>
           View Profile
         </button>
-        <button className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+        <button className='block w-full text-left px-2 py-1 hover:bg-gray-100 rounded'>
           Account Settings
         </button>
-        <button className="block w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+        <button className='block w-full text-left px-2 py-1 hover:bg-gray-100 rounded'>
           Sign Out
         </button>
       </div>
     </div>
   }
-  placement="bottom-end"
-  variant="default"
+  placement='bottom-end'
+  variant='default'
 />
 ```
 
@@ -74,31 +74,31 @@ function BasicDropdown() {
 
 ### GlassDropdown Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `trigger` | `React.ReactNode` | - | Component to trigger the dropdown |
-| `content` | `React.ReactNode` | - | Content to display in the dropdown |
-| `open` | `boolean` | `false` | Control dropdown open state |
-| `onOpenChange` | `(open: boolean) => void` | - | Callback on open state change |
-| `placement` | `'top' \| 'bottom' \| 'left' \| 'right' \| 'top-start' \| 'top-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end' \| 'right-start' \| 'right-end'` | `'bottom'` | Dropdown position relative to trigger |
-| `variant` | `'default' \| 'minimal' \| 'outlined'` | `'default'` | Visual style variant |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
-| `disabled` | `boolean` | `false` | Disable the dropdown |
-| `closeOnClickOutside` | `boolean` | `true` | Close on outside click |
-| `closeOnEscape` | `boolean` | `true` | Close on Escape key |
-| `offset` | `number` | `8` | Distance from trigger |
-| `crossAxis` | `number` | `0` | Cross-axis offset |
-| `className` | `string` | - | Additional CSS classes |
-| `contentClassName` | `string` | - | CSS classes for content container |
-| `overlayClassName` | `string` | - | CSS classes for overlay |
+| Prop                  | Type                                                                                                                                                                 | Default     | Description                           |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------- |
+| `trigger`             | `React.ReactNode`                                                                                                                                                    | -           | Component to trigger the dropdown     |
+| `content`             | `React.ReactNode`                                                                                                                                                    | -           | Content to display in the dropdown    |
+| `open`                | `boolean`                                                                                                                                                            | `false`     | Control dropdown open state           |
+| `onOpenChange`        | `(open: boolean) => void`                                                                                                                                            | -           | Callback on open state change         |
+| `placement`           | `'top' \| 'bottom' \| 'left' \| 'right' \| 'top-start' \| 'top-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end' \| 'right-start' \| 'right-end'` | `'bottom'`  | Dropdown position relative to trigger |
+| `variant`             | `'default' \| 'minimal' \| 'outlined'`                                                                                                                               | `'default'` | Visual style variant                  |
+| `size`                | `'sm' \| 'md' \| 'lg'`                                                                                                                                               | `'md'`      | Component size                        |
+| `disabled`            | `boolean`                                                                                                                                                            | `false`     | Disable the dropdown                  |
+| `closeOnClickOutside` | `boolean`                                                                                                                                                            | `true`      | Close on outside click                |
+| `closeOnEscape`       | `boolean`                                                                                                                                                            | `true`      | Close on Escape key                   |
+| `offset`              | `number`                                                                                                                                                             | `8`         | Distance from trigger                 |
+| `crossAxis`           | `number`                                                                                                                                                             | `0`         | Cross-axis offset                     |
+| `className`           | `string`                                                                                                                                                             | -           | Additional CSS classes                |
+| `contentClassName`    | `string`                                                                                                                                                             | -           | CSS classes for content container     |
+| `overlayClassName`    | `string`                                                                                                                                                             | -           | CSS classes for overlay               |
 
 ### Trigger Options
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `triggerOn` | `'click' \| 'hover' \| 'focus' \| 'manual'` | `'click'` | How to trigger the dropdown |
-| `hoverDelay` | `number` | `200` | Delay before opening on hover |
-| `focusDelay` | `number` | `0` | Delay before opening on focus |
+| Prop         | Type                                        | Default   | Description                   |
+| ------------ | ------------------------------------------- | --------- | ----------------------------- |
+| `triggerOn`  | `'click' \| 'hover' \| 'focus' \| 'manual'` | `'click'` | How to trigger the dropdown   |
+| `hoverDelay` | `number`                                    | `200`     | Delay before opening on hover |
+| `focusDelay` | `number`                                    | `0`       | Delay before opening on focus |
 
 ## Variants
 
@@ -108,7 +108,7 @@ function BasicDropdown() {
 <GlassDropdown
   trigger={<button>Default</button>}
   content={<div>Content here</div>}
-  variant="default"
+  variant='default'
 />
 ```
 
@@ -118,7 +118,7 @@ function BasicDropdown() {
 <GlassDropdown
   trigger={<button>Minimal</button>}
   content={<div>Content here</div>}
-  variant="minimal"
+  variant='minimal'
 />
 ```
 
@@ -128,7 +128,7 @@ function BasicDropdown() {
 <GlassDropdown
   trigger={<button>Outlined</button>}
   content={<div>Content here</div>}
-  variant="outlined"
+  variant='outlined'
 />
 ```
 
@@ -141,7 +141,7 @@ function BasicDropdown() {
 <GlassDropdown
   trigger={<button>Smart Position</button>}
   content={<div>This will position automatically</div>}
-  placement="bottom"
+  placement='bottom'
   offset={12}
 />
 ```
@@ -152,7 +152,7 @@ function BasicDropdown() {
 <GlassDropdown
   trigger={<button>Hover Me</button>}
   content={<div>Opens on hover</div>}
-  triggerOn="hover"
+  triggerOn='hover'
   hoverDelay={300}
 />
 ```
@@ -161,9 +161,9 @@ function BasicDropdown() {
 
 ```tsx
 <GlassDropdown
-  trigger={<input placeholder="Focus trigger" />}
+  trigger={<input placeholder='Focus trigger' />}
   content={<div>Opens on focus</div>}
-  triggerOn="focus"
+  triggerOn='focus'
 />
 ```
 
@@ -171,7 +171,7 @@ function BasicDropdown() {
 
 ```tsx
 function ControlledDropdown() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <GlassDropdown
@@ -184,7 +184,7 @@ function ControlledDropdown() {
       open={open}
       onOpenChange={setOpen}
     />
-  )
+  );
 }
 ```
 
@@ -194,29 +194,27 @@ function ControlledDropdown() {
 <GlassDropdown
   trigger={<button>Rich Content</button>}
   content={
-    <div className="p-6 max-w-sm">
-      <h3 className="text-lg font-semibold mb-2">Notification Settings</h3>
-      <form className="space-y-4">
-        <label className="flex items-center">
-          <input type="checkbox" className="mr-2" />
+    <div className='p-6 max-w-sm'>
+      <h3 className='text-lg font-semibold mb-2'>Notification Settings</h3>
+      <form className='space-y-4'>
+        <label className='flex items-center'>
+          <input type='checkbox' className='mr-2' />
           Email notifications
         </label>
-        <label className="flex items-center">
-          <input type="checkbox" className="mr-2" />
+        <label className='flex items-center'>
+          <input type='checkbox' className='mr-2' />
           Push notifications
         </label>
-        <div className="flex space-x-2">
-          <button className="px-3 py-1 bg-blue-500 text-white rounded">
+        <div className='flex space-x-2'>
+          <button className='px-3 py-1 bg-blue-500 text-white rounded'>
             Save
           </button>
-          <button className="px-3 py-1 border rounded">
-            Cancel
-          </button>
+          <button className='px-3 py-1 border rounded'>Cancel</button>
         </div>
       </form>
     </div>
   }
-  placement="bottom-start"
+  placement='bottom-start'
 />
 ```
 
@@ -240,7 +238,7 @@ function ControlledDropdown() {
   trigger={<button>Custom Animation</button>}
   content={<div>Animated content</div>}
   animationDuration={300}
-  animationEasing="ease-out"
+  animationEasing='ease-out'
 />
 ```
 
@@ -255,7 +253,7 @@ function ControlledDropdown() {
       <GlassDropdown
         trigger={<button>Nested</button>}
         content={<div>Nested content</div>}
-        placement="right-start"
+        placement='right-start'
       />
     </div>
   }
@@ -274,20 +272,20 @@ function ControlledDropdown() {
 
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Enter` / `Space` | Toggle dropdown (on trigger) |
-| `Escape` | Close dropdown |
-| `Tab` | Navigate through dropdown content |
-| `Arrow Keys` | Navigate focusable elements |
+| Key               | Action                            |
+| ----------------- | --------------------------------- |
+| `Enter` / `Space` | Toggle dropdown (on trigger)      |
+| `Escape`          | Close dropdown                    |
+| `Tab`             | Navigate through dropdown content |
+| `Arrow Keys`      | Navigate focusable elements       |
 
 ### Screen Reader Support
 
 ```tsx
 <GlassDropdown
-  trigger={<button aria-label="User menu">Profile</button>}
-  content={<div role="menu">Menu content</div>}
-  aria-describedby="dropdown-description"
+  trigger={<button aria-label='User menu'>Profile</button>}
+  content={<div role='menu'>Menu content</div>}
+  aria-describedby='dropdown-description'
 />
 ```
 
@@ -334,8 +332,8 @@ function ControlledDropdown() {
 <GlassDropdown
   trigger={<button>Themed</button>}
   content={<div>Themed content</div>}
-  className="dark:bg-gray-900/50 light:bg-white/50"
-  contentClassName="dark:border-gray-600 light:border-gray-300"
+  className='dark:bg-gray-900/50 light:bg-white/50'
+  contentClassName='dark:border-gray-600 light:border-gray-300'
 />
 ```
 
@@ -345,31 +343,31 @@ function ControlledDropdown() {
 
 ```tsx
 function FormFieldDropdown() {
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState('');
 
   return (
     <GlassDropdown
       trigger={
-        <button className="w-full text-left border rounded px-3 py-2">
+        <button className='w-full text-left border rounded px-3 py-2'>
           {selectedOption || 'Select option...'}
         </button>
       }
       content={
-        <div className="py-2">
+        <div className='py-2'>
           {options.map(option => (
             <button
               key={option.value}
               onClick={() => setSelectedOption(option.label)}
-              className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+              className='block w-full text-left px-3 py-2 hover:bg-gray-100'
             >
               {option.label}
             </button>
           ))}
         </div>
       }
-      placement="bottom-start"
+      placement='bottom-start'
     />
-  )
+  );
 }
 ```
 
@@ -378,26 +376,26 @@ function FormFieldDropdown() {
 ```tsx
 <GlassDropdown
   trigger={
-    <button className="relative">
-      <Icon name="bell" />
+    <button className='relative'>
+      <Icon name='bell' />
       {unreadCount > 0 && (
-        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        <span className='absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center'>
           {unreadCount}
         </span>
       )}
     </button>
   }
   content={
-    <div className="w-80 max-h-96 overflow-y-auto">
-      <div className="p-4 border-b">
-        <h3 className="font-semibold">Notifications</h3>
+    <div className='w-80 max-h-96 overflow-y-auto'>
+      <div className='p-4 border-b'>
+        <h3 className='font-semibold'>Notifications</h3>
       </div>
       {notifications.map(notification => (
         <NotificationItem key={notification.id} {...notification} />
       ))}
     </div>
   }
-  placement="bottom-end"
+  placement='bottom-end'
 />
 ```
 
@@ -405,26 +403,26 @@ function FormFieldDropdown() {
 
 ```tsx
 function SearchDropdown() {
-  const [query, setQuery] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   return (
     <GlassDropdown
       trigger={
         <input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search..."
-          className="w-full border rounded px-3 py-2"
+          onChange={e => setQuery(e.target.value)}
+          placeholder='Search...'
+          className='w-full border rounded px-3 py-2'
         />
       }
       content={
-        <div className="py-2">
+        <div className='py-2'>
           {suggestions.map(suggestion => (
             <button
               key={suggestion.id}
               onClick={() => setQuery(suggestion.text)}
-              className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+              className='block w-full text-left px-3 py-2 hover:bg-gray-100'
             >
               {suggestion.text}
             </button>
@@ -432,10 +430,10 @@ function SearchDropdown() {
         </div>
       }
       open={query.length > 0 && suggestions.length > 0}
-      triggerOn="focus"
-      placement="bottom-start"
+      triggerOn='focus'
+      placement='bottom-start'
     />
-  )
+  );
 }
 ```
 
@@ -464,27 +462,27 @@ function SearchDropdown() {
 ```tsx
 <GlassDropdown
   trigger={
-    <button className="flex items-center space-x-2">
-      <Avatar src={user.avatar} size="sm" />
+    <button className='flex items-center space-x-2'>
+      <Avatar src={user.avatar} size='sm' />
       <span>{user.name}</span>
-      <Icon name="chevron.down" />
+      <Icon name='chevron.down' />
     </button>
   }
   content={
-    <div className="py-2">
-      <div className="px-3 py-2 border-b">
-        <p className="font-semibold">{user.name}</p>
-        <p className="text-sm text-gray-600">{user.email}</p>
+    <div className='py-2'>
+      <div className='px-3 py-2 border-b'>
+        <p className='font-semibold'>{user.name}</p>
+        <p className='text-sm text-gray-600'>{user.email}</p>
       </div>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
         Profile Settings
       </button>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
         Sign Out
       </button>
     </div>
   }
-  placement="bottom-end"
+  placement='bottom-end'
 />
 ```
 
@@ -494,17 +492,17 @@ function SearchDropdown() {
 <GlassDropdown
   trigger={<button>Quick Actions</button>}
   content={
-    <div className="py-2">
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
-        <Icon name="plus" className="mr-2" />
+    <div className='py-2'>
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
+        <Icon name='plus' className='mr-2' />
         Create New
       </button>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
-        <Icon name="square.and.arrow.up" className="mr-2" />
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
+        <Icon name='square.and.arrow.up' className='mr-2' />
         Export Data
       </button>
-      <button className="block w-full text-left px-3 py-2 hover:bg-gray-100">
-        <Icon name="gear" className="mr-2" />
+      <button className='block w-full text-left px-3 py-2 hover:bg-gray-100'>
+        <Icon name='gear' className='mr-2' />
         Settings
       </button>
     </div>
@@ -518,24 +516,22 @@ function SearchDropdown() {
 <GlassDropdown
   trigger={<button>Filters ({activeFilters.length})</button>}
   content={
-    <div className="p-4 min-w-[300px]">
-      <h3 className="font-semibold mb-3">Filter Options</h3>
-      <div className="space-y-3">
-        <FilterSection title="Category" options={categories} />
-        <FilterSection title="Price Range" options={priceRanges} />
-        <FilterSection title="Rating" options={ratings} />
+    <div className='p-4 min-w-[300px]'>
+      <h3 className='font-semibold mb-3'>Filter Options</h3>
+      <div className='space-y-3'>
+        <FilterSection title='Category' options={categories} />
+        <FilterSection title='Price Range' options={priceRanges} />
+        <FilterSection title='Rating' options={ratings} />
       </div>
-      <div className="flex space-x-2 mt-4 pt-3 border-t">
-        <button className="px-3 py-1 bg-blue-500 text-white rounded">
+      <div className='flex space-x-2 mt-4 pt-3 border-t'>
+        <button className='px-3 py-1 bg-blue-500 text-white rounded'>
           Apply
         </button>
-        <button className="px-3 py-1 border rounded">
-          Clear All
-        </button>
+        <button className='px-3 py-1 border rounded'>Clear All</button>
       </div>
     </div>
   }
-  placement="bottom-start"
+  placement='bottom-start'
 />
 ```
 
@@ -548,4 +544,4 @@ function SearchDropdown() {
 
 ---
 
-*GlassDropdown provides a versatile solution for contextual overlays, following Apple's Human Interface Guidelines for optimal user experience and accessibility.*
+_GlassDropdown provides a versatile solution for contextual overlays, following Apple's Human Interface Guidelines for optimal user experience and accessibility._

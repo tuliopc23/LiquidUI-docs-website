@@ -21,11 +21,12 @@ export const microEasing = {
 export const magneticHover = {
   // Enhanced magnetic button hover
   button: (element: string | Element, options?: gsap.TweenVars) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const tl = gsap.timeline({ paused: true });
-    
+
     tl.to(el, {
       scale: 1.08,
       rotationX: 2,
@@ -34,7 +35,7 @@ export const magneticHover = {
       filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))',
       duration: 0.4,
       ease: microEasing.magnetic,
-      ...options
+      ...options,
     });
 
     return tl;
@@ -42,11 +43,12 @@ export const magneticHover = {
 
   // Magnetic card hover with depth
   card: (element: string | Element, options?: gsap.TweenVars) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const tl = gsap.timeline({ paused: true });
-    
+
     tl.to(el, {
       scale: 1.03,
       rotationX: -3,
@@ -56,7 +58,7 @@ export const magneticHover = {
       boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
       duration: 0.5,
       ease: microEasing.magnetic,
-      ...options
+      ...options,
     });
 
     return tl;
@@ -64,7 +66,8 @@ export const magneticHover = {
 
   // Cursor following magnetic effect
   magnetic: (element: string | Element, strength: number = 0.3) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const handleMouseMove = (e: Event) => {
@@ -97,83 +100,86 @@ export const magneticHover = {
       (el as Element).removeEventListener('mousemove', handleMouseMove);
       (el as Element).removeEventListener('mouseleave', handleMouseLeave);
     };
-  }
+  },
 };
 
 // Spring animations
 export const springAnimations = {
   // Entrance spring animation
   entrance: (element: string | Element, options?: gsap.TweenVars) => {
-    return gsap.fromTo(element, 
-      { 
-        opacity: 0, 
-        scale: 0.8, 
+    return gsap.fromTo(
+      element,
+      {
+        opacity: 0,
+        scale: 0.8,
         y: 50,
-        rotation: -5
+        rotation: -5,
       },
-      { 
-        opacity: 1, 
-        scale: 1, 
+      {
+        opacity: 1,
+        scale: 1,
         y: 0,
         rotation: 0,
         duration: 1.2,
         ease: microEasing.spring,
-        ...options 
+        ...options,
       }
     );
   },
 
   // Exit spring animation
   exit: (element: string | Element, options?: gsap.TweenVars) => {
-    return gsap.to(element, { 
-      opacity: 0, 
-      scale: 0.8, 
+    return gsap.to(element, {
+      opacity: 0,
+      scale: 0.8,
       y: -30,
       rotation: 5,
       duration: 0.8,
       ease: microEasing.spring,
-      ...options 
+      ...options,
     });
   },
 
   // Bounce on click
   bounce: (element: string | Element, options?: gsap.TweenVars) => {
     const tl = gsap.timeline();
-    
+
     tl.to(element, {
       scale: 0.95,
       duration: 0.1,
       ease: microEasing.haptic,
     })
-    .to(element, {
-      scale: 1.05,
-      duration: 0.2,
-      ease: microEasing.bounce,
-    })
-    .to(element, {
-      scale: 1,
-      duration: 0.3,
-      ease: microEasing.spring,
-      ...options
-    });
+      .to(element, {
+        scale: 1.05,
+        duration: 0.2,
+        ease: microEasing.bounce,
+      })
+      .to(element, {
+        scale: 1,
+        duration: 0.3,
+        ease: microEasing.spring,
+        ...options,
+      });
 
     return tl;
-  }
+  },
 };
 
 // Page transitions
 export const pageTransitions = {
   // Fade in page transition
   fadeIn: (duration: number = 0.8) => {
-    return gsap.fromTo('body', 
-      { opacity: 0 }, 
+    return gsap.fromTo(
+      'body',
+      { opacity: 0 },
       { opacity: 1, duration, ease: microEasing.smooth }
     );
   },
 
   // Slide in from bottom
   slideInUp: (selector: string = 'main', duration: number = 1.2) => {
-    return gsap.fromTo(selector, 
+    return gsap.fromTo(
+      selector,
       { y: 100, opacity: 0 },
       { y: 0, opacity: 1, duration, ease: microEasing.spring }
     );
@@ -182,19 +188,20 @@ export const pageTransitions = {
   // Stagger reveal for page elements
   staggerReveal: (selector: string, delay: number = 0.1) => {
     const elements = gsap.utils.toArray(selector);
-    
-    return gsap.fromTo(elements,
+
+    return gsap.fromTo(
+      elements,
       { opacity: 0, y: 30, scale: 0.95 },
-      { 
-        opacity: 1, 
-        y: 0, 
+      {
+        opacity: 1,
+        y: 0,
         scale: 1,
         duration: 0.8,
         ease: microEasing.spring,
-        stagger: delay
+        stagger: delay,
       }
     );
-  }
+  },
 };
 
 // Scroll animations
@@ -211,7 +218,7 @@ export const scrollAnimations = {
       animation: gsap.to(element, {
         yPercent: -100 * speed,
         ease: 'none',
-      })
+      }),
     });
   },
 
@@ -220,9 +227,10 @@ export const scrollAnimations = {
     if (typeof window === 'undefined') return;
 
     const elements = gsap.utils.toArray(selector);
-    
+
     elements.forEach((element: any) => {
-      gsap.fromTo(element,
+      gsap.fromTo(
+        element,
         { opacity: 0, y: 50, scale: 0.9 },
         {
           opacity: 1,
@@ -235,7 +243,7 @@ export const scrollAnimations = {
             start: 'top 80%',
             end: 'bottom 20%',
             toggleActions: 'play none none reverse',
-          }
+          },
         }
       );
     });
@@ -255,9 +263,9 @@ export const scrollAnimations = {
         scale: 1.1,
         rotation: 5,
         ease: microEasing.smooth,
-      })
+      }),
     });
-  }
+  },
 };
 
 // Haptic feedback simulations
@@ -265,13 +273,12 @@ export const hapticFeedback = {
   // Light tap feedback
   lightTap: (element: string | Element) => {
     const tl = gsap.timeline();
-    
+
     tl.to(element, {
       scale: 0.98,
       duration: 0.05,
       ease: microEasing.haptic,
-    })
-    .to(element, {
+    }).to(element, {
       scale: 1,
       duration: 0.1,
       ease: microEasing.bounce,
@@ -283,22 +290,22 @@ export const hapticFeedback = {
   // Medium impact feedback
   mediumImpact: (element: string | Element) => {
     const tl = gsap.timeline();
-    
+
     tl.to(element, {
       scale: 0.95,
       duration: 0.1,
       ease: microEasing.haptic,
     })
-    .to(element, {
-      scale: 1.02,
-      duration: 0.15,
-      ease: microEasing.bounce,
-    })
-    .to(element, {
-      scale: 1,
-      duration: 0.2,
-      ease: microEasing.spring,
-    });
+      .to(element, {
+        scale: 1.02,
+        duration: 0.15,
+        ease: microEasing.bounce,
+      })
+      .to(element, {
+        scale: 1,
+        duration: 0.2,
+        ease: microEasing.spring,
+      });
 
     return tl;
   },
@@ -306,29 +313,30 @@ export const hapticFeedback = {
   // Heavy impact feedback
   heavyImpact: (element: string | Element) => {
     const tl = gsap.timeline();
-    
+
     tl.to(element, {
       scale: 0.9,
       duration: 0.15,
       ease: microEasing.haptic,
     })
-    .to(element, {
-      scale: 1.05,
-      duration: 0.2,
-      ease: microEasing.bounce,
-    })
-    .to(element, {
-      scale: 1,
-      duration: 0.3,
-      ease: microEasing.spring,
-    });
+      .to(element, {
+        scale: 1.05,
+        duration: 0.2,
+        ease: microEasing.bounce,
+      })
+      .to(element, {
+        scale: 1,
+        duration: 0.3,
+        ease: microEasing.spring,
+      });
 
     return tl;
   },
 
   // Ripple effect with haptic feel
   ripple: (element: string | Element, x: number, y: number) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const ripple = document.createElement('div');
@@ -342,37 +350,41 @@ export const hapticFeedback = {
       transform: translate(-50%, -50%);
       backdrop-filter: blur(2px);
     `;
-    
+
     (el as Element).appendChild(ripple);
-    
+
     const tl = gsap.timeline({
-      onComplete: () => ripple.remove()
+      onComplete: () => ripple.remove(),
     });
-    
+
     tl.to(ripple, {
       width: 100,
       height: 100,
       opacity: 0.8,
       duration: 0.1,
       ease: microEasing.haptic,
-    })
-    .to(ripple, {
-      width: 200,
-      height: 200,
-      opacity: 0,
-      duration: 0.6,
-      ease: microEasing.spring,
-    }, '-=0.05');
+    }).to(
+      ripple,
+      {
+        width: 200,
+        height: 200,
+        opacity: 0,
+        duration: 0.6,
+        ease: microEasing.spring,
+      },
+      '-=0.05'
+    );
 
     return tl;
-  }
+  },
 };
 
 // Enhanced micro-interactions
 export const microInteractions = {
   // Button press with haptic feedback
   buttonPress: (element: string | Element) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const handleMouseDown = () => {
@@ -384,7 +396,7 @@ export const microInteractions = {
       const rect = (el as Element).getBoundingClientRect();
       const x = mouseEvent.clientX - rect.left;
       const y = mouseEvent.clientY - rect.top;
-      
+
       hapticFeedback.ripple(el, x, y);
     };
 
@@ -399,11 +411,12 @@ export const microInteractions = {
 
   // Hover with magnetic attraction
   magneticHover: (element: string | Element, strength: number = 0.3) => {
-    const el = typeof element === 'string' ? document.querySelector(element) : element;
+    const el =
+      typeof element === 'string' ? document.querySelector(element) : element;
     if (!el) return;
 
     const tl = gsap.timeline({ paused: true });
-    
+
     tl.to(el, {
       scale: 1.05,
       rotationX: 2,
@@ -428,20 +441,19 @@ export const microInteractions = {
   // Elastic loading animation
   elasticLoading: (element: string | Element) => {
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
-    
+
     tl.to(element, {
       scale: 1.1,
       duration: 0.8,
       ease: microEasing.spring,
-    })
-    .to(element, {
+    }).to(element, {
       scale: 0.9,
       duration: 0.8,
       ease: microEasing.spring,
     });
 
     return tl;
-  }
+  },
 };
 
 // Performance optimization utilities
@@ -474,7 +486,7 @@ export const animationUtils = {
     // Preload common animations to improve performance
     gsap.set('body', { opacity: 0 });
     gsap.to('body', { opacity: 1, duration: 0.01 });
-  }
+  },
 };
 
 export { gsap, ScrollTrigger };

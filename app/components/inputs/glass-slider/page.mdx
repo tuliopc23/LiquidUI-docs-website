@@ -41,7 +41,7 @@ export default function SliderDemo() {
       {/* Volume Slider */}
       csectione
         ch3 className="hig-title-3 mb-4"eVolumec/h3e
-        cGlassSlider 
+        cGlassSlider
           value={volume}
           onChange={setVolume}
           min={0}
@@ -56,7 +56,7 @@ export default function SliderDemo() {
       {/* Brightness Slider */}
       csectione
         ch3 className="hig-title-3 mb-4"eBrightnessc/h3e
-        cGlassSlider 
+        cGlassSlider
           value={brightness}
           onChange={setBrightness}
           min={0}
@@ -76,32 +76,35 @@ export default function SliderDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `number` | `0` | Current value of the slider |
-| `onChange` | `(value: number) =e void` | - | Callback when the slider value changes |
-| `min` | `number` | `0` | Minimum value allowed |
-| `max` | `number` | `100` | Maximum value allowed |
-| `step` | `number` | `1` | Interval between selectable values in the slider |
-| `disabled` | `boolean` | `false` | Disables the slider |
-| `tooltipVisible` | `boolean` | `false` | Shows current value in a tooltip above the slider |
-| `label` | `string` | '' | Label text for the slider |
+| Prop             | Type                      | Default | Description                                       |
+| ---------------- | ------------------------- | ------- | ------------------------------------------------- |
+| `value`          | `number`                  | `0`     | Current value of the slider                       |
+| `onChange`       | `(value: number) =e void` | -       | Callback when the slider value changes            |
+| `min`            | `number`                  | `0`     | Minimum value allowed                             |
+| `max`            | `number`                  | `100`   | Maximum value allowed                             |
+| `step`           | `number`                  | `1`     | Interval between selectable values in the slider  |
+| `disabled`       | `boolean`                 | `false` | Disables the slider                               |
+| `tooltipVisible` | `boolean`                 | `false` | Shows current value in a tooltip above the slider |
+| `label`          | `string`                  | ''      | Label text for the slider                         |
 
 ## Features
 
 ### Discrete vs Continuous
 
 - **Discrete Mode**: Allow only fixed increments
+
 ```tsx
 cGlassSlider min={0} max={10} step={1} /e
 ```
 
 - **Continuous Mode**: Freeform slider within a range
+
 ```tsx
 cGlassSlider min={0} max={100} step={0.1} /e
 ```
 
 ### Custom Styling
+
 Style the track and thumb to fit your design needs
 
 ```tsx
@@ -117,6 +120,7 @@ Style the track and thumb to fit your design needs
 - **ARIA support** for better screen reader compatibility
 
 ### Keyboard Example
+
 ```tsx
 cGlassSlider
   aria-label="Adjust volume"
@@ -128,18 +132,21 @@ Style the track and thumb to fit your design needs
 ## Best Practices
 
 ### Do's ✅
+
 - **Use clear labels** to indicate slider function
 - **Define appropriate min/max** range for context
 - **Show tooltip** for precise value adjustments
 
 ### Don'ts ❌
+
 - **Avoid overly large ranges** without context
 - **Don't rely solely on visual cues** for slider interaction
 
 ## Related Components
+
 - [**Glass Input**](/components/inputs/glass-input) for manual value entry
 - [**Glass Checkbox**](/components/inputs/glass-checkbox) for binary checks
+
 ---
 
-*Glass Slider offers a smooth, interactive way to select values, seamlessly integrating into Liquidify's design aesthetics.*
-
+_Glass Slider offers a smooth, interactive way to select values, seamlessly integrating into Liquidify's design aesthetics._

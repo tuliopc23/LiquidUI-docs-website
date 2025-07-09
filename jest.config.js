@@ -1,8 +1,8 @@
-import nextJest from 'next/jest.js'
+import nextJest from 'next/jest.js';
 
 const createJestConfig = nextJest({
   dir: './',
-})
+});
 
 const config = {
   coverageProvider: 'v8',
@@ -13,7 +13,7 @@ const config = {
   },
   testMatch: [
     '**/__tests__/**/*.(js|jsx|ts|tsx)',
-    '**/*.(test|spec).(js|jsx|ts|tsx)'
+    '**/*.(test|spec).(js|jsx|ts|tsx)',
   ],
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
@@ -24,16 +24,16 @@ const config = {
     'app/**/*.{js,jsx,ts,tsx}',
     'components/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
-    '!**/node_modules/**'
+    '!**/node_modules/**',
   ],
   coverageThreshold: {
     global: {
       branches: 70,
       functions: 70,
       lines: 70,
-      statements: 70
-    }
-  }
-}
+      statements: 70,
+    },
+  },
+};
 
-export default createJestConfig(config)
+export default createJestConfig(config);

@@ -1,0 +1,153 @@
+import { ParticleEffectsDemo } from '@/components/physics-demos/ParticleEffectsDemo';
+
+# Particle Effects Demo
+
+Experience the power of Liquidify's particle system with these interactive demonstrations. Each demo showcases different particle behaviors and effects.
+
+## Interactive Particle System
+
+<ParticleEffectsDemo />
+
+## Available Effects
+
+### Sparks
+
+Classic spark effect with gravity and fade out.
+
+- **Rate**: 100 particles/second
+- **Lifetime**: 800ms
+- **Gravity**: Earth-like downward force
+- **Variation**: Random velocity spread
+
+### Fireworks
+
+Explosive burst effect with colorful particles.
+
+- **Burst**: 50 particles at once
+- **Colors**: Multiple random colors
+- **Fade**: Gradual opacity reduction
+- **Spread**: 360-degree explosion
+
+### Smoke
+
+Smooth upward-flowing smoke simulation.
+
+- **Rate**: 40 particles/second
+- **Direction**: Upward drift
+- **Air Resistance**: Realistic drag
+- **Fade**: Gradual dissipation
+
+### Magic
+
+Magical sparkles with shrinking effect.
+
+- **Rate**: 60 particles/second
+- **Shrink**: Particles reduce in size
+- **Colors**: Mystical purple/blue
+- **Movement**: Floating upward
+
+### Rain
+
+Realistic rain drops falling down.
+
+- **Rate**: 200 particles/second
+- **Direction**: Downward
+- **Speed**: Fast vertical movement
+- **Uniformity**: Consistent pattern
+
+### Snow
+
+Gentle snowflakes with drift.
+
+- **Rate**: 80 particles/second
+- **Drift**: Horizontal movement
+- **Slow Fall**: Gentle descent
+- **Size Variation**: Different flake sizes
+
+## Code Examples
+
+### Basic Particle Emitter
+
+```typescript
+import { ParticleEmitter, Vector2D, PARTICLE_PRESETS } from 'liquidify';
+
+const sparkEmitter = new ParticleEmitter({
+  ...PARTICLE_PRESETS.sparks,
+  position: new Vector2D(200, 200),
+});
+
+function animate() {
+  sparkEmitter.update(16);
+  sparkEmitter.render(ctx);
+  requestAnimationFrame(animate);
+}
+```
+
+### Interactive Mouse Particles
+
+```typescript
+canvas.addEventListener('mousemove', e => {
+  const rect = canvas.getBoundingClientRect();
+  const mousePos = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);
+
+  emitter.setPosition(mousePos);
+  emitter.burst(5); // Emit 5 particles at mouse position
+});
+```
+
+### Custom Particle Effect
+
+```typescript
+const customEmitter = new ParticleEmitter({
+  position: new Vector2D(300, 300),
+  rate: 80,
+  particleLifetime: 1500,
+  velocity: new Vector2D(0, -30),
+  velocityVariation: new Vector2D(60, 20),
+  size: 3,
+  sizeVariation: 1,
+  color: '#ff6b6b',
+  gravity: new Vector2D(0, 20),
+  fadeOut: true,
+  shrink: true,
+});
+```
+
+## Performance Tips
+
+1. **Limit particle count**: Keep under 1000 active particles
+2. **Use culling**: Remove off-screen particles
+3. **Batch rendering**: Group similar particles
+4. **Object pooling**: Reuse particle objects
+
+## Customization Options
+
+### Particle Properties
+
+- **Size**: Control particle dimensions
+- **Color**: Set particle colors and opacity
+- **Lifetime**: Adjust how long particles live
+- **Velocity**: Control initial speed and direction
+
+### Physics Properties
+
+- **Gravity**: Apply downward force
+- **Air Resistance**: Simulate drag
+- **Acceleration**: Constant force application
+- **Collision**: Boundary interactions
+
+### Visual Effects
+
+- **Fade Out**: Gradual opacity reduction
+- **Shrink**: Size reduction over time
+- **Color Transitions**: Animate color changes
+- **Blend Modes**: Canvas composition modes
+
+## Try It Yourself
+
+1. **Click and drag** to create particle trails
+2. **Select different presets** to see various effects
+3. **Adjust parameters** using the controls
+4. **Combine effects** for unique results
+
+Experiment with different settings to create your own unique particle effects!

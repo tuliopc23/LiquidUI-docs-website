@@ -9,10 +9,10 @@ GlassProgress provides visual feedback for ongoing processes, loading states, an
 ## Basic Usage
 
 ```tsx
-import { GlassProgress } from '@liquidify/ui'
+import { GlassProgress } from '@liquidify/ui';
 
 function BasicProgress() {
-  return <GlassProgress value={65} />
+  return <GlassProgress value={65} />;
 }
 ```
 
@@ -20,15 +20,15 @@ function BasicProgress() {
 
 ### GlassProgress Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `number` | - | Progress value (0-100) |
-| `type` | `'linear' \| 'circular'` | `'linear'` | Progress indicator type |
-| `variant` | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | Color variant |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
-| `indeterminate` | `boolean` | `false` | Show indeterminate progress |
-| `showLabel` | `boolean` | `false` | Display progress percentage |
-| `label` | `string` | - | Custom label text |
+| Prop            | Type                                             | Default     | Description                 |
+| --------------- | ------------------------------------------------ | ----------- | --------------------------- |
+| `value`         | `number`                                         | -           | Progress value (0-100)      |
+| `type`          | `'linear' \| 'circular'`                         | `'linear'`  | Progress indicator type     |
+| `variant`       | `'default' \| 'success' \| 'warning' \| 'error'` | `'default'` | Color variant               |
+| `size`          | `'sm' \| 'md' \| 'lg'`                           | `'md'`      | Component size              |
+| `indeterminate` | `boolean`                                        | `false`     | Show indeterminate progress |
+| `showLabel`     | `boolean`                                        | `false`     | Display progress percentage |
+| `label`         | `string`                                         | -           | Custom label text           |
 
 ## Types
 
@@ -53,19 +53,19 @@ function BasicProgress() {
 ### Success State
 
 ```tsx
-<GlassProgress value={100} variant="success" showLabel />
+<GlassProgress value={100} variant='success' showLabel />
 ```
 
 ### Warning State
 
 ```tsx
-<GlassProgress value={25} variant="warning" showLabel />
+<GlassProgress value={25} variant='warning' showLabel />
 ```
 
 ### Error State
 
 ```tsx
-<GlassProgress value={15} variant="error" showLabel />
+<GlassProgress value={15} variant='error' showLabel />
 ```
 
 ## Features
@@ -73,17 +73,13 @@ function BasicProgress() {
 ### Custom Labels
 
 ```tsx
-<GlassProgress 
-  value={60} 
-  label="Uploading... 60%" 
-  showLabel 
-/>
+<GlassProgress value={60} label='Uploading... 60%' showLabel />
 ```
 
 ### Indeterminate Progress
 
 ```tsx
-<GlassProgress indeterminate label="Loading..." />
+<GlassProgress indeterminate label='Loading...' />
 ```
 
 ### Sizes
@@ -100,42 +96,39 @@ function BasicProgress() {
 
 ```tsx
 function FileUpload() {
-  const [progress, setProgress] = useState(0)
-  
+  const [progress, setProgress] = useState(0);
+
   return (
     <div>
-      <GlassProgress 
-        value={progress} 
+      <GlassProgress
+        value={progress}
         label={`Uploading... ${progress}%`}
-        showLabel 
+        showLabel
       />
     </div>
-  )
+  );
 }
 ```
 
 ### Loading States
 
 ```tsx
-<GlassProgress 
-  indeterminate 
-  label="Loading content..." 
-/>
+<GlassProgress indeterminate label='Loading content...' />
 ```
 
 ### Multi-step Process
 
 ```tsx
 function StepProgress({ currentStep, totalSteps }) {
-  const progress = (currentStep / totalSteps) * 100
-  
+  const progress = (currentStep / totalSteps) * 100;
+
   return (
-    <GlassProgress 
+    <GlassProgress
       value={progress}
       label={`Step ${currentStep} of ${totalSteps}`}
       showLabel
     />
-  )
+  );
 }
 ```
 
@@ -151,12 +144,9 @@ function StepProgress({ currentStep, totalSteps }) {
 ### Screen Reader Support
 
 ```tsx
-<GlassProgress 
-  value={75}
-  aria-label="Upload progress: 75% complete"
-/>
+<GlassProgress value={75} aria-label='Upload progress: 75% complete' />
 ```
 
 ---
 
-*GlassProgress provides clear visual feedback for ongoing processes and loading states.*
+_GlassProgress provides clear visual feedback for ongoing processes and loading states._

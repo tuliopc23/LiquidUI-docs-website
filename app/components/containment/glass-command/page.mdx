@@ -9,22 +9,16 @@ GlassCommand offers a powerful interface for quick command execution, navigation
 ## Basic Usage
 
 ```tsx
-import { GlassCommand } from '@liquidify/ui'
+import { GlassCommand } from '@liquidify/ui';
 
 function CommandPalette({ open, onClose }) {
   const commands = [
     { id: 'new-file', name: 'New File', shortcut: 'Ctrl+N' },
     { id: 'open-file', name: 'Open File', shortcut: 'Ctrl+O' },
-    { id: 'save-file', name: 'Save File', shortcut: 'Ctrl+S' }
-  ]
+    { id: 'save-file', name: 'Save File', shortcut: 'Ctrl+S' },
+  ];
 
-  return (
-    <GlassCommand
-      commands={commands}
-      open={open}
-      onClose={onClose}
-    />
-  )
+  return <GlassCommand commands={commands} open={open} onClose={onClose} />;
 }
 ```
 
@@ -36,13 +30,13 @@ function CommandPalette({ open, onClose }) {
   commands={[
     { id: 'copy', name: 'Copy', shortcut: 'Ctrl+C' },
     { id: 'paste', name: 'Paste', shortcut: 'Ctrl+V' },
-    { id: 'delete', name: 'Delete', shortcut: 'Del' }
+    { id: 'delete', name: 'Delete', shortcut: 'Del' },
   ]}
   categories={{
     'File Operations': ['copy', 'paste'],
-    'Manage Files': ['delete']
+    'Manage Files': ['delete'],
   }}
-  placeholder="Type a command or search..."
+  placeholder='Type a command or search...'
 />
 ```
 
@@ -50,27 +44,27 @@ function CommandPalette({ open, onClose }) {
 
 ### GlassCommand Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `open` | `boolean` | - | Controls visibility |
-|| `onClose` | `() => void` | - | Callback when command palette should close |
-| `commands` | `CommandItem[]` | - | List of command items |
-| `categories` | `{ [key: string]: string[] }` | - | Categorization of commands |
-| `placeholder` | `string` | `'Type a command...'` | Input placeholder text |
-|| `onCommand` | `(id: string) => void` | - | Callback when a command is executed |
-| `fuzzy` | `boolean` | `true` | Enable fuzzy search |
-| `showShortcuts` | `boolean` | `true` | Display keyboard shortcuts |
-| `highlight` | `boolean` | `true` | Highlight search matches |
+| Prop            | Type                          | Default                | Description                |
+| --------------- | ----------------------------- | ---------------------- | -------------------------- | ------------------------------------------ |
+| `open`          | `boolean`                     | -                      | Controls visibility        |
+|                 | `onClose`                     | `() => void`           | -                          | Callback when command palette should close |
+| `commands`      | `CommandItem[]`               | -                      | List of command items      |
+| `categories`    | `{ [key: string]: string[] }` | -                      | Categorization of commands |
+| `placeholder`   | `string`                      | `'Type a command...'`  | Input placeholder text     |
+|                 | `onCommand`                   | `(id: string) => void` | -                          | Callback when a command is executed        |
+| `fuzzy`         | `boolean`                     | `true`                 | Enable fuzzy search        |
+| `showShortcuts` | `boolean`                     | `true`                 | Display keyboard shortcuts |
+| `highlight`     | `boolean`                     | `true`                 | Highlight search matches   |
 
 ### CommandItem Interface
 
 ```typescript
 interface CommandItem {
-  id: string
-  name: string
-  shortcut?: string
-  category?: string
-  onExecute?: () => void
+  id: string;
+  name: string;
+  shortcut?: string;
+  category?: string;
+  onExecute?: () => void;
 }
 ```
 
@@ -81,17 +75,14 @@ interface CommandItem {
 ```tsx
 <GlassCommand
   open={open}
-  onCommand={(id) => console.log('Command executed:', id)}
+  onCommand={id => console.log('Command executed:', id)}
 />
 ```
 
 ### Fuzzy Search
 
 ```tsx
-<GlassCommand
-  fuzzy={true}
-  highlight={true}
-/>
+<GlassCommand fuzzy={true} highlight={true} />
 ```
 
 ## Features
@@ -101,9 +92,9 @@ interface CommandItem {
 ```tsx
 <GlassCommand
   categories={{
-    'Editing': ['copy', 'paste', 'undo'],
+    Editing: ['copy', 'paste', 'undo'],
     'File Operations': ['new-file', 'delete'],
-    'Navigation': ['go-to-file', 'search']
+    Navigation: ['go-to-file', 'search'],
   }}
 />
 ```
@@ -111,9 +102,7 @@ interface CommandItem {
 ### Custom Keyboard Shortcuts
 
 ```tsx
-<GlassCommand
-  showShortcuts={true}
-/>
+<GlassCommand showShortcuts={true} />
 ```
 
 ### Extensibility
@@ -121,9 +110,7 @@ interface CommandItem {
 Allow for custom commands or plugins to extend the command palette.
 
 ```tsx
-<GlassCommand
-  commands={[...basicCommands, ...customCommands]}
-/>
+<GlassCommand commands={[...basicCommands, ...customCommands]} />
 ```
 
 ## Common Use Cases
@@ -135,7 +122,7 @@ Allow for custom commands or plugins to extend the command palette.
   commands={[
     { id: 'save', name: 'Save Project', shortcut: 'Ctrl+S' },
     { id: 'run', name: 'Run Tests', shortcut: 'Ctrl+R' },
-    { id: 'deploy', name: 'Deploy', shortcut: 'Ctrl+D' }
+    { id: 'deploy', name: 'Deploy', shortcut: 'Ctrl+D' },
   ]}
 />
 ```
@@ -146,7 +133,7 @@ Allow for custom commands or plugins to extend the command palette.
 <GlassCommand
   commands={[
     { id: 'search-files', name: 'Search Files', shortcut: 'Ctrl+P' },
-    { id: 'go-to-line', name: 'Go to Line', shortcut: 'Ctrl+G' }
+    { id: 'go-to-line', name: 'Go to Line', shortcut: 'Ctrl+G' },
   ]}
 />
 ```
@@ -157,7 +144,7 @@ Allow for custom commands or plugins to extend the command palette.
 <GlassCommand
   commands={[
     { id: 'format-code', name: 'Format Code', shortcut: 'Ctrl+Shift+F' },
-    { id: 'show-terminal', name: 'Show Terminal', shortcut: '`' }
+    { id: 'show-terminal', name: 'Show Terminal', shortcut: '`' },
   ]}
 />
 ```
@@ -173,11 +160,11 @@ Allow for custom commands or plugins to extend the command palette.
 
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Escape` | Close command palette |
-| `Enter` | Execute current command |
-| `Arrow Up` / `Arrow Down` | Navigate commands |
+| Key                       | Action                  |
+| ------------------------- | ----------------------- |
+| `Escape`                  | Close command palette   |
+| `Enter`                   | Execute current command |
+| `Arrow Up` / `Arrow Down` | Navigate commands       |
 
 ## Best Practices
 
@@ -201,5 +188,4 @@ Allow for custom commands or plugins to extend the command palette.
 
 ---
 
-*GlassCommand enhances productivity by providing a streamlined interface for executing commands and navigating your application efficiently.*
-
+_GlassCommand enhances productivity by providing a streamlined interface for executing commands and navigating your application efficiently._

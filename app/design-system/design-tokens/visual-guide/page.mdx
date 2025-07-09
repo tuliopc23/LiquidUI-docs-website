@@ -1,0 +1,543 @@
+# Design Token Visual Guide
+
+Interactive visual representations of the Liquidify design token system.
+
+## Spacing Token Visualization
+
+### Spacing Scale
+
+```tsx
+import { liquidGlassTokens } from 'liquidify';
+
+const SpacingVisualization = () => {
+  const spacing = liquidGlassTokens.spacing;
+
+  const spacingValues = [
+    { key: '0', value: spacing[0], description: 'No spacing' },
+    { key: '1', value: spacing[1], description: 'Hair line' },
+    { key: '2', value: spacing[2], description: 'Tight' },
+    { key: '3', value: spacing[3], description: 'Close' },
+    { key: '4', value: spacing[4], description: 'Default' },
+    { key: '5', value: spacing[5], description: 'Comfortable' },
+    { key: '6', value: spacing[6], description: 'Loose' },
+    { key: '8', value: spacing[8], description: 'Section' },
+    { key: '10', value: spacing[10], description: 'Large' },
+    { key: '12', value: spacing[12], description: 'Extra large' },
+    { key: '16', value: spacing[16], description: 'Section divider' },
+    { key: '20', value: spacing[20], description: 'Page section' },
+    { key: '24', value: spacing[24], description: 'Major section' },
+    { key: '32', value: spacing[32], description: 'Hero section' },
+  ];
+
+  return (
+    <div className='space-y-4'>
+      {spacingValues.map(({ key, value, description }) => (
+        <div key={key} className='flex items-center gap-4'>
+          <div className='w-16 text-sm font-mono'>{key}</div>
+          <div className='bg-blue-500 h-4' style={{ width: value }} />
+          <div className='text-sm text-gray-600 flex-1'>
+            {value} - {description}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+### Touch Target Visualization
+
+```tsx
+const TouchTargetDemo = () => {
+  const spacing = liquidGlassTokens.spacing;
+
+  return (
+    <div className='flex gap-4 items-center'>
+      <div
+        className='bg-green-500 rounded flex items-center justify-center text-white text-xs'
+        style={{
+          width: spacing.touchMin,
+          height: spacing.touchMin,
+        }}
+      >
+        44px Min
+      </div>
+      <div
+        className='bg-blue-500 rounded flex items-center justify-center text-white text-xs'
+        style={{
+          width: spacing.touchComf,
+          height: spacing.touchComf,
+        }}
+      >
+        48px Comfortable
+      </div>
+      <div
+        className='bg-purple-500 rounded flex items-center justify-center text-white text-xs'
+        style={{
+          width: spacing.touchLg,
+          height: spacing.touchLg,
+        }}
+      >
+        56px Large
+      </div>
+    </div>
+  );
+};
+```
+
+## Typography Token Visualization
+
+### Font Size Scale
+
+```tsx
+const TypographyScale = () => {
+  const typography = liquidGlassTokens.typography;
+
+  const textStyles = [
+    { name: 'caption2', style: typography.textStyles.caption2 },
+    { name: 'caption1', style: typography.textStyles.caption1 },
+    { name: 'footnote', style: typography.textStyles.footnote },
+    { name: 'subheadline', style: typography.textStyles.subheadline },
+    { name: 'callout', style: typography.textStyles.callout },
+    { name: 'body', style: typography.textStyles.body },
+    { name: 'headline', style: typography.textStyles.headline },
+    { name: 'title3', style: typography.textStyles.title3 },
+    { name: 'title2', style: typography.textStyles.title2 },
+    { name: 'title1', style: typography.textStyles.title1 },
+    { name: 'largeTitle', style: typography.textStyles.largeTitle },
+  ];
+
+  return (
+    <div className='space-y-4'>
+      {textStyles.map(({ name, style }) => (
+        <div key={name} className='flex items-baseline gap-4'>
+          <div className='w-24 text-sm font-mono text-gray-500'>{name}</div>
+          <div style={style}>The quick brown fox jumps over the lazy dog</div>
+          <div className='text-xs text-gray-400'>
+            {style.fontSize} / {style.lineHeight}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+### Font Weight Demonstration
+
+```tsx
+const FontWeightDemo = () => {
+  const fontWeights = liquidGlassTokens.typography.fontWeight;
+
+  return (
+    <div className='space-y-2'>
+      <div style={{ fontWeight: fontWeights.light }}>Light (300)</div>
+      <div style={{ fontWeight: fontWeights.normal }}>Normal (400)</div>
+      <div style={{ fontWeight: fontWeights.medium }}>Medium (500)</div>
+      <div style={{ fontWeight: fontWeights.semibold }}>Semibold (600)</div>
+      <div style={{ fontWeight: fontWeights.bold }}>Bold (700)</div>
+      <div style={{ fontWeight: fontWeights.extrabold }}>Extrabold (800)</div>
+      <div style={{ fontWeight: fontWeights.black }}>Black (900)</div>
+    </div>
+  );
+};
+```
+
+## Color Token Visualization
+
+### System Color Palette
+
+```tsx
+const SystemColorPalette = () => {
+  const colors = liquidGlassTokens.colors;
+
+  const systemColors = [
+    { name: 'Blue', value: colors.systemBlue },
+    { name: 'Green', value: colors.systemGreen },
+    { name: 'Indigo', value: colors.systemIndigo },
+    { name: 'Orange', value: colors.systemOrange },
+    { name: 'Pink', value: colors.systemPink },
+    { name: 'Purple', value: colors.systemPurple },
+    { name: 'Red', value: colors.systemRed },
+    { name: 'Teal', value: colors.systemTeal },
+    { name: 'Yellow', value: colors.systemYellow },
+    { name: 'Brown', value: colors.systemBrown },
+    { name: 'Mint', value: colors.systemMint },
+    { name: 'Cyan', value: colors.systemCyan },
+  ];
+
+  return (
+    <div className='grid grid-cols-4 gap-4'>
+      {systemColors.map(({ name, value }) => (
+        <div key={name} className='text-center'>
+          <div
+            className='w-full h-16 rounded-lg mb-2'
+            style={{ backgroundColor: value }}
+          />
+          <div className='text-sm font-medium'>{name}</div>
+          <div className='text-xs text-gray-500 font-mono'>{value}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+### Gray Scale Visualization
+
+```tsx
+const GrayScaleDemo = () => {
+  const colors = liquidGlassTokens.colors;
+
+  const grayColors = [
+    { name: 'Gray', value: colors.systemGray },
+    { name: 'Gray 2', value: colors.systemGray2 },
+    { name: 'Gray 3', value: colors.systemGray3 },
+    { name: 'Gray 4', value: colors.systemGray4 },
+    { name: 'Gray 5', value: colors.systemGray5 },
+    { name: 'Gray 6', value: colors.systemGray6 },
+  ];
+
+  return (
+    <div className='flex gap-2'>
+      {grayColors.map(({ name, value }) => (
+        <div key={name} className='flex-1 text-center'>
+          <div
+            className='w-full h-16 rounded mb-2'
+            style={{ backgroundColor: value }}
+          />
+          <div className='text-xs'>{name}</div>
+          <div className='text-xs text-gray-500 font-mono'>{value}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Glass Token Visualization
+
+### Glass Background Opacity Levels
+
+```tsx
+const GlassBackgroundDemo = () => {
+  const glassColors = liquidGlassTokens.colors.glass;
+
+  const backgrounds = [
+    { name: 'Ultra Thin', value: glassColors.backgrounds.ultraThin },
+    { name: 'Thin', value: glassColors.backgrounds.thin },
+    { name: 'Regular', value: glassColors.backgrounds.regular },
+    { name: 'Thick', value: glassColors.backgrounds.thick },
+    { name: 'Ultra Thick', value: glassColors.backgrounds.ultraThick },
+  ];
+
+  return (
+    <div className='relative'>
+      {/* Background pattern */}
+      <div className='absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg' />
+
+      <div className='relative grid grid-cols-5 gap-4 p-6'>
+        {backgrounds.map(({ name, value }) => (
+          <div key={name} className='text-center'>
+            <div
+              className='w-full h-24 rounded-lg mb-2 flex items-center justify-center text-white text-sm'
+              style={{
+                backgroundColor: value,
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+              }}
+            >
+              {name}
+            </div>
+            <div className='text-xs text-gray-600 font-mono'>{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+### Glass Blur Levels
+
+```tsx
+const GlassBlurDemo = () => {
+  const glassBlur = liquidGlassTokens.glass.blur;
+
+  const blurLevels = [
+    { name: 'None', value: glassBlur.none },
+    { name: 'Small', value: glassBlur.sm },
+    { name: 'Medium', value: glassBlur.md },
+    { name: 'Large', value: glassBlur.lg },
+    { name: 'Extra Large', value: glassBlur.xl },
+    { name: 'Max', value: glassBlur.max },
+  ];
+
+  return (
+    <div className='relative'>
+      {/* Background image */}
+      <div className='absolute inset-0 bg-gradient-to-br from-pink-400 via-purple-500 to-blue-500 rounded-lg' />
+
+      <div className='relative grid grid-cols-3 gap-4 p-6'>
+        {blurLevels.map(({ name, value }) => (
+          <div key={name} className='text-center'>
+            <div
+              className='w-full h-20 rounded-lg mb-2 flex items-center justify-center text-white text-sm'
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                backdropFilter: `blur(${value})`,
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+              }}
+            >
+              {name}
+            </div>
+            <div className='text-xs text-gray-600'>{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+## Animation Token Visualization
+
+### Duration Comparison
+
+```tsx
+const AnimationDurationDemo = () => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const duration = liquidGlassTokens.animation.duration;
+
+  const durations = [
+    { name: 'Fast', value: duration.fast },
+    { name: 'Normal', value: duration.normal },
+    { name: 'Slow', value: duration.slow },
+    { name: 'Slower', value: duration.slower },
+  ];
+
+  return (
+    <div className='space-y-4'>
+      <button
+        onClick={() => setIsAnimating(!isAnimating)}
+        className='bg-blue-500 text-white px-4 py-2 rounded'
+      >
+        {isAnimating ? 'Reset' : 'Animate'}
+      </button>
+
+      <div className='space-y-2'>
+        {durations.map(({ name, value }) => (
+          <div key={name} className='flex items-center gap-4'>
+            <div className='w-16 text-sm'>{name}</div>
+            <div className='flex-1 bg-gray-200 rounded h-2 relative'>
+              <div
+                className='bg-blue-500 h-full rounded transition-all'
+                style={{
+                  width: isAnimating ? '100%' : '0%',
+                  transitionDuration: value,
+                }}
+              />
+            </div>
+            <div className='text-sm text-gray-500 w-12'>{value}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+### Easing Curve Visualization
+
+```tsx
+const EasingCurveDemo = () => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const easing = liquidGlassTokens.animation.easing;
+
+  const easingCurves = [
+    { name: 'Standard', value: easing.apple.standard },
+    { name: 'Decelerate', value: easing.apple.decelerate },
+    { name: 'Accelerate', value: easing.apple.accelerate },
+    { name: 'Sharp', value: easing.apple.sharp },
+    { name: 'Bounce', value: easing.apple.bounce },
+  ];
+
+  return (
+    <div className='space-y-4'>
+      <button
+        onClick={() => setIsAnimating(!isAnimating)}
+        className='bg-purple-500 text-white px-4 py-2 rounded'
+      >
+        {isAnimating ? 'Reset' : 'Animate'}
+      </button>
+
+      <div className='space-y-2'>
+        {easingCurves.map(({ name, value }) => (
+          <div key={name} className='flex items-center gap-4'>
+            <div className='w-24 text-sm'>{name}</div>
+            <div className='flex-1 bg-gray-200 rounded h-8 relative overflow-hidden'>
+              <div
+                className='bg-purple-500 w-8 h-8 rounded-full absolute transition-all duration-1000'
+                style={{
+                  left: isAnimating ? 'calc(100% - 32px)' : '0%',
+                  transitionTimingFunction: value,
+                }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+## Component Token Visualization
+
+### Button Size Variants
+
+```tsx
+const ButtonSizeDemo = () => {
+  const buttonTokens = componentTokens.button;
+
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'];
+
+  return (
+    <div className='flex flex-wrap gap-4 items-end'>
+      {sizes.map(size => {
+        const sizeTokens = buttonTokens.sizes[size];
+        return (
+          <button
+            key={size}
+            className='bg-blue-500 text-white transition-all hover:bg-blue-600'
+            style={{
+              height: sizeTokens.height,
+              padding: sizeTokens.padding,
+              fontSize: sizeTokens.fontSize,
+              borderRadius: sizeTokens.borderRadius,
+            }}
+          >
+            {size.toUpperCase()}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+```
+
+### Card Variants
+
+```tsx
+const CardVariantsDemo = () => {
+  const cardTokens = componentTokens.card;
+
+  return (
+    <div className='grid grid-cols-2 gap-4'>
+      <div
+        className='transition-all hover:shadow-lg'
+        style={{
+          ...cardTokens.variants.default,
+          ...cardTokens.sizes.md,
+        }}
+      >
+        <h3 className='font-semibold mb-2'>Default Card</h3>
+        <p className='text-gray-600'>
+          Standard card with solid background and subtle shadow.
+        </p>
+      </div>
+
+      <div
+        className='transition-all hover:shadow-lg'
+        style={{
+          ...cardTokens.variants.glass,
+          ...cardTokens.sizes.md,
+        }}
+      >
+        <h3 className='font-semibold mb-2'>Glass Card</h3>
+        <p className='text-gray-600'>
+          Glass morphism card with backdrop blur effect.
+        </p>
+      </div>
+    </div>
+  );
+};
+```
+
+## Interactive Token Explorer
+
+```tsx
+const TokenExplorer = () => {
+  const [selectedCategory, setSelectedCategory] = useState('spacing');
+  const [selectedToken, setSelectedToken] = useState(null);
+
+  const categories = {
+    spacing: liquidGlassTokens.spacing,
+    colors: liquidGlassTokens.colors,
+    typography: liquidGlassTokens.typography,
+    animation: liquidGlassTokens.animation,
+    glass: liquidGlassTokens.glass,
+  };
+
+  const renderTokenValue = (key, value) => {
+    if (selectedCategory === 'colors' && typeof value === 'string') {
+      return (
+        <div className='flex items-center gap-2'>
+          <div
+            className='w-4 h-4 rounded border'
+            style={{ backgroundColor: value }}
+          />
+          <span className='font-mono text-sm'>{value}</span>
+        </div>
+      );
+    }
+
+    if (selectedCategory === 'spacing' && typeof value === 'string') {
+      return (
+        <div className='flex items-center gap-2'>
+          <div className='bg-blue-500 h-2' style={{ width: value }} />
+          <span className='font-mono text-sm'>{value}</span>
+        </div>
+      );
+    }
+
+    return <span className='font-mono text-sm'>{JSON.stringify(value)}</span>;
+  };
+
+  return (
+    <div className='border rounded-lg p-4'>
+      <div className='flex gap-2 mb-4'>
+        {Object.keys(categories).map(category => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={`px-3 py-1 rounded text-sm ${
+              selectedCategory === category
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <div className='space-y-2 max-h-96 overflow-y-auto'>
+        {Object.entries(categories[selectedCategory]).map(([key, value]) => (
+          <div
+            key={key}
+            className='flex justify-between items-center p-2 hover:bg-gray-50 rounded'
+          >
+            <span className='font-medium'>{key}</span>
+            {renderTokenValue(key, value)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+---
+
+This visual guide provides interactive examples and demonstrations of how design tokens appear and behave in real applications. Use these examples to understand the visual impact of different token values and make informed design decisions.

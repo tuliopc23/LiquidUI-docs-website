@@ -9,52 +9,52 @@ The `GlassNavbar` component offers a flexible, responsive navigation solution wi
 ## Basic Usage
 
 ```tsx
-import { GlassNavbar } from 'liquidify'
+import { GlassNavbar } from 'liquidify';
 
 function App() {
   return (
     <GlassNavbar
-      logo="My App"
+      logo='My App'
       items={[
         { label: 'Home', href: '/' },
         { label: 'About', href: '/about' },
-        { label: 'Contact', href: '/contact' }
+        { label: 'Contact', href: '/contact' },
       ]}
     />
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-import { useState } from 'react'
-import { GlassNavbar } from 'liquidify'
-import { User, Search, Bell } from 'lucide-react'
+import { useState } from 'react';
+import { GlassNavbar } from 'liquidify';
+import { User, Search, Bell } from 'lucide-react';
 
 export default function NavbarDemo() {
-  const [activeItem, setActiveItem] = useState('home')
+  const [activeItem, setActiveItem] = useState('home');
 
   const navItems = [
     { id: 'home', label: 'Home', href: '/' },
     { id: 'products', label: 'Products', href: '/products' },
     { id: 'about', label: 'About', href: '/about' },
-    { id: 'contact', label: 'Contact', href: '/contact' }
-  ]
+    { id: 'contact', label: 'Contact', href: '/contact' },
+  ];
 
   const actions = [
     { icon: <Search size={20} />, label: 'Search', onClick: () => {} },
     { icon: <Bell size={20} />, label: 'Notifications', onClick: () => {} },
-    { icon: <User size={20} />, label: 'Profile', onClick: () => {} }
-  ]
+    { icon: <User size={20} />, label: 'Profile', onClick: () => {} },
+  ];
 
   return (
-    <div className="space-y-8">
+    <div className='space-y-8'>
       {/* Basic Navbar */}
       <section>
-        <h3 className="hig-title-3 mb-4">Basic Navbar</h3>
+        <h3 className='hig-title-3 mb-4'>Basic Navbar</h3>
         <GlassNavbar
-          logo="Liquidify"
+          logo='Liquidify'
           items={navItems}
           activeItem={activeItem}
           onItemClick={setActiveItem}
@@ -63,9 +63,9 @@ export default function NavbarDemo() {
 
       {/* With Actions */}
       <section>
-        <h3 className="hig-title-3 mb-4">With Actions</h3>
+        <h3 className='hig-title-3 mb-4'>With Actions</h3>
         <GlassNavbar
-          logo={<img src="/logo.png" alt="Logo" className="h-8" />}
+          logo={<img src='/logo.png' alt='Logo' className='h-8' />}
           items={navItems}
           actions={actions}
           activeItem={activeItem}
@@ -75,16 +75,16 @@ export default function NavbarDemo() {
 
       {/* Sticky Navbar */}
       <section>
-        <h3 className="hig-title-3 mb-4">Sticky Navbar</h3>
+        <h3 className='hig-title-3 mb-4'>Sticky Navbar</h3>
         <GlassNavbar
-          logo="App"
+          logo='App'
           items={navItems}
           sticky
-          className="border-b border-glass-secondary"
+          className='border-b border-glass-secondary'
         />
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -92,40 +92,41 @@ export default function NavbarDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `logo` | `string \| ReactNode` | - | Logo or brand name |
-| `items` | `NavItem[]` | `[]` | Navigation menu items |
-| `actions` | `ActionItem[]` | `[]` | Action buttons on the right |
-| `activeItem` | `string` | - | Currently active item ID |
-| `onItemClick` | `(id: string) => void` | - | Item click handler |
-| `sticky` | `boolean` | `false` | Makes navbar stick to top |
-| `collapsible` | `boolean` | `true` | Enable mobile collapse |
-| `className` | `string` | - | Additional CSS classes |
+| Prop          | Type                   | Default | Description                 |
+| ------------- | ---------------------- | ------- | --------------------------- |
+| `logo`        | `string \| ReactNode`  | -       | Logo or brand name          |
+| `items`       | `NavItem[]`            | `[]`    | Navigation menu items       |
+| `actions`     | `ActionItem[]`         | `[]`    | Action buttons on the right |
+| `activeItem`  | `string`               | -       | Currently active item ID    |
+| `onItemClick` | `(id: string) => void` | -       | Item click handler          |
+| `sticky`      | `boolean`              | `false` | Makes navbar stick to top   |
+| `collapsible` | `boolean`              | `true`  | Enable mobile collapse      |
+| `className`   | `string`               | -       | Additional CSS classes      |
 
 ### Interface Definitions
 
 ```tsx
 interface NavItem {
-  id: string
-  label: string
-  href?: string
-  onClick?: () => void
-  disabled?: boolean
-  badge?: string | number
+  id: string;
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  badge?: string | number;
 }
 
 interface ActionItem {
-  icon: ReactNode
-  label: string
-  onClick: () => void
-  badge?: string | number
+  icon: ReactNode;
+  label: string;
+  onClick: () => void;
+  badge?: string | number;
 }
 ```
 
 ## Features
 
 ### Logo and Branding
+
 Support for text logos or custom components:
 
 ```tsx
@@ -133,7 +134,7 @@ Support for text logos or custom components:
 <GlassNavbar logo="My App" />
 
 // Custom logo component
-<GlassNavbar 
+<GlassNavbar
   logo={
     <div className="flex items-center gap-2">
       <img src="/logo.svg" alt="Logo" className="h-8" />
@@ -144,6 +145,7 @@ Support for text logos or custom components:
 ```
 
 ### Navigation Items
+
 Flexible navigation items with various states:
 
 ```tsx
@@ -158,17 +160,18 @@ const items = [
 ```
 
 ### Action Buttons
+
 Right-aligned action buttons with icons:
 
 ```tsx
 const actions = [
-  { 
-    icon: <Search size={20} />, 
+  {
+    icon: <Search size={20} />,
     label: 'Search',
     onClick: () => setSearchOpen(true)
   },
-  { 
-    icon: <Bell size={20} />, 
+  {
+    icon: <Bell size={20} />,
     label: 'Notifications',
     onClick: () => setNotificationsOpen(true),
     badge: 3
@@ -179,46 +182,47 @@ const actions = [
 ```
 
 ### Mobile Responsiveness
+
 Automatic collapse on mobile devices:
 
 ```tsx
 <GlassNavbar
-  logo="App"
+  logo='App'
   items={navItems}
   collapsible={true}
-  mobileBreakpoint="md"
+  mobileBreakpoint='md'
 />
 ```
 
 ### Sticky Behavior
+
 Pin navbar to top of viewport:
 
 ```tsx
-<GlassNavbar
-  sticky
-  stickyOffset={0}
-  className="z-50"
-/>
+<GlassNavbar sticky stickyOffset={0} className='z-50' />
 ```
 
 ## Accessibility
 
 ### Keyboard Navigation
+
 - **Tab**: Navigate through items
 - **Enter/Space**: Activate item
 - **Escape**: Close mobile menu
 
 ### Screen Reader Support
+
 ```tsx
 <GlassNavbar
-  logo="My App"
+  logo='My App'
   items={navItems}
-  aria-label="Main navigation"
-  role="navigation"
+  aria-label='Main navigation'
+  role='navigation'
 />
 ```
 
 ### ARIA Attributes
+
 Proper ARIA attributes for navigation:
 
 ```tsx
@@ -232,112 +236,118 @@ Proper ARIA attributes for navigation:
 ## Styling and Customization
 
 ### Theme Variants
+
 ```tsx
 <GlassNavbar
-  variant="glass" // glass, solid, transparent
-  blur="md"
-  className="backdrop-blur-xl"
+  variant='glass' // glass, solid, transparent
+  blur='md'
+  className='backdrop-blur-xl'
 />
 ```
 
 ### Custom Styling
+
 ```tsx
 <GlassNavbar
-  className="border-b border-glass-tertiary"
-  itemClassName="hover:text-primary-500"
-  activeClassName="text-primary-600 font-medium"
+  className='border-b border-glass-tertiary'
+  itemClassName='hover:text-primary-500'
+  activeClassName='text-primary-600 font-medium'
 />
 ```
 
 ## Use Cases
 
 ### E-commerce Site
+
 ```tsx
 function EcommerceNavbar() {
-  const [cartCount, setCartCount] = useState(3)
+  const [cartCount, setCartCount] = useState(3);
 
   return (
     <GlassNavbar
-      logo="Store"
+      logo='Store'
       items={[
         { id: 'home', label: 'Home', href: '/' },
         { id: 'products', label: 'Products', href: '/products' },
-        { id: 'categories', label: 'Categories', href: '/categories' }
+        { id: 'categories', label: 'Categories', href: '/categories' },
       ]}
       actions={[
         { icon: <Search size={20} />, label: 'Search', onClick: () => {} },
-        { 
-          icon: <ShoppingCart size={20} />, 
+        {
+          icon: <ShoppingCart size={20} />,
           label: 'Cart',
           badge: cartCount,
-          onClick: () => setCartOpen(true)
+          onClick: () => setCartOpen(true),
         },
-        { icon: <User size={20} />, label: 'Account', onClick: () => {} }
+        { icon: <User size={20} />, label: 'Account', onClick: () => {} },
       ]}
       sticky
     />
-  )
+  );
 }
 ```
 
 ### Dashboard Application
+
 ```tsx
 function DashboardNavbar() {
   return (
     <GlassNavbar
       logo={
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           <BarChart3 size={24} />
-          <span className="font-bold">Analytics</span>
+          <span className='font-bold'>Analytics</span>
         </div>
       }
       items={[
         { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
         { id: 'reports', label: 'Reports', href: '/reports' },
-        { id: 'settings', label: 'Settings', href: '/settings' }
+        { id: 'settings', label: 'Settings', href: '/settings' },
       ]}
       actions={[
-        { 
-          icon: <Bell size={20} />, 
+        {
+          icon: <Bell size={20} />,
           label: 'Notifications',
           badge: 5,
-          onClick: () => setNotificationsOpen(true)
+          onClick: () => setNotificationsOpen(true),
         },
-        { icon: <HelpCircle size={20} />, label: 'Help', onClick: () => {} }
+        { icon: <HelpCircle size={20} />, label: 'Help', onClick: () => {} },
       ]}
     />
-  )
+  );
 }
 ```
 
 ### Marketing Site
+
 ```tsx
 function MarketingNavbar() {
   return (
     <GlassNavbar
-      logo="Product"
+      logo='Product'
       items={[
         { id: 'features', label: 'Features', href: '/features' },
         { id: 'pricing', label: 'Pricing', href: '/pricing' },
         { id: 'docs', label: 'Docs', href: '/docs' },
-        { id: 'blog', label: 'Blog', href: '/blog' }
+        { id: 'blog', label: 'Blog', href: '/blog' },
       ]}
       actions={[
-        { 
-          icon: <LogIn size={20} />, 
+        {
+          icon: <LogIn size={20} />,
           label: 'Sign In',
-          onClick: () => router.push('/login')
-        }
+          onClick: () => router.push('/login'),
+        },
       ]}
-      variant="transparent"
+      variant='transparent'
     />
-  )
+  );
 }
 ```
 
 ## Best Practices
 
 ### Do's ✅
+
 - **Keep navigation simple** with 5-7 main items maximum
 - **Use clear, descriptive labels** for navigation items
 - **Provide visual feedback** for active states
@@ -347,17 +357,18 @@ function MarketingNavbar() {
 ```tsx
 // ✅ Good - Clear structure and branding
 <GlassNavbar
-  logo="My App"
+  logo='My App'
   items={[
     { id: 'home', label: 'Home', href: '/' },
     { id: 'products', label: 'Products', href: '/products' },
-    { id: 'support', label: 'Support', href: '/support' }
+    { id: 'support', label: 'Support', href: '/support' },
   ]}
-  activeItem="home"
+  activeItem='home'
 />
 ```
 
 ### Don'ts ❌
+
 - **Don't overcrowd** the navbar with too many items
 - **Avoid unclear labels** or jargon
 - **Don't hide important actions** in mobile menu
@@ -373,7 +384,7 @@ function MarketingNavbar() {
     { label: 'More Stuff' },
     { label: 'Other' },
     { label: 'Various' },
-    { label: 'Misc' }
+    { label: 'Misc' },
   ]}
 />
 ```
@@ -381,41 +392,38 @@ function MarketingNavbar() {
 ## Integration with Routing
 
 ### Next.js App Router
+
 ```tsx
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
 
 function AppNavbar() {
-  const pathname = usePathname()
-  
-  const getActiveItem = () => {
-    if (pathname === '/') return 'home'
-    if (pathname.startsWith('/products')) return 'products'
-    if (pathname.startsWith('/about')) return 'about'
-    return ''
-  }
+  const pathname = usePathname();
 
-  return (
-    <GlassNavbar
-      items={navItems}
-      activeItem={getActiveItem()}
-    />
-  )
+  const getActiveItem = () => {
+    if (pathname === '/') return 'home';
+    if (pathname.startsWith('/products')) return 'products';
+    if (pathname.startsWith('/about')) return 'about';
+    return '';
+  };
+
+  return <GlassNavbar items={navItems} activeItem={getActiveItem()} />;
 }
 ```
 
 ### React Router
+
 ```tsx
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function AppNavbar() {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const handleItemClick = (item) => {
+  const handleItemClick = item => {
     if (item.href) {
-      navigate(item.href)
+      navigate(item.href);
     }
-  }
+  };
 
   return (
     <GlassNavbar
@@ -423,7 +431,7 @@ function AppNavbar() {
       activeItem={getActiveFromPath(location.pathname)}
       onItemClick={handleItemClick}
     />
-  )
+  );
 }
 ```
 
@@ -436,4 +444,4 @@ function AppNavbar() {
 
 ---
 
-*Glass Navbar provides a flexible, accessible foundation for application navigation while maintaining the elegant Liquid Glass aesthetic.*
+_Glass Navbar provides a flexible, accessible foundation for application navigation while maintaining the elegant Liquid Glass aesthetic._

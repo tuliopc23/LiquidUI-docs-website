@@ -15,66 +15,66 @@ npm install liquidify
 ## Basic Usage
 
 ```tsx
-import { GlassIconButton } from 'liquidify'
-import { Heart } from 'lucide-react'
+import { GlassIconButton } from 'liquidify';
+import { Heart } from 'lucide-react';
 
 function App() {
   return (
-    <GlassIconButton aria-label="Add to favorites">
+    <GlassIconButton aria-label='Add to favorites'>
       <Heart size={20} />
     </GlassIconButton>
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-import { useState } from 'react'
-import { GlassIconButton } from 'liquidify'
-import { 
-  Heart, 
-  Share, 
-  Download, 
-  Settings, 
+import { useState } from 'react';
+import { GlassIconButton } from 'liquidify';
+import {
+  Heart,
+  Share,
+  Download,
+  Settings,
   MoreVertical,
   Play,
   Pause,
   Volume2,
-  VolumeX
-} from 'lucide-react'
+  VolumeX,
+} from 'lucide-react';
 
 export default function IconButtonDemo() {
-  const [liked, setLiked] = useState(false)
-  const [playing, setPlaying] = useState(false)
-  const [muted, setMuted] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [liked, setLiked] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleDownload = async () => {
-    setLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setLoading(false)
-  }
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setLoading(false);
+  };
 
   return (
-    <div className="space-y-8 p-6">
+    <div className='space-y-8 p-6'>
       {/* Variants */}
       <section>
-        <h3 className="hig-title-3 mb-4">Variants</h3>
-        <div className="flex gap-4">
-          <GlassIconButton variant="primary" aria-label="Primary action">
+        <h3 className='hig-title-3 mb-4'>Variants</h3>
+        <div className='flex gap-4'>
+          <GlassIconButton variant='primary' aria-label='Primary action'>
             <Heart size={20} />
           </GlassIconButton>
-          <GlassIconButton variant="secondary" aria-label="Secondary action">
+          <GlassIconButton variant='secondary' aria-label='Secondary action'>
             <Share size={20} />
           </GlassIconButton>
-          <GlassIconButton variant="tertiary" aria-label="Tertiary action">
+          <GlassIconButton variant='tertiary' aria-label='Tertiary action'>
             <Download size={20} />
           </GlassIconButton>
-          <GlassIconButton variant="ghost" aria-label="Ghost action">
+          <GlassIconButton variant='ghost' aria-label='Ghost action'>
             <Settings size={20} />
           </GlassIconButton>
-          <GlassIconButton variant="destructive" aria-label="Delete">
+          <GlassIconButton variant='destructive' aria-label='Delete'>
             <MoreVertical size={20} />
           </GlassIconButton>
         </div>
@@ -82,21 +82,21 @@ export default function IconButtonDemo() {
 
       {/* Sizes */}
       <section>
-        <h3 className="hig-title-3 mb-4">Sizes</h3>
-        <div className="flex items-center gap-4">
-          <GlassIconButton size="xs" aria-label="Extra small">
+        <h3 className='hig-title-3 mb-4'>Sizes</h3>
+        <div className='flex items-center gap-4'>
+          <GlassIconButton size='xs' aria-label='Extra small'>
             <Heart size={12} />
           </GlassIconButton>
-          <GlassIconButton size="sm" aria-label="Small">
+          <GlassIconButton size='sm' aria-label='Small'>
             <Heart size={14} />
           </GlassIconButton>
-          <GlassIconButton size="md" aria-label="Medium">
+          <GlassIconButton size='md' aria-label='Medium'>
             <Heart size={16} />
           </GlassIconButton>
-          <GlassIconButton size="lg" aria-label="Large">
+          <GlassIconButton size='lg' aria-label='Large'>
             <Heart size={20} />
           </GlassIconButton>
-          <GlassIconButton size="xl" aria-label="Extra large">
+          <GlassIconButton size='xl' aria-label='Extra large'>
             <Heart size={24} />
           </GlassIconButton>
         </div>
@@ -104,27 +104,27 @@ export default function IconButtonDemo() {
 
       {/* Interactive States */}
       <section>
-        <h3 className="hig-title-3 mb-4">Interactive States</h3>
-        <div className="flex gap-4">
-          <GlassIconButton 
-            variant="primary"
+        <h3 className='hig-title-3 mb-4'>Interactive States</h3>
+        <div className='flex gap-4'>
+          <GlassIconButton
+            variant='primary'
             aria-label={liked ? 'Remove from favorites' : 'Add to favorites'}
             onClick={() => setLiked(!liked)}
             className={liked ? 'text-red-500' : ''}
           >
             <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
           </GlassIconButton>
-          
-          <GlassIconButton 
-            variant="secondary"
+
+          <GlassIconButton
+            variant='secondary'
             aria-label={playing ? 'Pause' : 'Play'}
             onClick={() => setPlaying(!playing)}
           >
             {playing ? <Pause size={20} /> : <Play size={20} />}
           </GlassIconButton>
-          
-          <GlassIconButton 
-            variant="tertiary"
+
+          <GlassIconButton
+            variant='tertiary'
             aria-label={muted ? 'Unmute' : 'Mute'}
             onClick={() => setMuted(!muted)}
           >
@@ -135,12 +135,12 @@ export default function IconButtonDemo() {
 
       {/* Loading State */}
       <section>
-        <h3 className="hig-title-3 mb-4">Loading State</h3>
-        <GlassIconButton 
-          variant="primary"
+        <h3 className='hig-title-3 mb-4'>Loading State</h3>
+        <GlassIconButton
+          variant='primary'
           loading={loading}
           disabled={loading}
-          aria-label="Download file"
+          aria-label='Download file'
           onClick={handleDownload}
         >
           <Download size={20} />
@@ -149,18 +149,26 @@ export default function IconButtonDemo() {
 
       {/* Disabled State */}
       <section>
-        <h3 className="hig-title-3 mb-4">Disabled State</h3>
-        <div className="flex gap-4">
-          <GlassIconButton variant="primary" disabled aria-label="Disabled primary">
+        <h3 className='hig-title-3 mb-4'>Disabled State</h3>
+        <div className='flex gap-4'>
+          <GlassIconButton
+            variant='primary'
+            disabled
+            aria-label='Disabled primary'
+          >
             <Heart size={20} />
           </GlassIconButton>
-          <GlassIconButton variant="secondary" disabled aria-label="Disabled secondary">
+          <GlassIconButton
+            variant='secondary'
+            disabled
+            aria-label='Disabled secondary'
+          >
             <Share size={20} />
           </GlassIconButton>
         </div>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -168,76 +176,81 @@ export default function IconButtonDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost' \| 'destructive'` | `'secondary'` | Visual style variant |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Button size |
-| `loading` | `boolean` | `false` | Shows loading spinner |
-| `disabled` | `boolean` | `false` | Disables interaction |
-| `hapticFeedback` | `'light' \| 'medium' \| 'heavy' \| 'selection' \| 'none'` | `'light'` | Haptic feedback intensity |
-| `magneticHover` | `boolean` | `true` | Enables magnetic hover effect |
-| `liquidGlass` | `boolean` | `true` | Enables Liquid Glass material |
-| `children` | `ReactNode` | - | Icon content (required) |
-| `onClick` | `(event: MouseEvent) => void` | - | Click handler |
-| `onHover` | `(hovered: boolean) => void` | - | Hover state change handler |
-| `aria-label` | `string` | - | Accessibility label (required) |
-| `className` | `string` | - | Additional CSS classes |
+| Prop             | Type                                                                 | Default       | Description                    |
+| ---------------- | -------------------------------------------------------------------- | ------------- | ------------------------------ |
+| `variant`        | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost' \| 'destructive'` | `'secondary'` | Visual style variant           |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`                               | `'md'`        | Button size                    |
+| `loading`        | `boolean`                                                            | `false`       | Shows loading spinner          |
+| `disabled`       | `boolean`                                                            | `false`       | Disables interaction           |
+| `hapticFeedback` | `'light' \| 'medium' \| 'heavy' \| 'selection' \| 'none'`            | `'light'`     | Haptic feedback intensity      |
+| `magneticHover`  | `boolean`                                                            | `true`        | Enables magnetic hover effect  |
+| `liquidGlass`    | `boolean`                                                            | `true`        | Enables Liquid Glass material  |
+| `children`       | `ReactNode`                                                          | -             | Icon content (required)        |
+| `onClick`        | `(event: MouseEvent) => void`                                        | -             | Click handler                  |
+| `onHover`        | `(hovered: boolean) => void`                                         | -             | Hover state change handler     |
+| `aria-label`     | `string`                                                             | -             | Accessibility label (required) |
+| `className`      | `string`                                                             | -             | Additional CSS classes         |
 
 ### Size Specifications
 
 | Size | Dimensions | Icon Size | Touch Target |
-|------|------------|-----------|--------------|
-| `xs` | 24×24px | 12px | 44×44px |
-| `sm` | 32×32px | 14px | 44×44px |
-| `md` | 40×40px | 16px | 44×44px |
-| `lg` | 48×48px | 20px | 48×48px |
-| `xl` | 56×56px | 24px | 56×56px |
+| ---- | ---------- | --------- | ------------ |
+| `xs` | 24×24px    | 12px      | 44×44px      |
+| `sm` | 32×32px    | 14px      | 44×44px      |
+| `md` | 40×40px    | 16px      | 44×44px      |
+| `lg` | 48×48px    | 20px      | 48×48px      |
+| `xl` | 56×56px    | 24px      | 56×56px      |
 
-*Note: All sizes maintain minimum 44pt touch targets for accessibility compliance.*
+_Note: All sizes maintain minimum 44pt touch targets for accessibility compliance._
 
 ## Variants
 
 ### Primary
+
 High-emphasis actions that are primary to your app's flow.
 
 ```tsx
-<GlassIconButton variant="primary" aria-label="Create new">
+<GlassIconButton variant='primary' aria-label='Create new'>
   <Plus size={20} />
 </GlassIconButton>
 ```
 
 ### Secondary
+
 Medium-emphasis actions that are important but not primary.
 
 ```tsx
-<GlassIconButton variant="secondary" aria-label="Edit">
+<GlassIconButton variant='secondary' aria-label='Edit'>
   <Edit size={20} />
 </GlassIconButton>
 ```
 
 ### Tertiary
+
 Low-emphasis actions or supplementary information.
 
 ```tsx
-<GlassIconButton variant="tertiary" aria-label="More info">
+<GlassIconButton variant='tertiary' aria-label='More info'>
   <Info size={20} />
 </GlassIconButton>
 ```
 
 ### Ghost
+
 Minimal visual weight for subtle actions.
 
 ```tsx
-<GlassIconButton variant="ghost" aria-label="Close">
+<GlassIconButton variant='ghost' aria-label='Close'>
   <X size={20} />
 </GlassIconButton>
 ```
 
 ### Destructive
+
 Actions that delete, remove, or cause data loss.
 
 ```tsx
-<GlassIconButton variant="destructive" aria-label="Delete">
+<GlassIconButton variant='destructive' aria-label='Delete'>
   <Trash2 size={20} />
 </GlassIconButton>
 ```
@@ -247,30 +260,33 @@ Actions that delete, remove, or cause data loss.
 ### Recommended Icon Libraries
 
 #### Lucide React (Preferred)
-```tsx
-import { Heart, Share, Download } from 'lucide-react'
 
-<GlassIconButton aria-label="Like">
+```tsx
+import { Heart, Share, Download } from 'lucide-react';
+
+<GlassIconButton aria-label='Like'>
   <Heart size={20} />
-</GlassIconButton>
+</GlassIconButton>;
 ```
 
 #### SF Symbols (iOS/macOS)
-```tsx
-import { SFSymbol } from '@sf-symbols/react'
 
-<GlassIconButton aria-label="Favorite">
-  <SFSymbol name="heart" size={20} />
-</GlassIconButton>
+```tsx
+import { SFSymbol } from '@sf-symbols/react';
+
+<GlassIconButton aria-label='Favorite'>
+  <SFSymbol name='heart' size={20} />
+</GlassIconButton>;
 ```
 
 #### Heroicons
-```tsx
-import { HeartIcon } from '@heroicons/react/24/outline'
 
-<GlassIconButton aria-label="Like">
-  <HeartIcon className="w-5 h-5" />
-</GlassIconButton>
+```tsx
+import { HeartIcon } from '@heroicons/react/24/outline';
+
+<GlassIconButton aria-label='Like'>
+  <HeartIcon className='w-5 h-5' />
+</GlassIconButton>;
 ```
 
 ### Icon Sizing
@@ -307,7 +323,7 @@ The component provides comprehensive VoiceOver support:
 </GlassIconButton>
 
 // Dynamic labels for state changes
-<GlassIconButton 
+<GlassIconButton
   aria-label={isLiked ? 'Remove from favorites' : 'Add to favorites'}
   aria-pressed={isLiked}
   onClick={() => setIsLiked(!isLiked)}
@@ -316,7 +332,7 @@ The component provides comprehensive VoiceOver support:
 </GlassIconButton>
 
 // Loading state
-<GlassIconButton 
+<GlassIconButton
   aria-label="Download file"
   aria-busy={isDownloading}
   disabled={isDownloading}
@@ -335,7 +351,7 @@ Voice Control commands work automatically with proper labels:
   <Settings size={20} />
 </GlassIconButton>
 
-// User can say: "Tap Share" 
+// User can say: "Tap Share"
 <GlassIconButton aria-label="Share">
   <Share size={20} />
 </GlassIconButton>
@@ -354,7 +370,7 @@ Full keyboard support is built-in:
 All variants meet WCAG AA contrast requirements:
 
 - **Primary**: 4.5:1 contrast ratio
-- **Secondary**: 4.5:1 contrast ratio  
+- **Secondary**: 4.5:1 contrast ratio
 - **Tertiary**: 3:1 contrast ratio (non-text)
 - **Ghost**: 4.5:1 contrast ratio
 - **Destructive**: 4.5:1 contrast ratio
@@ -366,22 +382,22 @@ All variants meet WCAG AA contrast requirements:
 ```tsx
 function Toolbar() {
   return (
-    <div className="flex gap-2 p-2 bg-glass-tertiary rounded-lg">
-      <GlassIconButton variant="ghost" aria-label="Undo">
+    <div className='flex gap-2 p-2 bg-glass-tertiary rounded-lg'>
+      <GlassIconButton variant='ghost' aria-label='Undo'>
         <Undo size={16} />
       </GlassIconButton>
-      <GlassIconButton variant="ghost" aria-label="Redo">
+      <GlassIconButton variant='ghost' aria-label='Redo'>
         <Redo size={16} />
       </GlassIconButton>
-      <div className="w-px h-6 bg-separator mx-2" />
-      <GlassIconButton variant="ghost" aria-label="Bold">
+      <div className='w-px h-6 bg-separator mx-2' />
+      <GlassIconButton variant='ghost' aria-label='Bold'>
         <Bold size={16} />
       </GlassIconButton>
-      <GlassIconButton variant="ghost" aria-label="Italic">
+      <GlassIconButton variant='ghost' aria-label='Italic'>
         <Italic size={16} />
       </GlassIconButton>
     </div>
-  )
+  );
 }
 ```
 
@@ -390,18 +406,18 @@ function Toolbar() {
 ```tsx
 function NavigationHeader() {
   return (
-    <header className="flex items-center justify-between p-4">
-      <GlassIconButton variant="ghost" aria-label="Go back">
+    <header className='flex items-center justify-between p-4'>
+      <GlassIconButton variant='ghost' aria-label='Go back'>
         <ArrowLeft size={20} />
       </GlassIconButton>
-      
-      <h1 className="hig-title-2">Settings</h1>
-      
-      <GlassIconButton variant="ghost" aria-label="More options">
+
+      <h1 className='hig-title-2'>Settings</h1>
+
+      <GlassIconButton variant='ghost' aria-label='More options'>
         <MoreVertical size={20} />
       </GlassIconButton>
     </header>
-  )
+  );
 }
 ```
 
@@ -409,43 +425,37 @@ function NavigationHeader() {
 
 ```tsx
 function MediaPlayer() {
-  const [playing, setPlaying] = useState(false)
-  const [muted, setMuted] = useState(false)
-  
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(false);
+
   return (
-    <div className="flex items-center gap-4 p-4 bg-glass-secondary rounded-xl">
-      <GlassIconButton 
-        variant="primary"
-        size="lg"
+    <div className='flex items-center gap-4 p-4 bg-glass-secondary rounded-xl'>
+      <GlassIconButton
+        variant='primary'
+        size='lg'
         aria-label={playing ? 'Pause' : 'Play'}
         onClick={() => setPlaying(!playing)}
       >
         {playing ? <Pause size={24} /> : <Play size={24} />}
       </GlassIconButton>
-      
-      <GlassIconButton 
-        variant="secondary"
-        aria-label="Previous track"
-      >
+
+      <GlassIconButton variant='secondary' aria-label='Previous track'>
         <SkipBack size={20} />
       </GlassIconButton>
-      
-      <GlassIconButton 
-        variant="secondary"
-        aria-label="Next track"
-      >
+
+      <GlassIconButton variant='secondary' aria-label='Next track'>
         <SkipForward size={20} />
       </GlassIconButton>
-      
-      <GlassIconButton 
-        variant="ghost"
+
+      <GlassIconButton
+        variant='ghost'
         aria-label={muted ? 'Unmute' : 'Mute'}
         onClick={() => setMuted(!muted)}
       >
         {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
       </GlassIconButton>
     </div>
-  )
+  );
 }
 ```
 
@@ -453,30 +463,30 @@ function MediaPlayer() {
 
 ```tsx
 function SocialActions({ post }) {
-  const [liked, setLiked] = useState(post.isLiked)
-  const [bookmarked, setBookmarked] = useState(post.isBookmarked)
-  
+  const [liked, setLiked] = useState(post.isLiked);
+  const [bookmarked, setBookmarked] = useState(post.isBookmarked);
+
   return (
-    <div className="flex items-center gap-3">
-      <GlassIconButton 
-        variant="ghost"
+    <div className='flex items-center gap-3'>
+      <GlassIconButton
+        variant='ghost'
         aria-label={liked ? 'Unlike post' : 'Like post'}
         onClick={() => setLiked(!liked)}
         className={liked ? 'text-red-500' : ''}
       >
         <Heart size={20} fill={liked ? 'currentColor' : 'none'} />
       </GlassIconButton>
-      
-      <GlassIconButton variant="ghost" aria-label="Comment on post">
+
+      <GlassIconButton variant='ghost' aria-label='Comment on post'>
         <MessageCircle size={20} />
       </GlassIconButton>
-      
-      <GlassIconButton variant="ghost" aria-label="Share post">
+
+      <GlassIconButton variant='ghost' aria-label='Share post'>
         <Share size={20} />
       </GlassIconButton>
-      
-      <GlassIconButton 
-        variant="ghost"
+
+      <GlassIconButton
+        variant='ghost'
         aria-label={bookmarked ? 'Remove bookmark' : 'Bookmark post'}
         onClick={() => setBookmarked(!bookmarked)}
         className={bookmarked ? 'text-blue-500' : ''}
@@ -484,7 +494,7 @@ function SocialActions({ post }) {
         <Bookmark size={20} fill={bookmarked ? 'currentColor' : 'none'} />
       </GlassIconButton>
     </div>
-  )
+  );
 }
 ```
 
@@ -522,9 +532,9 @@ Configure haptic feedback intensity:
 </GlassIconButton>
 
 // Heavy haptic for destructive actions
-<GlassIconButton 
+<GlassIconButton
   variant="destructive"
-  hapticFeedback="heavy" 
+  hapticFeedback="heavy"
   aria-label="Delete"
 >
   <Trash2 size={20} />
@@ -549,10 +559,7 @@ Configure haptic feedback intensity:
 
 ```tsx
 // ✅ Good - Clear label and appropriate size
-<GlassIconButton 
-  aria-label="Add to favorites" 
-  size="md"
->
+<GlassIconButton aria-label='Add to favorites' size='md'>
   <Heart size={16} />
 </GlassIconButton>
 ```
@@ -583,7 +590,7 @@ Configure haptic feedback intensity:
 
 ```tsx
 // Context menu support
-<GlassIconButton 
+<GlassIconButton
   aria-label="Share"
   onContextMenu={(e) => showContextMenu(e)}
   onLongPress={() => showContextMenu()}
@@ -592,7 +599,7 @@ Configure haptic feedback intensity:
 </GlassIconButton>
 
 // Haptic feedback integration
-<GlassIconButton 
+<GlassIconButton
   hapticFeedback="selection"
   aria-label="Toggle setting"
   onClick={() => {
@@ -608,7 +615,7 @@ Configure haptic feedback intensity:
 
 ```tsx
 // Keyboard shortcut integration
-<GlassIconButton 
+<GlassIconButton
   aria-label="Save (⌘S)"
   onClick={handleSave}
   onKeyDown={(e) => {
@@ -638,4 +645,4 @@ Configure haptic feedback intensity:
 
 ---
 
-*Icon buttons provide efficient, accessible interactions while maintaining the beautiful Liquid Glass aesthetic that defines Liquidify's design language.*
+_Icon buttons provide efficient, accessible interactions while maintaining the beautiful Liquid Glass aesthetic that defines Liquidify's design language._

@@ -1,0 +1,701 @@
+# useGlassEffectPerformance
+
+The `useGlassEffectPerformance` hook provides performance monitoring and optimization for glass effects, ensuring smooth animations and responsive interactions across all devices.
+
+## Overview
+
+This hook analyzes device capabilities, monitors performance metrics, and automatically adjusts glass effect settings to maintain optimal performance while preserving visual quality.
+
+## Import
+
+```tsx
+import { useGlassEffectPerformance } from 'liquidify';
+```
+
+## Basic Usage
+
+```tsx
+import React from 'react';
+import { useGlassEffectPerformance } from 'liquidify';
+
+function PerformanceAwareGlassCard() {
+  const { optimizedConfig, performance, isOptimized } =
+    useGlassEffectPerformance({
+      targetFPS: 60,
+      adaptiveQuality: true,
+      monitorEnabled: true,
+    });
+
+  return (
+    <div style={optimizedConfig.glassStyle} className='p-6 rounded-lg'>
+      <h2>Performance-Aware Glass Card</h2>
+      <p>FPS: {performance.fps.current.toFixed(1)}</p>
+      <p>Quality: {isOptimized ? 'Optimized' : 'Full'}</p>
+      <p>Device: {performance.deviceClass}</p>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Adaptive Quality with Real-time Monitoring
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { useGlassEffectPerformance } from 'liquidify';
+
+function AdaptiveGlassInterface() {
+  const [interactions, setInteractions] = useState(0);
+
+  const {
+    optimizedConfig,
+    performance,
+    adjustQuality,
+    enableMonitoring,
+    disableMonitoring,
+  } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+    monitorEnabled: true,
+    thresholds: {
+      criticalFPS: 30,
+      warningFPS: 45,
+      memoryLimit: 100 * 1024 * 1024, // 100MB
+      cpuLimit: 70, // 70% CPU usage
+    },
+    optimizationRules: {
+      reduceBlurOnLowFPS: true,
+      disableAnimationsOnLowMemory: true,
+      simplifyEffectsOnHighCPU: true,
+    },
+  });
+
+  useEffect(() => {
+    // Enable monitoring during interactions
+    if (interactions > 0) {
+      enableMonitoring();
+    } else {
+      disableMonitoring();
+    }
+  }, [interactions, enableMonitoring, disableMonitoring]);
+
+  const handleInteraction = () => {
+    setInteractions(prev => prev + 1);
+    setTimeout(() => setInteractions(prev => prev - 1), 1000);
+  };
+
+  return (
+    <div className='space-y-4'>
+      {/* Performance Dashboard */}
+      <div className='bg-gray-800 text-white p-4 rounded-lg'>
+        <h3>Performance Monitor</h3>
+        <div className='grid grid-cols-2 gap-4 mt-2'>
+          <div>
+            <p>FPS: {performance.fps.current.toFixed(1)}</p>
+            <p>Avg: {performance.fps.average.toFixed(1)}</p>
+          </div>
+          <div>
+            <p>
+              Memory: {(performance.memory.used / 1024 / 1024).toFixed(1)}MB
+            </p>
+            <p>CPU: {performance.cpu.usage.toFixed(1)}%</p>
+          </div>
+        </div>
+        <div className='mt-2'>
+          <p>Device: {performance.deviceClass}</p>
+          <p>Quality: {performance.qualityLevel}</p>
+        </div>
+      </div>
+
+      {/* Interactive Glass Cards */}
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+        {[1, 2, 3, 4].map(i => (
+          <div
+            key={i}
+            style={optimizedConfig.glassStyle}
+            className='p-6 rounded-lg cursor-pointer transition-transform duration-200'
+            onClick={handleInteraction}
+            onMouseEnter={handleInteraction}
+          >
+            <h4>Interactive Card {i}</h4>
+            <p>Click or hover to trigger performance monitoring</p>
+            <div className='mt-2 text-sm opacity-70'>
+              Blur: {optimizedConfig.blur}px | Opacity:{' '}
+              {optimizedConfig.opacity}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Quality Controls */}
+      <div className='flex space-x-4'>
+        <button
+          onClick={() => adjustQuality('low')}
+          className='px-4 py-2 bg-red-500 text-white rounded'
+        >
+          Low Quality
+        </button>
+        <button
+          onClick={() => adjustQuality('medium')}
+          className='px-4 py-2 bg-yellow-500 text-white rounded'
+        >
+          Medium Quality
+        </button>
+        <button
+          onClick={() => adjustQuality('high')}
+          className='px-4 py-2 bg-green-500 text-white rounded'
+        >
+          High Quality
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+### Game-like Performance Optimization
+
+```tsx
+import React, { useRef, useEffect } from 'react';
+import { useGlassEffectPerformance } from 'liquidify';
+
+function GameLikeGlassInterface() {
+  const frameRef = useRef<number>();
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  const { optimizedConfig, performance, getBudget, reportFrameTime } =
+    useGlassEffectPerformance({
+      targetFPS: 60,
+      adaptiveQuality: true,
+      performanceBudget: {
+        frameTime: 16.67, // 60 FPS
+        glassEffectBudget: 5, // 5ms per frame for glass effects
+        animationBudget: 8, // 8ms per frame for animations
+        interactionBudget: 3, // 3ms per frame for interactions
+      },
+    });
+
+  useEffect(() => {
+    const animate = () => {
+      const frameStart = performance.now();
+
+      // Update particles based on performance budget
+      const budget = getBudget();
+      const maxParticles = budget.available > 10 ? 100 : 20;
+
+      setParticles(prev =>
+        prev.length > maxParticles ? prev.slice(0, maxParticles) : prev
+      );
+
+      const frameTime = performance.now() - frameStart;
+      reportFrameTime(frameTime);
+
+      frameRef.current = requestAnimationFrame(animate);
+    };
+
+    frameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, [getBudget, reportFrameTime]);
+
+  return (
+    <div className='relative h-screen overflow-hidden'>
+      {/* Glass Background */}
+      <div style={optimizedConfig.glassStyle} className='absolute inset-0' />
+
+      {/* Particles */}
+      {particles.map((particle, index) => (
+        <div
+          key={index}
+          className='absolute w-2 h-2 bg-blue-400 rounded-full'
+          style={{
+            left: particle.x,
+            top: particle.y,
+            opacity: performance.qualityLevel === 'high' ? 0.8 : 0.4,
+          }}
+        />
+      ))}
+
+      {/* Performance HUD */}
+      <div className='absolute top-4 left-4 bg-black bg-opacity-50 text-white p-4 rounded'>
+        <div>FPS: {performance.fps.current.toFixed(1)}</div>
+        <div>Frame Time: {performance.frameTime.toFixed(2)}ms</div>
+        <div>Budget: {getBudget().available.toFixed(2)}ms</div>
+        <div>Quality: {performance.qualityLevel}</div>
+        <div>Particles: {particles.length}</div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Performance-Aware Navigation
+
+```tsx
+import React, { useState, useEffect } from 'react';
+import { useGlassEffectPerformance } from 'liquidify';
+
+function PerformanceAwareNavigation() {
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const {
+    optimizedConfig,
+    performance,
+    pauseOptimization,
+    resumeOptimization,
+  } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+    scrollOptimization: {
+      enabled: true,
+      throttleMs: 16,
+      qualityReduction: 0.3,
+      disableAnimationsDuringScroll: true,
+    },
+  });
+
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      if (!isScrolling) {
+        setIsScrolling(true);
+        // Pause optimization during scroll for better performance
+        pauseOptimization();
+      }
+
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+        resumeOptimization();
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimeout);
+    };
+  }, [isScrolling, pauseOptimization, resumeOptimization]);
+
+  return (
+    <nav
+      style={optimizedConfig.glassStyle}
+      className='fixed top-0 w-full z-50 transition-all duration-300'
+    >
+      <div className='container mx-auto px-4 py-4'>
+        <div className='flex justify-between items-center'>
+          <div className='text-xl font-bold'>
+            Logo
+            {performance.fps.current < 45 && (
+              <span className='ml-2 text-xs text-red-400'>Low FPS</span>
+            )}
+          </div>
+
+          <div className='flex space-x-6'>
+            <a href='#' className='hover:text-opacity-80'>
+              Home
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              About
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Services
+            </a>
+            <a href='#' className='hover:text-opacity-80'>
+              Contact
+            </a>
+          </div>
+
+          {/* Performance Indicator */}
+          <div className='flex items-center space-x-2'>
+            <div
+              className={`w-3 h-3 rounded-full ${
+                performance.fps.current > 55
+                  ? 'bg-green-400'
+                  : performance.fps.current > 45
+                    ? 'bg-yellow-400'
+                    : 'bg-red-400'
+              }`}
+            />
+            <span className='text-xs'>
+              {performance.fps.current.toFixed(0)} FPS
+            </span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+interface GlassEffectPerformanceConfig {
+  targetFPS?: number;
+  adaptiveQuality?: boolean;
+  monitorEnabled?: boolean;
+  thresholds?: {
+    criticalFPS?: number;
+    warningFPS?: number;
+    memoryLimit?: number;
+    cpuLimit?: number;
+  };
+  optimizationRules?: {
+    reduceBlurOnLowFPS?: boolean;
+    disableAnimationsOnLowMemory?: boolean;
+    simplifyEffectsOnHighCPU?: boolean;
+  };
+  performanceBudget?: {
+    frameTime?: number;
+    glassEffectBudget?: number;
+    animationBudget?: number;
+    interactionBudget?: number;
+  };
+  scrollOptimization?: {
+    enabled?: boolean;
+    throttleMs?: number;
+    qualityReduction?: number;
+    disableAnimationsDuringScroll?: boolean;
+  };
+}
+```
+
+### Return Value
+
+```typescript
+interface GlassEffectPerformanceReturn {
+  optimizedConfig: {
+    glassStyle: React.CSSProperties;
+    blur: number;
+    opacity: number;
+    quality: 'low' | 'medium' | 'high';
+  };
+  performance: {
+    fps: {
+      current: number;
+      average: number;
+      min: number;
+      max: number;
+    };
+    memory: {
+      used: number;
+      total: number;
+      pressure: number;
+    };
+    cpu: {
+      usage: number;
+      cores: number;
+    };
+    frameTime: number;
+    deviceClass: 'low' | 'medium' | 'high';
+    qualityLevel: 'low' | 'medium' | 'high';
+  };
+  adjustQuality: (level: 'low' | 'medium' | 'high') => void;
+  enableMonitoring: () => void;
+  disableMonitoring: () => void;
+  pauseOptimization: () => void;
+  resumeOptimization: () => void;
+  getBudget: () => PerformanceBudget;
+  reportFrameTime: (time: number) => void;
+  isOptimized: boolean;
+}
+```
+
+## Performance Metrics
+
+### FPS Monitoring
+
+```tsx
+const { performance } = useGlassEffectPerformance({
+  targetFPS: 60,
+  monitorEnabled: true,
+});
+
+// Access FPS data
+console.log({
+  current: performance.fps.current,
+  average: performance.fps.average,
+  min: performance.fps.min,
+  max: performance.fps.max,
+});
+```
+
+### Memory Monitoring
+
+```tsx
+const { performance } = useGlassEffectPerformance({
+  thresholds: {
+    memoryLimit: 100 * 1024 * 1024, // 100MB
+  },
+});
+
+// Monitor memory usage
+useEffect(() => {
+  if (performance.memory.pressure > 0.8) {
+    console.warn('High memory pressure detected');
+  }
+}, [performance.memory.pressure]);
+```
+
+### CPU Monitoring
+
+```tsx
+const { performance } = useGlassEffectPerformance({
+  thresholds: {
+    cpuLimit: 70, // 70% CPU usage
+  },
+});
+
+// Monitor CPU usage
+useEffect(() => {
+  if (performance.cpu.usage > 70) {
+    console.warn('High CPU usage detected');
+  }
+}, [performance.cpu.usage]);
+```
+
+## Optimization Strategies
+
+### Adaptive Quality
+
+```tsx
+const { optimizedConfig, adjustQuality } = useGlassEffectPerformance({
+  adaptiveQuality: true,
+  optimizationRules: {
+    reduceBlurOnLowFPS: true,
+    disableAnimationsOnLowMemory: true,
+    simplifyEffectsOnHighCPU: true,
+  },
+});
+
+// Manual quality adjustment
+const handleQualityChange = (level: 'low' | 'medium' | 'high') => {
+  adjustQuality(level);
+};
+```
+
+### Performance Budget
+
+```tsx
+const { getBudget, reportFrameTime } = useGlassEffectPerformance({
+  performanceBudget: {
+    frameTime: 16.67, // 60 FPS
+    glassEffectBudget: 5,
+    animationBudget: 8,
+    interactionBudget: 3,
+  },
+});
+
+// Check available budget
+const budget = getBudget();
+if (budget.available > 5) {
+  // Perform expensive operations
+}
+
+// Report frame time
+const frameStart = performance.now();
+// ... render logic
+const frameTime = performance.now() - frameStart;
+reportFrameTime(frameTime);
+```
+
+### Scroll Optimization
+
+```tsx
+const { optimizedConfig } = useGlassEffectPerformance({
+  scrollOptimization: {
+    enabled: true,
+    throttleMs: 16,
+    qualityReduction: 0.3,
+    disableAnimationsDuringScroll: true,
+  },
+});
+```
+
+## Device Classification
+
+The hook automatically classifies devices based on their capabilities:
+
+### Low-End Devices
+
+- Limited memory (< 4GB)
+- Slow CPU
+- Basic GPU
+- Mobile devices
+- Older browsers
+
+### Medium-End Devices
+
+- Moderate memory (4-8GB)
+- Decent CPU
+- Integrated GPU
+- Modern tablets
+- Mid-range laptops
+
+### High-End Devices
+
+- High memory (> 8GB)
+- Fast CPU
+- Dedicated GPU
+- Gaming laptops
+- Desktop computers
+
+## Best Practices
+
+1. **Monitor Performance**: Enable monitoring during development and testing
+2. **Set Appropriate Targets**: Use realistic FPS targets for your use case
+3. **Implement Fallbacks**: Always provide fallback options for low-end devices
+4. **Test Across Devices**: Test on various devices to ensure consistent performance
+5. **Budget Wisely**: Allocate performance budget based on feature importance
+
+## Performance Patterns
+
+### Lazy Loading Glass Effects
+
+```tsx
+function LazyGlassEffects() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const { optimizedConfig } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+    monitorEnabled: isVisible,
+  });
+
+  return (
+    <div className='relative'>
+      <div
+        ref={ref}
+        style={isVisible ? optimizedConfig.glassStyle : {}}
+        className='p-6 rounded-lg'
+      >
+        <h2>Lazy Loaded Glass Effect</h2>
+        <p>Glass effects only load when element is visible</p>
+      </div>
+    </div>
+  );
+}
+```
+
+### Conditional Glass Effects
+
+```tsx
+function ConditionalGlassEffects() {
+  const { performance, optimizedConfig } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const shouldUseGlass =
+    performance.deviceClass !== 'low' && performance.fps.current > 45;
+
+  return (
+    <div
+      style={shouldUseGlass ? optimizedConfig.glassStyle : {}}
+      className='p-6 rounded-lg'
+    >
+      <h2>Conditional Glass Effects</h2>
+      <p>Glass effects only enabled on capable devices</p>
+    </div>
+  );
+}
+```
+
+## Troubleshooting
+
+### Low FPS Issues
+
+- Check if too many glass effects are active simultaneously
+- Reduce blur intensity or opacity
+- Disable animations during interactions
+- Use performance budget to limit expensive operations
+
+### High Memory Usage
+
+- Limit the number of glass elements
+- Clean up unused effects
+- Use object pooling for dynamic elements
+- Monitor memory pressure and adjust quality
+
+### CPU Bottlenecks
+
+- Reduce the complexity of glass effects
+- Use hardware acceleration where available
+- Optimize update frequency
+- Consider using Web Workers for heavy computations
+
+## Integration with Other Hooks
+
+### With useContentAwareGlass
+
+```tsx
+function IntegratedGlassEffects() {
+  const { optimizedConfig, performance } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle } = useContentAwareGlass({
+    contentType: 'text',
+    backgroundType: 'dynamic',
+    priority: performance.deviceClass === 'low' ? 'readability' : 'aesthetics',
+  });
+
+  // Merge configurations
+  const mergedStyle = {
+    ...glassStyle,
+    ...optimizedConfig.glassStyle,
+  };
+
+  return (
+    <div style={mergedStyle} className='p-6 rounded-lg'>
+      <h2>Integrated Glass Effects</h2>
+      <p>Content-aware glass with performance optimization</p>
+    </div>
+  );
+}
+```
+
+### With useLiquidGlass
+
+```tsx
+function OptimizedLiquidGlass() {
+  const { performance, optimizedConfig } = useGlassEffectPerformance({
+    targetFPS: 60,
+    adaptiveQuality: true,
+  });
+
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: optimizedConfig.blur,
+    opacity: optimizedConfig.opacity,
+    performance: {
+      enableTransform3d: performance.deviceClass !== 'low',
+      enableWillChange: performance.fps.current > 45,
+    },
+  });
+
+  useEffect(() => {
+    updateConfig({
+      blur: optimizedConfig.blur,
+      opacity: optimizedConfig.opacity,
+    });
+  }, [optimizedConfig, updateConfig]);
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Optimized Liquid Glass</h2>
+      <p>Performance-optimized glass configuration</p>
+    </div>
+  );
+}
+```

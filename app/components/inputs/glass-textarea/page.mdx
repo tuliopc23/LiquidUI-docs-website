@@ -13,9 +13,9 @@ import { GlassTextarea } from 'liquidify'
 
 function App() {
   return (
-    cGlassTextarea 
+    cGlassTextarea
       placeholder="Your message here..."
-      rows={4} 
+      rows={4}
     e
   )
 }
@@ -35,8 +35,8 @@ function AutoResizeTextarea() {
 
   return (
     cdive
-      cGlassTextarea 
-        value={message} 
+      cGlassTextarea
+        value={message}
         onChange={(e) =e setMessage(e.target.value)}
         placeholder="Share your thoughts..."
         autoResize
@@ -51,15 +51,15 @@ function AutoResizeTextarea() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | `''` | Current text value |
-| `onChange` | `(event: React.ChangeEvent<HTMLTextAreaElement>) =e void` | - | Handler on text change |
-| `placeholder` | `string` | `''` | Placeholder text |
-| `autoResize` | `boolean` | `false` | Enables auto-resizing based on content |
-| `rows` | `number` | `3` | Initial number of visible rows |
-| `maxLength` | `number` | - | Maximum character length |
-| `className` | `string` | - | Additional CSS classes |
+| Prop          | Type                                                      | Default | Description                            |
+| ------------- | --------------------------------------------------------- | ------- | -------------------------------------- |
+| `value`       | `string`                                                  | `''`    | Current text value                     |
+| `onChange`    | `(event: React.ChangeEvent<HTMLTextAreaElement>) =e void` | -       | Handler on text change                 |
+| `placeholder` | `string`                                                  | `''`    | Placeholder text                       |
+| `autoResize`  | `boolean`                                                 | `false` | Enables auto-resizing based on content |
+| `rows`        | `number`                                                  | `3`     | Initial number of visible rows         |
+| `maxLength`   | `number`                                                  | -       | Maximum character length               |
+| `className`   | `string`                                                  | -       | Additional CSS classes                 |
 
 ## Accessibility
 
@@ -69,7 +69,7 @@ function AutoResizeTextarea() {
 ### VoiceOver Example
 
 ```tsx
-cGlassTextarea 
+cGlassTextarea
   aria-label="Story description"
   placeholder="Describe your story..."
 e

@@ -1,4 +1,4 @@
-import { GlassLoading } from 'liquidify'
+import { GlassLoading } from 'liquidify';
 
 # Glass Loading
 
@@ -22,16 +22,10 @@ npm install liquidify
 ## Basic Usage
 
 ```jsx
-import { GlassLoading } from 'liquidify'
+import { GlassLoading } from 'liquidify';
 
 function App() {
-  return (
-    <GlassLoading
-      type="spinner"
-      size="medium"
-      message="Loading..."
-    />
-  )
+  return <GlassLoading type='spinner' size='medium' message='Loading...' />;
 }
 ```
 
@@ -39,39 +33,22 @@ function App() {
 
 ### Spinner Loading
 
-<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
-  <div className="flex items-center justify-center h-32">
-    <GlassLoading
-      type="spinner"
-      size="large"
-      message="Loading components..."
-    />
+<div className='p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg'>
+  <div className='flex items-center justify-center h-32'>
+    <GlassLoading type='spinner' size='large' message='Loading components...' />
   </div>
 </div>
 
 ```jsx
-<GlassLoading
-  type="spinner"
-  size="large"
-  message="Loading components..."
-/>
+<GlassLoading type='spinner' size='large' message='Loading components...' />
 ```
 
 ### Skeleton Loading
 
-<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
-  <div className="space-y-4">
-    <GlassLoading
-      type="skeleton"
-      variant="text"
-      lines={3}
-      className="w-full"
-    />
-    <GlassLoading
-      type="skeleton"
-      variant="card"
-      className="w-full h-32"
-    />
+<div className='p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg'>
+  <div className='space-y-4'>
+    <GlassLoading type='skeleton' variant='text' lines={3} className='w-full' />
+    <GlassLoading type='skeleton' variant='card' className='w-full h-32' />
   </div>
 </div>
 
@@ -90,19 +67,19 @@ function App() {
 
 ### Progress Bar Loading
 
-<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
-  <div className="space-y-4">
+<div className='p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg'>
+  <div className='space-y-4'>
     <GlassLoading
-      type="progress"
+      type='progress'
       value={65}
-      message="Processing... 65%"
-      className="w-full"
+      message='Processing... 65%'
+      className='w-full'
     />
     <GlassLoading
-      type="progress"
+      type='progress'
       indeterminate={true}
-      message="Please wait..."
-      className="w-full"
+      message='Please wait...'
+      className='w-full'
     />
   </div>
 </div>
@@ -122,87 +99,59 @@ function App() {
 
 ### Dots Loading
 
-<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
-  <div className="flex items-center justify-center h-32">
-    <GlassLoading
-      type="dots"
-      size="large"
-      message="Uploading files..."
-    />
+<div className='p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg'>
+  <div className='flex items-center justify-center h-32'>
+    <GlassLoading type='dots' size='large' message='Uploading files...' />
   </div>
 </div>
 
 ```jsx
-<GlassLoading
-  type="dots"
-  size="large"
-  message="Uploading files..."
-/>
+<GlassLoading type='dots' size='large' message='Uploading files...' />
 ```
 
 ### Pulse Loading
 
-<div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
-  <div className="flex items-center justify-center h-32">
-    <GlassLoading
-      type="pulse"
-      size="large"
-      message="Connecting..."
-    />
+<div className='p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg'>
+  <div className='flex items-center justify-center h-32'>
+    <GlassLoading type='pulse' size='large' message='Connecting...' />
   </div>
 </div>
 
 ```jsx
-<GlassLoading
-  type="pulse"
-  size="large"
-  message="Connecting..."
-/>
+<GlassLoading type='pulse' size='large' message='Connecting...' />
 ```
 
 ### Card Skeleton
 
-<div className="p-6 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <GlassLoading
-      type="skeleton"
-      variant="card"
-      className="h-48"
-    />
-    <GlassLoading
-      type="skeleton"
-      variant="card"
-      className="h-48"
-    />
+<div className='p-6 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg'>
+  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+    <GlassLoading type='skeleton' variant='card' className='h-48' />
+    <GlassLoading type='skeleton' variant='card' className='h-48' />
   </div>
 </div>
 
 ```jsx
-<GlassLoading
-  type="skeleton"
-  variant="card"
-  className="h-48"
-/>
+<GlassLoading type='skeleton' variant='card' className='h-48' />
 ```
 
 ## API Reference
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `'spinner' \| 'skeleton' \| 'progress' \| 'dots' \| 'pulse'` | `'spinner'` | Loading type |
-| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Loading size |
-| `message` | `string` | - | Loading message text |
-| `variant` | `'text' \| 'card' \| 'avatar' \| 'button'` | `'text'` | Skeleton variant |
-| `lines` | `number` | `3` | Number of skeleton lines |
-| `value` | `number` | - | Progress value (0-100) |
-| `indeterminate` | `boolean` | `false` | Indeterminate progress |
-| `color` | `string` | - | Custom color |
-| `speed` | `'slow' \| 'normal' \| 'fast'` | `'normal'` | Animation speed |
-| `overlay` | `boolean` | `false` | Full screen overlay |
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties` | - | Inline styles |
+| Prop            | Type                                                         | Default     | Description              |
+| --------------- | ------------------------------------------------------------ | ----------- | ------------------------ |
+| `type`          | `'spinner' \| 'skeleton' \| 'progress' \| 'dots' \| 'pulse'` | `'spinner'` | Loading type             |
+| `size`          | `'small' \| 'medium' \| 'large'`                             | `'medium'`  | Loading size             |
+| `message`       | `string`                                                     | -           | Loading message text     |
+| `variant`       | `'text' \| 'card' \| 'avatar' \| 'button'`                   | `'text'`    | Skeleton variant         |
+| `lines`         | `number`                                                     | `3`         | Number of skeleton lines |
+| `value`         | `number`                                                     | -           | Progress value (0-100)   |
+| `indeterminate` | `boolean`                                                    | `false`     | Indeterminate progress   |
+| `color`         | `string`                                                     | -           | Custom color             |
+| `speed`         | `'slow' \| 'normal' \| 'fast'`                               | `'normal'`  | Animation speed          |
+| `overlay`       | `boolean`                                                    | `false`     | Full screen overlay      |
+| `className`     | `string`                                                     | -           | Additional CSS classes   |
+| `style`         | `CSSProperties`                                              | -           | Inline styles            |
 
 ### Styling
 
@@ -213,7 +162,7 @@ The component uses CSS variables for theming:
   --glass-loading-bg: rgba(255, 255, 255, 0.1);
   --glass-loading-border: rgba(255, 255, 255, 0.2);
   --glass-loading-text: rgba(255, 255, 255, 0.9);
-  --glass-loading-primary: #8B5CF6;
+  --glass-loading-primary: #8b5cf6;
   --glass-loading-skeleton: rgba(255, 255, 255, 0.1);
   --glass-loading-skeleton-shimmer: rgba(255, 255, 255, 0.2);
 }
@@ -240,7 +189,7 @@ The component uses CSS variables for theming:
 The Glass Loading component leverages GSAP for smooth animations:
 
 ```jsx
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
 // Custom spinner animation
 const animateSpinner = () => {
@@ -248,9 +197,9 @@ const animateSpinner = () => {
     rotation: 360,
     duration: 1,
     repeat: -1,
-    ease: 'none'
-  })
-}
+    ease: 'none',
+  });
+};
 
 // Skeleton shimmer effect
 const animateSkeleton = () => {
@@ -258,9 +207,9 @@ const animateSkeleton = () => {
     x: '100%',
     duration: 1.5,
     repeat: -1,
-    ease: 'power2.inOut'
-  })
-}
+    ease: 'power2.inOut',
+  });
+};
 ```
 
 ## Advanced Usage
@@ -269,39 +218,39 @@ const animateSkeleton = () => {
 
 ```jsx
 <GlassLoading
-  type="custom"
+  type='custom'
   render={() => (
-    <div className="flex items-center space-x-2">
-      <div className="w-4 h-4 bg-blue-500 rounded-full animate-bounce" />
-      <div className="w-4 h-4 bg-purple-500 rounded-full animate-bounce delay-100" />
-      <div className="w-4 h-4 bg-pink-500 rounded-full animate-bounce delay-200" />
+    <div className='flex items-center space-x-2'>
+      <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce' />
+      <div className='w-4 h-4 bg-purple-500 rounded-full animate-bounce delay-100' />
+      <div className='w-4 h-4 bg-pink-500 rounded-full animate-bounce delay-200' />
     </div>
   )}
-  message="Custom loading..."
+  message='Custom loading...'
 />
 ```
 
 ### Loading with Timeout
 
 ```jsx
-const [isLoading, setIsLoading] = useState(true)
+const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
   const timer = setTimeout(() => {
-    setIsLoading(false)
-  }, 5000)
+    setIsLoading(false);
+  }, 5000);
 
-  return () => clearTimeout(timer)
-}, [])
+  return () => clearTimeout(timer);
+}, []);
 
 if (isLoading) {
   return (
     <GlassLoading
-      type="spinner"
-      message="Loading will timeout in 5 seconds..."
+      type='spinner'
+      message='Loading will timeout in 5 seconds...'
       overlay={true}
     />
-  )
+  );
 }
 ```
 
@@ -336,28 +285,24 @@ useEffect(() => {
 ### Global Loading Context
 
 ```jsx
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from 'react';
 
-const LoadingContext = createContext()
+const LoadingContext = createContext();
 
 export const LoadingProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   return (
     <LoadingContext.Provider value={{ loading, setLoading }}>
       {children}
       {loading && (
-        <GlassLoading
-          type="spinner"
-          overlay={true}
-          message="Please wait..."
-        />
+        <GlassLoading type='spinner' overlay={true} message='Please wait...' />
       )}
     </LoadingContext.Provider>
-  )
-}
+  );
+};
 
-export const useLoading = () => useContext(LoadingContext)
+export const useLoading = () => useContext(LoadingContext);
 ```
 
 ## Related Components

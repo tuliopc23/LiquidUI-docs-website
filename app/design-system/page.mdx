@@ -9,21 +9,27 @@ Our design system provides a comprehensive foundation for building beautiful, ac
 ## Core Principles
 
 ### 1. Liquid Glass Material
+
 The revolutionary Liquid Glass material adapts to content and context, providing:
+
 - **Content-aware transparency** that adjusts to background
 - **Dynamic blur effects** that respond to motion
 - **Intelligent contrast** for optimal readability
 - **Fluid morphing** between states and contexts
 
 ### 2. Apple Human Interface Guidelines
+
 Every aspect follows Apple's design principles:
+
 - **Clarity** - Clear visual communication and hierarchy
 - **Deference** - Content takes precedence over chrome
 - **Depth** - Realistic layering and meaningful motion
 - **Accessibility** - Inclusive design for all users
 
 ### 3. Performance First
+
 Optimized for real-world usage:
+
 - **Hardware acceleration** for smooth 120fps animations
 - **Bundle efficiency** with tree-shakable components
 - **Memory optimization** for complex interactions
@@ -32,62 +38,76 @@ Optimized for real-world usage:
 ## Design Tokens
 
 ### Foundation Tokens
+
 ```tsx
-import { liquidTokens } from 'liquidify/tokens'
+import { liquidTokens } from 'liquidify/tokens';
 
 // Apple System Colors
-const colors = liquidTokens.colors.apple
-const spacing = liquidTokens.spacing.grid4pt
-const typography = liquidTokens.typography.sf
+const colors = liquidTokens.colors.apple;
+const spacing = liquidTokens.spacing.grid4pt;
+const typography = liquidTokens.typography.sf;
 ```
 
 ### Semantic Tokens
+
 ```tsx
 // Component-specific tokens
-const buttonTokens = liquidTokens.components.button
-const cardTokens = liquidTokens.components.card
-const inputTokens = liquidTokens.components.input
+const buttonTokens = liquidTokens.components.button;
+const cardTokens = liquidTokens.components.card;
+const inputTokens = liquidTokens.components.input;
 ```
 
 ## Categories
 
 ### [Colors](/design-system/colors)
+
 Apple System Colors with intelligent dark mode support and accessibility compliance.
+
 - System color palette
 - Semantic color mappings
 - Glass material colors
 - Contrast ratios and accessibility
 
 ### [Typography](/design-system/typography)
+
 SF Pro Display and SF Pro Text with Dynamic Type support.
+
 - Type scales and sizing
 - Font weights and styles
 - Line heights and spacing
 - Responsive typography
 
 ### [Spacing](/design-system/spacing)
+
 4-point grid system for consistent layouts.
+
 - Grid fundamentals
 - Component spacing
 - Layout patterns
 - Responsive breakpoints
 
 ### [Icons](/design-system/icons)
+
 SF Symbols integration with Lucide React fallbacks.
+
 - SF Symbols usage
 - Icon sizing and variants
 - Custom icon creation
 - Accessibility labels
 
 ### [Liquid Glass](/design-system/liquid-glass)
+
 Advanced material system with physics-based interactions.
+
 - Material properties
 - Blur and transparency
 - Motion and morphing
 - Performance optimization
 
 ### [Animations](/design-system/animations)
+
 GSAP-powered motion system with Apple spring curves.
+
 - Easing and timing
 - Transition patterns
 - Gesture responses
@@ -96,58 +116,58 @@ GSAP-powered motion system with Apple spring curves.
 ## Implementation
 
 ### Installation
+
 ```bash
 npm install liquidify
 ```
 
 ### Theme Setup
+
 ```tsx
-import { ThemeProvider } from 'liquidify'
-import 'liquidify/styles'
+import { ThemeProvider } from 'liquidify';
+import 'liquidify/styles';
 
 export default function App({ children }) {
-  return (
-    <ThemeProvider>
-      {children}
-    </ThemeProvider>
-  )
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 ```
 
 ### Component Usage
+
 ```tsx
-import { GlassButton, GlassCard } from 'liquidify'
+import { GlassButton, GlassCard } from 'liquidify';
 
 export default function Example() {
   return (
-    <GlassCard className="p-6">
-      <h2 className="hig-title-2 mb-4">Welcome to Liquidify</h2>
-      <p className="hig-body mb-6">
+    <GlassCard className='p-6'>
+      <h2 className='hig-title-2 mb-4'>Welcome to Liquidify</h2>
+      <p className='hig-body mb-6'>
         Experience the future of interface design.
       </p>
-      <GlassButton variant="primary">
-        Get Started
-      </GlassButton>
+      <GlassButton variant='primary'>Get Started</GlassButton>
     </GlassCard>
-  )
+  );
 }
 ```
 
 ## Platform Support
 
 ### iOS & iPadOS
+
 - Native haptic feedback
 - Dynamic Type scaling
 - Smart Invert compatibility
 - Context menu integration
 
 ### macOS
+
 - Window vibrancy effects
 - Pointer precision interactions
 - Keyboard shortcuts
 - Accessibility Inspector support
 
 ### watchOS
+
 - Digital Crown optimization
 - Force Touch integration
 - Optimized touch targets
@@ -162,4 +182,4 @@ export default function Example() {
 
 ---
 
-*Built with ❤️ following Apple's Human Interface Guidelines and powered by advanced Liquid Glass technology.*
+_Built with ❤️ following Apple's Human Interface Guidelines and powered by advanced Liquid Glass technology._

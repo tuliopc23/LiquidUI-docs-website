@@ -1,5 +1,9 @@
-import { GlassResponsiveCard } from 'liquidify'
-import { ChartBarIcon, UserGroupIcon, CogIcon } from '@heroicons/react/24/outline'
+import { GlassResponsiveCard } from 'liquidify';
+import {
+  ChartBarIcon,
+  UserGroupIcon,
+  CogIcon,
+} from '@heroicons/react/24/outline';
 
 # Glass Responsive Card
 
@@ -24,21 +28,21 @@ npm install liquidify
 ## Basic Usage
 
 ```jsx
-import { GlassResponsiveCard } from 'liquidify'
+import { GlassResponsiveCard } from 'liquidify';
 
 function App() {
   return (
     <GlassResponsiveCard
-      title="Dashboard Stats"
-      content="View your key metrics and performance indicators."
-      image="/dashboard-image.jpg"
+      title='Dashboard Stats'
+      content='View your key metrics and performance indicators.'
+      image='/dashboard-image.jpg'
       responsive={{
         mobile: { layout: 'vertical', padding: 'small' },
         tablet: { layout: 'horizontal', padding: 'medium' },
-        desktop: { layout: 'horizontal', padding: 'large' }
+        desktop: { layout: 'horizontal', padding: 'large' },
       }}
     />
-  )
+  );
 }
 ```
 
@@ -47,15 +51,15 @@ function App() {
 ### Basic Responsive Card
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+<div className='p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg'>
   <GlassResponsiveCard
-    title="Analytics Dashboard"
-    content="Track your performance metrics and user engagement across all platforms."
-    icon={<ChartBarIcon className="w-8 h-8" />}
+    title='Analytics Dashboard'
+    content='Track your performance metrics and user engagement across all platforms.'
+    icon={<ChartBarIcon className='w-8 h-8' />}
     responsive={{
       mobile: { layout: 'vertical', showIcon: true },
       tablet: { layout: 'horizontal', showIcon: true },
-      desktop: { layout: 'horizontal', showIcon: true }
+      desktop: { layout: 'horizontal', showIcon: true },
     }}
   />
 </div>
@@ -63,13 +67,13 @@ function App() {
 
 ```jsx
 <GlassResponsiveCard
-  title="Analytics Dashboard"
-  content="Track your performance metrics and user engagement across all platforms."
-  icon={<ChartBarIcon className="w-8 h-8" />}
+  title='Analytics Dashboard'
+  content='Track your performance metrics and user engagement across all platforms.'
+  icon={<ChartBarIcon className='w-8 h-8' />}
   responsive={{
     mobile: { layout: 'vertical', showIcon: true },
     tablet: { layout: 'horizontal', showIcon: true },
-    desktop: { layout: 'horizontal', showIcon: true }
+    desktop: { layout: 'horizontal', showIcon: true },
   }}
 />
 ```
@@ -77,36 +81,36 @@ function App() {
 ### Card Grid Layout
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div className='p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg'>
+  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
     <GlassResponsiveCard
-      title="Users"
-      content="1,234 active users"
-      icon={<UserGroupIcon className="w-6 h-6" />}
+      title='Users'
+      content='1,234 active users'
+      icon={<UserGroupIcon className='w-6 h-6' />}
       responsive={{
         mobile: { layout: 'compact', padding: 'small' },
         tablet: { layout: 'default', padding: 'medium' },
-        desktop: { layout: 'default', padding: 'medium' }
+        desktop: { layout: 'default', padding: 'medium' },
       }}
     />
     <GlassResponsiveCard
-      title="Revenue"
-      content="$45,678 this month"
-      icon={<ChartBarIcon className="w-6 h-6" />}
+      title='Revenue'
+      content='$45,678 this month'
+      icon={<ChartBarIcon className='w-6 h-6' />}
       responsive={{
         mobile: { layout: 'compact', padding: 'small' },
         tablet: { layout: 'default', padding: 'medium' },
-        desktop: { layout: 'default', padding: 'medium' }
+        desktop: { layout: 'default', padding: 'medium' },
       }}
     />
     <GlassResponsiveCard
-      title="Settings"
-      content="Manage preferences"
-      icon={<CogIcon className="w-6 h-6" />}
+      title='Settings'
+      content='Manage preferences'
+      icon={<CogIcon className='w-6 h-6' />}
       responsive={{
         mobile: { layout: 'compact', padding: 'small' },
         tablet: { layout: 'default', padding: 'medium' },
-        desktop: { layout: 'default', padding: 'medium' }
+        desktop: { layout: 'default', padding: 'medium' },
       }}
     />
   </div>
@@ -114,15 +118,15 @@ function App() {
 ```
 
 ```jsx
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
   <GlassResponsiveCard
-    title="Users"
-    content="1,234 active users"
-    icon={<UserGroupIcon className="w-6 h-6" />}
+    title='Users'
+    content='1,234 active users'
+    icon={<UserGroupIcon className='w-6 h-6' />}
     responsive={{
       mobile: { layout: 'compact', padding: 'small' },
       tablet: { layout: 'default', padding: 'medium' },
-      desktop: { layout: 'default', padding: 'medium' }
+      desktop: { layout: 'default', padding: 'medium' },
     }}
   />
   {/* More cards... */}
@@ -132,31 +136,35 @@ function App() {
 ### Feature Card
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
+<div className='p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg'>
   <GlassResponsiveCard
-    title="Advanced Analytics"
-    content="Get detailed insights into your application performance with real-time monitoring and custom dashboards."
-    image="/analytics-preview.jpg"
+    title='Advanced Analytics'
+    content='Get detailed insights into your application performance with real-time monitoring and custom dashboards.'
+    image='/analytics-preview.jpg'
     actions={[
       { label: 'Learn More', onClick: () => console.log('Learn more clicked') },
-      { label: 'Get Started', onClick: () => console.log('Get started clicked'), variant: 'primary' }
+      {
+        label: 'Get Started',
+        onClick: () => console.log('Get started clicked'),
+        variant: 'primary',
+      },
     ]}
     responsive={{
-      mobile: { 
-        layout: 'vertical', 
-        showImage: false, 
-        actionsLayout: 'stacked' 
+      mobile: {
+        layout: 'vertical',
+        showImage: false,
+        actionsLayout: 'stacked',
       },
-      tablet: { 
-        layout: 'horizontal', 
-        showImage: true, 
-        actionsLayout: 'inline' 
+      tablet: {
+        layout: 'horizontal',
+        showImage: true,
+        actionsLayout: 'inline',
       },
-      desktop: { 
-        layout: 'horizontal', 
-        showImage: true, 
-        actionsLayout: 'inline' 
-      }
+      desktop: {
+        layout: 'horizontal',
+        showImage: true,
+        actionsLayout: 'inline',
+      },
     }}
   />
 </div>
@@ -164,29 +172,33 @@ function App() {
 
 ```jsx
 <GlassResponsiveCard
-  title="Advanced Analytics"
-  content="Get detailed insights into your application performance with real-time monitoring and custom dashboards."
-  image="/analytics-preview.jpg"
+  title='Advanced Analytics'
+  content='Get detailed insights into your application performance with real-time monitoring and custom dashboards.'
+  image='/analytics-preview.jpg'
   actions={[
     { label: 'Learn More', onClick: () => handleLearnMore() },
-    { label: 'Get Started', onClick: () => handleGetStarted(), variant: 'primary' }
+    {
+      label: 'Get Started',
+      onClick: () => handleGetStarted(),
+      variant: 'primary',
+    },
   ]}
   responsive={{
-    mobile: { 
-      layout: 'vertical', 
-      showImage: false, 
-      actionsLayout: 'stacked' 
+    mobile: {
+      layout: 'vertical',
+      showImage: false,
+      actionsLayout: 'stacked',
     },
-    tablet: { 
-      layout: 'horizontal', 
-      showImage: true, 
-      actionsLayout: 'inline' 
+    tablet: {
+      layout: 'horizontal',
+      showImage: true,
+      actionsLayout: 'inline',
     },
-    desktop: { 
-      layout: 'horizontal', 
-      showImage: true, 
-      actionsLayout: 'inline' 
-    }
+    desktop: {
+      layout: 'horizontal',
+      showImage: true,
+      actionsLayout: 'inline',
+    },
   }}
 />
 ```
@@ -194,28 +206,28 @@ function App() {
 ### Dashboard Widget
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
+<div className='p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg'>
   <GlassResponsiveCard
-    title="System Status"
-    content="All systems operational"
+    title='System Status'
+    content='All systems operational'
     badge={{ text: 'Online', variant: 'success' }}
     metric={{ value: '99.9%', label: 'Uptime' }}
     responsive={{
-      mobile: { 
-        layout: 'compact', 
-        showBadge: true, 
-        showMetric: false 
+      mobile: {
+        layout: 'compact',
+        showBadge: true,
+        showMetric: false,
       },
-      tablet: { 
-        layout: 'default', 
-        showBadge: true, 
-        showMetric: true 
+      tablet: {
+        layout: 'default',
+        showBadge: true,
+        showMetric: true,
       },
-      desktop: { 
-        layout: 'extended', 
-        showBadge: true, 
-        showMetric: true 
-      }
+      desktop: {
+        layout: 'extended',
+        showBadge: true,
+        showMetric: true,
+      },
     }}
   />
 </div>
@@ -223,26 +235,26 @@ function App() {
 
 ```jsx
 <GlassResponsiveCard
-  title="System Status"
-  content="All systems operational"
+  title='System Status'
+  content='All systems operational'
   badge={{ text: 'Online', variant: 'success' }}
   metric={{ value: '99.9%', label: 'Uptime' }}
   responsive={{
-    mobile: { 
-      layout: 'compact', 
-      showBadge: true, 
-      showMetric: false 
+    mobile: {
+      layout: 'compact',
+      showBadge: true,
+      showMetric: false,
     },
-    tablet: { 
-      layout: 'default', 
-      showBadge: true, 
-      showMetric: true 
+    tablet: {
+      layout: 'default',
+      showBadge: true,
+      showMetric: true,
     },
-    desktop: { 
-      layout: 'extended', 
-      showBadge: true, 
-      showMetric: true 
-    }
+    desktop: {
+      layout: 'extended',
+      showBadge: true,
+      showMetric: true,
+    },
   }}
 />
 ```
@@ -250,36 +262,40 @@ function App() {
 ### Product Card
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg">
+<div className='p-6 bg-gradient-to-br from-teal-600 to-green-600 rounded-lg'>
   <GlassResponsiveCard
-    title="Liquidify Pro"
-    content="Advanced component library with premium features and dedicated support."
-    image="/product-image.jpg"
+    title='Liquidify Pro'
+    content='Advanced component library with premium features and dedicated support.'
+    image='/product-image.jpg'
     price={{ amount: '$49', period: '/month' }}
     features={['Premium Components', 'Priority Support', 'Custom Themes']}
     actions={[
       { label: 'Try Free', onClick: () => console.log('Try free clicked') },
-      { label: 'Buy Now', onClick: () => console.log('Buy now clicked'), variant: 'primary' }
+      {
+        label: 'Buy Now',
+        onClick: () => console.log('Buy now clicked'),
+        variant: 'primary',
+      },
     ]}
     responsive={{
-      mobile: { 
-        layout: 'vertical', 
-        showImage: true, 
+      mobile: {
+        layout: 'vertical',
+        showImage: true,
         showFeatures: false,
-        actionsLayout: 'stacked' 
+        actionsLayout: 'stacked',
       },
-      tablet: { 
-        layout: 'vertical', 
-        showImage: true, 
+      tablet: {
+        layout: 'vertical',
+        showImage: true,
         showFeatures: true,
-        actionsLayout: 'inline' 
+        actionsLayout: 'inline',
       },
-      desktop: { 
-        layout: 'horizontal', 
-        showImage: true, 
+      desktop: {
+        layout: 'horizontal',
+        showImage: true,
         showFeatures: true,
-        actionsLayout: 'inline' 
-      }
+        actionsLayout: 'inline',
+      },
     }}
   />
 </div>
@@ -287,34 +303,34 @@ function App() {
 
 ```jsx
 <GlassResponsiveCard
-  title="Liquidify Pro"
-  content="Advanced component library with premium features and dedicated support."
-  image="/product-image.jpg"
+  title='Liquidify Pro'
+  content='Advanced component library with premium features and dedicated support.'
+  image='/product-image.jpg'
   price={{ amount: '$49', period: '/month' }}
   features={['Premium Components', 'Priority Support', 'Custom Themes']}
   actions={[
     { label: 'Try Free', onClick: () => handleTryFree() },
-    { label: 'Buy Now', onClick: () => handleBuyNow(), variant: 'primary' }
+    { label: 'Buy Now', onClick: () => handleBuyNow(), variant: 'primary' },
   ]}
   responsive={{
-    mobile: { 
-      layout: 'vertical', 
-      showImage: true, 
+    mobile: {
+      layout: 'vertical',
+      showImage: true,
       showFeatures: false,
-      actionsLayout: 'stacked' 
+      actionsLayout: 'stacked',
     },
-    tablet: { 
-      layout: 'vertical', 
-      showImage: true, 
+    tablet: {
+      layout: 'vertical',
+      showImage: true,
       showFeatures: true,
-      actionsLayout: 'inline' 
+      actionsLayout: 'inline',
     },
-    desktop: { 
-      layout: 'horizontal', 
-      showImage: true, 
+    desktop: {
+      layout: 'horizontal',
+      showImage: true,
       showFeatures: true,
-      actionsLayout: 'inline' 
-    }
+      actionsLayout: 'inline',
+    },
   }}
 />
 ```
@@ -323,78 +339,78 @@ function App() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `title` | `string` | - | Card title |
-| `content` | `string \| React.ReactNode` | - | Card content |
-| `image` | `string` | - | Card image URL |
-| `icon` | `React.ReactNode` | - | Card icon |
-| `badge` | `BadgeConfig` | - | Badge configuration |
-| `metric` | `MetricConfig` | - | Metric display |
-| `price` | `PriceConfig` | - | Price information |
-| `features` | `string[]` | - | Feature list |
-| `actions` | `ActionConfig[]` | - | Action buttons |
-| `responsive` | `ResponsiveConfig` | - | Responsive configuration |
-| `onClick` | `() => void` | - | Card click handler |
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties` | - | Inline styles |
+| Prop         | Type                        | Default | Description              |
+| ------------ | --------------------------- | ------- | ------------------------ |
+| `title`      | `string`                    | -       | Card title               |
+| `content`    | `string \| React.ReactNode` | -       | Card content             |
+| `image`      | `string`                    | -       | Card image URL           |
+| `icon`       | `React.ReactNode`           | -       | Card icon                |
+| `badge`      | `BadgeConfig`               | -       | Badge configuration      |
+| `metric`     | `MetricConfig`              | -       | Metric display           |
+| `price`      | `PriceConfig`               | -       | Price information        |
+| `features`   | `string[]`                  | -       | Feature list             |
+| `actions`    | `ActionConfig[]`            | -       | Action buttons           |
+| `responsive` | `ResponsiveConfig`          | -       | Responsive configuration |
+| `onClick`    | `() => void`                | -       | Card click handler       |
+| `className`  | `string`                    | -       | Additional CSS classes   |
+| `style`      | `CSSProperties`             | -       | Inline styles            |
 
 ### Interface Definitions
 
 ```typescript
 interface ResponsiveConfig {
   mobile?: {
-    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
-    padding?: 'small' | 'medium' | 'large'
-    showImage?: boolean
-    showIcon?: boolean
-    showBadge?: boolean
-    showMetric?: boolean
-    showFeatures?: boolean
-    actionsLayout?: 'inline' | 'stacked'
-  }
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended';
+    padding?: 'small' | 'medium' | 'large';
+    showImage?: boolean;
+    showIcon?: boolean;
+    showBadge?: boolean;
+    showMetric?: boolean;
+    showFeatures?: boolean;
+    actionsLayout?: 'inline' | 'stacked';
+  };
   tablet?: {
-    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
-    padding?: 'small' | 'medium' | 'large'
-    showImage?: boolean
-    showIcon?: boolean
-    showBadge?: boolean
-    showMetric?: boolean
-    showFeatures?: boolean
-    actionsLayout?: 'inline' | 'stacked'
-  }
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended';
+    padding?: 'small' | 'medium' | 'large';
+    showImage?: boolean;
+    showIcon?: boolean;
+    showBadge?: boolean;
+    showMetric?: boolean;
+    showFeatures?: boolean;
+    actionsLayout?: 'inline' | 'stacked';
+  };
   desktop?: {
-    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended'
-    padding?: 'small' | 'medium' | 'large'
-    showImage?: boolean
-    showIcon?: boolean
-    showBadge?: boolean
-    showMetric?: boolean
-    showFeatures?: boolean
-    actionsLayout?: 'inline' | 'stacked'
-  }
+    layout?: 'vertical' | 'horizontal' | 'compact' | 'default' | 'extended';
+    padding?: 'small' | 'medium' | 'large';
+    showImage?: boolean;
+    showIcon?: boolean;
+    showBadge?: boolean;
+    showMetric?: boolean;
+    showFeatures?: boolean;
+    actionsLayout?: 'inline' | 'stacked';
+  };
 }
 
 interface BadgeConfig {
-  text: string
-  variant: 'success' | 'warning' | 'error' | 'info'
+  text: string;
+  variant: 'success' | 'warning' | 'error' | 'info';
 }
 
 interface MetricConfig {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 interface PriceConfig {
-  amount: string
-  period?: string
+  amount: string;
+  period?: string;
 }
 
 interface ActionConfig {
-  label: string
-  onClick: () => void
-  variant?: 'primary' | 'secondary'
-  disabled?: boolean
+  label: string;
+  onClick: () => void;
+  variant?: 'primary' | 'secondary';
+  disabled?: boolean;
 }
 ```
 
@@ -436,7 +452,7 @@ The component uses CSS variables for theming:
 The Glass Responsive Card component leverages GSAP for smooth animations:
 
 ```jsx
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
 // Layout transition animation
 const animateLayoutChange = (element, newLayout) => {
@@ -445,23 +461,24 @@ const animateLayoutChange = (element, newLayout) => {
     ease: 'power2.out',
     onComplete: () => {
       // Apply new layout
-      element.setAttribute('data-layout', newLayout)
-    }
-  })
-}
+      element.setAttribute('data-layout', newLayout);
+    },
+  });
+};
 
 // Card entrance animation
-const animateCardEntrance = (element) => {
-  gsap.fromTo(element,
+const animateCardEntrance = element => {
+  gsap.fromTo(
+    element,
     { opacity: 0, y: 20 },
     {
       opacity: 1,
       y: 0,
       duration: 0.5,
-      ease: 'power2.out'
+      ease: 'power2.out',
     }
-  )
-}
+  );
+};
 ```
 
 ## Advanced Features
@@ -496,19 +513,19 @@ const ResponsiveCard = ({ data, userRole }) => {
   const getResponsiveConfig = () => {
     const baseConfig = {
       mobile: { layout: 'vertical', padding: 'small' },
-      desktop: { layout: 'horizontal', padding: 'large' }
-    }
+      desktop: { layout: 'horizontal', padding: 'large' },
+    };
 
     if (userRole === 'admin') {
       return {
         ...baseConfig,
         mobile: { ...baseConfig.mobile, showMetric: true },
-        desktop: { ...baseConfig.desktop, showMetric: true }
-      }
+        desktop: { ...baseConfig.desktop, showMetric: true },
+      };
     }
 
-    return baseConfig
-  }
+    return baseConfig;
+  };
 
   return (
     <GlassResponsiveCard
@@ -517,53 +534,53 @@ const ResponsiveCard = ({ data, userRole }) => {
       metric={userRole === 'admin' ? data.metric : undefined}
       responsive={getResponsiveConfig()}
     />
-  )
-}
+  );
+};
 ```
 
 ### Container Query Support
 
 ```jsx
-const useContainerQuery = (ref) => {
-  const [containerSize, setContainerSize] = useState('large')
+const useContainerQuery = ref => {
+  const [containerSize, setContainerSize] = useState('large');
 
   useEffect(() => {
     const observer = new ResizeObserver(entries => {
-      const { width } = entries[0].contentRect
-      if (width < 300) setContainerSize('small')
-      else if (width < 600) setContainerSize('medium')
-      else setContainerSize('large')
-    })
+      const { width } = entries[0].contentRect;
+      if (width < 300) setContainerSize('small');
+      else if (width < 600) setContainerSize('medium');
+      else setContainerSize('large');
+    });
 
     if (ref.current) {
-      observer.observe(ref.current)
+      observer.observe(ref.current);
     }
 
-    return () => observer.disconnect()
-  }, [ref])
+    return () => observer.disconnect();
+  }, [ref]);
 
-  return containerSize
-}
+  return containerSize;
+};
 
 const ContainerAwareCard = ({ children }) => {
-  const containerRef = useRef()
-  const containerSize = useContainerQuery(containerRef)
+  const containerRef = useRef();
+  const containerSize = useContainerQuery(containerRef);
 
   return (
     <div ref={containerRef}>
       <GlassResponsiveCard
-        title="Container Aware"
-        content="This card adapts to its container size"
+        title='Container Aware'
+        content='This card adapts to its container size'
         responsive={{
           [containerSize]: {
             layout: containerSize === 'small' ? 'compact' : 'default',
-            padding: containerSize === 'small' ? 'small' : 'medium'
-          }
+            padding: containerSize === 'small' ? 'small' : 'medium',
+          },
         }}
       />
     </div>
-  )
-}
+  );
+};
 ```
 
 ## Layout Patterns
@@ -572,21 +589,21 @@ const ContainerAwareCard = ({ children }) => {
 
 ```jsx
 const MasonryGrid = ({ cards }) => (
-  <div className="columns-1 md:columns-2 lg:columns-3 gap-4">
+  <div className='columns-1 md:columns-2 lg:columns-3 gap-4'>
     {cards.map((card, index) => (
-      <div key={index} className="break-inside-avoid mb-4">
+      <div key={index} className='break-inside-avoid mb-4'>
         <GlassResponsiveCard
           {...card}
           responsive={{
             mobile: { layout: 'vertical', padding: 'small' },
             tablet: { layout: 'vertical', padding: 'medium' },
-            desktop: { layout: 'vertical', padding: 'medium' }
+            desktop: { layout: 'vertical', padding: 'medium' },
           }}
         />
       </div>
     ))}
   </div>
-)
+);
 ```
 
 ## Related Components

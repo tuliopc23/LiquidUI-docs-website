@@ -9,6 +9,7 @@ Liquidify provides a complete set of UI components that implement Apple's newest
 ## Component Categories
 
 ### Actions
+
 Interactive elements that enable users to perform tasks and make choices.
 
 - [Glass Button](/components/actions/glass-button) - Primary interactive buttons
@@ -18,6 +19,7 @@ Interactive elements that enable users to perform tasks and make choices.
 - [Glass Floating Action](/components/actions/glass-floating-action) - Prominent action button
 
 ### Inputs
+
 Form controls that allow users to enter and edit information.
 
 - [Glass Input](/components/inputs/glass-input) - Single-line text entry
@@ -29,6 +31,7 @@ Form controls that allow users to enter and edit information.
 - [Glass Search](/components/inputs/glass-search) - Search interfaces
 
 ### Containment
+
 Components that group and organize related content.
 
 - [Glass Card](/components/containment/glass-card) - Content containers
@@ -37,6 +40,7 @@ Components that group and organize related content.
 - [Glass Command](/components/containment/glass-command) - Command interfaces
 
 ### Navigation
+
 Components that help users move through interfaces and content.
 
 - [Glass Navbar](/components/navigation/glass-navbar) - Primary navigation
@@ -45,6 +49,7 @@ Components that help users move through interfaces and content.
 - [Glass Mobile Nav](/components/navigation/glass-mobile-nav) - Mobile navigation
 
 ### Presentation
+
 Components that display information and content to users.
 
 - [Glass Avatar](/components/presentation/glass-avatar) - User representation
@@ -53,12 +58,14 @@ Components that display information and content to users.
 - [Glass Tooltip](/components/presentation/glass-tooltip) - Contextual information
 
 ### Data
+
 Components for displaying and manipulating structured information.
 
 - [Glass Table](/components/data/glass-table) - Tabular data display
 - [Glass Progress](/components/data/glass-progress) - Progress indicators
 
 ### Layout
+
 Structural components that define page and section organization.
 
 - [Glass Responsive Button](/components/layout/glass-responsive-button) - Adaptive buttons
@@ -67,20 +74,26 @@ Structural components that define page and section organization.
 ## Design Principles
 
 ### Liquid Glass Material
+
 All components use Apple's Liquid Glass material, which:
+
 - Adapts to surrounding content intelligently
 - Provides consistent visual hierarchy
 - Maintains accessibility in all lighting conditions
 - Supports both light and dark environments seamlessly
 
 ### Apple Human Interface Guidelines
+
 Every component strictly follows Apple HIG principles:
+
 - **Clarity**: Clear visual communication
 - **Deference**: Content over chrome
 - **Depth**: Realistic layering and motion
 
 ### Accessibility First
+
 Built with comprehensive accessibility support:
+
 - **VoiceOver**: Full screen reader compatibility
 - **Voice Control**: Complete voice navigation
 - **Keyboard Navigation**: Full keyboard accessibility
@@ -88,6 +101,7 @@ Built with comprehensive accessibility support:
 - **Reduced Motion**: Respects user preferences
 
 ### Performance Optimized
+
 - Tree-shakable imports for minimal bundle size
 - Optimized rendering with React 19
 - Efficient animation with GSAP
@@ -95,12 +109,12 @@ Built with comprehensive accessibility support:
 
 ## Interactive Demo
 
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
 export const LiquidifyInteractiveDemo = dynamic(
   () => import('../../components/LiquidifyInteractiveDemo'),
   { ssr: false }
-)
+);
 
 <LiquidifyInteractiveDemo />
 
@@ -115,40 +129,35 @@ npm install liquidify
 ### Basic Usage
 
 ```tsx
-import { GlassButton, GlassCard } from 'liquidify'
+import { GlassButton, GlassCard } from 'liquidify';
 
 export default function App() {
   return (
     <GlassCard>
-      <h1 className="hig-title-1 mb-4">Welcome to Liquidify</h1>
-      <p className="hig-body mb-6">
+      <h1 className='hig-title-1 mb-4'>Welcome to Liquidify</h1>
+      <p className='hig-body mb-6'>
         Experience the future of interface design with Liquid Glass.
       </p>
-      <GlassButton variant="primary">
-        Get Started
-      </GlassButton>
+      <GlassButton variant='primary'>Get Started</GlassButton>
     </GlassCard>
-  )
+  );
 }
 ```
 
 ### Theme Configuration
 
 ```tsx
-import { ThemeProvider } from 'liquidify'
+import { ThemeProvider } from 'liquidify';
 
 export default function RootLayout({ children }) {
-  return (
-    <ThemeProvider>
-      {children}
-    </ThemeProvider>
-  )
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 ```
 
 ## Design Tokens
 
 Liquidify uses Apple's design token system:
+
 - **Colors**: Official Apple system colors
 - **Typography**: SF Pro Display and SF Pro Text fonts
 - **Spacing**: 4pt grid system
@@ -158,18 +167,21 @@ Liquidify uses Apple's design token system:
 ## Platform Support
 
 ### iOS & iPadOS
+
 - Native haptic feedback
 - Dynamic Type support
 - Smart Invert compatibility
 - Context menu integration
 
 ### macOS
+
 - Menu bar integration
 - Keyboard shortcuts
 - Window vibrancy effects
 - Accessibility Inspector support
 
 ### watchOS
+
 - Digital Crown support
 - Haptic feedback
 - Force Touch integration
@@ -184,4 +196,4 @@ Liquidify uses Apple's design token system:
 
 ---
 
-*All components implement Apple's Liquid Glass design language introduced at WWDC 2025.*
+_All components implement Apple's Liquid Glass design language introduced at WWDC 2025._

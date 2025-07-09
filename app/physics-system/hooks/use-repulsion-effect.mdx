@@ -1,0 +1,513 @@
+# useRepulsionEffect
+
+The `useRepulsionEffect` hook creates repulsion forces between elements, pushing them away from each other or from the mouse cursor for dynamic, physics-based interactions.
+
+## Overview
+
+This hook simulates repulsion physics where elements push away from each other or from interaction points like the mouse cursor. It's perfect for creating dynamic layouts, particle-like behaviors, or interactive elements that respond to user presence.
+
+## Import
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+```
+
+## Basic Usage
+
+```typescript
+function RepulsiveElement() {
+  const repulsionRef = useRepulsionEffect();
+
+  return (
+    <div ref={repulsionRef} className="repulsive-element">
+      I push away from the mouse!
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+useRepulsionEffect(options?: RepulsionEffectOptions): RefObject<HTMLElement>
+```
+
+#### RepulsionEffectOptions
+
+```typescript
+interface RepulsionEffectOptions {
+  strength?: number; // Repulsion strength (default: 0.5)
+  distance?: number; // Activation distance in pixels (default: 150)
+  restoreSpeed?: number; // Speed of returning to rest (default: 0.3)
+  spring?: SpringOptions; // Spring physics configuration
+  mode?: 'mouse' | 'elements' | 'both'; // Repulsion mode (default: 'mouse')
+  boundary?: BoundaryOptions; // Boundary constraints
+  disabled?: boolean; // Disable the effect (default: false)
+}
+```
+
+#### BoundaryOptions
+
+```typescript
+interface BoundaryOptions {
+  enabled?: boolean; // Enable boundary constraints (default: false)
+  padding?: number; // Padding from viewport edges (default: 50)
+  elastic?: boolean; // Elastic boundary collision (default: true)
+}
+```
+
+### Return Value
+
+Returns a `RefObject<HTMLElement>` that should be attached to the target element.
+
+## Examples
+
+### Basic Mouse Repulsion
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+
+function MouseRepulsionDemo() {
+  const repulsionRef = useRepulsionEffect({
+    strength: 0.4,
+    distance: 120
+  });
+
+  return (
+    <div className="w-full h-64 bg-gray-100 relative">
+      <div
+        ref={repulsionRef}
+        className="absolute top-1/2 left-1/2 w-12 h-12 bg-blue-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+      />
+      <p className="absolute bottom-4 left-4 text-sm text-gray-600">
+        Move your mouse around to repel the circle
+      </p>
+    </div>
+  );
+}
+```
+
+### Multiple Repulsive Elements
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+
+function RepulsiveGrid() {
+  const elements = Array.from({ length: 12 }, (_, i) => ({
+    id: i,
+    x: (i % 4) * 100 + 50,
+    y: Math.floor(i / 4) * 100 + 50,
+    color: `hsl(${i * 30}, 70%, 50%)`
+  }));
+
+  return (
+    <div className="w-full h-96 bg-gray-100 relative">
+      {elements.map((element) => {
+        const repulsionRef = useRepulsionEffect({
+          strength: 0.3,
+          distance: 100,
+          mode: 'both' // Repel from mouse AND other elements
+        });
+
+        return (
+          <div
+            key={element.id}
+            ref={repulsionRef}
+            className="absolute w-8 h-8 rounded-full"
+            style={{
+              left: element.x,
+              top: element.y,
+              backgroundColor: element.color
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+```
+
+### Boundary Constraints
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+
+function BoundedRepulsion() {
+  const repulsionRef = useRepulsionEffect({
+    strength: 0.5,
+    distance: 150,
+    boundary: {
+      enabled: true,
+      padding: 20,
+      elastic: true
+    }
+  });
+
+  return (
+    <div className="w-full h-64 bg-gray-100 relative border-2 border-dashed border-gray-400">
+      <div
+        ref={repulsionRef}
+        className="absolute top-1/2 left-1/2 w-16 h-16 bg-red-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+      />
+      <p className="absolute bottom-4 left-4 text-sm text-gray-600">
+        Element stays within boundaries
+      </p>
+    </div>
+  );
+}
+```
+
+### Custom Spring Configuration
+
+```typescript
+import { useRepulsionEffect, SPRING_PRESETS } from 'liquidify';
+
+function SpringyRepulsion() {
+  const repulsionRef = useRepulsionEffect({
+    strength: 0.6,
+    distance: 120,
+    spring: SPRING_PRESETS.bouncy,
+    restoreSpeed: 0.4
+  });
+
+  return (
+    <div className="w-full h-64 bg-gray-100 relative">
+      <div
+        ref={repulsionRef}
+        className="absolute top-1/2 left-1/2 w-12 h-12 bg-purple-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
+      />
+      <p className="absolute bottom-4 left-4 text-sm text-gray-600">
+        Bouncy spring repulsion
+      </p>
+    </div>
+  );
+}
+```
+
+### Interactive Particle System
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+import { useState, useEffect } from 'react';
+
+function ParticleSystem() {
+  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number }>>([]);
+
+  // Generate random particles
+  useEffect(() => {
+    const newParticles = Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 400,
+      y: Math.random() * 300
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  return (
+    <div className="w-full h-96 bg-black relative overflow-hidden">
+      {particles.map((particle) => {
+        const repulsionRef = useRepulsionEffect({
+          strength: 0.4,
+          distance: 80,
+          mode: 'both',
+          spring: {
+            stiffness: 120,
+            damping: 8,
+            mass: 1
+          }
+        });
+
+        return (
+          <div
+            key={particle.id}
+            ref={repulsionRef}
+            className="absolute w-2 h-2 bg-white rounded-full"
+            style={{
+              left: particle.x,
+              top: particle.y,
+              boxShadow: '0 0 10px rgba(255, 255, 255, 0.8)'
+            }}
+          />
+        );
+      })}
+      <p className="absolute bottom-4 left-4 text-sm text-white">
+        Interactive particle system
+      </p>
+    </div>
+  );
+}
+```
+
+### Repulsive Navigation
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+
+function RepulsiveNavigation() {
+  const menuItems = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Contact', href: '/contact' }
+  ];
+
+  return (
+    <nav className="flex justify-center items-center space-x-8 h-20 bg-gray-100">
+      {menuItems.map((item) => {
+        const repulsionRef = useRepulsionEffect({
+          strength: 0.3,
+          distance: 100,
+          mode: 'mouse'
+        });
+
+        return (
+          <a
+            key={item.label}
+            ref={repulsionRef}
+            href={item.href}
+            className="px-4 py-2 text-gray-700 hover:text-blue-500 transition-colors duration-200"
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+```
+
+## Advanced Usage
+
+### Dynamic Repulsion Groups
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+import { useState } from 'react';
+
+function DynamicRepulsionGroups() {
+  const [activeGroup, setActiveGroup] = useState<'red' | 'blue' | 'both'>('both');
+
+  const redElements = Array.from({ length: 6 }, (_, i) => ({ id: `red-${i}`, color: 'red' }));
+  const blueElements = Array.from({ length: 6 }, (_, i) => ({ id: `blue-${i}`, color: 'blue' }));
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <button
+          onClick={() => setActiveGroup('red')}
+          className={`px-4 py-2 rounded ${activeGroup === 'red' ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
+        >
+          Red Group
+        </button>
+        <button
+          onClick={() => setActiveGroup('blue')}
+          className={`px-4 py-2 rounded ${activeGroup === 'blue' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          Blue Group
+        </button>
+        <button
+          onClick={() => setActiveGroup('both')}
+          className={`px-4 py-2 rounded ${activeGroup === 'both' ? 'bg-purple-500 text-white' : 'bg-gray-200'}`}
+        >
+          Both Groups
+        </button>
+      </div>
+
+      <div className="w-full h-64 bg-gray-100 relative">
+        {redElements.map((element) => {
+          const repulsionRef = useRepulsionEffect({
+            strength: 0.4,
+            distance: 120,
+            disabled: activeGroup === 'blue'
+          });
+
+          return (
+            <div
+              key={element.id}
+              ref={repulsionRef}
+              className="absolute w-4 h-4 bg-red-500 rounded-full"
+              style={{
+                left: Math.random() * 300,
+                top: Math.random() * 200
+              }}
+            />
+          );
+        })}
+
+        {blueElements.map((element) => {
+          const repulsionRef = useRepulsionEffect({
+            strength: 0.4,
+            distance: 120,
+            disabled: activeGroup === 'red'
+          });
+
+          return (
+            <div
+              key={element.id}
+              ref={repulsionRef}
+              className="absolute w-4 h-4 bg-blue-500 rounded-full"
+              style={{
+                left: Math.random() * 300,
+                top: Math.random() * 200
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+```
+
+### Performance Optimization
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+import { useMemo } from 'react';
+
+function OptimizedRepulsion({ count = 50 }: { count?: number }) {
+  // Memoize repulsion configuration
+  const repulsionConfig = useMemo(() => ({
+    strength: 0.3,
+    distance: 100,
+    mode: 'both' as const,
+    spring: {
+      stiffness: 100,
+      damping: 12,
+      mass: 1
+    }
+  }), []);
+
+  // Generate particles with memoization
+  const particles = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      id: i,
+      x: Math.random() * 400,
+      y: Math.random() * 300
+    })), [count]
+  );
+
+  return (
+    <div className="w-full h-96 bg-gray-100 relative">
+      {particles.map((particle) => {
+        const repulsionRef = useRepulsionEffect(repulsionConfig);
+
+        return (
+          <div
+            key={particle.id}
+            ref={repulsionRef}
+            className="absolute w-2 h-2 bg-blue-500 rounded-full"
+            style={{
+              left: particle.x,
+              top: particle.y
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+```
+
+## Configuration Guide
+
+### Strength Values
+
+- **0.1 - 0.3**: Subtle repulsion
+- **0.3 - 0.5**: Moderate repulsion
+- **0.5 - 0.8**: Strong repulsion
+- **0.8+**: Very strong repulsion
+
+### Distance Values
+
+- **50-100px**: Close-range repulsion
+- **100-150px**: Medium-range repulsion
+- **150-250px**: Long-range repulsion
+
+### Mode Options
+
+- **'mouse'**: Repel only from mouse cursor
+- **'elements'**: Repel only from other elements
+- **'both'**: Repel from both mouse and elements
+
+## Best Practices
+
+1. **Start with moderate values**: Begin with strength 0.3-0.5 and distance 100-150px
+2. **Consider performance**: Limit the number of repulsive elements
+3. **Use boundaries**: Prevent elements from escaping the viewport
+4. **Test interactions**: Ensure repulsion feels natural, not jarring
+5. **Provide fallbacks**: Consider reduced motion preferences
+
+## CSS Integration
+
+```css
+.repulsive-element {
+  transition: box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.repulsive-element:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Optimize for animations */
+.repulsive-element {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+```
+
+## Accessibility
+
+```typescript
+import { useRepulsionEffect } from 'liquidify';
+
+function AccessibleRepulsion() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const repulsionRef = useRepulsionEffect({
+    disabled: prefersReducedMotion,
+    strength: 0.4,
+    distance: 120
+  });
+
+  return (
+    <div
+      ref={repulsionRef}
+      className="repulsive-element"
+      role="button"
+      tabIndex={0}
+      aria-label="Interactive repulsive element"
+    >
+      Accessible repulsion
+    </div>
+  );
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Elements don't repel**: Check if the ref is properly attached
+2. **Jerky movement**: Reduce spring stiffness or increase damping
+3. **Performance issues**: Reduce element count or activation distance
+4. **Elements stuck**: Ensure boundary constraints aren't too restrictive
+
+### Debug Tips
+
+```typescript
+const repulsionRef = useRepulsionEffect({
+  strength: 0.4,
+  distance: 120,
+  debug: true, // Enable debug logging
+});
+```
+
+## Related
+
+- [useMagneticHover](/physics-system/hooks/use-magnetic-hover) - Opposite attraction effect
+- [Spring2D](/physics-system/core-classes/spring2d) - The underlying physics system
+- [Vector2D](/physics-system/core-classes/vector2d) - Used for position calculations

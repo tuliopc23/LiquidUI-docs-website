@@ -9,28 +9,34 @@ GlassTable provides a comprehensive solution for displaying structured data with
 ## Basic Usage
 
 ```tsx
-import { GlassTable } from '@liquidify/ui'
+import { GlassTable } from '@liquidify/ui';
 
 function BasicTable() {
   const columns = [
     { key: 'name', label: 'Name', sortable: true },
     { key: 'email', label: 'Email', sortable: true },
     { key: 'role', label: 'Role' },
-    { key: 'status', label: 'Status' }
-  ]
+    { key: 'status', label: 'Status' },
+  ];
 
   const data = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'Active' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'Active' }
-  ]
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'Admin',
+      status: 'Active',
+    },
+    {
+      id: 2,
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'User',
+      status: 'Active',
+    },
+  ];
 
-  return (
-    <GlassTable
-      columns={columns}
-      data={data}
-      keyField="id"
-    />
-  )
+  return <GlassTable columns={columns} data={data} keyField='id' />;
 }
 ```
 
@@ -38,29 +44,29 @@ function BasicTable() {
 
 ### GlassTable Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `columns` | `TableColumn[]` | - | Column definitions |
-| `data` | `any[]` | - | Table data |
-| `keyField` | `string` | `'id'` | Unique identifier field |
-| `sortable` | `boolean` | `true` | Enable column sorting |
-| `filterable` | `boolean` | `false` | Enable filtering |
-| `selectable` | `boolean` | `false` | Enable row selection |
-| `pagination` | `boolean \| PaginationConfig` | `false` | Enable pagination |
-| `loading` | `boolean` | `false` | Show loading state |
-| `empty` | `React.ReactNode` | - | Empty state content |
+| Prop         | Type                          | Default | Description             |
+| ------------ | ----------------------------- | ------- | ----------------------- |
+| `columns`    | `TableColumn[]`               | -       | Column definitions      |
+| `data`       | `any[]`                       | -       | Table data              |
+| `keyField`   | `string`                      | `'id'`  | Unique identifier field |
+| `sortable`   | `boolean`                     | `true`  | Enable column sorting   |
+| `filterable` | `boolean`                     | `false` | Enable filtering        |
+| `selectable` | `boolean`                     | `false` | Enable row selection    |
+| `pagination` | `boolean \| PaginationConfig` | `false` | Enable pagination       |
+| `loading`    | `boolean`                     | `false` | Show loading state      |
+| `empty`      | `React.ReactNode`             | -       | Empty state content     |
 
 ### TableColumn Interface
 
 ```typescript
 interface TableColumn {
-  key: string
-  label: string
-  sortable?: boolean
-  filterable?: boolean
-  width?: string | number
-  align?: 'left' | 'center' | 'right'
-  render?: (value: any, row: any) => React.ReactNode
+  key: string;
+  label: string;
+  sortable?: boolean;
+  filterable?: boolean;
+  width?: string | number;
+  align?: 'left' | 'center' | 'right';
+  render?: (value: any, row: any) => React.ReactNode;
 }
 ```
 
@@ -72,7 +78,7 @@ interface TableColumn {
 <GlassTable
   columns={[
     { key: 'name', label: 'Name', sortable: true },
-    { key: 'date', label: 'Date', sortable: true }
+    { key: 'date', label: 'Date', sortable: true },
   ]}
   data={data}
   defaultSort={{ column: 'name', direction: 'asc' }}
@@ -86,7 +92,7 @@ interface TableColumn {
   columns={columns}
   data={data}
   selectable={true}
-  onSelectionChange={(selectedRows) => console.log(selectedRows)}
+  onSelectionChange={selectedRows => console.log(selectedRows)}
 />
 ```
 
@@ -95,16 +101,16 @@ interface TableColumn {
 ```tsx
 const columns = [
   { key: 'name', label: 'Name' },
-  { 
-    key: 'status', 
+  {
+    key: 'status',
     label: 'Status',
-    render: (value) => (
+    render: value => (
       <GlassBadge variant={value === 'Active' ? 'success' : 'warning'}>
         {value}
       </GlassBadge>
-    )
-  }
-]
+    ),
+  },
+];
 ```
 
 ### Pagination
@@ -116,7 +122,7 @@ const columns = [
   pagination={{
     pageSize: 10,
     showSizeChanger: true,
-    showInfo: true
+    showInfo: true,
   }}
 />
 ```
@@ -132,12 +138,12 @@ const columns = [
 
 ### Keyboard Navigation
 
-| Key | Action |
-|-----|--------|
-| `Tab` | Navigate between interactive elements |
-| `Space` | Select/deselect row |
-| `Enter` | Activate sort or action |
-| `Arrow Keys` | Navigate table cells |
+| Key          | Action                                |
+| ------------ | ------------------------------------- |
+| `Tab`        | Navigate between interactive elements |
+| `Space`      | Select/deselect row                   |
+| `Enter`      | Activate sort or action               |
+| `Arrow Keys` | Navigate table cells                  |
 
 ## Best Practices
 
@@ -156,4 +162,4 @@ const columns = [
 
 ---
 
-*GlassTable provides a comprehensive solution for data display with excellent performance and accessibility.*
+_GlassTable provides a comprehensive solution for data display with excellent performance and accessibility._

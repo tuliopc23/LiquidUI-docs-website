@@ -15,40 +15,37 @@ npm install liquidify
 ## Basic Usage
 
 ```tsx
-import { GlassFloatingAction } from 'liquidify'
-import { Plus } from 'lucide-react'
+import { GlassFloatingAction } from 'liquidify';
+import { Plus } from 'lucide-react';
 
 function App() {
   return (
-    <GlassFloatingAction 
-      position="bottom-right"
-      onClick={() => createNew()}
-    >
+    <GlassFloatingAction position='bottom-right' onClick={() => createNew()}>
       <Plus size={24} />
     </GlassFloatingAction>
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-import { useState } from 'react'
-import { GlassFloatingAction } from 'liquidify'
-import { Plus, Edit, Share, Download } from 'lucide-react'
+import { useState } from 'react';
+import { GlassFloatingAction } from 'liquidify';
+import { Plus, Edit, Share, Download } from 'lucide-react';
 
 export default function FloatingActionDemo() {
-  const [extended, setExtended] = useState(false)
-  const [position, setPosition] = useState('bottom-right')
+  const [extended, setExtended] = useState(false);
+  const [position, setPosition] = useState('bottom-right');
 
   return (
-    <div className="space-y-8 p-6 min-h-screen relative">
+    <div className='space-y-8 p-6 min-h-screen relative'>
       {/* Basic FAB */}
       <section>
-        <h3 className="hig-title-3 mb-4">Basic Floating Action</h3>
-        <div className="relative h-64 bg-glass-tertiary rounded-xl overflow-hidden">
-          <GlassFloatingAction 
-            position="bottom-right"
+        <h3 className='hig-title-3 mb-4'>Basic Floating Action</h3>
+        <div className='relative h-64 bg-glass-tertiary rounded-xl overflow-hidden'>
+          <GlassFloatingAction
+            position='bottom-right'
             onClick={() => alert('Create new item')}
           >
             <Plus size={24} />
@@ -58,10 +55,10 @@ export default function FloatingActionDemo() {
 
       {/* Extended FAB */}
       <section>
-        <h3 className="hig-title-3 mb-4">Extended Floating Action</h3>
-        <div className="relative h-64 bg-glass-tertiary rounded-xl overflow-hidden">
-          <GlassFloatingAction 
-            position="bottom-right"
+        <h3 className='hig-title-3 mb-4'>Extended Floating Action</h3>
+        <div className='relative h-64 bg-glass-tertiary rounded-xl overflow-hidden'>
+          <GlassFloatingAction
+            position='bottom-right'
             extended
             onClick={() => alert('Compose message')}
           >
@@ -73,29 +70,29 @@ export default function FloatingActionDemo() {
 
       {/* Different Positions */}
       <section>
-        <h3 className="hig-title-3 mb-4">Positions</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="relative h-48 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-4 text-sm text-secondary">Top Left</p>
-            <GlassFloatingAction position="top-left">
+        <h3 className='hig-title-3 mb-4'>Positions</h3>
+        <div className='grid grid-cols-2 gap-4'>
+          <div className='relative h-48 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-4 text-sm text-secondary'>Top Left</p>
+            <GlassFloatingAction position='top-left'>
               <Share size={20} />
             </GlassFloatingAction>
           </div>
-          <div className="relative h-48 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-4 text-sm text-secondary">Top Right</p>
-            <GlassFloatingAction position="top-right">
+          <div className='relative h-48 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-4 text-sm text-secondary'>Top Right</p>
+            <GlassFloatingAction position='top-right'>
               <Download size={20} />
             </GlassFloatingAction>
           </div>
-          <div className="relative h-48 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-4 text-sm text-secondary">Bottom Left</p>
-            <GlassFloatingAction position="bottom-left">
+          <div className='relative h-48 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-4 text-sm text-secondary'>Bottom Left</p>
+            <GlassFloatingAction position='bottom-left'>
               <Edit size={20} />
             </GlassFloatingAction>
           </div>
-          <div className="relative h-48 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-4 text-sm text-secondary">Bottom Right</p>
-            <GlassFloatingAction position="bottom-right">
+          <div className='relative h-48 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-4 text-sm text-secondary'>Bottom Right</p>
+            <GlassFloatingAction position='bottom-right'>
               <Plus size={20} />
             </GlassFloatingAction>
           </div>
@@ -104,30 +101,30 @@ export default function FloatingActionDemo() {
 
       {/* Sizes */}
       <section>
-        <h3 className="hig-title-3 mb-4">Sizes</h3>
-        <div className="flex gap-4 items-end">
-          <div className="relative h-32 w-32 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-2 text-xs text-secondary">Small</p>
-            <GlassFloatingAction size="sm" position="bottom-right">
+        <h3 className='hig-title-3 mb-4'>Sizes</h3>
+        <div className='flex gap-4 items-end'>
+          <div className='relative h-32 w-32 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-2 text-xs text-secondary'>Small</p>
+            <GlassFloatingAction size='sm' position='bottom-right'>
               <Plus size={16} />
             </GlassFloatingAction>
           </div>
-          <div className="relative h-40 w-40 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-3 text-sm text-secondary">Medium</p>
-            <GlassFloatingAction size="md" position="bottom-right">
+          <div className='relative h-40 w-40 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-3 text-sm text-secondary'>Medium</p>
+            <GlassFloatingAction size='md' position='bottom-right'>
               <Plus size={20} />
             </GlassFloatingAction>
           </div>
-          <div className="relative h-48 w-48 bg-glass-tertiary rounded-xl overflow-hidden">
-            <p className="p-4 text-base text-secondary">Large</p>
-            <GlassFloatingAction size="lg" position="bottom-right">
+          <div className='relative h-48 w-48 bg-glass-tertiary rounded-xl overflow-hidden'>
+            <p className='p-4 text-base text-secondary'>Large</p>
+            <GlassFloatingAction size='lg' position='bottom-right'>
               <Plus size={24} />
             </GlassFloatingAction>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -135,46 +132,45 @@ export default function FloatingActionDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `position` | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'bottom-right'` | Position on screen |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
-| `extended` | `boolean` | `false` | Shows text label alongside icon |
-| `variant` | `'primary' \| 'secondary'` | `'primary'` | Visual style variant |
-| `disabled` | `boolean` | `false` | Disables interaction |
-| `loading` | `boolean` | `false` | Shows loading spinner |
-| `onClick` | `() => void` | - | Click handler |
-| `children` | `ReactNode` | - | Icon and optional text content |
-| `className` | `string` | - | Additional CSS classes |
+| Prop        | Type                                                           | Default          | Description                     |
+| ----------- | -------------------------------------------------------------- | ---------------- | ------------------------------- |
+| `position`  | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'bottom-right'` | Position on screen              |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                         | `'md'`           | Button size                     |
+| `extended`  | `boolean`                                                      | `false`          | Shows text label alongside icon |
+| `variant`   | `'primary' \| 'secondary'`                                     | `'primary'`      | Visual style variant            |
+| `disabled`  | `boolean`                                                      | `false`          | Disables interaction            |
+| `loading`   | `boolean`                                                      | `false`          | Shows loading spinner           |
+| `onClick`   | `() => void`                                                   | -                | Click handler                   |
+| `children`  | `ReactNode`                                                    | -                | Icon and optional text content  |
+| `className` | `string`                                                       | -                | Additional CSS classes          |
 
 ### Size Specifications
 
 | Size | Dimensions | Icon Size | Extended Width |
-|------|------------|-----------|----------------|
-| `sm` | 40×40px | 16px | Auto |
-| `md` | 56×56px | 20px | Auto |
-| `lg` | 72×72px | 24px | Auto |
+| ---- | ---------- | --------- | -------------- |
+| `sm` | 40×40px    | 16px      | Auto           |
+| `md` | 56×56px    | 20px      | Auto           |
+| `lg` | 72×72px    | 24px      | Auto           |
 
 ## Usage Patterns
 
 ### Primary Actions
+
 Use for the most important action on a screen:
 
 ```tsx
-<GlassFloatingAction 
-  position="bottom-right"
-  onClick={() => createNewPost()}
->
+<GlassFloatingAction position='bottom-right' onClick={() => createNewPost()}>
   <Plus size={24} />
 </GlassFloatingAction>
 ```
 
 ### Extended Labels
+
 Show action text for clarity:
 
 ```tsx
-<GlassFloatingAction 
-  position="bottom-right"
+<GlassFloatingAction
+  position='bottom-right'
   extended
   onClick={() => composeMessage()}
 >
@@ -184,11 +180,12 @@ Show action text for clarity:
 ```
 
 ### Contextual Actions
+
 Adapt to different screen contexts:
 
 ```tsx
 // Chat screen
-<GlassFloatingAction 
+<GlassFloatingAction
   position="bottom-right"
   extended
 >
@@ -197,7 +194,7 @@ Adapt to different screen contexts:
 </GlassFloatingAction>
 
 // Gallery screen
-<GlassFloatingAction 
+<GlassFloatingAction
   position="bottom-right"
 >
   <Camera size={24} />
@@ -210,10 +207,7 @@ The component automatically adjusts for different screen sizes:
 
 ```tsx
 // Automatically collapses on mobile
-<GlassFloatingAction 
-  extended
-  position="bottom-right"
->
+<GlassFloatingAction extended position='bottom-right'>
   <Plus size={24} />
   Create New
 </GlassFloatingAction>
@@ -222,18 +216,17 @@ The component automatically adjusts for different screen sizes:
 ## Accessibility
 
 ### VoiceOver Support
+
 Proper labeling for screen readers:
 
 ```tsx
-<GlassFloatingAction 
-  aria-label="Create new post"
-  position="bottom-right"
->
+<GlassFloatingAction aria-label='Create new post' position='bottom-right'>
   <Plus size={24} />
 </GlassFloatingAction>
 ```
 
 ### Keyboard Navigation
+
 Full keyboard support:
 
 - **Tab**: Focus the button
@@ -241,6 +234,7 @@ Full keyboard support:
 - **Escape**: Dismiss any open menus
 
 ### Voice Control
+
 Works with voice commands:
 
 ```tsx
@@ -254,24 +248,23 @@ Works with voice commands:
 ## Animation & Performance
 
 ### Smooth Entrance
+
 GSAP-powered entrance animations:
 
 ```tsx
-<GlassFloatingAction 
-  position="bottom-right"
-  animateIn="scale"
->
+<GlassFloatingAction position='bottom-right' animateIn='scale'>
   <Plus size={24} />
 </GlassFloatingAction>
 ```
 
 ### Morphing States
+
 Smooth transitions between states:
 
 ```tsx
 const [extended, setExtended] = useState(false)
 
-<GlassFloatingAction 
+<GlassFloatingAction
   extended={extended}
   onHover={() => setExtended(true)}
   onLeave={() => setExtended(false)}
@@ -292,10 +285,7 @@ const [extended, setExtended] = useState(false)
 
 ```tsx
 // ✅ Good - Clear primary action
-<GlassFloatingAction 
-  position="bottom-right"
-  aria-label="Add new contact"
->
+<GlassFloatingAction position='bottom-right' aria-label='Add new contact'>
   <Plus size={24} />
 </GlassFloatingAction>
 ```
@@ -319,24 +309,23 @@ const [extended, setExtended] = useState(false)
 ## Platform Integration
 
 ### iOS & iPadOS
+
 Natural integration with iOS patterns:
 
 ```tsx
-<GlassFloatingAction 
-  position="bottom-right"
-  hapticFeedback="medium"
->
+<GlassFloatingAction position='bottom-right' hapticFeedback='medium'>
   <Plus size={24} />
 </GlassFloatingAction>
 ```
 
 ### macOS
+
 Desktop-optimized behavior:
 
 ```tsx
-<GlassFloatingAction 
-  position="bottom-right"
-  showTooltip="Create new document (⌘N)"
+<GlassFloatingAction
+  position='bottom-right'
+  showTooltip='Create new document (⌘N)'
 >
   <Plus size={24} />
 </GlassFloatingAction>
@@ -350,4 +339,4 @@ Desktop-optimized behavior:
 
 ---
 
-*Floating Action Buttons provide prominent, accessible primary actions while maintaining the elegant Liquid Glass aesthetic throughout your application.*
+_Floating Action Buttons provide prominent, accessible primary actions while maintaining the elegant Liquid Glass aesthetic throughout your application._

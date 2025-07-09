@@ -10,7 +10,8 @@ export interface ChartDataPoint {
   color?: string;
 }
 
-export interface GlassChartProps extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassChartProps
+  extends Omit<GlassEffectProps, 'variant' | 'as'> {
   data: ChartDataPoint[];
   type?: 'bar' | 'line' | 'pie' | 'donut';
   title?: string;
@@ -35,17 +36,24 @@ const GlassChart: React.FC<GlassChartProps> = ({
   ...props
 }) => {
   const maxValue = Math.max(...data.map(d => d.value));
-  const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#F97316'];
+  const colors = [
+    '#3B82F6',
+    '#10B981',
+    '#F59E0B',
+    '#EF4444',
+    '#8B5CF6',
+    '#F97316',
+  ];
 
   const getBarChart = () => {
     const barWidth = (width - 80) / data.length;
     const chartHeight = height - 100;
 
     return (
-      <svg width={width} height={height} className="text-white">
+      <svg width={width} height={height} className='text-white'>
         {/* Grid lines */}
         {showGrid && (
-          <g className="opacity-30">
+          <g className='opacity-30'>
             {[0, 0.25, 0.5, 0.75, 1].map((ratio, index) => (
               <line
                 key={index}
@@ -53,9 +61,9 @@ const GlassChart: React.FC<GlassChartProps> = ({
                 y1={50 + chartHeight * ratio}
                 x2={width - 40}
                 y2={50 + chartHeight * ratio}
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeDasharray="2,2"
+                stroke='currentColor'
+                strokeWidth='1'
+                strokeDasharray='2,2'
               />
             ))}
           </g>
@@ -77,15 +85,15 @@ const GlassChart: React.FC<GlassChartProps> = ({
                 height={barHeight}
                 fill={color}
                 className={cn('opacity-80', animated && 'animate-pulse')}
-                rx="4"
+                rx='4'
               />
               <text
                 x={x + (barWidth * 0.8) / 2}
                 y={height - 30}
-                textAnchor="middle"
-                fontSize="12"
-                fill="currentColor"
-                className="opacity-70"
+                textAnchor='middle'
+                fontSize='12'
+                fill='currentColor'
+                className='opacity-70'
               >
                 {item.label}
               </text>
@@ -99,10 +107,10 @@ const GlassChart: React.FC<GlassChartProps> = ({
             key={index}
             x={35}
             y={55 + chartHeight * ratio}
-            textAnchor="end"
-            fontSize="10"
-            fill="currentColor"
-            className="opacity-70"
+            textAnchor='end'
+            fontSize='10'
+            fill='currentColor'
+            className='opacity-70'
           >
             {Math.round(maxValue * (1 - ratio))}
           </text>
@@ -126,10 +134,10 @@ const GlassChart: React.FC<GlassChartProps> = ({
     }, '');
 
     return (
-      <svg width={width} height={height} className="text-white">
+      <svg width={width} height={height} className='text-white'>
         {/* Grid lines */}
         {showGrid && (
-          <g className="opacity-30">
+          <g className='opacity-30'>
             {[0, 0.25, 0.5, 0.75, 1].map((ratio, index) => (
               <line
                 key={index}
@@ -137,9 +145,9 @@ const GlassChart: React.FC<GlassChartProps> = ({
                 y1={50 + chartHeight * ratio}
                 x2={width - 40}
                 y2={50 + chartHeight * ratio}
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeDasharray="2,2"
+                stroke='currentColor'
+                strokeWidth='1'
+                strokeDasharray='2,2'
               />
             ))}
           </g>
@@ -148,9 +156,9 @@ const GlassChart: React.FC<GlassChartProps> = ({
         {/* Line */}
         <path
           d={pathData}
-          stroke="#3B82F6"
-          strokeWidth="2"
-          fill="none"
+          stroke='#3B82F6'
+          strokeWidth='2'
+          fill='none'
           className={cn('opacity-80', animated && 'animate-pulse')}
         />
 
@@ -160,9 +168,9 @@ const GlassChart: React.FC<GlassChartProps> = ({
             key={index}
             cx={point.x}
             cy={point.y}
-            r="4"
-            fill="#3B82F6"
-            className="opacity-80"
+            r='4'
+            fill='#3B82F6'
+            className='opacity-80'
           />
         ))}
 
@@ -172,10 +180,10 @@ const GlassChart: React.FC<GlassChartProps> = ({
             key={index}
             x={points[index].x}
             y={height - 30}
-            textAnchor="middle"
-            fontSize="12"
-            fill="currentColor"
-            className="opacity-70"
+            textAnchor='middle'
+            fontSize='12'
+            fill='currentColor'
+            className='opacity-70'
           >
             {item.label}
           </text>
@@ -191,24 +199,24 @@ const GlassChart: React.FC<GlassChartProps> = ({
     const total = data.reduce((sum, item) => sum + item.value, 0);
 
     let currentAngle = -Math.PI / 2;
-    
+
     return (
-      <svg width={width} height={height} className="text-white">
+      <svg width={width} height={height} className='text-white'>
         {data.map((item, index) => {
           const angle = (item.value / total) * 2 * Math.PI;
           const x1 = centerX + radius * Math.cos(currentAngle);
           const y1 = centerY + radius * Math.sin(currentAngle);
           const x2 = centerX + radius * Math.cos(currentAngle + angle);
           const y2 = centerY + radius * Math.sin(currentAngle + angle);
-          
+
           const largeArcFlag = angle > Math.PI ? 1 : 0;
           const color = item.color || colors[index % colors.length];
-          
+
           const pathData = [
             `M ${centerX} ${centerY}`,
             `L ${x1} ${y1}`,
             `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
-            'Z'
+            'Z',
           ].join(' ');
 
           currentAngle += angle;
@@ -244,42 +252,32 @@ const GlassChart: React.FC<GlassChartProps> = ({
     if (!showLegend) return null;
 
     return (
-      <div className="mt-4 flex flex-wrap gap-4">
+      <div className='mt-4 flex flex-wrap gap-4'>
         {data.map((item, index) => (
-          <div key={index} className="flex items-center space-x-2">
+          <div key={index} className='flex items-center space-x-2'>
             <div
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: item.color || colors[index % colors.length] }}
+              className='w-3 h-3 rounded-full'
+              style={{
+                backgroundColor: item.color || colors[index % colors.length],
+              }}
             />
-            <span className="text-sm text-white/90">{item.label}</span>
+            <span className='text-sm text-white/90'>{item.label}</span>
           </div>
         ))}
       </div>
     );
   };
 
-  const baseClasses = cn(
-    'p-6 rounded-lg',
-    'backdrop-blur-xl',
-    className
-  );
+  const baseClasses = cn('p-6 rounded-lg', 'backdrop-blur-xl', className);
 
   return (
-    <GlassEffect
-      variant="card"
-      className={baseClasses}
-      {...props}
-    >
+    <GlassEffect variant='card' className={baseClasses} {...props}>
       {title && (
-        <h3 className="text-lg font-semibold text-white mb-4">
-          {title}
-        </h3>
+        <h3 className='text-lg font-semibold text-white mb-4'>{title}</h3>
       )}
-      
-      <div className="flex justify-center">
-        {renderChart()}
-      </div>
-      
+
+      <div className='flex justify-center'>{renderChart()}</div>
+
       {renderLegend()}
     </GlassEffect>
   );

@@ -9,84 +9,90 @@ The `GlassCheckbox` component provides an accessible checkbox input with smooth 
 ## Basic Usage
 
 ```tsx
-import { GlassCheckbox } from 'liquidify'
+import { GlassCheckbox } from 'liquidify';
 
 function App() {
-  const [checked, setChecked] = useState(false)
+  const [checked, setChecked] = useState(false);
 
   return (
-    <GlassCheckbox 
+    <GlassCheckbox
       checked={checked}
       onChange={setChecked}
-      label="Subscribe to newsletter"
+      label='Subscribe to newsletter'
     />
-  )
+  );
 }
 ```
 
 ## Interactive Demo
 
 ```tsx
-import { useState } from 'react'
-import { GlassCheckbox } from 'liquidify'
+import { useState } from 'react';
+import { GlassCheckbox } from 'liquidify';
 
 export default function CheckboxDemo() {
-  const [single, setSingle] = useState(false)
+  const [single, setSingle] = useState(false);
   const [items, setItems] = useState({
     option1: false,
     option2: true,
-    option3: false
-  })
+    option3: false,
+  });
 
-  const allChecked = Object.values(items).every(Boolean)
-  const isIndeterminate = Object.values(items).some(Boolean) && !allChecked
+  const allChecked = Object.values(items).every(Boolean);
+  const isIndeterminate = Object.values(items).some(Boolean) && !allChecked;
 
-  const handleSelectAll = (checked) => {
+  const handleSelectAll = checked => {
     setItems({
       option1: checked,
       option2: checked,
-      option3: checked
-    })
-  }
+      option3: checked,
+    });
+  };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className='space-y-6 p-6'>
       {/* Basic Checkbox */}
       <section>
-        <h3 className="hig-title-3 mb-4">Basic Checkbox</h3>
-        <GlassCheckbox 
+        <h3 className='hig-title-3 mb-4'>Basic Checkbox</h3>
+        <GlassCheckbox
           checked={single}
           onChange={setSingle}
-          label="Enable notifications"
+          label='Enable notifications'
         />
       </section>
 
       {/* Indeterminate State */}
       <section>
-        <h3 className="hig-title-3 mb-4">Select All with Indeterminate</h3>
-        <div className="space-y-3">
-          <GlassCheckbox 
+        <h3 className='hig-title-3 mb-4'>Select All with Indeterminate</h3>
+        <div className='space-y-3'>
+          <GlassCheckbox
             checked={allChecked}
             indeterminate={isIndeterminate}
             onChange={handleSelectAll}
-            label="Select All"
-            className="font-medium"
+            label='Select All'
+            className='font-medium'
           />
-          <div className="ml-6 space-y-2">
-            <GlassCheckbox 
+          <div className='ml-6 space-y-2'>
+            <GlassCheckbox
               checked={items.option1}
-              onChange={(checked) => setItems(prev => ({ ...prev, option1: checked }))}
-              label="Option 1"
+              onChange={checked =>
+                setItems(prev => ({ ...prev, option1: checked }))
+              }
+              label='Option 1'
             />
-            <GlassCheckbox 
+            <GlassCheckbox
               checked={items.option2}
-              onChange={(checked) => setItems(prev => ({ ...prev, option2: checked }))}
-              label="Option 2"
+              onChange={checked =>
+                setItems(prev => ({ ...prev, option2: checked }))
+              }
+              label='Option 2'
             />
-            <GlassCheckbox 
+            <GlassCheckbox
               checked={items.option3}
-              onChange={(checked) => setItems(prev => ({ ...prev, option3: checked }))}
-              label="Option 3"
+              onChange={checked =>
+                setItems(prev => ({ ...prev, option3: checked }))
+              }
+              label='Option 3'
             />
           </div>
         </div>
@@ -94,24 +100,24 @@ export default function CheckboxDemo() {
 
       {/* Sizes */}
       <section>
-        <h3 className="hig-title-3 mb-4">Sizes</h3>
-        <div className="space-y-3">
-          <GlassCheckbox size="sm" label="Small checkbox" />
-          <GlassCheckbox size="md" label="Medium checkbox" />
-          <GlassCheckbox size="lg" label="Large checkbox" />
+        <h3 className='hig-title-3 mb-4'>Sizes</h3>
+        <div className='space-y-3'>
+          <GlassCheckbox size='sm' label='Small checkbox' />
+          <GlassCheckbox size='md' label='Medium checkbox' />
+          <GlassCheckbox size='lg' label='Large checkbox' />
         </div>
       </section>
 
       {/* Disabled State */}
       <section>
-        <h3 className="hig-title-3 mb-4">Disabled State</h3>
-        <div className="space-y-3">
-          <GlassCheckbox disabled label="Disabled unchecked" />
-          <GlassCheckbox disabled checked label="Disabled checked" />
+        <h3 className='hig-title-3 mb-4'>Disabled State</h3>
+        <div className='space-y-3'>
+          <GlassCheckbox disabled label='Disabled unchecked' />
+          <GlassCheckbox disabled checked label='Disabled checked' />
         </div>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -119,108 +125,115 @@ export default function CheckboxDemo() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `checked` | `boolean` | `false` | Whether the checkbox is checked |
-| `onChange` | `(checked: boolean) => void` | - | Callback when state changes |
-| `label` | `string \| ReactNode` | - | Label text or element |
-| `indeterminate` | `boolean` | `false` | Shows indeterminate state |
-| `disabled` | `boolean` | `false` | Disables the checkbox |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size variant |
-| `id` | `string` | - | HTML id attribute |
-| `name` | `string` | - | HTML name attribute |
-| `className` | `string` | - | Additional CSS classes |
+| Prop            | Type                         | Default | Description                     |
+| --------------- | ---------------------------- | ------- | ------------------------------- |
+| `checked`       | `boolean`                    | `false` | Whether the checkbox is checked |
+| `onChange`      | `(checked: boolean) => void` | -       | Callback when state changes     |
+| `label`         | `string \| ReactNode`        | -       | Label text or element           |
+| `indeterminate` | `boolean`                    | `false` | Shows indeterminate state       |
+| `disabled`      | `boolean`                    | `false` | Disables the checkbox           |
+| `size`          | `'sm' \| 'md' \| 'lg'`       | `'md'`  | Size variant                    |
+| `id`            | `string`                     | -       | HTML id attribute               |
+| `name`          | `string`                     | -       | HTML name attribute             |
+| `className`     | `string`                     | -       | Additional CSS classes          |
 
 ## States
 
 ### Checked State
+
 ```tsx
-<GlassCheckbox checked onChange={setChecked} label="I agree to terms" />
+<GlassCheckbox checked onChange={setChecked} label='I agree to terms' />
 ```
 
 ### Unchecked State
+
 ```tsx
-<GlassCheckbox checked={false} onChange={setChecked} label="Optional feature" />
+<GlassCheckbox checked={false} onChange={setChecked} label='Optional feature' />
 ```
 
 ### Indeterminate State
+
 Used when representing a partial selection (e.g., "Select All" with some items selected):
 
 ```tsx
-<GlassCheckbox 
+<GlassCheckbox
   checked={false}
   indeterminate={true}
   onChange={handleSelectAll}
-  label="Select All"
+  label='Select All'
 />
 ```
 
 ## Form Integration
 
 ### With React Hook Form
+
 ```tsx
-import { useForm, Controller } from 'react-hook-form'
-import { GlassCheckbox } from 'liquidify'
+import { useForm, Controller } from 'react-hook-form';
+import { GlassCheckbox } from 'liquidify';
 
 function FormExample() {
-  const { control, handleSubmit } = useForm()
+  const { control, handleSubmit } = useForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        name="newsletter"
+        name='newsletter'
         control={control}
         render={({ field }) => (
           <GlassCheckbox
             checked={field.value}
             onChange={field.onChange}
-            label="Subscribe to newsletter"
+            label='Subscribe to newsletter'
           />
         )}
       />
     </form>
-  )
+  );
 }
 ```
 
 ### Validation
+
 ```tsx
 function ValidatedCheckbox() {
-  const [agreed, setAgreed] = useState(false)
-  const [error, setError] = useState('')
+  const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = () => {
     if (!agreed) {
-      setError('You must agree to the terms')
-      return
+      setError('You must agree to the terms');
+      return;
     }
-    setError('')
+    setError('');
     // Proceed with submission
-  }
+  };
 
   return (
     <div>
       <GlassCheckbox
         checked={agreed}
         onChange={setAgreed}
-        label="I agree to the terms and conditions"
+        label='I agree to the terms and conditions'
         className={error ? 'border-red-500' : ''}
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className='text-red-500 text-sm mt-1'>{error}</p>}
     </div>
-  )
+  );
 }
 ```
 
 ## Accessibility
 
 ### Keyboard Navigation
+
 - **Space**: Toggle checkbox state
 - **Tab**: Move to next focusable element
 
 ### Screen Reader Support
+
 ```tsx
-<GlassCheckbox 
+<GlassCheckbox
   checked={checked}
   onChange={setChecked}
   label="Enable notifications"
@@ -232,19 +245,21 @@ function ValidatedCheckbox() {
 ```
 
 ### ARIA Attributes
+
 ```tsx
 <GlassCheckbox
   checked={checked}
   onChange={setChecked}
   indeterminate={isIndeterminate}
-  aria-label="Select all items"
-  aria-describedby="select-all-description"
+  aria-label='Select all items'
+  aria-describedby='select-all-description'
 />
 ```
 
 ## Best Practices
 
 ### Do's ✅
+
 - **Use clear, descriptive labels** for each checkbox
 - **Group related checkboxes** logically
 - **Provide feedback** for form validation
@@ -254,13 +269,14 @@ function ValidatedCheckbox() {
 // ✅ Good - Clear label and proper grouping
 <fieldset>
   <legend>Notification Preferences</legend>
-  <GlassCheckbox label="Email notifications" />
-  <GlassCheckbox label="SMS notifications" />
-  <GlassCheckbox label="Push notifications" />
+  <GlassCheckbox label='Email notifications' />
+  <GlassCheckbox label='SMS notifications' />
+  <GlassCheckbox label='Push notifications' />
 </fieldset>
 ```
 
 ### Don'ts ❌
+
 - **Don't use for mutually exclusive options** (use radio buttons)
 - **Don't make labels too long** or complex
 - **Avoid nested checkboxes** without clear hierarchy
@@ -274,16 +290,18 @@ function ValidatedCheckbox() {
 ## Styling Customization
 
 ### Custom Colors
+
 ```tsx
-<GlassCheckbox 
-  label="Important option"
-  className="accent-red-500"
+<GlassCheckbox
+  label='Important option'
+  className='accent-red-500'
   checked={checked}
   onChange={setChecked}
 />
 ```
 
 ### Label Positioning
+
 ```tsx
 // Label on the right (default)
 <GlassCheckbox label="Standard layout" />
@@ -306,4 +324,4 @@ function ValidatedCheckbox() {
 
 ---
 
-*Glass Checkbox provides accessible, elegant selection controls that integrate seamlessly with Liquidify's design system.*
+_Glass Checkbox provides accessible, elegant selection controls that integrate seamlessly with Liquidify's design system._

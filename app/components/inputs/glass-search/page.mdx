@@ -1,5 +1,9 @@
-import { GlassSearch } from 'liquidify'
-import { MagnifyingGlassIcon, FunnelIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { GlassSearch } from 'liquidify';
+import {
+  MagnifyingGlassIcon,
+  FunnelIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 
 # Glass Search
 
@@ -23,18 +27,18 @@ npm install liquidify
 ## Basic Usage
 
 ```jsx
-import { GlassSearch } from 'liquidify'
+import { GlassSearch } from 'liquidify';
 
 function App() {
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <GlassSearch
       value={searchValue}
-      onChange={(value) => setSearchValue(value)}
-      placeholder="Search components..."
+      onChange={value => setSearchValue(value)}
+      placeholder='Search components...'
     />
-  )
+  );
 }
 ```
 
@@ -43,55 +47,55 @@ function App() {
 ### Basic Search
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
-  <GlassSearch 
-    placeholder="Search documentation..." 
-    className="w-full max-w-md mx-auto"
+<div className='p-6 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg'>
+  <GlassSearch
+    placeholder='Search documentation...'
+    className='w-full max-w-md mx-auto'
   />
 </div>
 ```
 
 ```jsx
-<GlassSearch 
-  placeholder="Search documentation..." 
-  className="w-full max-w-md mx-auto"
+<GlassSearch
+  placeholder='Search documentation...'
+  className='w-full max-w-md mx-auto'
 />
 ```
 
 ### With Custom Icon
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg">
-  <GlassSearch 
-    placeholder="Filter results..."
-    icon={<FunnelIcon className="w-5 h-5" />}
-    className="w-full max-w-md mx-auto"
+<div className='p-6 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg'>
+  <GlassSearch
+    placeholder='Filter results...'
+    icon={<FunnelIcon className='w-5 h-5' />}
+    className='w-full max-w-md mx-auto'
   />
 </div>
 ```
 
 ```jsx
-<GlassSearch 
-  placeholder="Filter results..."
-  icon={<FunnelIcon className="w-5 h-5" />}
+<GlassSearch
+  placeholder='Filter results...'
+  icon={<FunnelIcon className='w-5 h-5' />}
 />
 ```
 
 ### With Suggestions
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg">
-  <GlassSearch 
-    placeholder="Search with suggestions..."
+<div className='p-6 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg'>
+  <GlassSearch
+    placeholder='Search with suggestions...'
     suggestions={['Button', 'Card', 'Modal', 'Navigation']}
-    className="w-full max-w-md mx-auto"
+    className='w-full max-w-md mx-auto'
   />
 </div>
 ```
 
 ```jsx
-<GlassSearch 
-  placeholder="Search with suggestions..."
+<GlassSearch
+  placeholder='Search with suggestions...'
   suggestions={['Button', 'Card', 'Modal', 'Navigation']}
 />
 ```
@@ -99,41 +103,38 @@ function App() {
 ### Loading State
 
 ```jsx
-<div className="p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg">
-  <GlassSearch 
-    placeholder="Searching..."
+<div className='p-6 bg-gradient-to-br from-cyan-600 to-teal-600 rounded-lg'>
+  <GlassSearch
+    placeholder='Searching...'
     loading={true}
-    className="w-full max-w-md mx-auto"
+    className='w-full max-w-md mx-auto'
   />
 </div>
 ```
 
 ```jsx
-<GlassSearch 
-  placeholder="Searching..."
-  loading={true}
-/>
+<GlassSearch placeholder='Searching...' loading={true} />
 ```
 
 ## API Reference
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `value` | `string` | `""` | The search input value |
-| `onChange` | `(value: string) => void` | - | Callback fired when value changes |
-| `placeholder` | `string` | `"Search..."` | Placeholder text |
-| `icon` | `React.ReactNode` | `<MagnifyingGlassIcon />` | Icon to display in the search input |
-| `suggestions` | `string[]` | `[]` | Array of suggestion items |
-| `loading` | `boolean` | `false` | Show loading state |
-| `disabled` | `boolean` | `false` | Disable the search input |
-| `clearable` | `boolean` | `true` | Show clear button when input has value |
-| `onClear` | `() => void` | - | Callback fired when clear button is clicked |
-| `onFocus` | `() => void` | - | Callback fired when input is focused |
-| `onBlur` | `() => void` | - | Callback fired when input loses focus |
-| `className` | `string` | - | Additional CSS classes |
-| `style` | `CSSProperties` | - | Inline styles |
+| Prop          | Type                      | Default                   | Description                                 |
+| ------------- | ------------------------- | ------------------------- | ------------------------------------------- |
+| `value`       | `string`                  | `""`                      | The search input value                      |
+| `onChange`    | `(value: string) => void` | -                         | Callback fired when value changes           |
+| `placeholder` | `string`                  | `"Search..."`             | Placeholder text                            |
+| `icon`        | `React.ReactNode`         | `<MagnifyingGlassIcon />` | Icon to display in the search input         |
+| `suggestions` | `string[]`                | `[]`                      | Array of suggestion items                   |
+| `loading`     | `boolean`                 | `false`                   | Show loading state                          |
+| `disabled`    | `boolean`                 | `false`                   | Disable the search input                    |
+| `clearable`   | `boolean`                 | `true`                    | Show clear button when input has value      |
+| `onClear`     | `() => void`              | -                         | Callback fired when clear button is clicked |
+| `onFocus`     | `() => void`              | -                         | Callback fired when input is focused        |
+| `onBlur`      | `() => void`              | -                         | Callback fired when input loses focus       |
+| `className`   | `string`                  | -                         | Additional CSS classes                      |
+| `style`       | `CSSProperties`           | -                         | Inline styles                               |
 
 ### Styling
 
@@ -170,16 +171,16 @@ The component uses CSS variables for theming:
 The Glass Search component leverages GSAP for smooth animations:
 
 ```jsx
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
 // Custom animation on focus
 const handleFocus = () => {
   gsap.to('.glass-search', {
     scale: 1.02,
     duration: 0.2,
-    ease: 'power2.out'
-  })
-}
+    ease: 'power2.out',
+  });
+};
 ```
 
 ## Related Components

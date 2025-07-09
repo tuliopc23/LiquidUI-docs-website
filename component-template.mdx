@@ -1,9 +1,13 @@
-import { Callout } from 'nextra/components'
+import { Callout } from 'nextra/components';
 
 # Component Name
 
-<Callout type="warning">
-  **Component Availability Notice**: This component is documented but may not be available in the current version of the Liquidify package. Please check the [Component Availability Matrix](/COMPONENT_AVAILABILITY.md) for the most up-to-date information about which components are actually exported and usable.
+<Callout type='warning'>
+  **Component Availability Notice**: This component is documented but may not be
+  available in the current version of the Liquidify package. Please check the
+  [Component Availability Matrix](/COMPONENT_AVAILABILITY.md) for the most
+  up-to-date information about which components are actually exported and
+  usable.
 </Callout>
 
 Brief description following Apple HIG design principles and Liquid Glass aesthetic.
@@ -19,52 +23,62 @@ Visual breakdown of the component structure with proper Apple HIG terminology an
 ## States
 
 ### Default State
+
 The component's default appearance using Liquid Glass styling.
 
 ### Interactive States
+
 - **Hover**: Liquid glass interaction effects
 - **Focus**: Apple HIG focus indicators
 - **Active**: Press state with appropriate feedback
 - **Disabled**: Proper contrast and accessibility
 
 ### Responsive Behavior
+
 How the component adapts across Apple's device ecosystem.
 
 ## Usage Guidelines
 
 ### When to Use
+
 - Clear guidance following Apple HIG principles
 - Use cases that align with Liquid Glass design language
 
 ### When Not to Use
+
 - Alternative recommendations
 - Anti-patterns to avoid
 
 ## Accessibility
 
 ### Voice Control
+
 How the component works with Voice Control.
 
 ### Keyboard Navigation
+
 Full keyboard accessibility following Apple guidelines.
 
 ### Screen Reader Support
+
 VoiceOver and other assistive technology support.
 
 ### High Contrast Mode
+
 Behavior in high contrast environments.
 
 ### Reduced Motion
+
 Respecting user motion preferences.
 
 ## API Reference
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'subtle' \| 'prominent'` | `'default'` | Visual prominence level |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size following 4pt grid |
+| Prop      | Type                                   | Default     | Description                       |
+| --------- | -------------------------------------- | ----------- | --------------------------------- |
+| `variant` | `'default' \| 'subtle' \| 'prominent'` | `'default'` | Visual prominence level           |
+| `size`    | `'sm' \| 'md' \| 'lg'`                 | `'md'`      | Component size following 4pt grid |
 
 ### Events
 
@@ -75,14 +89,14 @@ Comprehensive event handling documentation.
 ### Basic Usage
 
 ```tsx
-import { ComponentName } from '@liquidify/ui'
+import { ComponentName } from '@liquidify/ui';
 
 export default function Example() {
   return (
-    <ComponentName variant="default" size="md">
+    <ComponentName variant='default' size='md'>
       Content
     </ComponentName>
-  )
+  );
 }
 ```
 
@@ -99,31 +113,38 @@ export default function Example() {
 ## Design Tokens
 
 ### Colors
+
 - Component-specific color tokens
 - Liquid Glass transparency values
 - Apple system color integration
 
 ### Typography
+
 - Apple HIG typography scales used
 - Font weights and sizes
 
 ### Spacing
+
 - 4pt grid alignment
 - Touch target compliance (44x44pt minimum)
 
 ### Motion
+
 - Liquid glass animation specifications
 - Spring curves and timing
 
 ## Platform Considerations
 
 ### iOS/iPadOS
+
 Specific behavior on touch devices.
 
 ### macOS
+
 Desktop-specific interactions and behaviors.
 
 ### watchOS
+
 Considerations for smaller screens.
 
 ## Related Components
@@ -138,4 +159,4 @@ Links to related components in the design system.
 
 ---
 
-*This component follows Apple's Human Interface Guidelines and implements the Liquid Glass design language introduced at WWDC 2025.*
+_This component follows Apple's Human Interface Guidelines and implements the Liquid Glass design language introduced at WWDC 2025._

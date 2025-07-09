@@ -1,0 +1,661 @@
+# usePerformanceMonitor
+
+The `usePerformanceMonitor` hook provides comprehensive performance monitoring capabilities for React applications, with specialized support for glass effects and animations.
+
+## Overview
+
+This hook monitors various performance metrics including FPS, memory usage, render times, and user interactions to help optimize your application's performance.
+
+## Import
+
+```tsx
+import { usePerformanceMonitor } from 'liquidify';
+```
+
+## Basic Usage
+
+```tsx
+import React from 'react';
+import { usePerformanceMonitor } from 'liquidify';
+
+function PerformanceMonitorExample() {
+  const { metrics, startMonitoring, stopMonitoring, isMonitoring } =
+    usePerformanceMonitor({
+      enableFPSMonitoring: true,
+      enableMemoryMonitoring: true,
+      enableRenderTimeMonitoring: true,
+      reportInterval: 1000,
+    });
+
+  return (
+    <div className='p-6 rounded-lg'>
+      <h2>Performance Monitor</h2>
+
+      <div className='grid grid-cols-2 gap-4 mt-4'>
+        <div>
+          <h3>FPS Metrics</h3>
+          <p>Current: {metrics.fps.current.toFixed(1)}</p>
+          <p>Average: {metrics.fps.average.toFixed(1)}</p>
+          <p>Min: {metrics.fps.min.toFixed(1)}</p>
+          <p>Max: {metrics.fps.max.toFixed(1)}</p>
+        </div>
+
+        <div>
+          <h3>Memory Usage</h3>
+          <p>Used: {(metrics.memory.used / 1024 / 1024).toFixed(1)}MB</p>
+          <p>Total: {(metrics.memory.total / 1024 / 1024).toFixed(1)}MB</p>
+          <p>Pressure: {(metrics.memory.pressure * 100).toFixed(1)}%</p>
+        </div>
+
+        <div>
+          <h3>Render Performance</h3>
+          <p>Avg Render Time: {metrics.renderTime.average.toFixed(2)}ms</p>
+          <p>Last Render: {metrics.renderTime.last.toFixed(2)}ms</p>
+        </div>
+
+        <div>
+          <h3>User Interactions</h3>
+          <p>Input Delay: {metrics.inputDelay.average.toFixed(2)}ms</p>
+          <p>
+            Scroll Performance: {metrics.scrollPerformance.fps.toFixed(1)} FPS
+          </p>
+        </div>
+      </div>
+
+      <div className='mt-4 space-x-4'>
+        <button
+          onClick={startMonitoring}
+          disabled={isMonitoring}
+          className='px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50'
+        >
+          Start Monitoring
+        </button>
+        <button
+          onClick={stopMonitoring}
+          disabled={!isMonitoring}
+          className='px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50'
+        >
+          Stop Monitoring
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+## Advanced Usage
+
+### Real-time Performance Dashboard
+
+```tsx
+import React, { useState, useEffect } from 'react'
+import { usePerformanceMonitor } from 'liquidify'
+
+function PerformanceDashboard() {
+  const [alerts, setAlerts] = useState<string[]>([])
+
+  const {
+    metrics,
+    startMonitoring,
+    stopMonitoring,
+    recordCustomMetric,
+    getReport
+  } = usePerformanceMonitor({
+    enableFPSMonitoring: true,
+    enableMemoryMonitoring: true,
+    enableRenderTimeMonitoring: true,
+    enableNetworkMonitoring: true,
+    reportInterval: 500,
+    thresholds: {
+      fps: { warning: 45, critical: 30 },
+      memory: { warning: 0.8, critical: 0.9 },
+      renderTime: { warning: 16, critical: 32 },
+      inputDelay: { warning: 100, critical: 200 }
+    },
+    onThresholdExceeded: (metric, level, value) => {
+      setAlerts(prev => [...prev, `${metric} ${level}: ${value}`])
+    }
+  })
+
+  useEffect(() => {
+    startMonitoring()
+    return () => stopMonitoring()
+  }, [startMonitoring, stopMonitoring])
+
+  // Record custom performance metrics
+  const recordCustomOperation = () => {
+    const start = performance.now()
+    // Simulate some work
+    setTimeout(() => {
+      const duration = performance.now() - start
+      recordCustomMetric('customOperation', duration)
+    }, 100)
+  }
+
+  const downloadReport = () => {
+    const report = getReport()
+    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'performance-report.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  return (
+    <div className="p-6 space-y-6">
+      <h2>Performance Dashboard</h2>
+
+      {/* Real-time Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="font-semibold mb-2">FPS</h3>
+          <div className="text-2xl font-bold">{metrics.fps.current.toFixed(1)}</div>
+          <div className="text-sm text-gray-600">Target: 60</div>
+          <div className={`text-sm ${
+            metrics.fps.current > 55 ? 'text-green-600' :
+            metrics.fps.current > 45 ? 'text-yellow-600' : 'text-red-600'
+          }`}>
+            {metrics.fps.current > 55 ? 'Excellent' :
+             metrics.fps.current > 45 ? 'Good' : 'Poor'}
+          </div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="font-semibold mb-2">Memory</h3>
+          <div className="text-2xl font-bold">
+            {(metrics.memory.used / 1024 / 1024).toFixed(1)}MB
+          </div>
+          <div className="text-sm text-gray-600">
+            Pressure: {(metrics.memory.pressure * 100).toFixed(1)}%
+          </div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="font-semibold mb-2">Render Time</h3>
+          <div className="text-2xl font-bold">{metrics.renderTime.average.toFixed(2)}ms</div>
+          <div className="text-sm text-gray-600">Target: < 16ms</div>
+        </div>
+
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h3 className="font-semibold mb-2">Input Delay</h3>
+          <div className="text-2xl font-bold">{metrics.inputDelay.average.toFixed(2)}ms</div>
+          <div className="text-sm text-gray-600">Target: < 100ms</div>
+        </div>
+      </div>
+
+      {/* Performance Alerts */}
+      {alerts.length > 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <h3 className="font-semibold text-red-800 mb-2">Performance Alerts</h3>
+          <ul className="space-y-1">
+            {alerts.slice(-5).map((alert, index) => (
+              <li key={index} className="text-red-700 text-sm">
+                {alert}
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={() => setAlerts([])}
+            className="mt-2 text-red-600 text-sm hover:text-red-800"
+          >
+            Clear Alerts
+          </button>
+        </div>
+      )}
+
+      {/* Network Performance */}
+      <div className="bg-white p-4 rounded-lg shadow">
+        <h3 className="font-semibold mb-2">Network Performance</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p>Connection Type: {metrics.network.connectionType}</p>
+            <p>Effective Type: {metrics.network.effectiveType}</p>
+          </div>
+          <div>
+            <p>Downlink: {metrics.network.downlink} Mbps</p>
+            <p>RTT: {metrics.network.rtt}ms</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Custom Metrics */}
+      <div className="bg-white p-4 rounded-lg shadow">
+        <h3 className="font-semibold mb-2">Custom Metrics</h3>
+        <div className="space-y-2">
+          {Object.entries(metrics.custom).map(([key, value]) => (
+            <div key={key} className="flex justify-between">
+              <span>{key}:</span>
+              <span>{typeof value === 'number' ? value.toFixed(2) : value}</span>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={recordCustomOperation}
+          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Record Custom Operation
+        </button>
+      </div>
+
+      {/* Controls */}
+      <div className="flex space-x-4">
+        <button
+          onClick={downloadReport}
+          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        >
+          Download Report
+        </button>
+      </div>
+    </div>
+  )
+}
+```
+
+### Performance-Optimized Component
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { usePerformanceMonitor } from 'liquidify';
+
+function OptimizedComponent() {
+  const [items, setItems] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { metrics, recordCustomMetric, measureFunction } =
+    usePerformanceMonitor({
+      enableRenderTimeMonitoring: true,
+      enableMemoryMonitoring: true,
+      componentName: 'OptimizedComponent',
+    });
+
+  // Measure function performance
+  const addItems = measureFunction('addItems', () => {
+    const newItems = Array.from({ length: 100 }, (_, i) => `Item ${i}`);
+    setItems(prev => [...prev, ...newItems]);
+  });
+
+  const clearItems = measureFunction('clearItems', () => {
+    setItems([]);
+  });
+
+  // Load data with performance monitoring
+  const loadData = async () => {
+    setIsLoading(true);
+    const start = performance.now();
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const loadTime = performance.now() - start;
+      recordCustomMetric('dataLoadTime', loadTime);
+
+      addItems();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Monitor component render performance
+  useEffect(() => {
+    const renderStart = performance.now();
+    return () => {
+      const renderTime = performance.now() - renderStart;
+      recordCustomMetric('componentRenderTime', renderTime);
+    };
+  });
+
+  return (
+    <div className='p-6 space-y-4'>
+      <h2>Performance-Optimized Component</h2>
+
+      {/* Performance Metrics Display */}
+      <div className='bg-gray-100 p-4 rounded'>
+        <h3>Component Performance</h3>
+        <p>Render Time: {metrics.renderTime.last.toFixed(2)}ms</p>
+        <p>Memory Usage: {(metrics.memory.used / 1024 / 1024).toFixed(1)}MB</p>
+        <p>Items Count: {items.length}</p>
+      </div>
+
+      {/* Controls */}
+      <div className='space-x-4'>
+        <button
+          onClick={loadData}
+          disabled={isLoading}
+          className='px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50'
+        >
+          {isLoading ? 'Loading...' : 'Load Data'}
+        </button>
+        <button
+          onClick={addItems}
+          className='px-4 py-2 bg-green-500 text-white rounded'
+        >
+          Add Items
+        </button>
+        <button
+          onClick={clearItems}
+          className='px-4 py-2 bg-red-500 text-white rounded'
+        >
+          Clear Items
+        </button>
+      </div>
+
+      {/* Items List */}
+      <div className='max-h-64 overflow-y-auto'>
+        {items.map((item, index) => (
+          <div key={index} className='p-2 border-b'>
+            {item}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### Parameters
+
+```typescript
+interface PerformanceMonitorConfig {
+  enableFPSMonitoring?: boolean;
+  enableMemoryMonitoring?: boolean;
+  enableRenderTimeMonitoring?: boolean;
+  enableNetworkMonitoring?: boolean;
+  enableInputDelayMonitoring?: boolean;
+  reportInterval?: number;
+  componentName?: string;
+  thresholds?: {
+    fps?: { warning: number; critical: number };
+    memory?: { warning: number; critical: number };
+    renderTime?: { warning: number; critical: number };
+    inputDelay?: { warning: number; critical: number };
+  };
+  onThresholdExceeded?: (
+    metric: string,
+    level: 'warning' | 'critical',
+    value: number
+  ) => void;
+  onReport?: (report: PerformanceReport) => void;
+}
+```
+
+### Return Value
+
+```typescript
+interface PerformanceMonitorReturn {
+  metrics: PerformanceMetrics;
+  startMonitoring: () => void;
+  stopMonitoring: () => void;
+  isMonitoring: boolean;
+  recordCustomMetric: (name: string, value: number) => void;
+  measureFunction: <T extends (...args: any[]) => any>(
+    name: string,
+    fn: T
+  ) => T;
+  getReport: () => PerformanceReport;
+  clearMetrics: () => void;
+}
+```
+
+### Performance Metrics
+
+```typescript
+interface PerformanceMetrics {
+  fps: {
+    current: number;
+    average: number;
+    min: number;
+    max: number;
+    history: number[];
+  };
+  memory: {
+    used: number;
+    total: number;
+    pressure: number;
+    history: number[];
+  };
+  renderTime: {
+    last: number;
+    average: number;
+    min: number;
+    max: number;
+    history: number[];
+  };
+  inputDelay: {
+    current: number;
+    average: number;
+    min: number;
+    max: number;
+    history: number[];
+  };
+  network: {
+    connectionType: string;
+    effectiveType: string;
+    downlink: number;
+    rtt: number;
+  };
+  scrollPerformance: {
+    fps: number;
+    smoothness: number;
+  };
+  custom: Record<string, number>;
+}
+```
+
+## Monitoring Features
+
+### FPS Monitoring
+
+```tsx
+const { metrics } = usePerformanceMonitor({
+  enableFPSMonitoring: true,
+  thresholds: {
+    fps: { warning: 45, critical: 30 },
+  },
+});
+
+// Monitor FPS in real-time
+useEffect(() => {
+  if (metrics.fps.current < 30) {
+    console.warn('Critical FPS detected:', metrics.fps.current);
+  }
+}, [metrics.fps.current]);
+```
+
+### Memory Monitoring
+
+```tsx
+const { metrics } = usePerformanceMonitor({
+  enableMemoryMonitoring: true,
+  thresholds: {
+    memory: { warning: 0.8, critical: 0.9 },
+  },
+});
+
+// Monitor memory pressure
+useEffect(() => {
+  if (metrics.memory.pressure > 0.9) {
+    // Trigger memory cleanup
+    console.warn('High memory pressure:', metrics.memory.pressure);
+  }
+}, [metrics.memory.pressure]);
+```
+
+### Render Time Monitoring
+
+```tsx
+const { metrics } = usePerformanceMonitor({
+  enableRenderTimeMonitoring: true,
+  thresholds: {
+    renderTime: { warning: 16, critical: 32 },
+  },
+});
+
+// Monitor render performance
+useEffect(() => {
+  if (metrics.renderTime.average > 16) {
+    console.warn('Slow render detected:', metrics.renderTime.average);
+  }
+}, [metrics.renderTime.average]);
+```
+
+### Custom Metrics
+
+```tsx
+const { recordCustomMetric, measureFunction } = usePerformanceMonitor({
+  componentName: 'MyComponent',
+});
+
+// Record custom timing
+const recordAsyncOperation = async () => {
+  const start = performance.now();
+  await someAsyncOperation();
+  const duration = performance.now() - start;
+  recordCustomMetric('asyncOperation', duration);
+};
+
+// Measure function performance
+const optimizedFunction = measureFunction('myFunction', param => {
+  // Your function logic here
+  return processData(param);
+});
+```
+
+## Integration with Glass Effects
+
+### Glass Effect Performance Monitoring
+
+```tsx
+import { usePerformanceMonitor, useLiquidGlass } from 'liquidify';
+
+function MonitoredGlassComponent() {
+  const { metrics, recordCustomMetric } = usePerformanceMonitor({
+    enableFPSMonitoring: true,
+    enableRenderTimeMonitoring: true,
+    componentName: 'GlassComponent',
+  });
+
+  const { glassStyle, updateConfig } = useLiquidGlass({
+    blur: 12,
+    opacity: 0.8,
+  });
+
+  // Adjust glass effects based on performance
+  useEffect(() => {
+    if (metrics.fps.current < 45) {
+      updateConfig({ blur: 6, opacity: 0.6 });
+      recordCustomMetric('glassEffectReduction', 1);
+    } else if (metrics.fps.current > 55) {
+      updateConfig({ blur: 12, opacity: 0.8 });
+    }
+  }, [metrics.fps.current, updateConfig, recordCustomMetric]);
+
+  return (
+    <div style={glassStyle} className='p-6 rounded-lg'>
+      <h2>Monitored Glass Component</h2>
+      <p>FPS: {metrics.fps.current.toFixed(1)}</p>
+      <p>Glass effects automatically adjust based on performance</p>
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Enable Monitoring Conditionally**: Only enable monitoring when needed to avoid performance overhead
+2. **Set Appropriate Thresholds**: Use realistic thresholds based on your application's requirements
+3. **Monitor in Production**: Use performance monitoring in production to identify real-world issues
+4. **React to Metrics**: Use performance data to make dynamic optimizations
+5. **Profile Regularly**: Regular performance profiling helps identify bottlenecks
+
+## Performance Optimization Strategies
+
+### Adaptive Quality
+
+```tsx
+function AdaptiveQualityComponent() {
+  const { metrics } = usePerformanceMonitor({
+    enableFPSMonitoring: true,
+    enableMemoryMonitoring: true,
+  });
+
+  const getQualityLevel = () => {
+    if (metrics.fps.current < 30 || metrics.memory.pressure > 0.9) {
+      return 'low';
+    } else if (metrics.fps.current < 45 || metrics.memory.pressure > 0.7) {
+      return 'medium';
+    }
+    return 'high';
+  };
+
+  const qualityLevel = getQualityLevel();
+
+  return (
+    <div className='p-6'>
+      <h2>Adaptive Quality Component</h2>
+      <p>Current Quality: {qualityLevel}</p>
+      <p>FPS: {metrics.fps.current.toFixed(1)}</p>
+      <p>Memory Pressure: {(metrics.memory.pressure * 100).toFixed(1)}%</p>
+    </div>
+  );
+}
+```
+
+### Performance Budgeting
+
+```tsx
+function BudgetedComponent() {
+  const { measureFunction, metrics } = usePerformanceMonitor({
+    enableRenderTimeMonitoring: true,
+    thresholds: {
+      renderTime: { warning: 16, critical: 32 },
+    },
+  });
+
+  const expensiveOperation = measureFunction('expensiveOperation', () => {
+    // Only perform expensive operations if we have budget
+    if (metrics.renderTime.average < 10) {
+      return performExpensiveCalculation();
+    }
+    return getCachedResult();
+  });
+
+  return (
+    <div className='p-6'>
+      <h2>Budgeted Component</h2>
+      <p>Render Time: {metrics.renderTime.average.toFixed(2)}ms</p>
+      <button onClick={expensiveOperation}>Perform Operation</button>
+    </div>
+  );
+}
+```
+
+## Troubleshooting
+
+### High Memory Usage
+
+- Check for memory leaks in event listeners
+- Verify that components are properly unmounting
+- Monitor custom metrics for memory-intensive operations
+
+### Low FPS
+
+- Reduce the complexity of animations
+- Optimize render cycles
+- Use performance budgeting to limit expensive operations
+
+### High Render Times
+
+- Profile component render cycles
+- Optimize expensive calculations
+- Consider using React.memo for expensive components
+
+### Inaccurate Metrics
+
+- Ensure monitoring is enabled before measuring
+- Check browser compatibility for performance APIs
+- Verify that measurement intervals are appropriate
