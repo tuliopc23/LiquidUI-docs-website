@@ -1,6 +1,4 @@
 import nextra from 'nextra';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 
 const withNextra = nextra({
   latex: true,
@@ -13,32 +11,31 @@ const withNextra = nextra({
 const nextConfig = {
   experimental: {
     scrollRestoration: true,
+    reactCompiler: false,
+  },
+  // Turbopack configuration (now stable)
+  turbopack: {
+    rules: {
+      '*.svg': ['@svgr/webpack'],
+    },
+    resolveAlias: {
+      underscore: 'lodash',
+      mocha: { browser: 'mocha/browser-entry.js' },
+    },
   },
   serverExternalPackages: ['liquidify'],
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Handle React 19 compatibility issues
+    // Only externalize liquidify on server to avoid React hook issues
     if (isServer) {
       config.externals = config.externals || [];
-      config.externals.push({
-        react: 'commonjs react',
-        'react-dom': 'commonjs react-dom',
-        'react/jsx-runtime': 'commonjs react/jsx-runtime',
-        'react/jsx-dev-runtime': 'commonjs react/jsx-dev-runtime',
-      });
+      config.externals.push('liquidify');
     }
-
-    // Add fallbacks for React APIs
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      react: require.resolve('react'),
-      'react-dom': require.resolve('react-dom'),
-    };
 
     return config;
   },

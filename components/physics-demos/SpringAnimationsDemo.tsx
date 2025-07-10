@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   GlassButton,
   GlassCard,
@@ -65,9 +65,15 @@ class SpringPhysics {
   setProperties(
     config: Partial<{ stiffness: number; damping: number; mass: number }>
   ) {
-    if (config.stiffness !== undefined) this.stiffness = config.stiffness;
-    if (config.damping !== undefined) this.damping = config.damping;
-    if (config.mass !== undefined) this.mass = config.mass;
+    if (config.stiffness !== undefined) {
+      this.stiffness = config.stiffness;
+    }
+    if (config.damping !== undefined) {
+      this.damping = config.damping;
+    }
+    if (config.mass !== undefined) {
+      this.mass = config.mass;
+    }
   }
 }
 
@@ -109,11 +115,15 @@ export function SpringAnimationsDemo() {
 
   // Animation loop
   useEffect(() => {
-    if (!spring || !canvasRef.current) return;
+    if (!spring || !canvasRef.current) {
+      return;
+    }
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     canvas.width = 600;
     canvas.height = 200;
@@ -174,7 +184,7 @@ export function SpringAnimationsDemo() {
 
       // Draw trail
       if (showTrail) {
-        trail.forEach((point, index) => {
+        trail.forEach(point => {
           ctx.fillStyle = `rgba(59, 130, 246, ${point.opacity * 0.5})`;
           ctx.beginPath();
           ctx.arc(point.x, point.y, 2, 0, Math.PI * 2);
@@ -251,7 +261,9 @@ export function SpringAnimationsDemo() {
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
-    if (!canvas || !spring) return;
+    if (!canvas || !spring) {
+      return;
+    }
 
     const rect = canvas.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * canvas.width;
@@ -267,7 +279,7 @@ export function SpringAnimationsDemo() {
     setTrail([]);
   };
 
-  const handleCustomChange = () => {
+  const handleCustomChange = useCallback(() => {
     if (spring) {
       spring.setProperties({
         stiffness: customStiffness[0],
@@ -275,11 +287,11 @@ export function SpringAnimationsDemo() {
         mass: customMass[0],
       });
     }
-  };
+  }, [spring, customStiffness, customDamping, customMass]);
 
   useEffect(() => {
     handleCustomChange();
-  }, [customStiffness, customDamping, customMass]);
+  }, [handleCustomChange]);
 
   const resetAnimation = () => {
     if (spring) {

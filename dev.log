@@ -1,0 +1,43 @@
+
+> liquidify-docs-website@2.0.0 dev
+> next dev --turbo
+
+   ▲ Next.js 15.4.0 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+   - Environments: .env.local
+   - Experiments (use with caution):
+     · turbo
+     ⨯ reactCompiler
+     ✓ scrollRestoration
+
+ ✓ Starting...
+ ⚠ The config property `experimental.turbo` is deprecated. Move this setting to `config.turbopack` as Turbopack is now stable.
+ ✓ Ready in 1110ms
+ ○ Compiling /performance ...
+Error: Cannot apply unknown utility class `inset-0`. Are you using CSS modules or similar and missing `@reference`? https://tailwindcss.com/docs/functions-and-directives#reference-directive
+    [2m[at onInvalidCandidate (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:18:1312)][0m
+    [2m[at ge (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:13:29803)][0m
+    [2m[at /Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:18:373][0m
+    [2m[at I (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:3:1656)][0m
+    [2m[at je (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:18:172)][0m
+    [2m[at bi (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:35:780)][0m
+    [2m[at process.processTicksAndRejections (node:internal/process/task_queues:105:5)][0m
+    [2m[at async yi (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/tailwindcss/dist/lib.js:35:1123)][0m
+    [2m[at async _r (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/@tailwindcss/node/dist/index.js:10:3384)][0m
+    [2m[at async p (/Users/tuliopinheirocunha/Liquidify-docs/node_modules/@tailwindcss/postcss/dist/index.js:10:4019)][0m
+ ✓ Compiled /performance in 2.3s
+ ⨯ Error: Cannot find module './placeholder.js?lang='
+    at RootLayout (app/layout.tsx:28:40)
+  26 |             <PageTransition>
+  27 |               <Layout
+> 28 |                 pageMap={await getPageMap()}
+     |                                        ^
+  29 |                 docsRepositoryBase='https://github.com/tuliopc23/Liquidify-docs/tree/main'
+  30 |               >
+  31 |                 <Navbar {
+  code: 'MODULE_NOT_FOUND',
+  digest: '1693397375'
+}
+ GET /performance 500 in 2561ms
+[?25h

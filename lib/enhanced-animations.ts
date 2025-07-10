@@ -23,7 +23,9 @@ export const magneticHover = {
   button: (element: string | Element, options?: gsap.TweenVars) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const tl = gsap.timeline({ paused: true });
 
@@ -45,7 +47,9 @@ export const magneticHover = {
   card: (element: string | Element, options?: gsap.TweenVars) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const tl = gsap.timeline({ paused: true });
 
@@ -68,7 +72,9 @@ export const magneticHover = {
   magnetic: (element: string | Element, strength: number = 0.3) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const handleMouseMove = (e: Event) => {
       const mouseEvent = e as MouseEvent;
@@ -129,7 +135,7 @@ export const springAnimations = {
 
   // Exit spring animation
   exit: (element: string | Element, options?: gsap.TweenVars) => {
-    return gsap.to(element, {
+    return gsap.to(element as gsap.TweenTarget, {
       opacity: 0,
       scale: 0.8,
       y: -30,
@@ -208,14 +214,16 @@ export const pageTransitions = {
 export const scrollAnimations = {
   // Parallax scroll effect
   parallax: (element: string | Element, speed: number = 0.5) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: element,
       start: 'top bottom',
       end: 'bottom top',
       scrub: true,
-      animation: gsap.to(element, {
+      animation: gsap.to(element as gsap.TweenTarget, {
         yPercent: -100 * speed,
         ease: 'none',
       }),
@@ -224,13 +232,15 @@ export const scrollAnimations = {
 
   // Reveal on scroll with spring
   revealOnScroll: (selector: string) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const elements = gsap.utils.toArray(selector);
 
-    elements.forEach((element: any) => {
+    elements.forEach(element => {
       gsap.fromTo(
-        element,
+        element as gsap.TweenTarget,
         { opacity: 0, y: 50, scale: 0.9 },
         {
           opacity: 1,
@@ -239,7 +249,7 @@ export const scrollAnimations = {
           duration: 1,
           ease: microEasing.spring,
           scrollTrigger: {
-            trigger: element,
+            trigger: element as gsap.DOMTarget,
             start: 'top 80%',
             end: 'bottom 20%',
             toggleActions: 'play none none reverse',
@@ -251,14 +261,16 @@ export const scrollAnimations = {
 
   // Morphing scroll effect
   morphOnScroll: (element: string | Element) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: element,
       start: 'top 80%',
       end: 'bottom 20%',
       scrub: 1,
-      animation: gsap.to(element, {
+      animation: gsap.to(element as gsap.TweenTarget, {
         borderRadius: '50px',
         scale: 1.1,
         rotation: 5,
@@ -337,7 +349,9 @@ export const hapticFeedback = {
   ripple: (element: string | Element, x: number, y: number) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const ripple = document.createElement('div');
     ripple.className = 'absolute rounded-full pointer-events-none';
@@ -385,7 +399,9 @@ export const microInteractions = {
   buttonPress: (element: string | Element) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const handleMouseDown = () => {
       hapticFeedback.lightTap(el);
@@ -410,10 +426,12 @@ export const microInteractions = {
   },
 
   // Hover with magnetic attraction
-  magneticHover: (element: string | Element, strength: number = 0.3) => {
+  magneticHover: (element: string | Element) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     const tl = gsap.timeline({ paused: true });
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   GlassCard,
   GlassButton,
@@ -15,7 +15,6 @@ import {
   magneticHover,
   springAnimations,
   hapticFeedback,
-  microInteractions,
   scrollAnimations,
 } from '@/lib/enhanced-animations';
 
@@ -31,14 +30,18 @@ const MagneticHoverDemo: React.FC = () => {
   const [enableMagnetic, setEnableMagnetic] = useState(true);
 
   useEffect(() => {
-    if (!containerRef.current || !enableMagnetic) return;
+    if (!containerRef.current || !enableMagnetic) {
+      return;
+    }
 
     const elements = containerRef.current.querySelectorAll('.magnetic-element');
     const cleanupFunctions: (() => void)[] = [];
 
     elements.forEach(element => {
       const cleanup = magneticHover.magnetic(element, magneticStrength);
-      if (cleanup) cleanupFunctions.push(cleanup);
+      if (cleanup) {
+        cleanupFunctions.push(cleanup);
+      }
     });
 
     return () => {
@@ -80,7 +83,7 @@ const MagneticHoverDemo: React.FC = () => {
         <motion.div whileHover={{ scale: 1.02 }} className='magnetic-element'>
           <GlassCard className='p-6 h-32 flex items-center justify-center cursor-pointer'>
             <div className='text-center'>
-              <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-2'></div>
+              <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-2' />
               <p className='text-sm font-medium'>Magnetic Button</p>
             </div>
           </GlassCard>
@@ -89,7 +92,7 @@ const MagneticHoverDemo: React.FC = () => {
         <motion.div whileHover={{ scale: 1.02 }} className='magnetic-element'>
           <GlassCard className='p-6 h-32 flex items-center justify-center cursor-pointer'>
             <div className='text-center'>
-              <div className='w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mx-auto mb-2'></div>
+              <div className='w-8 h-8 bg-gradient-to-r from-green-500 to-blue-500 rounded-full mx-auto mb-2' />
               <p className='text-sm font-medium'>Magnetic Card</p>
             </div>
           </GlassCard>
@@ -98,7 +101,7 @@ const MagneticHoverDemo: React.FC = () => {
         <motion.div whileHover={{ scale: 1.02 }} className='magnetic-element'>
           <GlassCard className='p-6 h-32 flex items-center justify-center cursor-pointer'>
             <div className='text-center'>
-              <div className='w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-2'></div>
+              <div className='w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-2' />
               <p className='text-sm font-medium'>Magnetic Element</p>
             </div>
           </GlassCard>
@@ -121,13 +124,11 @@ const MagneticHoverDemo: React.FC = () => {
 // Spring animations demo
 const SpringAnimationsDemo: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [springConfig, setSpringConfig] = useState({
-    tension: 300,
-    friction: 10,
-  });
 
   const triggerSpringAnimation = (type: 'entrance' | 'exit' | 'bounce') => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      return;
+    }
 
     const elements = containerRef.current.querySelectorAll('.spring-element');
 
@@ -205,7 +206,7 @@ const SpringAnimationsDemo: React.FC = () => {
                           ? 'from-purple-500 to-pink-500'
                           : 'from-orange-500 to-red-500'
                   } rounded-full mx-auto mb-1`}
-                ></div>
+                />
                 <p className='text-xs font-medium'>Element {index + 1}</p>
               </div>
             </GlassCard>
@@ -232,10 +233,14 @@ const HapticFeedbackDemo: React.FC = () => {
   const [feedbackEnabled, setFeedbackEnabled] = useState(true);
 
   const triggerHapticFeedback = (type: 'light' | 'medium' | 'heavy') => {
-    if (!containerRef.current || !feedbackEnabled) return;
+    if (!containerRef.current || !feedbackEnabled) {
+      return;
+    }
 
     const targetElement = containerRef.current.querySelector('.haptic-target');
-    if (!targetElement) return;
+    if (!targetElement) {
+      return;
+    }
 
     switch (type) {
       case 'light':
@@ -251,7 +256,9 @@ const HapticFeedbackDemo: React.FC = () => {
   };
 
   const triggerRipple = (event: React.MouseEvent) => {
-    if (!feedbackEnabled) return;
+    if (!feedbackEnabled) {
+      return;
+    }
 
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;
@@ -355,7 +362,9 @@ export const PhysicsShowcase: React.FC = () => {
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!showcaseRef.current) return;
+    if (!showcaseRef.current) {
+      return;
+    }
 
     const showcase = showcaseRef.current;
 
@@ -411,7 +420,9 @@ export const PhysicsShowcase: React.FC = () => {
                 <GlassButton
                   key={key}
                   variant={activeDemo === key ? 'primary' : 'ghost'}
-                  onClick={() => setActiveDemo(key as any)}
+                  onClick={() =>
+                    setActiveDemo(key as 'magnetic' | 'spring' | 'haptic')
+                  }
                   className='min-w-[120px]'
                 >
                   {demo.title.split(' ')[0]}
@@ -456,19 +467,19 @@ export const PhysicsShowcase: React.FC = () => {
                 </h4>
                 <ul className='space-y-2 text-sm'>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-blue-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-blue-500 rounded-full' />
                     GSAP for high-performance animations
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-green-500 rounded-full' />
                     Framer Motion for React animations
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-purple-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-purple-500 rounded-full' />
                     Custom easing curves for natural feel
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-orange-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-orange-500 rounded-full' />
                     Hardware acceleration with transform3d
                   </li>
                 </ul>
@@ -480,19 +491,19 @@ export const PhysicsShowcase: React.FC = () => {
                 </h4>
                 <ul className='space-y-2 text-sm'>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-blue-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-blue-500 rounded-full' />
                     60fps animations with GPU acceleration
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-green-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-green-500 rounded-full' />
                     Efficient DOM manipulation batching
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-purple-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-purple-500 rounded-full' />
                     Automatic cleanup and memory management
                   </li>
                   <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-orange-500 rounded-full'></div>
+                    <div className='w-2 h-2 bg-orange-500 rounded-full' />
                     Responsive design with touch support
                   </li>
                 </ul>

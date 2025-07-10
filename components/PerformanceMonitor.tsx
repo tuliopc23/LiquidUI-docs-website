@@ -39,7 +39,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
     return () => {
       stopMonitoring();
     };
-  }, []);
+  }, [startMonitoring, stopMonitoring]);
 
   const benchmarkResults = getBenchmarkResults();
   const bundleSize = componentName
@@ -116,14 +116,14 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
 
           <div className='text-center'>
             <div className='text-2xl font-bold text-white'>
-              {metrics?.renderTime.toFixed(1) || 0}ms
+              {metrics?.renderTime?.toFixed(1) || 0}ms
             </div>
             <div className='text-sm text-gray-400'>Render Time</div>
           </div>
 
           <div className='text-center'>
             <div className='text-2xl font-bold text-white'>
-              {metrics?.memoryUsage.toFixed(1) || 0}MB
+              {metrics?.memoryUsage?.toFixed(1) || 0}MB
             </div>
             <div className='text-sm text-gray-400'>Memory</div>
           </div>
@@ -240,16 +240,17 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         Backdrop Filter
                       </div>
                       <div className='text-white font-semibold'>
-                        {metrics.glassEffectPerformance.backdropFilterTime.toFixed(
+                        {metrics?.glassEffectPerformance?.backdropFilterTime?.toFixed(
                           1
-                        )}
+                        ) || 0}
                         ms
                       </div>
                     </div>
                     <div className='bg-white/10 p-3 rounded-lg'>
                       <div className='text-sm text-gray-400'>Complexity</div>
                       <div className='text-white font-semibold capitalize'>
-                        {metrics.glassEffectPerformance.renderComplexity}
+                        {metrics?.glassEffectPerformance?.renderComplexity ||
+                          'low'}
                       </div>
                     </div>
                     <div className='bg-white/10 p-3 rounded-lg'>
@@ -257,7 +258,7 @@ export const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
                         GPU Acceleration
                       </div>
                       <div className='text-white font-semibold'>
-                        {metrics.glassEffectPerformance.gpuAcceleration
+                        {metrics?.glassEffectPerformance?.gpuAcceleration
                           ? 'Enabled'
                           : 'Disabled'}
                       </div>

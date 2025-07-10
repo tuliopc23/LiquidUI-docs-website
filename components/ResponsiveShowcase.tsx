@@ -15,7 +15,9 @@ const ResponsiveDemo: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      return;
+    }
 
     const container = containerRef.current;
 
@@ -45,7 +47,7 @@ const ResponsiveDemo: React.FC = () => {
 
         <div className='responsive-section flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4'>
           <GlassCard className='p-6 w-full sm:w-1/3'>
-            <div className='w-full h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg mb-3'></div>
+            <div className='w-full h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg mb-3' />
             <p className='font-semibold mb-2'>Mobile</p>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               Optimized for small screens and touch interfaces
@@ -53,7 +55,7 @@ const ResponsiveDemo: React.FC = () => {
           </GlassCard>
 
           <GlassCard className='p-6 w-full sm:w-1/3'>
-            <div className='w-full h-24 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg mb-3'></div>
+            <div className='w-full h-24 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg mb-3' />
             <p className='font-semibold mb-2'>Tablet</p>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               Ready for multitasking and split screen views
@@ -61,7 +63,7 @@ const ResponsiveDemo: React.FC = () => {
           </GlassCard>
 
           <GlassCard className='p-6 w-full sm:w-1/3'>
-            <div className='w-full h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-3'></div>
+            <div className='w-full h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-3' />
             <p className='font-semibold mb-2'>Desktop</p>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               Full-featured experiences with more content

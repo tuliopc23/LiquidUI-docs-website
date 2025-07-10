@@ -33,7 +33,9 @@ const GlassToggleButton: React.FC<GlassToggleButtonProps> = ({
   const isControlled = pressed !== undefined;
 
   const handleClick = () => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
 
     const newPressed = !isPressed;
 

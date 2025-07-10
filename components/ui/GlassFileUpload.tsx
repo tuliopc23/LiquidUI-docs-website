@@ -33,9 +33,9 @@ const GlassFileUpload: React.FC<GlassFileUploadProps> = ({
 
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
-      if (file.size > maxSizeBytes) {
+      if (file && file.size > maxSizeBytes) {
         setError(
-          `File "${file.name}" is too large. Maximum size is ${maxSize}MB.`
+          `File "${file?.name}" is too large. Maximum size is ${maxSize}MB.`
         );
         return false;
       }
@@ -46,7 +46,9 @@ const GlassFileUpload: React.FC<GlassFileUploadProps> = ({
   };
 
   const handleFiles = (fileList: FileList | null) => {
-    if (!fileList) return;
+    if (!fileList) {
+      return;
+    }
 
     if (validateFiles(fileList)) {
       setFiles(fileList);
@@ -68,7 +70,9 @@ const GlassFileUpload: React.FC<GlassFileUploadProps> = ({
     e.preventDefault();
     setIsDragOver(false);
 
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
 
     const droppedFiles = e.dataTransfer.files;
     handleFiles(droppedFiles);
@@ -94,7 +98,9 @@ const GlassFileUpload: React.FC<GlassFileUploadProps> = ({
   );
 
   const renderFileInfo = () => {
-    if (!files || files.length === 0) return null;
+    if (!files || files.length === 0) {
+      return null;
+    }
 
     return (
       <div className='mt-4 space-y-2'>

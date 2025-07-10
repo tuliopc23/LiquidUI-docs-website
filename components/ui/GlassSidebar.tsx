@@ -77,7 +77,7 @@ const GlassSidebar = React.forwardRef<HTMLDivElement, GlassSidebarProps>(
       <AppleLiquidGlass
         ref={ref}
         variant='sidebar'
-        size={width as any}
+        size={width as 'xs' | 'sm' | 'md' | 'lg'}
         prominence='tertiary'
         intensity='regular'
         interactive={collapsible}

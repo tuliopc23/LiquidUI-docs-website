@@ -7,7 +7,6 @@ import {
   springAnimations,
   scrollAnimations,
   hapticFeedback,
-  microInteractions,
   pageTransitions,
 } from '@/lib/enhanced-animations';
 
@@ -43,7 +42,9 @@ export default function AnimationDemo() {
   }, []);
 
   const handleHapticDemo = (type: 'light' | 'medium' | 'heavy') => {
-    if (!demoRef.current) return;
+    if (!demoRef.current) {
+      return;
+    }
 
     const element = demoRef.current.querySelector('.haptic-demo');
     if (element) {
@@ -116,7 +117,9 @@ export default function AnimationDemo() {
               variant='secondary'
               onClick={() => {
                 const element = document.querySelector('.bounce-demo');
-                if (element) springAnimations.bounce(element);
+                if (element) {
+                  springAnimations.bounce(element);
+                }
               }}
               className='demo-element bounce-demo'
             >

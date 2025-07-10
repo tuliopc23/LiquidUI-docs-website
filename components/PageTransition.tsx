@@ -40,5 +40,5 @@ export default function PageTransition({ children }: PageTransitionProps) {
     };
   }, []);
 
-  return <>{children}</>;
+  return <div style={{ display: 'contents' }}>{children}</div>;
 }

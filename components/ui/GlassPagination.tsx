@@ -127,7 +127,7 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
           </button>
         )}
 
-        {visiblePages[0] > 1 && (
+        {(visiblePages[0] ?? 0) > 1 && (
           <>
             <button
               onClick={() => handlePageClick(1)}
@@ -135,7 +135,7 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
             >
               1
             </button>
-            {visiblePages[0] > 2 && (
+            {(visiblePages[0] ?? 0) > 2 && (
               <span className='px-2 text-white/60'>...</span>
             )}
           </>
@@ -153,9 +153,9 @@ const GlassPagination: React.FC<GlassPaginationProps> = ({
           </button>
         ))}
 
-        {visiblePages[visiblePages.length - 1] < totalPages && (
+        {(visiblePages[visiblePages.length - 1] ?? 0) < totalPages && (
           <>
-            {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
+            {(visiblePages[visiblePages.length - 1] ?? 0) < totalPages - 1 && (
               <span className='px-2 text-white/60'>...</span>
             )}
             <button

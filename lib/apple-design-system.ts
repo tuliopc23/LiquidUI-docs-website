@@ -305,7 +305,7 @@ export const appleMotion = {
   },
 };
 
-export default {
+const appleDesignSystem = {
   colors: appleColors,
   typography: appleTypography,
   spacing: appleSpacing,
@@ -315,3 +315,5 @@ export default {
   motion: appleMotion,
   generateCSSVariables: generateAppleCSSVariables,
 };
+
+export default appleDesignSystem;

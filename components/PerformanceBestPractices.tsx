@@ -5,7 +5,7 @@ import { GlassCard, GlassButton, GlassTabs } from 'liquidify';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const PerformanceBestPractices: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('optimization');
+  const [activeTab] = useState('optimization');
 
   const bestPractices = {
     optimization: [

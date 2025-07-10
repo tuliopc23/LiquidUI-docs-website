@@ -178,7 +178,7 @@ const GlassChart: React.FC<GlassChartProps> = ({
         {data.map((item, index) => (
           <text
             key={index}
-            x={points[index].x}
+            x={points[index]?.x}
             y={height - 30}
             textAnchor='middle'
             fontSize='12'
@@ -249,7 +249,9 @@ const GlassChart: React.FC<GlassChartProps> = ({
   };
 
   const renderLegend = () => {
-    if (!showLegend) return null;
+    if (!showLegend) {
+      return null;
+    }
 
     return (
       <div className='mt-4 flex flex-wrap gap-4'>

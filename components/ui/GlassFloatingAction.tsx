@@ -69,7 +69,7 @@ const GlassFloatingAction = React.forwardRef<
       <AppleLiquidGlass
         ref={ref}
         variant='button'
-        size={size as any}
+        size={size as 'xs' | 'sm' | 'md' | 'lg'}
         prominence={variant === 'primary' ? 'primary' : 'secondary'}
         intensity='regular'
         interactive={true}

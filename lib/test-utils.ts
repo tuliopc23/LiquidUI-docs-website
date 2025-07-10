@@ -1,4 +1,4 @@
-import { render, RenderResult } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ReactElement } from 'react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import {
@@ -10,6 +10,7 @@ import {
 expect.extend(toHaveNoViolations);
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace jest {
     interface Matchers<R> {
       toHaveNoViolations(): R;
@@ -37,7 +38,10 @@ expect.extend({
     }
 
     const violationMessages = results.violations
-      .map((violation: any) => `${violation.id}: ${violation.description}`)
+      .map((violation: unknown) => {
+        const typed = violation as { id: string; description: string };
+        return `${typed.id}: ${typed.description}`;
+      })
       .join('\n');
 
     return {
@@ -50,8 +54,10 @@ expect.extend({
   async toMeetWCAG21AA(received: HTMLElement) {
     const results = await axe(received);
 
-    const hasAAViolations = results.violations.some((violation: any) =>
-      violation.tags.some((tag: string) => tag.includes('wcag21aa'))
+    const hasAAViolations = results.violations.some((violation: unknown) =>
+      (violation as { tags: string[] }).tags.some((tag: string) =>
+        tag.includes('wcag21aa')
+      )
     );
 
     if (!hasAAViolations) {
@@ -63,10 +69,15 @@ expect.extend({
     }
 
     const violationMessages = results.violations
-      .filter((violation: any) =>
-        violation.tags.some((tag: string) => tag.includes('wcag21aa'))
+      .filter((violation: unknown) =>
+        (violation as { tags: string[] }).tags.some((tag: string) =>
+          tag.includes('wcag21aa')
+        )
       )
-      .map((violation: any) => `${violation.id}: ${violation.description}`)
+      .map((violation: unknown) => {
+        const typed = violation as { id: string; description: string };
+        return `${typed.id}: ${typed.description}`;
+      })
       .join('\n');
 
     return {
@@ -81,7 +92,7 @@ expect.extend({
  * Test utility function to check component accessibility
  */
 export async function expectAccessible(
-  component: ReactElement<any>,
+  component: ReactElement<unknown>,
   options?: { skipRules?: string[]; level?: 'A' | 'AA' | 'AAA' }
 ): Promise<void> {
   const { container } = render(component);
@@ -103,7 +114,7 @@ export async function expectAccessible(
  * Test utility function to run accessibility check and return report
  */
 export async function runAccessibilityCheck(
-  component: ReactElement<any>,
+  component: ReactElement<unknown>,
   componentName: string,
   options?: { skipRules?: string[]; level?: 'A' | 'AA' | 'AAA' }
 ): Promise<AccessibilityReport> {
@@ -118,7 +129,7 @@ export async function runAccessibilityCheck(
  * Test utility to check keyboard navigation
  */
 export async function expectKeyboardAccessible(
-  component: ReactElement<any>,
+  component: ReactElement<unknown>,
   interactiveElements: string[] = ['button', 'input', 'select', 'textarea', 'a']
 ): Promise<void> {
   const { container } = render(component);
@@ -149,7 +160,7 @@ export async function expectKeyboardAccessible(
  * Test utility to check focus management
  */
 export async function expectProperFocusManagement(
-  component: ReactElement<any>
+  component: ReactElement<unknown>
 ): Promise<void> {
   const { container } = render(component);
 
@@ -190,8 +201,7 @@ export async function expectProperFocusManagement(
  * Test utility to check color contrast
  */
 export async function expectSufficientColorContrast(
-  component: ReactElement<any>,
-  minimumRatio: number = 4.5
+  component: ReactElement<unknown>
 ): Promise<void> {
   const { container } = render(component);
 
@@ -205,12 +215,12 @@ export async function expectSufficientColorContrast(
     });
 
     const colorContrastViolations = results.violations.filter(
-      (v: any) => v.id === 'color-contrast'
+      (v: unknown) => (v as { id: string }).id === 'color-contrast'
     );
 
     if (colorContrastViolations.length > 0) {
       const violationMessages = colorContrastViolations
-        .map((v: any) => v.description)
+        .map((v: unknown) => (v as { description: string }).description)
         .join('\n');
       throw new Error(`Color contrast violations found:\n${violationMessages}`);
     }
@@ -231,7 +241,7 @@ export async function expectSufficientColorContrast(
  * Test utility to check ARIA labels and roles
  */
 export async function expectProperARIA(
-  component: ReactElement<any>
+  component: ReactElement<unknown>
 ): Promise<void> {
   const { container } = render(component);
 
@@ -280,7 +290,7 @@ export async function expectProperARIA(
  * Test utility to check heading hierarchy
  */
 export async function expectProperHeadingHierarchy(
-  component: ReactElement<any>
+  component: ReactElement<unknown>
 ): Promise<void> {
   const { container } = render(component);
 
@@ -288,7 +298,9 @@ export async function expectProperHeadingHierarchy(
     container.querySelectorAll('h1, h2, h3, h4, h5, h6')
   );
 
-  if (headings.length === 0) return;
+  if (headings.length === 0) {
+    return;
+  }
 
   const headingLevels = headings.map(h => parseInt(h.tagName.charAt(1)));
 
@@ -297,9 +309,9 @@ export async function expectProperHeadingHierarchy(
     const current = headingLevels[i];
     const previous = headingLevels[i - 1];
 
-    if (current - previous > 1) {
+    if (current! - previous! > 1) {
       console.warn(
-        `Heading hierarchy skip detected: h${previous} followed by h${current}`
+        `Heading hierarchy skip detected: h${previous!} followed by h${current!}`
       );
     }
   }
@@ -309,7 +321,7 @@ export async function expectProperHeadingHierarchy(
  * Comprehensive accessibility test suite
  */
 export async function runComprehensiveAccessibilityTest(
-  component: ReactElement<any>,
+  component: ReactElement<unknown>,
   componentName: string,
   options?: {
     skipRules?: string[];
@@ -353,11 +365,11 @@ export async function runComprehensiveAccessibilityTest(
  */
 export function createAccessibilityTestSuite(
   componentName: string,
-  createComponent: () => ReactElement<any>,
+  createComponent: () => ReactElement<unknown>,
   options?: {
     skipRules?: string[];
     level?: 'A' | 'AA' | 'AAA';
-    variants?: Array<{ name: string; component: ReactElement<any> }>;
+    variants?: Array<{ name: string; component: ReactElement<unknown> }>;
   }
 ) {
   describe(`${componentName} - Accessibility Tests`, () => {

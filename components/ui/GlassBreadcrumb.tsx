@@ -60,32 +60,32 @@ const GlassBreadcrumb: React.FC<GlassBreadcrumbProps> = ({
               )}
 
               <div className='flex items-center space-x-1'>
-                {item.icon && (
-                  <span className='w-4 h-4 text-white/60'>{item.icon}</span>
+                {item?.icon && (
+                  <span className='w-4 h-4 text-white/60'>{item?.icon}</span>
                 )}
 
-                {item.href && !item.current ? (
+                {item?.href && !item?.current ? (
                   <a
-                    href={item.href}
+                    href={item?.href}
                     className={cn(
                       'hover:text-white transition-colors duration-200',
                       'focus:outline-none focus:ring-2 focus:ring-white/50 rounded',
-                      item.current && 'text-white font-medium'
+                      item?.current && 'text-white font-medium'
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item?.current ? 'page' : undefined}
                   >
-                    {item.label}
+                    {item?.label}
                   </a>
                 ) : (
                   <span
                     className={cn(
                       'text-white/60',
-                      item.current && 'text-white font-medium',
-                      item.label === '...' && 'cursor-default'
+                      item?.current && 'text-white font-medium',
+                      item?.label === '...' && 'cursor-default'
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item?.current ? 'page' : undefined}
                   >
-                    {item.label}
+                    {item?.label}
                   </span>
                 )}
               </div>

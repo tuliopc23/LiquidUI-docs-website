@@ -33,7 +33,6 @@ const GlassEffect = forwardRef<HTMLDivElement, GlassEffectProps>(
   (
     {
       children,
-      variant = 'default',
       intensity = 'medium',
       borderRadius = 'lg',
       shadow = 'md',
@@ -62,10 +61,14 @@ const GlassEffect = forwardRef<HTMLDivElement, GlassEffectProps>(
 
     // GSAP animation setup
     useEffect(() => {
-      if (!animated) return;
+      if (!animated) {
+        return;
+      }
 
       const element = typeof combinedRef === 'object' && combinedRef?.current;
-      if (!element) return;
+      if (!element) {
+        return;
+      }
 
       // Set initial state
       gsap.set(element, {
@@ -206,6 +209,11 @@ const GlassEffect = forwardRef<HTMLDivElement, GlassEffectProps>(
           }
         };
       }
+
+      // Return cleanup function for when hover is false
+      return () => {
+        // No cleanup needed when hover is false
+      };
     }, [
       animated,
       hover,

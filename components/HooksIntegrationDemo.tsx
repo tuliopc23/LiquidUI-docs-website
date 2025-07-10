@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLiquidGlass, usePerformanceMonitor } from 'liquidify';
+import { usePerformanceMonitor } from 'liquidify';
 import { GlassButton, GlassCard, GlassSelect } from 'liquidify';
 
 interface HooksIntegrationDemoProps {
@@ -28,9 +28,6 @@ export default function HooksIntegrationDemo({
     componentName: 'HooksIntegrationDemo',
   });
 
-  // Manual glass configuration
-  const glassConfig = useLiquidGlass();
-
   // Start monitoring on mount
   useEffect(() => {
     startMonitoring();
@@ -40,7 +37,7 @@ export default function HooksIntegrationDemo({
   }, [startMonitoring, stopMonitoring]);
 
   // Record interaction metrics
-  const handleInteraction = (type: string) => {
+  const handleInteraction = () => {
     setIsInteracting(true);
     setTimeout(() => {
       setIsInteracting(false);
@@ -155,21 +152,21 @@ export default function HooksIntegrationDemo({
             <div className='space-y-3'>
               <GlassButton
                 variant='primary'
-                onClick={() => handleInteraction('primary')}
+                onClick={() => handleInteraction()}
                 className='w-full'
               >
                 Primary Glass Button
               </GlassButton>
               <GlassButton
                 variant='secondary'
-                onClick={() => handleInteraction('secondary')}
+                onClick={() => handleInteraction()}
                 className='w-full'
               >
                 Secondary Glass Button
               </GlassButton>
               <GlassButton
                 variant='ghost'
-                onClick={() => handleInteraction('ghost')}
+                onClick={() => handleInteraction()}
                 className='w-full'
               >
                 Ghost Glass Button

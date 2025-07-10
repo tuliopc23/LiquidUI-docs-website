@@ -23,7 +23,9 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
   const [executing, setExecuting] = useState(false);
 
   const handleExecute = () => {
-    if (executing || !execute) return;
+    if (executing || !execute) {
+      return;
+    }
 
     setExecuting(true);
     execute();

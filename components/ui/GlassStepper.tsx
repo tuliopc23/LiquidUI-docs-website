@@ -59,10 +59,16 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
     stepIndex: number
   ): 'completed' | 'current' | 'upcoming' => {
     const step = steps[stepIndex];
-    if (step.status) return step.status;
+    if (step?.status) {
+      return step.status;
+    }
 
-    if (stepIndex < currentStep) return 'completed';
-    if (stepIndex === currentStep) return 'current';
+    if (stepIndex < currentStep) {
+      return 'completed';
+    }
+    if (stepIndex === currentStep) {
+      return 'current';
+    }
     return 'upcoming';
   };
 
@@ -91,7 +97,9 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
 
   const handleStepClick = (stepIndex: number) => {
     const step = steps[stepIndex];
-    if (step.disabled) return;
+    if (step?.disabled) {
+      return;
+    }
     onStepClick?.(stepIndex);
   };
 
@@ -170,7 +178,9 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
   };
 
   const renderConnector = (index: number) => {
-    if (!showConnectors || index === steps.length - 1) return null;
+    if (!showConnectors || index === steps.length - 1) {
+      return null;
+    }
 
     const status = getStepStatus(index);
     const styles = getStepStyles(status);

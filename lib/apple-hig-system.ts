@@ -427,7 +427,7 @@ export const appleHIGUtils = {
   }),
 };
 
-export default {
+const appleHIGSystem = {
   typography: appleHIGTypography,
   colors: appleHIGColors,
   spacing: appleHIGSpacing,
@@ -438,3 +438,5 @@ export default {
   utils: appleHIGUtils,
   generateCSSVariables: generateHIGCSSVariables,
 };
+
+export default appleHIGSystem;

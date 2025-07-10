@@ -70,7 +70,7 @@ const GlassButtonGroup: React.FC<GlassButtonGroupProps> = ({
       const isLast = index === React.Children.count(children) - 1;
 
       const childClasses = cn(
-        (child.props as any).className,
+        (child.props as { className?: string }).className,
         attached &&
           orientation === 'horizontal' && {
             'rounded-l-none': !isFirst,
@@ -87,12 +87,12 @@ const GlassButtonGroup: React.FC<GlassButtonGroupProps> = ({
       );
 
       return React.cloneElement(child, {
-        ...(child.props as any),
-        className: childClasses,
-        disabled: disabled || (child.props as any).disabled,
-        size: (child.props as any).size || size,
-        variant: (child.props as any).variant || variant,
-      });
+        ...(child.props as Record<string, unknown>),
+        ...(childClasses && { className: childClasses }),
+        disabled: disabled || (child.props as { disabled?: boolean }).disabled,
+        size: (child.props as { size?: string }).size || size,
+        variant: (child.props as { variant?: string }).variant || variant,
+      } as Record<string, unknown>);
     }
     return child;
   });

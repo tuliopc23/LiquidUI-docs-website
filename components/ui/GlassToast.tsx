@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import GlassEffect, { GlassEffectProps } from './GlassEffect';
 import { cn } from '@/lib/utils';
 
@@ -36,6 +36,13 @@ const GlassToast: React.FC<GlassToastProps> = ({
   const [isVisible, setIsVisible] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onClose?.();
+    }, 300);
+  }, [onClose]);
+
   useEffect(() => {
     setIsAnimating(true);
 
@@ -46,7 +53,8 @@ const GlassToast: React.FC<GlassToastProps> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [duration]);
+    return undefined;
+  }, [duration, handleClose]);
 
   const positionStyles = {
     'top-left': 'fixed top-4 left-4',
@@ -84,13 +92,6 @@ const GlassToast: React.FC<GlassToastProps> = ({
     },
   };
 
-  const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose?.();
-    }, 300);
-  };
-
   const currentStyle = typeStyles[type];
   const isTop = position.includes('top');
 
@@ -110,7 +111,9 @@ const GlassToast: React.FC<GlassToastProps> = ({
     className
   );
 
-  if (!isVisible && !isAnimating) return null;
+  if (!isVisible && !isAnimating) {
+    return null;
+  }
 
   return (
     <GlassEffect variant='modal' className={baseClasses} {...props}>

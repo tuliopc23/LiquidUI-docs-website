@@ -4,7 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 export const performanceUtils = {
   // Check if backdrop-filter is supported
   supportsBackdropFilter: (): boolean => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') {
+      return false;
+    }
 
     return (
       'backdropFilter' in document.documentElement.style ||
@@ -14,7 +16,9 @@ export const performanceUtils = {
 
   // Check if device is low-end based on performance indicators
   isLowEndDevice: (): boolean => {
-    if (typeof window === 'undefined') return false;
+    if (typeof window === 'undefined') {
+      return false;
+    }
 
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
@@ -27,11 +31,13 @@ export const performanceUtils = {
     ).matches;
 
     // Check device memory (if available)
-    const deviceMemory = (navigator as any).deviceMemory;
+    const deviceMemory = (navigator as { deviceMemory?: number }).deviceMemory;
     const isLowMemory = deviceMemory && deviceMemory < 4;
 
     // Check connection speed
-    const connection = (navigator as any).connection;
+    const connection = (
+      navigator as { connection?: { effectiveType?: string } }
+    ).connection;
     const isSlowConnection =
       connection &&
       (connection.effectiveType === 'slow-2g' ||
@@ -80,7 +86,9 @@ export const performanceUtils = {
     element: HTMLElement,
     intensity: 'light' | 'medium' | 'heavy' = 'medium'
   ): void => {
-    if (!element) return;
+    if (!element) {
+      return;
+    }
 
     // Add performance optimization classes
     element.classList.add('liquid-glass-optimized');
@@ -89,7 +97,9 @@ export const performanceUtils = {
     const backdropFilter =
       performanceUtils.getOptimizedBackdropFilter(intensity);
     element.style.backdropFilter = backdropFilter;
-    (element.style as any).webkitBackdropFilter = backdropFilter;
+    (
+      element.style as unknown as { webkitBackdropFilter: string }
+    ).webkitBackdropFilter = backdropFilter;
 
     // Force hardware acceleration
     element.style.transform = 'translateZ(0)';
@@ -102,7 +112,7 @@ export const performanceUtils = {
   },
 
   // Throttle function for performance-sensitive operations
-  throttle: <T extends (...args: any[]) => any>(
+  throttle: <T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
   ): ((...args: Parameters<T>) => void) => {
@@ -116,7 +126,9 @@ export const performanceUtils = {
         func(...args);
         lastExecTime = currentTime;
       } else {
-        if (timeoutId) clearTimeout(timeoutId);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
         timeoutId = setTimeout(
           () => {
             func(...args);
@@ -129,23 +141,28 @@ export const performanceUtils = {
   },
 
   // Debounce function for performance-sensitive operations
-  debounce: <T extends (...args: any[]) => any>(
+  debounce: <T extends (...args: unknown[]) => unknown>(
     func: T,
     delay: number
   ): ((...args: Parameters<T>) => void) => {
     let timeoutId: NodeJS.Timeout | null = null;
 
     return (...args: Parameters<T>) => {
-      if (timeoutId) clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       timeoutId = setTimeout(() => func(...args), delay);
     };
   },
 
   // Optimize backdrop-filter for scroll events
   optimizeScrollEffects: (element: HTMLElement): (() => void) => {
-    if (!element) return () => {};
+    if (!element) {
+      return () => {};
+    }
 
-    const throttledScroll = performanceUtils.throttle((scrollY: number) => {
+    const throttledScroll = performanceUtils.throttle((...args: unknown[]) => {
+      const scrollY = args[0] as number;
       if (performanceUtils.isLowEndDevice()) {
         // Simplified effect for low-end devices
         element.style.backdropFilter = `blur(${Math.min(5 + scrollY * 0.01, 10)}px)`;
@@ -191,7 +208,9 @@ export const performanceUtils = {
 
   // Optimize animation performance
   optimizeAnimation: (element: HTMLElement): void => {
-    if (!element) return;
+    if (!element) {
+      return;
+    }
 
     // Add animation optimization classes
     element.classList.add('liquid-glass-animating');
@@ -208,7 +227,9 @@ export const performanceUtils = {
 
   // Clean up performance optimizations
   cleanup: (element: HTMLElement): void => {
-    if (!element) return;
+    if (!element) {
+      return;
+    }
 
     // Remove performance classes
     element.classList.remove(
@@ -291,7 +312,9 @@ export const usePerformanceMonitor = () => {
   const observerRef = useRef<PerformanceObserver | null>(null);
 
   const startMonitoring = () => {
-    if (typeof window === 'undefined' || isMonitoring) return;
+    if (typeof window === 'undefined' || isMonitoring) {
+      return;
+    }
 
     setIsMonitoring(true);
 
@@ -364,7 +387,8 @@ export const usePerformanceMonitor = () => {
     // Monitor memory usage
     const updateMemoryUsage = () => {
       if ('memory' in performance && metricsRef.current) {
-        const memory = (performance as any).memory;
+        const memory = (performance as { memory: { usedJSHeapSize: number } })
+          .memory;
         metricsRef.current.memoryUsage = memory.usedJSHeapSize / (1024 * 1024); // MB
         setMetrics({ ...metricsRef.current });
       }
@@ -386,7 +410,9 @@ export const usePerformanceMonitor = () => {
   };
 
   const measureGlassEffect = (name: string, fn: () => void) => {
-    if (typeof window === 'undefined') return fn();
+    if (typeof window === 'undefined') {
+      return fn();
+    }
 
     performance.mark(`glass-effect-${name}-start`);
     fn();
@@ -399,7 +425,9 @@ export const usePerformanceMonitor = () => {
   };
 
   const getBenchmarkResults = (): BenchmarkResult[] => {
-    if (!metrics) return [];
+    if (!metrics) {
+      return [];
+    }
 
     return [
       {
@@ -538,10 +566,15 @@ export const bundleUtils = {
 // Lazy loading utilities
 export const lazyLoadUtils = {
   // Create lazy loaded component
-  createLazyComponent: (importFn: () => Promise<any>) => {
+  createLazyComponent: (
+    importFn: () => Promise<{ default: React.ComponentType<unknown> }>
+  ) => {
     const LazyComponent = React.lazy(importFn);
 
-    return React.forwardRef<any, any>((props, ref) =>
+    const LazyComponentWrapper = React.forwardRef<
+      unknown,
+      Record<string, unknown>
+    >((props = {}) =>
       React.createElement(
         React.Suspense,
         {
@@ -549,16 +582,19 @@ export const lazyLoadUtils = {
             className: 'animate-pulse bg-gray-200 rounded-lg h-20',
           }),
         },
-        React.createElement(LazyComponent, { ...props, ref })
+        React.createElement(LazyComponent, props)
       )
     );
+
+    LazyComponentWrapper.displayName = 'LazyComponent';
+    return LazyComponentWrapper;
   },
 
   // Intersection observer for lazy loading
   useLazyLoad: (threshold: number = 0.1) => {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
-    const elementRef = useRef<HTMLElement>(null);
+    const elementRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       const observer = performanceUtils.createIntersectionObserver(
@@ -582,13 +618,15 @@ export const lazyLoadUtils = {
           observer.disconnect();
         }
       };
-    }, []);
+    }, [isLoaded, threshold]);
 
     return { isVisible, isLoaded, elementRef };
   },
 
   // Preload heavy components
-  preloadComponent: (importFn: () => Promise<any>) => {
+  preloadComponent: (
+    importFn: () => Promise<{ default: React.ComponentType<unknown> }>
+  ) => {
     // Preload on hover or focus
     const preload = () => {
       importFn().catch(() => {

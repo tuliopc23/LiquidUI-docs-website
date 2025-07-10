@@ -43,7 +43,9 @@ const GlassFooter = React.forwardRef<HTMLDivElement, GlassFooterProps>(
     );
 
     const renderLinks = () => {
-      if (links.length === 0) return null;
+      if (links.length === 0) {
+        return null;
+      }
 
       return (
         <div className='flex items-center space-x-6'>
@@ -71,7 +73,9 @@ const GlassFooter = React.forwardRef<HTMLDivElement, GlassFooterProps>(
     };
 
     const renderCopyright = () => {
-      if (!copyright) return null;
+      if (!copyright) {
+        return null;
+      }
 
       return <div className='text-sm text-white/60'>{copyright}</div>;
     };

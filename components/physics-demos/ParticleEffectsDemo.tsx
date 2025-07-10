@@ -227,10 +227,14 @@ export function ParticleEffectsDemo() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     // Set canvas size
     canvas.width = 800;
@@ -283,10 +287,14 @@ export function ParticleEffectsDemo() {
   }, [currentPreset, isRunning]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!emitter) return;
+    if (!emitter) {
+      return;
+    }
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const rect = canvas.getBoundingClientRect();
     const mousePos = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);
@@ -295,10 +303,14 @@ export function ParticleEffectsDemo() {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!emitter) return;
+    if (!emitter) {
+      return;
+    }
 
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const rect = canvas.getBoundingClientRect();
     const mousePos = new Vector2D(e.clientX - rect.left, e.clientY - rect.top);

@@ -9,8 +9,6 @@ import {
   GlassSelect,
   GlassSlider,
   GlassSwitch,
-  GlassCheckbox,
-  GlassTabs,
   ThemeProvider,
 } from 'liquidify';
 import { gsap } from 'gsap';
@@ -19,7 +17,6 @@ import {
   magneticHover,
   springAnimations,
   scrollAnimations,
-  hapticFeedback,
   microInteractions,
 } from '@/lib/enhanced-animations';
 import { usePerformanceMonitor, bundleUtils } from '@/lib/performance-utils';
@@ -33,15 +30,15 @@ if (typeof window !== 'undefined') {
 // Types
 interface ComponentVariant {
   name: string;
-  props: Record<string, any>;
+  props: Record<string, unknown>;
   description?: string;
 }
 
 interface PropControl {
   name: string;
   type: 'string' | 'number' | 'boolean' | 'select' | 'color' | 'slider';
-  defaultValue: any;
-  options?: Array<{ value: any; label: string }>;
+  defaultValue: unknown;
+  options?: Array<{ value: string; label: string }>;
   min?: number;
   max?: number;
   step?: number;
@@ -49,7 +46,8 @@ interface PropControl {
 }
 
 interface ComponentShowcaseProps {
-  component: React.ComponentType<any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  component: React.ComponentType<any> | React.ForwardRefExoticComponent<any>;
   componentName: string;
   description?: string;
   variants?: ComponentVariant[];
@@ -64,11 +62,11 @@ interface ComponentShowcaseProps {
 // Code generation utility
 const generateCode = (
   componentName: string,
-  props: Record<string, any>,
-  codeLanguage: string = 'tsx'
+  props: Record<string, unknown>,
+  codeLanguage = 'tsx'
 ): string => {
   const propsString = Object.entries(props)
-    .filter(([_, value]) => value !== undefined && value !== null)
+    .filter(([, value]) => value !== undefined && value !== null)
     .map(([key, value]) => {
       if (typeof value === 'string') {
         return `${key}="${value}"`;
@@ -82,9 +80,10 @@ const generateCode = (
     })
     .join('\n  ');
 
+  const template = codeLanguage === 'jsx' ? 'jsx' : 'tsx';
   return `import { ${componentName} } from 'liquidify'
 
-export function Example() {
+export function Example()${template === 'tsx' ? ': JSX.Element' : ''} {
   return (
     <${componentName}
       ${propsString}
@@ -117,7 +116,9 @@ const ResponsivePreview: React.FC<{ children: React.ReactNode }> = ({
             key={deviceType}
             variant={device === deviceType ? 'primary' : 'ghost'}
             size='sm'
-            onClick={() => setDevice(deviceType as any)}
+            onClick={() =>
+              setDevice(deviceType as 'mobile' | 'tablet' | 'desktop')
+            }
           >
             {deviceType}
           </GlassButton>
@@ -149,7 +150,9 @@ const PhysicsWrapper: React.FC<{
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!enabled || !containerRef.current) return;
+    if (!enabled || !containerRef.current) {
+      return;
+    }
 
     const container = containerRef.current;
     const elements = container.querySelectorAll('.physics-element');
@@ -159,11 +162,15 @@ const PhysicsWrapper: React.FC<{
     elements.forEach((element, index) => {
       // Magnetic hover effect
       const magneticCleanup = magneticHover.magnetic(element, 0.3);
-      if (magneticCleanup) cleanupFunctions.push(magneticCleanup);
+      if (magneticCleanup) {
+        cleanupFunctions.push(magneticCleanup);
+      }
 
       // Micro interactions
       const microCleanup = microInteractions.buttonPress(element);
-      if (microCleanup) cleanupFunctions.push(microCleanup);
+      if (microCleanup) {
+        cleanupFunctions.push(microCleanup);
+      }
 
       // Stagger entrance animation
       springAnimations.entrance(element, { delay: index * 0.1 });
@@ -184,8 +191,8 @@ const PhysicsWrapper: React.FC<{
 // Prop editor component
 const PropEditor: React.FC<{
   controls: PropControl[];
-  values: Record<string, any>;
-  onChange: (key: string, value: any) => void;
+  values: Record<string, unknown>;
+  onChange: (key: string, value: unknown) => void;
 }> = ({ controls, values, onChange }) => {
   return (
     <div className='space-y-4'>
@@ -202,7 +209,7 @@ const PropEditor: React.FC<{
 
           {control.type === 'string' && (
             <GlassInput
-              value={values[control.name] || ''}
+              value={String(values[control.name] || '')}
               onChange={e => onChange(control.name, e.target.value)}
               placeholder={`Enter ${control.name}`}
               className='w-full'
@@ -212,7 +219,7 @@ const PropEditor: React.FC<{
           {control.type === 'number' && (
             <GlassInput
               type='number'
-              value={values[control.name] || 0}
+              value={String(values[control.name] || 0)}
               onChange={e => onChange(control.name, Number(e.target.value))}
               className='w-full'
             />
@@ -220,7 +227,7 @@ const PropEditor: React.FC<{
 
           {control.type === 'boolean' && (
             <GlassSwitch
-              checked={values[control.name] || false}
+              checked={Boolean(values[control.name])}
               onChange={checked => onChange(control.name, checked)}
               label={control.name}
             />
@@ -228,7 +235,7 @@ const PropEditor: React.FC<{
 
           {control.type === 'select' && control.options && (
             <GlassSelect
-              value={values[control.name] || control.defaultValue}
+              value={String(values[control.name] || control.defaultValue)}
               onChange={value => onChange(control.name, value)}
               options={control.options}
               className='w-full'
@@ -238,7 +245,7 @@ const PropEditor: React.FC<{
           {control.type === 'slider' && (
             <div className='space-y-2'>
               <GlassSlider
-                value={values[control.name] || control.defaultValue}
+                value={Number(values[control.name] || control.defaultValue)}
                 onChange={value => onChange(control.name, value)}
                 min={control.min || 0}
                 max={control.max || 100}
@@ -246,7 +253,7 @@ const PropEditor: React.FC<{
                 className='w-full'
               />
               <div className='text-xs text-gray-500'>
-                Value: {values[control.name] || control.defaultValue}
+                Value: {String(values[control.name] || control.defaultValue)}
               </div>
             </div>
           )}
@@ -307,7 +314,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState('preview');
   const [activeVariant, setActiveVariant] = useState(0);
-  const [propValues, setPropValues] = useState<Record<string, any>>({});
+  const [propValues, setPropValues] = useState<Record<string, unknown>>({});
   const [physicsEnabled, setPhysicsEnabled] = useState(false);
   const [showPerformanceMonitor, setShowPerformanceMonitor] = useState(false);
   const showcaseRef = useRef<HTMLDivElement>(null);
@@ -317,7 +324,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
 
   // Initialize prop values
   useEffect(() => {
-    const initialValues: Record<string, any> = {};
+    const initialValues: Record<string, unknown> = {};
     propControls.forEach(control => {
       initialValues[control.name] = control.defaultValue;
     });
@@ -326,7 +333,9 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
 
   // Setup showcase animations
   useEffect(() => {
-    if (!showcaseRef.current) return;
+    if (!showcaseRef.current) {
+      return;
+    }
 
     const showcase = showcaseRef.current;
 
@@ -351,14 +360,14 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
   const currentCode = useMemo(() => {
     const currentProps =
       variants.length > 0
-        ? { ...variants[activeVariant].props, ...propValues }
+        ? { ...variants[activeVariant]?.props, ...propValues }
         : propValues;
 
     return generateCode(componentName, currentProps, codeLanguage);
   }, [componentName, variants, activeVariant, propValues, codeLanguage]);
 
   // Handle prop changes
-  const handlePropChange = (key: string, value: any) => {
+  const handlePropChange = (key: string, value: unknown) => {
     setPropValues(prev => ({
       ...prev,
       [key]: value,
@@ -368,7 +377,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
   // Get current props
   const currentProps = useMemo(() => {
     if (variants.length > 0) {
-      return { ...variants[activeVariant].props, ...propValues };
+      return { ...variants[activeVariant]?.props, ...propValues };
     }
     return propValues;
   }, [variants, activeVariant, propValues]);
@@ -443,7 +452,18 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
 
           {/* Navigation */}
           <div className='showcase-section p-6 border-b border-gray-200 dark:border-gray-700'>
-            <GlassTabs tabs={tabs} defaultTab={activeTab} />
+            <div className='flex gap-2'>
+              {tabs.map(tab => (
+                <GlassButton
+                  key={tab.id}
+                  variant={activeTab === tab.id ? 'primary' : 'ghost'}
+                  size='sm'
+                  onClick={() => setActiveTab(tab.id)}
+                >
+                  {tab.label}
+                </GlassButton>
+              ))}
+            </div>
           </div>
 
           {/* Content */}
@@ -492,11 +512,11 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
                   {variants.length > 0 && (
                     <div className='variant-info p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg'>
                       <h4 className='font-semibold mb-2'>
-                        {variants[activeVariant].name}
+                        {variants[activeVariant]?.name}
                       </h4>
-                      {variants[activeVariant].description && (
+                      {variants[activeVariant]?.description && (
                         <p className='text-sm text-gray-600 dark:text-gray-400'>
-                          {variants[activeVariant].description}
+                          {variants[activeVariant]?.description}
                         </p>
                       )}
                     </div>

@@ -23,7 +23,9 @@ const GlassBackground: React.FC<GlassBackgroundProps> = ({
   const orb3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!animated) return;
+    if (!animated) {
+      return;
+    }
 
     const tl = gsap.timeline({ repeat: -1, yoyo: true });
 

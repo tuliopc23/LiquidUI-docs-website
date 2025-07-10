@@ -1,6 +1,6 @@
 export interface CodeGenerationOptions {
   componentName: string;
-  props: Record<string, any>;
+  props: Record<string, unknown>;
   language: 'tsx' | 'jsx' | 'vue' | 'svelte';
   includeImports?: boolean;
   includeWrapper?: boolean;
@@ -23,16 +23,16 @@ export const generateComponentCode = (
 
   // Filter out undefined and null props
   const cleanProps = Object.entries(props)
-    .filter(([_, value]) => value !== undefined && value !== null)
+    .filter(([, value]) => value !== undefined && value !== null)
     .reduce(
       (acc, [key, value]) => {
         acc[key] = value;
         return acc;
       },
-      {} as Record<string, any>
+      {} as Record<string, unknown>
     );
 
-  const formatPropValue = (value: any): string => {
+  const formatPropValue = (value: unknown): string => {
     if (typeof value === 'string') {
       return `"${value}"`;
     } else if (typeof value === 'boolean') {
@@ -47,9 +47,11 @@ export const generateComponentCode = (
     return String(value);
   };
 
-  const generatePropsString = (props: Record<string, any>): string => {
+  const generatePropsString = (props: Record<string, unknown>): string => {
     const propEntries = Object.entries(props);
-    if (propEntries.length === 0) return '';
+    if (propEntries.length === 0) {
+      return '';
+    }
 
     const propStrings = propEntries.map(([key, value]) => {
       if (typeof value === 'boolean' && value === true) {
@@ -65,7 +67,9 @@ export const generateComponentCode = (
   };
 
   const generateImports = (): string => {
-    if (!includeImports) return '';
+    if (!includeImports) {
+      return '';
+    }
 
     switch (language) {
       case 'tsx':
@@ -124,7 +128,9 @@ import { ${componentName} } from 'liquidify'
   };
 
   const generateWrapper = (content: string): string => {
-    if (!includeWrapper) return content;
+    if (!includeWrapper) {
+      return content;
+    }
 
     switch (language) {
       case 'tsx':
@@ -175,7 +181,7 @@ import { ${componentName} } from 'liquidify'
 
 export const generateFullExample = (
   componentName: string,
-  props: Record<string, any>,
+  props: Record<string, unknown>,
   children?: string
 ): string => {
   return generateComponentCode({
@@ -192,7 +198,7 @@ export const generateVariantExamples = (
   componentName: string,
   variants: Array<{
     name: string;
-    props: Record<string, any>;
+    props: Record<string, unknown>;
     description?: string;
   }>
 ): string => {
@@ -238,7 +244,7 @@ ${examples
 
 export const generatePlaygroundCode = (
   componentName: string,
-  props: Record<string, any>,
+  props: Record<string, unknown>,
   interactive: boolean = true
 ): string => {
   const baseCode = generateComponentCode({
@@ -269,7 +275,7 @@ export function PlaygroundExample() {
 
   const stateVars = Object.entries(props)
     .filter(
-      ([_, value]) =>
+      ([, value]) =>
         typeof value === 'boolean' ||
         typeof value === 'number' ||
         typeof value === 'string'
@@ -311,7 +317,7 @@ ${stateVars.join('\n')}
 
 export const generateThemeAwareCode = (
   componentName: string,
-  props: Record<string, any>
+  props: Record<string, unknown>
 ): string => {
   return `import React from 'react'
 import { ${componentName}, ThemeProvider } from 'liquidify'
@@ -340,7 +346,7 @@ export function ThemeAwareExample() {
 
 export const generateAccessibleCode = (
   componentName: string,
-  props: Record<string, any>
+  props: Record<string, unknown>
 ): string => {
   const accessibleProps = {
     ...props,

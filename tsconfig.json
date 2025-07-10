@@ -23,7 +23,20 @@
       "@/components/*": ["./components/*"],
       "@/app/*": ["./app/*"]
     },
-    "target": "ES2017"
+    "target": "ES2017",
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true
   },
   "include": [
     "next-env.d.ts",

@@ -50,13 +50,27 @@ const AppleLiquidGlass = forwardRef<HTMLDivElement, AppleLiquidGlassProps>(
     ref
   ) => {
     const glassRef = useRef<HTMLDivElement>(null);
-    const combinedRef =
-      (ref as React.RefObject<HTMLDivElement | null>) || glassRef;
+
+    // Properly handle ref merging for forwardRef
+    const setCombinedRef = (node: HTMLDivElement | null) => {
+      // Set internal ref
+      (glassRef as React.MutableRefObject<HTMLDivElement | null>).current =
+        node;
+
+      // Forward ref to parent component
+      if (typeof ref === 'function') {
+        ref(node);
+      } else if (ref) {
+        (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+      }
+    };
 
     useEffect(() => {
-      if (!combinedRef.current) return;
+      if (!glassRef.current) {
+        return;
+      }
 
-      const element = combinedRef.current;
+      const element = glassRef.current;
 
       // Add magnetic hover effect for interactive elements
       if (magnetic && interactive) {
@@ -76,7 +90,9 @@ const AppleLiquidGlass = forwardRef<HTMLDivElement, AppleLiquidGlassProps>(
         { opacity: 0, scale: 0.98, y: 10 },
         { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power2.out' }
       );
-    }, [magnetic, interactive, combinedRef]);
+
+      return undefined;
+    }, [magnetic, interactive]);
 
     // Apple HIG size system
     const sizeClasses = {
@@ -134,7 +150,7 @@ const AppleLiquidGlass = forwardRef<HTMLDivElement, AppleLiquidGlassProps>(
 
     return (
       <div
-        ref={combinedRef}
+        ref={setCombinedRef}
         className={baseClasses}
         onClick={onClick}
         {...props}

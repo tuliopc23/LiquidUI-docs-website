@@ -141,7 +141,9 @@ export const scrollAnimations = {
     element: string | Element,
     triggerElement: string | Element
   ) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: triggerElement,
@@ -150,7 +152,7 @@ export const scrollAnimations = {
       scrub: 1,
       onUpdate: self => {
         const progress = self.progress;
-        gsap.to(element, {
+        gsap.to(element as gsap.TweenTarget, {
           backdropFilter: `blur(${5 + progress * 15}px)`,
           background: `rgba(255, 255, 255, ${0.05 + progress * 0.15})`,
           duration: 0.3,
@@ -161,13 +163,15 @@ export const scrollAnimations = {
 
   // Parallax glass cards
   parallaxCards: (selector: string) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const cards = gsap.utils.toArray(selector);
-    cards.forEach((card: any, i) => {
+    cards.forEach((card: unknown, i) => {
       const speed = 1 + i * 0.2;
-      gsap.to(card, {
-        y: (i, target) => -ScrollTrigger.maxScroll(window) * speed,
+      gsap.to(card as gsap.TweenTarget, {
+        y: () => -ScrollTrigger.maxScroll(window) * speed,
         ease: 'none',
         scrollTrigger: {
           start: 0,
@@ -181,12 +185,14 @@ export const scrollAnimations = {
 
   // Component reveal on scroll
   revealOnScroll: (selector: string) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const elements = gsap.utils.toArray(selector);
-    elements.forEach((element: any) => {
+    elements.forEach((element: unknown) => {
       gsap.fromTo(
-        element,
+        element as gsap.TweenTarget,
         {
           opacity: 0,
           y: 50,
@@ -199,7 +205,7 @@ export const scrollAnimations = {
           duration: 1,
           ease: appleEasing.spring,
           scrollTrigger: {
-            trigger: element,
+            trigger: element as Element,
             start: 'top 80%',
             end: 'bottom 20%',
             toggleActions: 'play none none reverse',
@@ -269,8 +275,8 @@ export const heroAnimations = {
   createFloatingAnimation: (selector: string) => {
     const elements = gsap.utils.toArray(selector);
 
-    elements.forEach((element: any, i) => {
-      gsap.to(element, {
+    elements.forEach((element: unknown, i) => {
+      gsap.to(element as gsap.TweenTarget, {
         y: -20,
         rotation: 5,
         duration: 2 + i * 0.3,

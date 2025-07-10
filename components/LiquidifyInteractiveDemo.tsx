@@ -28,20 +28,19 @@ export default function LiquidifyInteractiveDemo() {
   const [switchValue, setSwitchValue] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(65);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue] = useState('');
   const [selectValue, setSelectValue] = useState('');
   const [sliderValue, setSliderValue] = useState(50);
   const [textareaValue, setTextareaValue] = useState('');
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab] = useState('tab1');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleButtonClick = async () => {
     setLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     setLoading(false);
-    alert('Action completed!');
+    console.info('Action completed!');
   };
 
   const updateProgress = () => {

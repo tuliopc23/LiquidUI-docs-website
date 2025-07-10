@@ -19,7 +19,7 @@ export const LazyLoadingDemo: React.FC = () => {
   const [isPreloaded, setIsPreloaded] = useState(false);
 
   // Lazy load hook example
-  const { isVisible, isLoaded, elementRef } = lazyLoadUtils.useLazyLoad(0.1);
+  const { isVisible, elementRef } = lazyLoadUtils.useLazyLoad(0.1);
 
   const handlePreload = () => {
     // Preload all heavy components
@@ -122,8 +122,8 @@ export const LazyLoadingDemo: React.FC = () => {
                   </h3>
                   <LazyGlassDatePicker
                     placeholder='Select a date'
-                    onChange={(date: Date) =>
-                      console.log('Selected date:', date)
+                    onChange={(value: string) =>
+                      console.log('Selected date:', value)
                     }
                   />
                 </GlassCard>
@@ -144,7 +144,7 @@ export const LazyLoadingDemo: React.FC = () => {
                   </h3>
                   <LazyGlassCommand
                     command='npm install liquidify'
-                    execute={() => alert('Command executed!')}
+                    execute={() => console.info('Command executed!')}
                   />
                 </GlassCard>
               </motion.div>
@@ -174,7 +174,7 @@ export const LazyLoadingDemo: React.FC = () => {
             </div>
 
             <div
-              ref={elementRef as React.RefObject<HTMLDivElement | null>}
+              ref={elementRef}
               className='h-96 flex items-center justify-center'
             >
               {isVisible ? (

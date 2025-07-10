@@ -58,7 +58,7 @@ export const liquidGlassAnimations = {
   },
 
   // Morphing liquid glass effect
-  liquidMorph: (element: string | Element, options?: gsap.TweenVars) => {
+  liquidMorph: (element: string | Element) => {
     const tl = gsap.timeline();
 
     tl.fromTo(
@@ -223,7 +223,9 @@ export const liquidGlassAnimations = {
         ? document.querySelector(container)
         : container;
 
-    if (!containerEl) return;
+    if (!containerEl) {
+      return;
+    }
 
     for (let i = 0; i < count; i++) {
       const particle = document.createElement('div');
@@ -296,7 +298,9 @@ export const liquidScrollAnimations = {
     element: string | Element,
     triggerElement: string | Element
   ) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: triggerElement,
@@ -309,7 +313,7 @@ export const liquidScrollAnimations = {
         const saturation = 120 + progress * 80;
         const opacity = 0.1 + progress * 0.15;
 
-        gsap.to(element, {
+        gsap.to(element as gsap.TweenTarget, {
           backdropFilter: `blur(${blurAmount}px) saturate(${saturation}%)`,
           background: `rgba(255, 255, 255, ${opacity})`,
           duration: 0.3,
@@ -323,7 +327,9 @@ export const liquidScrollAnimations = {
     element: string | Element,
     triggerElement: string | Element
   ) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     ScrollTrigger.create({
       trigger: triggerElement,
@@ -335,7 +341,7 @@ export const liquidScrollAnimations = {
         const borderRadius = 12 + progress * 38; // 12px to 50px
         const rotationY = progress * 10;
 
-        gsap.to(element, {
+        gsap.to(element as gsap.TweenTarget, {
           borderRadius: `${borderRadius}px`,
           rotationY: rotationY,
           duration: 0.3,
@@ -347,19 +353,21 @@ export const liquidScrollAnimations = {
 
   // Parallax liquid glass layers
   parallaxLayers: (selector: string) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const layers = gsap.utils.toArray(selector);
-    layers.forEach((layer: any, i) => {
+    layers.forEach((layer: unknown, i) => {
       const speed = 0.5 + i * 0.3;
       const blur = 8 + i * 4;
 
-      gsap.to(layer, {
+      gsap.to(layer as gsap.TweenTarget, {
         yPercent: -50 * speed,
         backdropFilter: `blur(${blur}px)`,
         ease: 'none',
         scrollTrigger: {
-          trigger: layer,
+          trigger: layer as Element,
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
@@ -370,13 +378,15 @@ export const liquidScrollAnimations = {
 
   // Liquid glass reveal on scroll
   liquidReveal: (selector: string) => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {
+      return;
+    }
 
     const elements = gsap.utils.toArray(selector);
-    elements.forEach((element: any) => {
+    elements.forEach((element: unknown) => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: element,
+          trigger: element as Element,
           start: 'top 85%',
           end: 'top 50%',
           toggleActions: 'play none none reverse',
@@ -384,7 +394,7 @@ export const liquidScrollAnimations = {
       });
 
       tl.fromTo(
-        element,
+        element as gsap.TweenTarget,
         {
           opacity: 0,
           y: 100,
@@ -414,7 +424,9 @@ export const liquidGlassUtils = {
   optimizeBackdropFilter: (element: string | Element) => {
     const el =
       typeof element === 'string' ? document.querySelector(element) : element;
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
     // Force hardware acceleration
     gsap.set(el, {
@@ -425,8 +437,8 @@ export const liquidGlassUtils = {
   },
 
   // Batch update liquid glass elements
-  batchUpdate: (elements: Element[], properties: any) => {
-    gsap.set(elements, properties);
+  batchUpdate: (elements: Element[], properties: unknown) => {
+    gsap.set(elements, properties as gsap.TweenVars);
   },
 
   // Create optimized liquid glass timeline

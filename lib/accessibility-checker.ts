@@ -1,5 +1,5 @@
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { render, RenderResult } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ReactElement } from 'react';
 
 // Extend Jest matchers
@@ -8,7 +8,7 @@ expect.extend(toHaveNoViolations);
 export interface AccessibilityScore {
   score: number;
   level: 'A' | 'AA' | 'AAA';
-  violations: any[];
+  violations: unknown[];
   passes: number;
   inapplicable: number;
   incomplete: number;
@@ -21,14 +21,14 @@ export interface AccessibilityReport {
   score: AccessibilityScore;
   recommendations: string[];
   wcagGuidelines: string[];
-  testResults: any;
+  testResults: unknown;
 }
 
 export class AccessibilityChecker {
-  private config: any;
+  private config: unknown;
   private reports: Map<string, AccessibilityReport> = new Map();
 
-  constructor(config?: any) {
+  constructor(config?: unknown) {
     this.config = {
       rules: {
         // Valid axe-core rules for WCAG 2.1 AA
@@ -42,10 +42,10 @@ export class AccessibilityChecker {
         label: { enabled: true },
         'link-name': { enabled: true },
         'page-has-heading-one': { enabled: true },
-        ...config?.rules,
+        ...(config as { rules?: Record<string, unknown> })?.rules,
       },
       level: 'AA',
-      ...config,
+      ...(config as Record<string, unknown>),
     };
   }
 
@@ -53,7 +53,7 @@ export class AccessibilityChecker {
    * Run accessibility check on a React component
    */
   async checkComponent(
-    component: ReactElement<any>,
+    component: ReactElement<unknown>,
     componentName: string,
     options?: { skipRules?: string[]; level?: 'A' | 'AA' | 'AAA' }
   ): Promise<AccessibilityReport> {
@@ -90,29 +90,39 @@ export class AccessibilityChecker {
   /**
    * Calculate accessibility score based on test results
    */
-  private calculateScore(results: any): AccessibilityScore {
+  private calculateScore(results: unknown): AccessibilityScore {
+    const testResults = results as {
+      passes: { length: number }[];
+      violations: { length: number }[];
+      incomplete: { length: number }[];
+      inapplicable: { length: number }[];
+    };
+
     const totalChecks =
-      results.passes.length +
-      results.violations.length +
-      results.incomplete.length;
-    const passedChecks = results.passes.length;
+      testResults.passes.length +
+      testResults.violations.length +
+      testResults.incomplete.length;
+    const passedChecks = testResults.passes.length;
     const score =
       totalChecks > 0 ? Math.round((passedChecks / totalChecks) * 100) : 100;
 
     let level: 'A' | 'AA' | 'AAA' = 'A';
-    if (score >= 95 && results.violations.length === 0) {
+    if (score >= 95 && testResults.violations.length === 0) {
       level = 'AAA';
-    } else if (score >= 85 && this.hasOnlyMinorViolations(results.violations)) {
+    } else if (
+      score >= 85 &&
+      this.hasOnlyMinorViolations(testResults.violations)
+    ) {
       level = 'AA';
     }
 
     return {
       score,
       level,
-      violations: results.violations,
-      passes: results.passes.length,
-      inapplicable: results.inapplicable.length,
-      incomplete: results.incomplete.length,
+      violations: testResults.violations,
+      passes: testResults.passes.length,
+      inapplicable: testResults.inapplicable.length,
+      incomplete: testResults.incomplete.length,
       timestamp: new Date().toISOString(),
     };
   }
@@ -120,11 +130,13 @@ export class AccessibilityChecker {
   /**
    * Generate accessibility recommendations
    */
-  private generateRecommendations(results: any): string[] {
+  private generateRecommendations(results: unknown): string[] {
     const recommendations: string[] = [];
+    const testResults = results as { violations: { id: string }[] };
 
-    results.violations.forEach((violation: any) => {
-      switch (violation.id) {
+    testResults.violations.forEach((violation: unknown) => {
+      const typedViolation = violation as { id: string; description: string };
+      switch (typedViolation.id) {
         case 'color-contrast':
           recommendations.push(
             'Ensure sufficient color contrast (4.5:1 for normal text, 3:1 for large text)'
@@ -156,7 +168,7 @@ export class AccessibilityChecker {
           break;
         default:
           recommendations.push(
-            `Address ${violation.id}: ${violation.description}`
+            `Address ${typedViolation.id}: ${typedViolation.description}`
           );
       }
     });
@@ -167,12 +179,14 @@ export class AccessibilityChecker {
   /**
    * Get relevant WCAG guidelines
    */
-  private getWCAGGuidelines(results: any): string[] {
+  private getWCAGGuidelines(results: unknown): string[] {
     const guidelines: string[] = [];
+    const testResults = results as { violations: { tags?: string[] }[] };
 
-    results.violations.forEach((violation: any) => {
-      if (violation.tags) {
-        violation.tags.forEach((tag: string) => {
+    testResults.violations.forEach((violation: unknown) => {
+      const typedViolation = violation as { tags?: string[] };
+      if (typedViolation.tags) {
+        typedViolation.tags.forEach((tag: string) => {
           if (tag.startsWith('wcag')) {
             guidelines.push(tag);
           }
@@ -186,14 +200,16 @@ export class AccessibilityChecker {
   /**
    * Check if violations are only minor
    */
-  private hasOnlyMinorViolations(violations: any[]): boolean {
+  private hasOnlyMinorViolations(violations: unknown[]): boolean {
     const majorViolations = [
       'color-contrast',
       'keyboard',
       'focus-trap',
       'aria-labels',
     ];
-    return violations.every(v => !majorViolations.includes(v.id));
+    return violations.every(
+      v => !majorViolations.includes((v as { id: string }).id)
+    );
   }
 
   /**
@@ -229,7 +245,9 @@ export class AccessibilityChecker {
    */
   generateBadge(componentName: string): string {
     const report = this.reports.get(componentName);
-    if (!report) return '';
+    if (!report) {
+      return '';
+    }
 
     const { score, level } = report.score;
     const color =
@@ -243,7 +261,9 @@ export class AccessibilityChecker {
    */
   meetsWCAG21AA(componentName: string): boolean {
     const report = this.reports.get(componentName);
-    if (!report) return false;
+    if (!report) {
+      return false;
+    }
 
     return report.score.level === 'AA' || report.score.level === 'AAA';
   }
@@ -252,7 +272,7 @@ export class AccessibilityChecker {
    * Run accessibility audit for all components
    */
   async auditAllComponents(
-    components: Array<{ name: string; component: ReactElement<any> }>
+    components: Array<{ name: string; component: ReactElement<unknown> }>
   ): Promise<void> {
     for (const { name, component } of components) {
       try {

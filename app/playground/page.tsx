@@ -1,25 +1,16 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import {
   GlassButton,
   GlassCard,
   GlassInput,
-  GlassSelect,
   GlassSlider,
   GlassSwitch,
-  GlassCheckbox,
-  GlassAvatar,
   GlassBadge,
   GlassProgress,
-  GlassModal,
-  GlassTooltip,
-  GlassDropdown,
   GlassSearch,
-  GlassTextarea,
   GlassLoading,
-  GlassTabs,
   ThemeProvider,
 } from 'liquidify';
 import { ComponentShowcase } from '@/components/ComponentShowcase';
@@ -27,11 +18,7 @@ import { PhysicsShowcase } from '@/components/PhysicsShowcase';
 import ResponsiveDemo from '@/components/ResponsiveShowcase';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  springAnimations,
-  scrollAnimations,
-  pageTransitions,
-} from '@/lib/enhanced-animations';
+import { scrollAnimations, pageTransitions } from '@/lib/enhanced-animations';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -475,7 +462,9 @@ export default function PlaygroundPage() {
 
   // Setup page animations
   useEffect(() => {
-    if (!isClient || !pageRef.current) return;
+    if (!isClient || !pageRef.current) {
+      return;
+    }
 
     const page = pageRef.current;
 

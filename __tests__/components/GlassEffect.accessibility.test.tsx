@@ -11,8 +11,30 @@ import {
   runComprehensiveAccessibilityTest,
 } from '../../lib/test-utils';
 
+// Define the props interface for MockGlassEffect to match the real component
+interface MockGlassEffectProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  variant?: 'default' | 'card' | 'modal' | 'button' | 'overlay' | 'widget';
+  intensity?: 'light' | 'medium' | 'heavy' | 'ultra';
+  borderRadius?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  shadow?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
+  hover?: boolean;
+  animated?: boolean;
+  glow?: boolean;
+  glowColor?: 'blue' | 'purple' | 'indigo' | 'green' | 'pink' | 'orange';
+  lensEffect?: 'none' | 'convex' | 'concave' | 'dynamic';
+  morphing?: boolean;
+  reflection?: boolean;
+  shine?: boolean;
+  magneticHover?: boolean;
+  parallaxDepth?: number;
+  rippleEffect?: boolean;
+  autoGlow?: boolean;
+  glowIntensity?: 'subtle' | 'medium' | 'intense';
+}
+
 // Mock the GlassEffect component since it might have external dependencies
-const MockGlassEffect = ({ children, ...props }: any) => (
+const MockGlassEffect = ({ children, ...props }: MockGlassEffectProps) => (
   <div className='glass-effect' {...props}>
     {children}
   </div>
@@ -112,7 +134,7 @@ describe('GlassEffect - Accessibility Tests', () => {
 
   // Test with different intensities
   describe('Intensity Tests', () => {
-    const intensities = ['light', 'medium', 'heavy', 'ultra'];
+    const intensities: Array<'light' | 'medium' | 'heavy' | 'ultra'> = ['light', 'medium', 'heavy', 'ultra'];
 
     intensities.forEach(intensity => {
       test(`should be accessible with ${intensity} intensity`, async () => {

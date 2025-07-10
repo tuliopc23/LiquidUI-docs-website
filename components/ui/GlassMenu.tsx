@@ -51,7 +51,9 @@ const GlassMenu = React.forwardRef<HTMLDivElement, GlassMenuProps>(
     };
 
     const handleItemClick = (item: MenuItem) => {
-      if (item.disabled) return;
+      if (item.disabled) {
+        return;
+      }
 
       if (item.subItems) {
         setActiveSubmenu(activeSubmenu === item.id ? null : item.id);

@@ -25,7 +25,9 @@ export const withSSRSafety = <P extends object>(
   return SafeComponent;
 };
 
-export default {
+const reactCompat = {
   isBrowser,
   withSSRSafety,
 };
+
+export default reactCompat;

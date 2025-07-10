@@ -47,6 +47,10 @@ const GlassNotification = React.forwardRef<
 
         return () => clearTimeout(timer);
       }
+
+      return () => {
+        // No cleanup needed when autoClose is false
+      };
     }, [autoClose, autoCloseDelay, onClose]);
 
     const typeStyles = {
@@ -93,7 +97,9 @@ const GlassNotification = React.forwardRef<
       className
     );
 
-    if (!isVisible && !autoClose) return null;
+    if (!isVisible && !autoClose) {
+      return null;
+    }
 
     return (
       <AppleLiquidGlass

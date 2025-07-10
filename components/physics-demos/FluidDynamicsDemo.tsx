@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { GlassButton, GlassCard, GlassSlider } from 'liquidify';
+import { GlassCard, GlassSlider } from 'liquidify';
 
 // Simple Fluid Simulation class for demonstration
 class FluidSimulation {
@@ -23,7 +23,15 @@ class FluidSimulation {
     viscosity,
     fade,
     gravity,
-  }: any) {
+  }: {
+    gridWidth: number;
+    gridHeight: number;
+    cellSize: number;
+    particleCount: number;
+    viscosity: number;
+    fade: number;
+    gravity: Vector2D;
+  }) {
     this.gridWidth = gridWidth;
     this.gridHeight = gridHeight;
     this.cellSize = cellSize;
@@ -42,10 +50,10 @@ class FluidSimulation {
   update(deltaTime: number) {
     for (let x = 0; x < this.gridWidth; x++) {
       for (let y = 0; y < this.gridHeight; y++) {
-        this.velocityField[x][y] = this.velocityField[x][y].add(
+        this.velocityField[x]![y]! = this.velocityField[x]![y]!.add(
           this.gravity.multiply(deltaTime / 1000)
         );
-        this.densityField[x][y] *= 1 - this.fade * deltaTime;
+        this.densityField[x]![y]! *= 1 - this.fade * deltaTime;
       }
     }
   }
@@ -53,7 +61,7 @@ class FluidSimulation {
   render(ctx: CanvasRenderingContext2D) {
     for (let x = 0; x < this.gridWidth; x++) {
       for (let y = 0; y < this.gridHeight; y++) {
-        const alpha = Math.min(1, this.densityField[x][y]);
+        const alpha = Math.min(1, this.densityField[x]![y]!);
         ctx.fillStyle = `rgba(0, 164, 219, ${alpha})`;
         ctx.fillRect(
           x * this.cellSize,
@@ -66,11 +74,11 @@ class FluidSimulation {
   }
 
   addSourceDensity(x: number, y: number, amount: number) {
-    this.densityField[x][y] = Math.min(1, this.densityField[x][y] + amount);
+    this.densityField[x]![y]! = Math.min(1, this.densityField[x]![y]! + amount);
   }
 
   addVelocity(x: number, y: number, velocity: Vector2D) {
-    this.velocityField[x][y] = this.velocityField[x][y].add(velocity);
+    this.velocityField[x]![y]! = this.velocityField[x]![y]!.add(velocity);
   }
 
   applyImpulse(source: Vector2D, strength: number) {
@@ -107,41 +115,47 @@ export function FluidDynamicsDemo() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     const fluidSim = new FluidSimulation({
       gridWidth: 50,
       gridHeight: 50,
       cellSize: 10,
       particleCount: 500,
-      viscosity: viscosity[0],
-      fade: surfaceTension[0],
-      gravity: new Vector2D(0, gravity[0]),
+      viscosity: viscosity[0] ?? 0.3,
+      fade: surfaceTension[0] ?? 0.05,
+      gravity: new Vector2D(0, gravity[0] ?? 50),
     });
 
     canvas.width = fluidSim.gridWidth * fluidSim.cellSize;
     canvas.height = fluidSim.gridHeight * fluidSim.cellSize;
 
-    const animate = (currentTime: number) => {
+    const animate = () => {
       fluidSim.update(16);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       fluidSim.render(ctx);
       requestAnimationFrame(animate);
     };
 
-    animate(0);
+    animate();
   }, [viscosity, surfaceTension, gravity]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      return;
+    }
 
     const rect = canvas.getBoundingClientRect();
-    const x = Math.floor((e.clientX - rect.left) / 10);
-    const y = Math.floor((e.clientY - rect.top) / 10);
+    Math.floor((e.clientX - rect.left) / 10);
+    Math.floor((e.clientY - rect.top) / 10);
 
     // Note: In a real implementation, we'd need to maintain a reference
     // to the fluid simulation instance to interact with it
@@ -164,7 +178,7 @@ export function FluidDynamicsDemo() {
                 Viscosity: {viscosity[0]}
               </label>
               <GlassSlider
-                value={viscosity[0]}
+                value={viscosity[0] ?? 0.3}
                 onChange={value => setViscosity([value])}
                 max={0.8}
                 min={0.05}
@@ -178,7 +192,7 @@ export function FluidDynamicsDemo() {
                 Surface Tension: {surfaceTension[0]}
               </label>
               <GlassSlider
-                value={surfaceTension[0]}
+                value={surfaceTension[0] ?? 0.05}
                 onChange={value => setSurfaceTension([value])}
                 max={0.2}
                 min={0.01}
@@ -192,7 +206,7 @@ export function FluidDynamicsDemo() {
                 Gravity: {gravity[0]}
               </label>
               <GlassSlider
-                value={gravity[0]}
+                value={gravity[0] ?? 50}
                 onChange={value => setGravity([value])}
                 max={200}
                 min={-100}

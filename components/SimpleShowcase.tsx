@@ -27,7 +27,9 @@ function ShowcaseCard({
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    if (!cardRef.current) {
+      return;
+    }
 
     const card = cardRef.current;
 
@@ -69,7 +71,9 @@ export function SimpleShowcase() {
   useEffect(() => {
     setIsClient(true);
 
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      return;
+    }
 
     // Simple scroll reveal
     gsap.fromTo(
