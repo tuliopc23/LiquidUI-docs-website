@@ -134,7 +134,12 @@ describe('GlassEffect - Accessibility Tests', () => {
 
   // Test with different intensities
   describe('Intensity Tests', () => {
-    const intensities: Array<'light' | 'medium' | 'heavy' | 'ultra'> = ['light', 'medium', 'heavy', 'ultra'];
+    const intensities: Array<'light' | 'medium' | 'heavy' | 'ultra'> = [
+      'light',
+      'medium',
+      'heavy',
+      'ultra',
+    ];
 
     intensities.forEach(intensity => {
       test(`should be accessible with ${intensity} intensity`, async () => {

@@ -13,7 +13,15 @@ import {
 } from './components/ClientComponents';
 
 // Simple fallback component for server-side rendering
-function GlassEffect({ children, className = '', ...props }: { children: React.ReactNode; className?: string; [key: string]: unknown }) {
+function GlassEffect({
+  children,
+  className = '',
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+  [key: string]: unknown;
+}) {
   return (
     <div
       className={`${className} bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg`}
