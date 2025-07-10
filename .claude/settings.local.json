@@ -46,7 +46,8 @@
       "Bash(chmod:*)",
       "Bash(mv:*)",
       "Bash(npx tsc:*)",
-      "Bash(npx prettier:*)"
+      "Bash(npx prettier:*)",
+      "Bash(npm run format:check:*)"
     ],
     "deny": []
   }
