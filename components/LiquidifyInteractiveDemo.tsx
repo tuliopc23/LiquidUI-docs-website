@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import {
   GlassButton,
   GlassCard,
@@ -22,397 +22,400 @@ import {
   ThemeProvider,
 } from 'liquidify';
 
-export default function LiquidifyInteractiveDemo() {
-  const [inputValue, setInputValue] = useState('');
-  const [checkboxValue, setCheckboxValue] = useState(false);
-  const [switchValue, setSwitchValue] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(65);
-  const [searchValue] = useState('');
-  const [selectValue, setSelectValue] = useState('');
-  const [sliderValue, setSliderValue] = useState(50);
-  const [textareaValue, setTextareaValue] = useState('');
-  const [activeTab] = useState('tab1');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import { cn } from '@/utils';
+import { BUTTON_VARIANTS, ANIMATION_DURATION } from '@/constants';
+import { useDebouncedState, usePerformantAnimation } from '@/hooks/performance';
+import { LazyComponent } from '@/components/LazyComponent';
+import type { DemoState } from '@/types';
 
-  const handleButtonClick = async () => {
-    setLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setLoading(false);
-    console.info('Action completed!');
+// Initial state for the demo
+const initialState: DemoState = {
+  inputValue: '',
+  checkboxValue: false,
+  switchValue: false,
+  loading: false,
+  progress: 65,
+  searchValue: '',
+  selectValue: '',
+  sliderValue: 50,
+  textareaValue: '',
+  activeTab: 'tab1',
+  isModalOpen: false,
+};
+
+// Memoized static data
+const selectOptions = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  { value: 'option3', label: 'Option 3' },
+] as const;
+
+const badgeVariants = [
+  { variant: 'default', label: 'Default' },
+  { variant: 'success', label: 'Success' },
+  { variant: 'warning', label: 'Warning' },
+  { variant: 'error', label: 'Error' },
+] as const;
+
+// Memoized sub-components for better performance
+const ButtonSection = memo(({
+  loading,
+  onButtonClick
+}: {
+  loading: boolean;
+  onButtonClick: () => void;
+}) => (
+  <GlassCard className="p-6">
+    <h3 className="hig-headline mb-4">Glass Buttons</h3>
+    <div className="flex flex-wrap gap-4">
+      <GlassButton
+        variant="primary"
+        onClick={onButtonClick}
+        loading={loading}
+        disabled={loading}
+      >
+        {loading ? 'Loading...' : 'Primary Action'}
+      </GlassButton>
+      {BUTTON_VARIANTS.slice(1).map(variant => (
+        <GlassButton
+          key={variant}
+          variant={variant}
+          size={variant === 'tertiary' ? 'sm' : variant === 'ghost' ? 'lg' : 'md'}
+          disabled={variant === 'destructive'}
+        >
+          {variant.charAt(0).toUpperCase() + variant.slice(1)}
+          {variant === 'tertiary' && ' Small'}
+          {variant === 'ghost' && ' Large'}
+          {variant === 'destructive' && ' (Disabled)'}
+        </GlassButton>
+      ))}
+    </div>
+  </GlassCard>
+));
+
+const FormSection = memo(({
+  state,
+  handlers
+}: {
+  state: DemoState;
+  handlers: {
+    handleInputChange: (value: string) => void;
+    handleCheckboxChange: (checked: boolean) => void;
+    handleSwitchChange: (checked: boolean) => void;
+    handleSelectChange: (value: string) => void;
+    handleSliderChange: (value: number) => void;
+    handleTextareaChange: (value: string) => void;
   };
+}) => (
+  <GlassCard className="p-6">
+    <h3 className="hig-headline mb-4">Form Controls</h3>
+    <div className="space-y-4">
+      {/* Input Field */}
+      <div>
+        <label className="hig-callout block mb-2" htmlFor="demo-input">
+          Glass Input
+        </label>
+        <GlassInput
+          id="demo-input"
+          placeholder="Enter some text..."
+          value={state.inputValue}
+          onChange={(e) => handlers.handleInputChange(e.target.value)}
+          className="w-full max-w-sm"
+        />
+        {state.inputValue && (
+          <p className="hig-caption-1 mt-2 text-apple-gray-500">
+            You typed: {state.inputValue}
+          </p>
+        )}
+      </div>
 
-  const updateProgress = () => {
-    const newProgress = Math.min(progress + 10, 100);
-    setProgress(newProgress);
+      {/* Search Field */}
+      <div>
+        <label className="hig-callout block mb-2" htmlFor="demo-search">
+          Glass Search
+        </label>
+        <GlassSearch
+          id="demo-search"
+          placeholder="Search components..."
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      {/* Select Field */}
+      <div>
+        <label className="hig-callout block mb-2" htmlFor="demo-select">
+          Glass Select
+        </label>
+        <GlassSelect
+          id="demo-select"
+          value={state.selectValue}
+          onChange={handlers.handleSelectChange}
+          options={selectOptions}
+          placeholder="Select an option..."
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      {/* Textarea Field */}
+      <div>
+        <label className="hig-callout block mb-2" htmlFor="demo-textarea">
+          Glass Textarea
+        </label>
+        <GlassTextarea
+          id="demo-textarea"
+          placeholder="Enter a longer message..."
+          value={state.textareaValue}
+          onChange={(e) => handlers.handleTextareaChange(e.target.value)}
+          rows={3}
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      {/* Slider */}
+      <div>
+        <label className="hig-callout block mb-2" htmlFor="demo-slider">
+          Glass Slider: {state.sliderValue}%
+        </label>
+        <GlassSlider
+          id="demo-slider"
+          value={state.sliderValue}
+          onChange={handlers.handleSliderChange}
+          min={0}
+          max={100}
+          step={1}
+          className="w-full max-w-sm"
+        />
+      </div>
+
+      {/* Checkbox and Switch */}
+      <div className="flex items-center gap-4">
+        <GlassCheckbox
+          checked={state.checkboxValue}
+          onChange={(e) => handlers.handleCheckboxChange(e.target.checked)}
+          label="Glass Checkbox"
+        />
+        <GlassSwitch
+          checked={state.switchValue}
+          onChange={handlers.handleSwitchChange}
+          label="Glass Switch"
+        />
+      </div>
+    </div>
+  </GlassCard>
+));
+
+const DisplaySection = memo(({
+  state,
+  handlers
+}: {
+  state: DemoState;
+  handlers: {
+    handleModalToggle: () => void;
+    updateProgress: () => void;
+    resetProgress: () => void;
   };
-
-  return (
-    <ThemeProvider>
-      <div className='space-y-8 p-6'>
-        <div className='text-center mb-8'>
-          <h2 className='hig-title-1 mb-4 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent'>
-            Liquidify Interactive Demo
-          </h2>
-          <p className='hig-body text-apple-gray-600 dark:text-apple-gray-300'>
-            Experience real Liquidify components with live interactions
+}) => (
+  <GlassCard className="p-6">
+    <h3 className="hig-headline mb-4">Display Components</h3>
+    <div className="space-y-6">
+      {/* Avatars and Badges */}
+      <div className="flex items-center gap-4">
+        <GlassAvatar
+          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+          alt="User Avatar"
+          size="lg"
+          status="online"
+        />
+        <div className="space-y-2">
+          <div className="flex gap-2">
+            {badgeVariants.map(({ variant, label }) => (
+              <GlassBadge key={variant} variant={variant}>
+                {label}
+              </GlassBadge>
+            ))}
+          </div>
+          <p className="hig-caption-1 text-apple-gray-500">
+            Avatar with status indicator and various badge styles
           </p>
         </div>
+      </div>
 
-        {/* Buttons Section */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Glass Buttons</h3>
-          <div className='flex flex-wrap gap-4'>
+      {/* Progress */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <span className="hig-callout">Progress: {state.progress}%</span>
+          <div className="flex gap-2">
             <GlassButton
-              variant='primary'
-              onClick={handleButtonClick}
-              loading={loading}
+              size="sm"
+              onClick={handlers.updateProgress}
+              disabled={state.progress >= 100}
             >
-              {loading ? 'Loading...' : 'Primary Action'}
+              +10%
             </GlassButton>
-            <GlassButton variant='secondary'>Secondary</GlassButton>
-            <GlassButton variant='tertiary' size='sm'>
-              Tertiary Small
-            </GlassButton>
-            <GlassButton variant='ghost' size='lg'>
-              Ghost Large
-            </GlassButton>
-            <GlassButton variant='destructive' disabled>
-              Destructive (Disabled)
+            <GlassButton
+              size="sm"
+              variant="secondary"
+              onClick={handlers.resetProgress}
+              disabled={state.progress === 0}
+            >
+              Reset
             </GlassButton>
           </div>
-        </GlassCard>
+        </div>
+        <GlassProgress value={state.progress} className="w-full max-w-sm" />
+      </div>
 
-        {/* Form Controls Section */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Form Controls</h3>
-          <div className='space-y-4'>
-            <div>
-              <label className='hig-callout block mb-2'>Glass Input</label>
-              <GlassInput
-                placeholder='Enter some text...'
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                className='w-full max-w-sm'
-              />
-              {inputValue && (
-                <p className='hig-caption-1 mt-2 text-apple-gray-500'>
-                  You typed: {inputValue}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>Glass Search</label>
-              <GlassSearch
-                placeholder='Search components...'
-                className='w-full max-w-sm'
-              />
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>Glass Select</label>
-              <GlassSelect
-                value={selectValue}
-                onChange={value => setSelectValue(value)}
-                options={[
-                  { value: 'option1', label: 'Option 1' },
-                  { value: 'option2', label: 'Option 2' },
-                  { value: 'option3', label: 'Option 3' },
-                ]}
-                placeholder='Select an option...'
-                className='w-full max-w-sm'
-              />
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>Glass Textarea</label>
-              <GlassTextarea
-                placeholder='Enter a longer message...'
-                value={textareaValue}
-                onChange={e => setTextareaValue(e.target.value)}
-                rows={3}
-                className='w-full max-w-sm'
-              />
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>
-                Glass Slider: {sliderValue}%
-              </label>
-              <GlassSlider
-                value={sliderValue}
-                onChange={value => setSliderValue(value)}
-                min={0}
-                max={100}
-                step={1}
-                className='w-full max-w-sm'
-              />
-            </div>
-
-            <div className='flex items-center gap-4'>
-              <GlassCheckbox
-                checked={checkboxValue}
-                onChange={e => setCheckboxValue(e.target.checked)}
-                label='Glass Checkbox'
-              />
-              <GlassSwitch
-                checked={switchValue}
-                onChange={checked => setSwitchValue(checked)}
-                label='Glass Switch'
-              />
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Display Components Section */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Display Components</h3>
-          <div className='space-y-6'>
-            {/* Avatars and Badges */}
-            <div className='flex items-center gap-4'>
-              <GlassAvatar
-                src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-                alt='User Avatar'
-                size='lg'
-                status='online'
-              />
-              <div className='space-y-2'>
-                <div className='flex gap-2'>
-                  <GlassBadge variant='default'>Default</GlassBadge>
-                  <GlassBadge variant='success'>Success</GlassBadge>
-                  <GlassBadge variant='warning'>Warning</GlassBadge>
-                  <GlassBadge variant='error'>Error</GlassBadge>
-                </div>
-                <p className='hig-caption-1 text-apple-gray-500'>
-                  Avatar with status indicator and various badge styles
-                </p>
-              </div>
-            </div>
-
-            {/* Progress */}
-            <div>
-              <div className='flex items-center justify-between mb-2'>
-                <span className='hig-callout'>Progress: {progress}%</span>
-                <GlassButton
-                  size='xs'
-                  onClick={updateProgress}
-                  disabled={progress >= 100}
-                >
-                  +10%
-                </GlassButton>
-              </div>
-              <GlassProgress
-                value={progress}
-                max={100}
-                className='w-full'
-                showValue={false}
-                color='blue'
-              />
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Interactive Features */}
-        <GlassCard className='p-6' hover>
-          <h3 className='hig-headline mb-4'>Interactive Features</h3>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-            <div>
-              <h4 className='hig-callout mb-3'>State Management</h4>
-              <div className='space-y-2 hig-caption-1'>
-                <div>
-                  Input Value:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {inputValue || 'empty'}
-                  </code>
-                </div>
-                <div>
-                  Search Value:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {searchValue || 'empty'}
-                  </code>
-                </div>
-                <div>
-                  Select Value:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {selectValue || 'none'}
-                  </code>
-                </div>
-                <div>
-                  Slider Value:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {sliderValue}%
-                  </code>
-                </div>
-                <div>
-                  Checkbox:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {checkboxValue.toString()}
-                  </code>
-                </div>
-                <div>
-                  Switch:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {switchValue.toString()}
-                  </code>
-                </div>
-                <div>
-                  Active Tab:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {activeTab}
-                  </code>
-                </div>
-                <div>
-                  Loading:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {loading.toString()}
-                  </code>
-                </div>
-                <div>
-                  Progress:{' '}
-                  <code className='liquid-glass-thin px-2 py-1 rounded'>
-                    {progress}%
-                  </code>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className='hig-callout mb-3'>Component Features</h4>
-              <ul className='space-y-1 hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
-                <li>✅ Glassmorphism effects</li>
-                <li>✅ Magnetic hover interactions</li>
-                <li>✅ Loading states</li>
-                <li>✅ Accessibility support</li>
-                <li>✅ Theme provider integration</li>
-                <li>✅ Apple HIG compliance</li>
-              </ul>
-            </div>
-          </div>
-        </GlassCard>
-
-        {/* Navigation & Layout */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Navigation & Layout</h3>
-          <div className='space-y-4'>
-            <div>
-              <label className='hig-callout block mb-2'>Glass Tabs</label>
-              <GlassTabs
-                tabs={[
-                  { id: 'tab1', label: 'Tab 1', content: 'Content for tab 1' },
-                  { id: 'tab2', label: 'Tab 2', content: 'Content for tab 2' },
-                  { id: 'tab3', label: 'Tab 3', content: 'Content for tab 3' },
-                ]}
-              />
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>Glass Dropdown</label>
-              <GlassDropdown
-                trigger={
-                  <GlassButton variant='secondary'>Open Menu</GlassButton>
-                }
-                items={[
-                  { label: 'Profile', value: 'profile' },
-                  { label: 'Settings', value: 'settings' },
-                  { label: 'Logout', value: 'logout' },
-                ]}
-              />
-            </div>
-
-            <div>
-              <label className='hig-callout block mb-2'>Glass Modal</label>
-              <GlassButton onClick={() => setIsModalOpen(true)}>
-                Open Modal
+      {/* Modal Demo */}
+      <div>
+        <GlassButton onClick={handlers.handleModalToggle}>
+          Open Modal Demo
+        </GlassButton>
+        <GlassModal
+          isOpen={state.isModalOpen}
+          onClose={handlers.handleModalToggle}
+          title="Demo Modal"
+        >
+          <div className="space-y-4">
+            <p className="hig-body">
+              This is a glass modal component with backdrop blur and smooth animations.
+            </p>
+            <div className="flex justify-end gap-2">
+              <GlassButton variant="secondary" onClick={handlers.handleModalToggle}>
+                Cancel
               </GlassButton>
-              <GlassModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                title='Glass Modal'
-              >
-                <p className='hig-body mb-4'>
-                  This is a glass modal with blur effects.
-                </p>
-                <div className='flex justify-end gap-2'>
-                  <GlassButton
-                    variant='secondary'
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Cancel
-                  </GlassButton>
-                  <GlassButton
-                    variant='primary'
-                    onClick={() => setIsModalOpen(false)}
-                  >
-                    Confirm
-                  </GlassButton>
-                </div>
-              </GlassModal>
+              <GlassButton onClick={handlers.handleModalToggle}>
+                Confirm
+              </GlassButton>
             </div>
           </div>
-        </GlassCard>
+        </GlassModal>
+      </div>
 
-        {/* Loading & Feedback */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Loading & Feedback</h3>
-          <div className='space-y-4'>
-            <div>
-              <label className='hig-callout block mb-2'>Glass Loading</label>
-              <div className='flex items-center gap-4'>
-                <GlassLoading variant='spinner' size='sm' />
-                <GlassLoading variant='dots' size='md' />
-                <GlassLoading variant='pulse' size='lg' />
-              </div>
-            </div>
+      {/* Loading State */}
+      {state.loading && (
+        <div className="flex items-center justify-center p-8">
+          <GlassLoading size="lg" />
+        </div>
+      )}
+    </div>
+  </GlassCard>
+));
 
-            <div>
-              <label className='hig-callout block mb-2'>Glass Tooltip</label>
-              <GlassTooltip content='This is a tooltip with glass effects'>
-                <GlassButton variant='secondary'>Hover for tooltip</GlassButton>
-              </GlassTooltip>
-            </div>
-          </div>
-        </GlassCard>
+// Add display names for debugging
+ButtonSection.displayName = 'ButtonSection';
+FormSection.displayName = 'FormSection';
+DisplaySection.displayName = 'DisplaySection';
 
-        {/* Code Example */}
-        <GlassCard className='p-6'>
-          <h3 className='hig-headline mb-4'>Code Example</h3>
-          <pre className='liquid-glass p-4 rounded-apple-lg overflow-x-auto hig-caption-1 font-mono'>
-            <code>{`import { 
-  GlassButton, 
-  GlassCard, 
-  GlassInput,
-  GlassSearch,
-  GlassSelect,
-  GlassSlider,
-  GlassModal,
-  GlassLoading,
-  ThemeProvider 
-} from 'liquidify'
+/**
+ * Interactive demo component showcasing Liquidify components
+ * Optimized with memoization, debouncing, and lazy loading
+ */
+function LiquidifyInteractiveDemo() {
+  const [state, setState] = useState<DemoState>(initialState);
+  const shouldAnimate = usePerformantAnimation();
 
-export function MyComponent() {
+  // Use debounced state for text inputs to improve performance
+  const [, debouncedInputValue, setDebouncedInputValue] = useDebouncedState(state.inputValue, 300);
+  const [, debouncedTextareaValue, setDebouncedTextareaValue] = useDebouncedState(state.textareaValue, 300);
+
+  // Memoized handlers for better performance
+  const handlers = {
+    handleInputChange: useCallback((value: string) => {
+      setState(prev => ({ ...prev, inputValue: value }));
+      setDebouncedInputValue(value);
+    }, [setDebouncedInputValue]),
+
+    handleCheckboxChange: useCallback((checked: boolean) => {
+      setState(prev => ({ ...prev, checkboxValue: checked }));
+    }, []),
+
+    handleSwitchChange: useCallback((checked: boolean) => {
+      setState(prev => ({ ...prev, switchValue: checked }));
+    }, []),
+
+    handleSelectChange: useCallback((value: string) => {
+      setState(prev => ({ ...prev, selectValue: value }));
+    }, []),
+
+    handleSliderChange: useCallback((value: number) => {
+      setState(prev => ({ ...prev, sliderValue: value }));
+    }, []),
+
+    handleTextareaChange: useCallback((value: string) => {
+      setState(prev => ({ ...prev, textareaValue: value }));
+      setDebouncedTextareaValue(value);
+    }, [setDebouncedTextareaValue]),
+
+    handleModalToggle: useCallback(() => {
+      setState(prev => ({ ...prev, isModalOpen: !prev.isModalOpen }));
+    }, []),
+
+    updateProgress: useCallback(() => {
+      setState(prev => ({
+        ...prev,
+        progress: Math.min(prev.progress + 10, 100),
+      }));
+    }, []),
+
+    resetProgress: useCallback(() => {
+      setState(prev => ({ ...prev, progress: 0 }));
+    }, []),
+
+    handleButtonClick: useCallback(async () => {
+      try {
+        setState(prev => ({ ...prev, loading: true }));
+
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, ANIMATION_DURATION.SLOW * 4));
+
+        console.info('Action completed successfully!');
+      } catch (error) {
+        console.error('Action failed:', error);
+      } finally {
+        setState(prev => ({ ...prev, loading: false }));
+      }
+    }, []),
+  };
+
   return (
     <ThemeProvider>
-      <GlassCard className="p-6">
-        <h3>My Glass Interface</h3>
-        <GlassSearch placeholder="Search..." />
-        <GlassSelect 
-          options={[
-            { value: 'option1', label: 'Option 1' }
-          ]}
-        />
-        <GlassSlider min={0} max={100} />
-        <GlassButton variant="primary">
-          Submit
-        </GlassButton>
-      </GlassCard>
-    </ThemeProvider>
-  )
-}`}</code>
-          </pre>
-        </GlassCard>
+      <div className={cn(
+        'space-y-8 p-6',
+        shouldAnimate && 'animate-fade-in'
+      )}>
+        {/* Header Section */}
+        <header className="text-center mb-8">
+          <h2 className="hig-title-1 mb-4 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent">
+            Liquidify Interactive Demo
+          </h2>
+          <p className="hig-body text-apple-gray-600 dark:text-apple-gray-300">
+            Experience real Liquidify components with live interactions
+          </p>
+        </header>
+
+        {/* Lazy-loaded sections for better performance */}
+        <LazyComponent>
+          <ButtonSection loading={state.loading} onButtonClick={handlers.handleButtonClick} />
+        </LazyComponent>
+
+        <LazyComponent>
+          <FormSection state={state} handlers={handlers} />
+        </LazyComponent>
+
+        <LazyComponent>
+          <DisplaySection
+            state={state}
+            handlers={{
+              handleModalToggle: handlers.handleModalToggle,
+              updateProgress: handlers.updateProgress,
+              resetProgress: handlers.resetProgress,
+            }}
+          />
+        </LazyComponent>
       </div>
     </ThemeProvider>
   );
 }
+
+// Export memoized component for better performance
+export default memo(LiquidifyInteractiveDemo);

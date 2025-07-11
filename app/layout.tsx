@@ -1,114 +1,149 @@
 import type { Metadata } from 'next';
-import { Layout, Navbar, Footer } from 'nextra-theme-docs';
-import { getPageMap } from 'nextra/page-map';
-import { ThemeProvider } from 'next-themes';
-import 'nextra-theme-docs/style.css';
+import { Inter } from 'next/font/google';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { CommunityFeedback } from '@/components/CommunityFeatures';
+import { analytics } from '@/utils/oss-analytics';
 import './globals.css';
-import PageTransition from '../components/PageTransition';
-import { ClientWrapper } from '../components/ClientComponents';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Liquidify - React UI Component Library',
-  description:
-    'Modern React UI components with glassmorphism design and physics-based interactions',
+  title: 'Liquidify - Modern Glassmorphism UI Library',
+  description: 'Beautiful, accessible React components with glassmorphism design system',
+  keywords: ['React', 'UI Library', 'Glassmorphism', 'Components', 'TypeScript'],
+  authors: [{ name: 'Tulio Pinheiro Cunha' }],
+  creator: 'Tulio Pinheiro Cunha',
+  publisher: 'Liquidify',
+  openGraph: {
+    title: 'Liquidify - Modern Glassmorphism UI Library',
+    description: 'Beautiful, accessible React components with glassmorphism design system',
+    url: 'https://liquidify-docs.vercel.app',
+    siteName: 'Liquidify Docs',
+    images: [
+      {
+        url: 'https://liquidify-docs.vercel.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Liquidify UI Library',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Liquidify - Modern Glassmorphism UI Library',
+    description: 'Beautiful, accessible React components with glassmorphism design system',
+    images: ['https://liquidify-docs.vercel.app/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <ClientWrapper>
-            <PageTransition>
-              <Layout
-                pageMap={await getPageMap()}
-                docsRepositoryBase='https://github.com/tuliopc23/Liquidify-docs/tree/main'
-              >
-                <Navbar
-                  logo={
-                    <span className='hig-headline bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent'>
-                      Liquidify
-                    </span>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Analytics Scripts */}
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}');
+                `,
+              }}
+            />
+          </>
+        )}
+
+        {/* Vercel Analytics */}
+        {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/"+key+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.15.3";
+                analytics.load("${process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID}");
+                analytics.page();
+                }}();
+              `,
+            }}
+          />
+        )}
+
+        {/* Plausible Analytics (Privacy-focused alternative) */}
+        {process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && (
+          <script
+            defer
+            data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN}
+            src="https://plausible.io/js/script.js"
+          />
+        )}
+
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="/fonts/inter-var.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin=""
+        />
+      </head>
+      <body className={inter.className}>
+        <ErrorBoundary>
+          {children}
+
+          {/* Community features for OSS */}
+          {process.env.NEXT_PUBLIC_ENABLE_COMMUNITY_FEATURES === 'true' && (
+            <CommunityFeedback />
+          )}
+        </ErrorBoundary>
+
+        {/* Performance monitoring */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => {
+                  if (typeof window !== 'undefined' && window.performance) {
+                    const vitals = {};
+                    const observer = new PerformanceObserver((list) => {
+                      for (const entry of list.getEntries()) {
+                        if (entry.entryType === 'navigation') {
+                          vitals.ttfb = entry.responseStart - entry.fetchStart;
+                        }
+                      }
+                    });
+                    observer.observe({ entryTypes: ['navigation'] });
                   }
-                />
-                <main>{children}</main>
-                <Footer>
-                  <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-400'>
-                    MIT 2024 © Liquidify
-                  </p>
-                </Footer>
-              </Layout>
-
-              {/* SVG Filters for Liquid Glass Effects */}
-              <svg style={{ display: 'none' }}>
-                <filter
-                  id='liquid-lens'
-                  x='-50%'
-                  y='-50%'
-                  width='200%'
-                  height='200%'
-                >
-                  <feImage
-                    x='0'
-                    y='0'
-                    result='normalMap'
-                    xlinkHref="data:image/svg+xml;utf8,
-                           <svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
-                             <radialGradient id='nmap' cx='50%' cy='50%' r='50%'>
-                               <stop offset='0%' stopColor='rgb(128,128,255)'/>
-                               <stop offset='100%' stopColor='rgb(255,255,255)'/>
-                             </radialGradient>
-                             <rect width='100%' height='100%' fill='url(#nmap)'/>
-                           </svg>"
-                  />
-                  <feDisplacementMap
-                    in='SourceGraphic'
-                    in2='normalMap'
-                    scale='60'
-                    xChannelSelector='R'
-                    yChannelSelector='G'
-                    result='displaced'
-                  />
-                  <feMerge>
-                    <feMergeNode in='displaced' />
-                  </feMerge>
-                </filter>
-
-                <filter
-                  id='liquid-distortion'
-                  x='0%'
-                  y='0%'
-                  width='100%'
-                  height='100%'
-                >
-                  <feTurbulence
-                    type='fractalNoise'
-                    baseFrequency='0.008 0.008'
-                    numOctaves='2'
-                    seed='92'
-                    result='noise'
-                  />
-                  <feGaussianBlur
-                    in='noise'
-                    stdDeviation='2'
-                    result='blurred'
-                  />
-                  <feDisplacementMap
-                    in='SourceGraphic'
-                    in2='blurred'
-                    scale='70'
-                    xChannelSelector='R'
-                    yChannelSelector='G'
-                  />
-                </filter>
-              </svg>
-            </PageTransition>
-          </ClientWrapper>
-        </ThemeProvider>
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
