@@ -66,6 +66,44 @@ function LiquidifyWrapper({ children }: { children: ReactNode }) {
   );
 }
 
+// New server-safe provider wrapper without client hooks
+export function ServerSafeThemeProvider({ children }: { children: ReactNode }) {
+  // Provide default theme and config for SSR
+  return (
+    <SSRConfigProvider>
+      <GlobalConfigProvider
+        config={{
+          defaultVariant: 'glass',
+          defaultSize: 'md',
+          enableAnimations: true,
+          enableA11y: true,
+          colorScheme: 'light',
+          reducedMotion: false,
+          highContrast: false,
+        }}
+      >
+        <LiquidifyProvider
+          theme="light"
+          glassConfig={{
+            intensity: 0.8,
+            blur: 10,
+            saturation: 1.5,
+            enableMagnetic: true,
+            enableSpecular: true,
+          }}
+          hapticConfig={{
+            enableVibration: true,
+            enableAudio: true,
+            enableVisual: true,
+          }}
+        >
+          {children}
+        </LiquidifyProvider>
+      </GlobalConfigProvider>
+    </SSRConfigProvider>
+  );
+}
+
 export function ClientThemeProvider({ children }: ClientThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
 
