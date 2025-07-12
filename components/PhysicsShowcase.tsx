@@ -2,13 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  GlassCard,
-  GlassButton,
-  GlassSlider,
-  GlassSwitch,
-  ThemeProvider,
-} from 'liquidify';
+import { GlassCard, GlassButton, GlassSlider, GlassSwitch } from 'liquidify';
+import { MockThemeProvider } from '@/components/MockThemeProvider';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -401,7 +396,7 @@ export const PhysicsShowcase: React.FC = () => {
   };
 
   return (
-    <ThemeProvider>
+    <MockThemeProvider>
       <div ref={showcaseRef} className='physics-showcase space-y-8'>
         <div className='physics-section'>
           <div className='text-center mb-8'>
@@ -512,7 +507,7 @@ export const PhysicsShowcase: React.FC = () => {
           </GlassCard>
         </div>
       </div>
-    </ThemeProvider>
+    </MockThemeProvider>
   );
 };
 

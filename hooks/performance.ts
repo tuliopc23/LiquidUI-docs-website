@@ -10,14 +10,14 @@ import { debounce, throttle, prefersReducedMotion } from '@/utils';
  */
 export function useDebouncedState<T>(
   initialValue: T,
-  delay: number = 300,
+  delay: number = 300
 ): [T, T, (value: T) => void] {
   const [immediateValue, setImmediateValue] = useState<T>(initialValue);
   const [debouncedValue, setDebouncedValue] = useState<T>(initialValue);
 
   const debouncedSetValue = useCallback(
-    debounce((value: T) => setDebouncedValue(value), delay),
-    [delay],
+    debounce((...args: unknown[]) => setDebouncedValue(args[0] as T), delay),
+    [delay]
   );
 
   const setValue = useCallback(
@@ -25,7 +25,7 @@ export function useDebouncedState<T>(
       setImmediateValue(value);
       debouncedSetValue(value);
     },
-    [debouncedSetValue],
+    [debouncedSetValue]
   );
 
   return [immediateValue, debouncedValue, setValue];
@@ -35,7 +35,7 @@ export function useDebouncedState<T>(
  * Hook for intersection observer with performance optimizations
  */
 export function useIntersectionObserver(
-  options: IntersectionObserverInit = {},
+  options: IntersectionObserverInit = {}
 ) {
   const [isIntersecting, setIsIntersecting] = useState(false);
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
@@ -46,15 +46,18 @@ export function useIntersectionObserver(
     if (!element) return;
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
-        setEntry(entry);
+      entries => {
+        const entry = entries[0];
+        if (entry) {
+          setIsIntersecting(entry.isIntersecting);
+          setEntry(entry);
+        }
       },
       {
         threshold: 0.1,
         rootMargin: '50px',
         ...options,
-      },
+      }
     );
 
     observer.observe(element);
@@ -99,7 +102,7 @@ export function usePerformantAnimation() {
     // Check for low-end device indicators
     const isLowEndDevice =
       navigator.hardwareConcurrency <= 2 ||
-      (navigator as any).deviceMemory <= 2;
+      ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4) <= 2;
 
     setShouldAnimate(!reducedMotion && !isLowEndDevice);
   }, []);
@@ -163,9 +166,11 @@ export function useThrottledResize(delay: number = 100) {
  */
 export function useComponentCache<T>(
   factory: () => T,
-  deps: React.DependencyList,
+  deps: React.DependencyList
 ): T {
-  const cacheRef = useRef<{ deps: React.DependencyList; value: T } | null>(null);
+  const cacheRef = useRef<{ deps: React.DependencyList; value: T } | null>(
+    null
+  );
 
   if (!cacheRef.current || !depsEqual(cacheRef.current.deps, deps)) {
     cacheRef.current = {

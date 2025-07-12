@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     // Library and environment
 
     "lib": ["dom", "dom.iterable", "es2022"],
@@ -76,12 +75,5 @@
     ".next/types/**/*.ts",
     "mdx-components.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "out",
-    "dist",
-    "coverage",
-    "reports"
-  ]
+  "exclude": ["node_modules", ".next", "out", "dist", "coverage", "reports"]
 }

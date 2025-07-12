@@ -1,15 +1,11 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_APP_URL || 'https://liquidify-docs.vercel.app',
+  siteUrl:
+    process.env['NEXT_PUBLIC_APP_URL'] || 'https://liquidify-docs.vercel.app',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  exclude: [
-    '/api/*',
-    '/404',
-    '/500',
-    '/server-sitemap-index.xml',
-  ],
-  additionalPaths: async (config) => [
+  exclude: ['/api/*', '/404', '/500', '/server-sitemap-index.xml'],
+  additionalPaths: async () => [
     // Add dynamic routes
     {
       loc: '/components',
@@ -42,7 +38,7 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      `${process.env.NEXT_PUBLIC_APP_URL || 'https://liquidify-docs.vercel.app'}/sitemap.xml`,
+      `${process.env['NEXT_PUBLIC_APP_URL'] || 'https://liquidify-docs.vercel.app'}/sitemap.xml`,
     ],
   },
   transform: async (config, path) => {

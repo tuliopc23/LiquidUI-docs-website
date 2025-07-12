@@ -13,10 +13,10 @@ import { GlassTextarea } from 'liquidify'
 
 function App() {
   return (
-    cGlassTextarea
+    <GlassTextarea
       placeholder="Your message here..."
       rows={4}
-    e
+    />
   )
 }
 ```
@@ -34,15 +34,15 @@ function AutoResizeTextarea() {
   const [message, setMessage] = useState('')
 
   return (
-    cdive
-      cGlassTextarea
+    <div>
+      <GlassTextarea
         value={message}
-        onChange={(e) =e setMessage(e.target.value)}
+        onChange={(e) => setMessage(e.target.value)}
         placeholder="Share your thoughts..."
         autoResize
-      e
-      cdive{message.length}/500 charactersc/dive
-    c/dive
+      />
+      <div>{message.length}/500 characters</div>
+    </div>
   )
 }
 ```
@@ -54,7 +54,7 @@ function AutoResizeTextarea() {
 | Prop          | Type                                                      | Default | Description                            |
 | ------------- | --------------------------------------------------------- | ------- | -------------------------------------- |
 | `value`       | `string`                                                  | `''`    | Current text value                     |
-| `onChange`    | `(event: React.ChangeEvent<HTMLTextAreaElement>) =e void` | -       | Handler on text change                 |
+| `onChange`    | `(event: React.ChangeEvent<HTMLTextAreaElement>) => void` | -       | Handler on text change                 |
 | `placeholder` | `string`                                                  | `''`    | Placeholder text                       |
 | `autoResize`  | `boolean`                                                 | `false` | Enables auto-resizing based on content |
 | `rows`        | `number`                                                  | `3`     | Initial number of visible rows         |
@@ -69,10 +69,10 @@ function AutoResizeTextarea() {
 ### VoiceOver Example
 
 ```tsx
-cGlassTextarea
+<GlassTextarea
   aria-label="Story description"
   placeholder="Describe your story..."
-e
+/>
 ```
 
 ## Best Practices

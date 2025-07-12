@@ -66,7 +66,7 @@ async function buildWithAccessibility() {
 
   try {
     // Run accessibility audit first
-    const auditResults = await runAccessibilityAudit();
+    await runAccessibilityAudit();
 
     // Run normal build
     console.log('📦 Building application...');

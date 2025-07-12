@@ -33,7 +33,6 @@
     "type-check": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:all": "npm run type-check && npm run lint && npm run format:check && npm run test:ci",
-
     "build:production": "npm run test:all && npm run build",
     "preview": "npm run build && npm run start",
     "health-check": "curl -f http://localhost:3000/api/health || exit 1",
@@ -67,7 +66,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.0",
     "gsap": "^3.13.0",
-    "liquidify": "^1.0.27",
+    "liquidify": "^1.2.0",
     "lucide-react": "^0.525.0",
     "mermaid": "^11.8.1",
     "next": "^15.4.0",

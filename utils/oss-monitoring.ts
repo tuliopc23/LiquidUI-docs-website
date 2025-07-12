@@ -19,20 +19,20 @@ class OSSSentryClient {
   private enabled: boolean;
 
   constructor() {
-    this.dsn = process.env.SENTRY_DSN || null;
-    this.enabled = process.env.NODE_ENV === 'production' && !!this.dsn;
+    this.dsn = process.env['SENTRY_DSN'] || null;
+    this.enabled = process.env['NODE_ENV'] === 'production' && !!this.dsn;
   }
 
-  captureError(error: Error, context?: Record<string, any>) {
+  captureError(error: Error, context?: Record<string, unknown>) {
     if (!this.enabled) {
-      logError(error, context?.component);
+      logError(error, context?.['component'] as string | undefined);
       return;
     }
 
     const report: ErrorReport = {
       message: error.message,
       stack: error.stack,
-      componentStack: context?.componentStack,
+      componentStack: context?.['componentStack'] as string | undefined,
       url: typeof window !== 'undefined' ? window.location.href : '',
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       timestamp: new Date().toISOString(),
@@ -42,7 +42,10 @@ class OSSSentryClient {
     this.sendToSentry(report, context);
   }
 
-  private async sendToSentry(report: ErrorReport, context?: Record<string, any>) {
+  private async sendToSentry(
+    report: ErrorReport,
+    context?: Record<string, unknown>
+  ) {
     try {
       // Simple fetch-based Sentry integration for minimal bundle size
       await fetch(`https://sentry.io/api/${this.extractProjectId()}/store/`, {
@@ -57,19 +60,21 @@ class OSSSentryClient {
           platform: 'javascript',
           timestamp: report.timestamp,
           exception: {
-            values: [{
-              type: 'Error',
-              value: report.message,
-              stacktrace: { frames: this.parseStackTrace(report.stack) }
-            }]
+            values: [
+              {
+                type: 'Error',
+                value: report.message,
+                stacktrace: { frames: this.parseStackTrace(report.stack) },
+              },
+            ],
           },
           extra: context,
           tags: {
-            component: context?.component || 'unknown',
+            component: context?.['component'] || 'unknown',
             library: 'liquidify',
-            version: process.env.NEXT_PUBLIC_APP_VERSION,
-          }
-        })
+            version: process.env['NEXT_PUBLIC_APP_VERSION'],
+          },
+        }),
       });
     } catch {
       // Silently fail - don't break the app for monitoring
@@ -80,7 +85,7 @@ class OSSSentryClient {
   private extractProjectId(): string {
     if (!this.dsn) return '';
     const match = this.dsn.match(/\/\/(.+)@(.+)\/(.+)/);
-    return match ? match[3] : '';
+    return match ? match[3] || '' : '';
   }
 
   private getSentryAuth(): string {
@@ -92,7 +97,8 @@ class OSSSentryClient {
 
   private parseStackTrace(stack?: string) {
     if (!stack) return [];
-    return stack.split('\n')
+    return stack
+      .split('\n')
       .filter(line => line.trim())
       .map(line => ({ filename: 'unknown', function: line.trim() }));
   }
@@ -102,14 +108,18 @@ class OSSSentryClient {
 export const errorMonitor = new OSSSentryClient();
 
 // GitHub Issues integration for community feedback
-export function createGitHubIssue(type: 'bug' | 'feature' | 'question', details: {
-  title: string;
-  description: string;
-  component?: string;
-  version?: string;
-}) {
+export function createGitHubIssue(
+  type: 'bug' | 'feature' | 'question',
+  details: {
+    title: string;
+    description: string;
+    component?: string;
+    version?: string;
+  }
+) {
   const { title, description, component, version } = details;
-  const labels = type === 'bug' ? 'bug' : type === 'feature' ? 'enhancement' : 'question';
+  const labels =
+    type === 'bug' ? 'bug' : type === 'feature' ? 'enhancement' : 'question';
 
   const body = `
 ## ${type === 'bug' ? 'Bug Report' : type === 'feature' ? 'Feature Request' : 'Question'}
@@ -117,11 +127,15 @@ export function createGitHubIssue(type: 'bug' | 'feature' | 'question', details:
 ### Description
 ${description}
 
-${component ? `### Component
-${component}` : ''}
+${
+  component
+    ? `### Component
+${component}`
+    : ''
+}
 
 ### Environment
-- Liquidify version: ${version || process.env.NEXT_PUBLIC_LIQUIDIFY_VERSION}
+- Liquidify version: ${version || process.env['NEXT_PUBLIC_LIQUIDIFY_VERSION']}
 - Browser: ${typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown'}
 - OS: ${typeof navigator !== 'undefined' ? navigator.platform : 'Unknown'}
 

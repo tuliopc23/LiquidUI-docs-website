@@ -11,7 +11,6 @@
       "Bash(grep:*)",
       "Bash(mkdir:*)",
       "WebFetch(domain:github.com)",
-      "Bash(mkdir:*)",
       "WebFetch(domain:fonts.googleapis.com)",
       "Bash(npm run typecheck:*)",
       "Bash(npm audit:*)",
@@ -47,7 +46,10 @@
       "Bash(mv:*)",
       "Bash(npx tsc:*)",
       "Bash(npx prettier:*)",
-      "Bash(npm run format:check:*)"
+      "Bash(npm run format:check:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm update:*)",
+      "Bash(npm run format:*)"
     ],
     "deny": []
   }

@@ -18,7 +18,7 @@ export function cn(...inputs: ClassValue[]): string {
  */
 export function debounce<T extends (...args: unknown[]) => void>(
   func: T,
-  wait: number,
+  wait: number
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<T>) => {
@@ -32,7 +32,7 @@ export function debounce<T extends (...args: unknown[]) => void>(
  */
 export function throttle<T extends (...args: unknown[]) => void>(
   func: T,
-  limit: number,
+  limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean;
   return (...args: Parameters<T>) => {
@@ -63,7 +63,9 @@ export function deepClone<T>(obj: T): T {
   if (typeof obj === 'object') {
     const copy = {} as { [Key in keyof T]: T[Key] };
     Object.keys(obj).forEach(key => {
-      copy[key as keyof T] = deepClone((obj as { [Key in keyof T]: T[Key] })[key as keyof T]);
+      copy[key as keyof T] = deepClone(
+        (obj as { [Key in keyof T]: T[Key] })[key as keyof T]
+      );
     });
     return copy;
   }
@@ -76,7 +78,7 @@ export function deepClone<T>(obj: T): T {
  */
 export function formatNumber(
   num: number,
-  options?: Intl.NumberFormatOptions,
+  options?: Intl.NumberFormatOptions
 ): string {
   return new Intl.NumberFormat('en-US', options).format(num);
 }
@@ -138,7 +140,7 @@ export const storage = {
  * Error logging utility
  */
 export function logError(error: Error, context?: string): void {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env['NODE_ENV'] === 'development') {
     console.error(`Error${context ? ` in ${context}` : ''}:`, error);
   }
 

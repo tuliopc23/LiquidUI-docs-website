@@ -3,42 +3,46 @@
  * Uses free tiers and privacy-focused tracking
  */
 
-interface AnalyticsEvent {
-  name: string;
-  properties?: Record<string, any>;
-}
-
 class OSSAnalytics {
   private enabled: boolean;
   private vercelAnalyticsId: string | null;
   private googleAnalyticsId: string | null;
 
   constructor() {
-    this.enabled = process.env.NODE_ENV === 'production' &&
-                  process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === 'true';
-    this.vercelAnalyticsId = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID || null;
-    this.googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || null;
+    this.enabled =
+      process.env['NODE_ENV'] === 'production' &&
+      process.env['NEXT_PUBLIC_ENABLE_ANALYTICS'] === 'true';
+    this.vercelAnalyticsId =
+      process.env['NEXT_PUBLIC_VERCEL_ANALYTICS_ID'] || null;
+    this.googleAnalyticsId =
+      process.env['NEXT_PUBLIC_GOOGLE_ANALYTICS_ID'] || null;
   }
 
   // Track component usage for understanding popular components
-  trackComponentUsage(componentName: string, action: 'view' | 'interact' | 'copy_code') {
+  trackComponentUsage(
+    componentName: string,
+    action: 'view' | 'interact' | 'copy_code' | 'performance_slow'
+  ) {
     if (!this.enabled) return;
 
     this.track('component_usage', {
       component: componentName,
       action,
-      library_version: process.env.NEXT_PUBLIC_LIQUIDIFY_VERSION,
+      library_version: process.env['NEXT_PUBLIC_LIQUIDIFY_VERSION'],
     });
   }
 
   // Track documentation engagement
-  trackDocumentationUsage(page: string, action: 'visit' | 'search' | 'copy_code') {
+  trackDocumentationUsage(
+    page: string,
+    action: 'visit' | 'search' | 'copy_code'
+  ) {
     if (!this.enabled) return;
 
     this.track('documentation_usage', {
       page,
       action,
-      docs_version: process.env.NEXT_PUBLIC_DOCS_VERSION,
+      docs_version: process.env['NEXT_PUBLIC_DOCS_VERSION'],
     });
   }
 
@@ -53,20 +57,44 @@ class OSSAnalytics {
   }
 
   // Generic event tracking
-  private track(eventName: string, properties?: Record<string, any>) {
+  private track(eventName: string, properties?: Record<string, unknown>) {
     // Vercel Analytics (free tier: 2,500 events/month)
     if (this.vercelAnalyticsId && typeof window !== 'undefined') {
-      (window as any).va?.track(eventName, properties);
+      (
+        window as Window & {
+          va?: {
+            track: (name: string, props?: Record<string, unknown>) => void;
+          };
+        }
+      ).va?.track(eventName, properties);
     }
 
     // Google Analytics (free, unlimited)
     if (this.googleAnalyticsId && typeof window !== 'undefined') {
-      (window as any).gtag?.('event', eventName, properties);
+      (
+        window as Window & {
+          gtag?: (
+            type: string,
+            name: string,
+            props?: Record<string, unknown>
+          ) => void;
+        }
+      ).gtag?.('event', eventName, properties);
     }
 
     // Privacy-focused alternative: Plausible (optional)
-    if (process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN && typeof window !== 'undefined') {
-      (window as any).plausible?.(eventName, { props: properties });
+    if (
+      process.env['NEXT_PUBLIC_PLAUSIBLE_DOMAIN'] &&
+      typeof window !== 'undefined'
+    ) {
+      (
+        window as Window & {
+          plausible?: (
+            name: string,
+            options?: { props?: Record<string, unknown> }
+          ) => void;
+        }
+      ).plausible?.(eventName, { props: properties });
     }
   }
 
@@ -81,7 +109,7 @@ class OSSAnalytics {
     });
 
     // Send to custom endpoint if configured
-    const endpoint = process.env.NEXT_PUBLIC_WEB_VITALS_ENDPOINT;
+    const endpoint = process.env['NEXT_PUBLIC_WEB_VITALS_ENDPOINT'];
     if (endpoint) {
       fetch(endpoint, {
         method: 'POST',
@@ -97,7 +125,12 @@ class OSSAnalytics {
 export const analytics = new OSSAnalytics();
 
 // Web Vitals reporting function for Next.js
-export function reportWebVitals(metric: any) {
+export function reportWebVitals(metric: {
+  name: string;
+  value: number;
+  id: string;
+  delta: number;
+}) {
   analytics.reportWebVitals(metric);
 }
 

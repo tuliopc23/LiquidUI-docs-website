@@ -2,7 +2,7 @@
  * Health check API route for production monitoring
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 interface HealthCheckResponse {
   status: 'healthy' | 'unhealthy';
@@ -21,7 +21,7 @@ interface HealthCheckResponse {
   };
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const startTime = Date.now();
 
   try {
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     const [npmCheck] = await Promise.allSettled([
       fetch('https://registry.npmjs.org/liquidify', {
         method: 'HEAD',
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(5000),
       }),
     ]);
 
@@ -40,13 +40,16 @@ export async function GET(request: NextRequest) {
     const healthData: HealthCheckResponse = {
       status: 'healthy',
       timestamp: new Date().toISOString(),
-      version: process.env.NEXT_PUBLIC_APP_VERSION || '2.0.0',
+      version: process.env['NEXT_PUBLIC_APP_VERSION'] || '2.0.0',
       uptime: process.uptime(),
-      environment: process.env.NODE_ENV || 'development',
+      environment: process.env['NODE_ENV'] || 'development',
       services: {
         database: 'healthy', // Not applicable for static docs
         external_apis: 'healthy',
-        npm_registry: npmCheck.status === 'fulfilled' && npmCheck.value.ok ? 'healthy' : 'unhealthy',
+        npm_registry:
+          npmCheck.status === 'fulfilled' && npmCheck.value.ok
+            ? 'healthy'
+            : 'unhealthy',
       },
       performance: {
         memory_usage: Math.round(memoryUsageMB),
@@ -55,7 +58,9 @@ export async function GET(request: NextRequest) {
     };
 
     // Determine overall health
-    const hasUnhealthyServices = Object.values(healthData.services).includes('unhealthy');
+    const hasUnhealthyServices = Object.values(healthData.services).includes(
+      'unhealthy'
+    );
     const isHighMemoryUsage = memoryUsageMB > 512; // 512MB threshold
 
     if (hasUnhealthyServices || isHighMemoryUsage) {

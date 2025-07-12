@@ -4,31 +4,124 @@ import { withSSRSafety } from './lib/react-compat';
 import { Suspense } from 'react';
 import {
   GlassFloatingAction,
-  GlassSwitch,
   GlassButton,
   GlassCard,
   GlassDropdown,
   GlassTab,
   GlassTabs,
 } from './components/ClientComponents';
+import {
+  // Core components that exist in package
+  GlassSlider,
+  GlassInput,
+  GlassTextarea,
+  GlassSelect,
+  GlassCheckbox,
+  GlassModal,
+  GlassTooltip,
+  GlassProgress,
+  GlassTable,
+  GlassBadge,
+  GlassAvatar,
+  GlassPopover,
+  GlassDatePicker,
+  GlassFileUpload,
+  GlassSearch,
+  GlassLoading,
+  GlassMobileNav,
+  GlassResponsiveCard,
+  GlassResponsiveButton,
+  
+  // Additional components from package
+  GlassSwitch,
+  GlassSpinner,
+  GlassSkeleton,
+  GlassNumberInput,
+  GlassCombobox,
+  GlassAccordion,
+  GlassAccordionItem,
+  GlassAccordionTrigger,
+  GlassAccordionContent,
+  GlassDrawer,
+  GlassDrawerTrigger,
+  GlassDrawerContent,
+  GlassDrawerHeader,
+  GlassDrawerTitle,
+  GlassDrawerDescription,
+  GlassDrawerBody,
+  GlassDrawerFooter,
+  GlassDrawerClose,
+  GlassPagination,
+  GlassFormField,
+  GlassRadioGroup,
+  GlassRadioItem,
+  GlassBreadcrumbs,
+  
+  // Aliases and placeholders
+  GlassRadio,
+  GlassBreadcrumb,
+  GlassNavbar,
+  GlassSidebar,
+  GlassToggleButton,
+  GlassIconButton,
+  GlassButtonGroup,
+  GlassCommand,
+} from './components/MDXLiquidifyComponents';
 
-// Simple fallback component for server-side rendering
+// Enhanced SSR-safe glass effect component for MDX components
+// Using Apple HIG liquid glass styling with rich visual effects
 function GlassEffect({
   children,
   className = '',
+  as: Component = 'div',
+  variant = 'default',
+  hover = true,
+  animated = true,
   ...props
 }: {
   children: React.ReactNode;
   className?: string;
+  as?: string;
+  variant?: string;
+  hover?: boolean;
+  animated?: boolean;
   [key: string]: unknown;
 }) {
+  const Element = Component as React.ElementType;
+  
+  // Enhanced glass styling based on variant
+  const getVariantClasses = (variant: string) => {
+    switch (variant) {
+      case 'card':
+        return 'apple-liquid-glass bg-white/15 dark:bg-black/15 rounded-xl p-4';
+      case 'button':
+        return 'glass-button inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium';
+      case 'panel':
+        return 'apple-liquid-glass bg-white/10 dark:bg-black/10 rounded-2xl p-6';
+      default:
+        return 'apple-liquid-glass bg-white/12 dark:bg-black/12 rounded-lg';
+    }
+  };
+
+  const hoverClasses = hover ? 'glass-magnetic transition-all duration-300 hover:scale-[1.02]' : '';
+  const animatedClasses = animated ? 'animate-spring-entrance' : '';
+  
   return (
-    <div
-      className={`${className} bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg`}
+    <Element
+      className={`${getVariantClasses(variant)} ${hoverClasses} ${animatedClasses} ${className}`}
+      style={{
+        backdropFilter: 'blur(16px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+        boxShadow: `
+          0 8px 32px rgba(31, 38, 135, 0.2),
+          0 0 0 1px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3)
+        `,
+      }}
       {...props}
     >
       {children}
-    </div>
+    </Element>
   );
 }
 
@@ -310,8 +403,7 @@ const customComponents: MDXComponents = {
   li: EnhancedListItem,
 
   // Enhanced images with liquid glass
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  img: EnhancedImage as any,
+  img: EnhancedImage,
 
   // Enhanced code blocks with liquid glass
   pre: EnhancedPreCode,
@@ -344,12 +436,67 @@ const customComponents: MDXComponents = {
 
   // Make liquidify components available globally in MDX
   GlassFloatingAction,
-  GlassSwitch,
   GlassButton,
   GlassCard,
   GlassDropdown,
   GlassTab,
   GlassTabs,
+  
+  // Core Glass components for MDX pages
+  GlassSlider,
+  GlassInput,
+  GlassTextarea,
+  GlassSelect,
+  GlassCheckbox,
+  GlassModal,
+  GlassTooltip,
+  GlassProgress,
+  GlassTable,
+  GlassBadge,
+  GlassAvatar,
+  GlassPopover,
+  GlassDatePicker,
+  GlassFileUpload,
+  GlassSearch,
+  GlassLoading,
+  GlassMobileNav,
+  GlassResponsiveCard,
+  GlassResponsiveButton,
+  
+  // Additional Glass components
+  GlassSwitch,
+  GlassSpinner,
+  GlassSkeleton,
+  GlassNumberInput,
+  GlassCombobox,
+  GlassAccordion,
+  GlassAccordionItem,
+  GlassAccordionTrigger,
+  GlassAccordionContent,
+  GlassDrawer,
+  GlassDrawerTrigger,
+  GlassDrawerContent,
+  GlassDrawerHeader,
+  GlassDrawerTitle,
+  GlassDrawerDescription,
+  GlassDrawerBody,
+  GlassDrawerFooter,
+  GlassDrawerClose,
+  GlassPagination,
+  GlassFormField,
+  GlassRadioGroup,
+  GlassRadioItem,
+  GlassBreadcrumbs,
+  
+  // Aliases and placeholders for missing components
+  GlassRadio,
+  GlassBreadcrumb,
+  GlassNavbar,
+  GlassSidebar,
+  GlassToggleButton,
+  GlassIconButton,
+  GlassButtonGroup,
+  GlassCommand,
 };
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

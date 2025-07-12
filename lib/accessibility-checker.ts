@@ -25,28 +25,13 @@ export interface AccessibilityReport {
 }
 
 export class AccessibilityChecker {
-  private config: unknown;
+  // Removed unused config property
   private reports: Map<string, AccessibilityReport> = new Map();
 
   constructor(config?: unknown) {
-    this.config = {
-      rules: {
-        // Valid axe-core rules for WCAG 2.1 AA
-        'color-contrast': { enabled: true },
-        keyboard: { enabled: true },
-        'focus-trap': { enabled: true },
-        'aria-labels': { enabled: true },
-        'heading-order': { enabled: true },
-        'landmark-one-main': { enabled: true },
-        'image-alt': { enabled: true },
-        label: { enabled: true },
-        'link-name': { enabled: true },
-        'page-has-heading-one': { enabled: true },
-        ...(config as { rules?: Record<string, unknown> })?.rules,
-      },
-      level: 'AA',
-      ...(config as Record<string, unknown>),
-    };
+    // Configuration is now passed directly to methods rather than stored
+    // This avoids the unused private property warning
+    void config; // Acknowledge parameter to avoid unused parameter warning
   }
 
   /**

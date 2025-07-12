@@ -42,7 +42,10 @@ function checkRateLimit(ip: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting
-    const ip = request.ip || 'unknown';
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
     if (!checkRateLimit(ip)) {
       return NextResponse.json(
         { error: 'Rate limit exceeded' },
@@ -107,7 +110,6 @@ export async function POST(request: NextRequest) {
       { success: true, processed: data.name },
       { status: 200 }
     );
-
   } catch (error) {
     console.error('Web Vitals API error:', error);
 

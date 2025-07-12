@@ -10,6 +10,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      inset: {
+        auto: 'auto',
+      },
       colors: {
         // Apple System Colors
         'apple-blue': '#007AFF',
@@ -229,7 +232,7 @@ export default {
     },
   },
   plugins: [
-    function ({ addUtilities, theme }) {
+    function ({ addUtilities }) {
       const newUtilities = {
         // Core Liquid Glass Effects
         '.liquid-glass': {

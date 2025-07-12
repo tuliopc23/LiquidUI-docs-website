@@ -9,8 +9,8 @@ import {
   GlassSelect,
   GlassSlider,
   GlassSwitch,
-  ThemeProvider,
 } from 'liquidify';
+import { MockThemeProvider } from '@/components/MockThemeProvider';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -393,7 +393,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
   ];
 
   return (
-    <ThemeProvider>
+    <MockThemeProvider>
       <div ref={showcaseRef} className={`component-showcase ${className}`}>
         <GlassCard className='showcase-card'>
           {/* Header */}
@@ -483,7 +483,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
                       <div className='flex justify-center'>
                         <Component
                           {...currentProps}
-                          className={`physics-element ${currentProps.className || ''}`}
+                          className={`physics-element ${currentProps['className'] || ''}`}
                           ref={(el: HTMLElement) => {
                             if (el) {
                               measureGlassEffect(
@@ -569,7 +569,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
                   <ResponsivePreview>
                     <Component
                       {...currentProps}
-                      className={`physics-element ${currentProps.className || ''}`}
+                      className={`physics-element ${currentProps['className'] || ''}`}
                     >
                       {children || componentName}
                     </Component>
@@ -636,7 +636,7 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
           </div>
         </GlassCard>
       </div>
-    </ThemeProvider>
+    </MockThemeProvider>
   );
 };
 

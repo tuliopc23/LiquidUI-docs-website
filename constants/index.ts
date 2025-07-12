@@ -43,8 +43,8 @@ export const API_ENDPOINTS = {
 export const PERFORMANCE_THRESHOLDS = {
   FCP: 1800, // First Contentful Paint
   LCP: 2500, // Largest Contentful Paint
-  FID: 100,  // First Input Delay
-  CLS: 0.1,  // Cumulative Layout Shift
+  FID: 100, // First Input Delay
+  CLS: 0.1, // Cumulative Layout Shift
   TTFB: 600, // Time to First Byte
 } as const;
 
@@ -93,6 +93,6 @@ export const SOCIAL_LINKS = {
 export const FEATURE_FLAGS = {
   PERFORMANCE_MONITORING: true,
   ACCESSIBILITY_TESTING: true,
-  ANALYTICS: process.env.NODE_ENV === 'production',
-  DEBUG_MODE: process.env.NODE_ENV === 'development',
+  ANALYTICS: process.env['NODE_ENV'] === 'production',
+  DEBUG_MODE: process.env['NODE_ENV'] === 'development',
 } as const;

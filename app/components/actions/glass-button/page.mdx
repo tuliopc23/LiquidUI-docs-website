@@ -190,92 +190,51 @@ export default function AsChildExample() {
 }
 ```
 
-## Interactive Playground
+## Dynamic Configuration
+
+You can combine different props to create various button styles:
 
 ```tsx
 import { GlassButton } from 'liquidify';
 import { useState } from 'react';
 
-export default function ButtonPlayground() {
+function ConfigurableButton() {
   const [variant, setVariant] = useState('primary');
   const [size, setSize] = useState('md');
   const [loading, setLoading] = useState(false);
-  const [hasIcon, setHasIcon] = useState(false);
 
   return (
-    <div className='space-y-6'>
-      {/* Controls */}
-      <div className='grid grid-cols-2 gap-4'>
-        <div>
-          <label className='block text-sm font-medium mb-2'>Variant</label>
-          <select
-            value={variant}
-            onChange={e => setVariant(e.target.value)}
-            className='w-full p-2 border rounded'
-          >
-            <option value='primary'>Primary</option>
-            <option value='secondary'>Secondary</option>
-            <option value='tertiary'>Tertiary</option>
-            <option value='ghost'>Ghost</option>
-            <option value='destructive'>Destructive</option>
-          </select>
-        </div>
-
-        <div>
-          <label className='block text-sm font-medium mb-2'>Size</label>
-          <select
-            value={size}
-            onChange={e => setSize(e.target.value)}
-            className='w-full p-2 border rounded'
-          >
-            <option value='xs'>Extra Small</option>
-            <option value='sm'>Small</option>
-            <option value='md'>Medium</option>
-            <option value='lg'>Large</option>
-            <option value='xl'>Extra Large</option>
-          </select>
-        </div>
-
-        <label className='flex items-center gap-2'>
+    <div className='space-y-4'>
+      <div className='flex gap-4'>
+        <select value={variant} onChange={e => setVariant(e.target.value)}>
+          <option value='primary'>Primary</option>
+          <option value='secondary'>Secondary</option>
+          <option value='tertiary'>Tertiary</option>
+          <option value='ghost'>Ghost</option>
+          <option value='destructive'>Destructive</option>
+        </select>
+        
+        <select value={size} onChange={e => setSize(e.target.value)}>
+          <option value='xs'>XS</option>
+          <option value='sm'>SM</option>
+          <option value='md'>MD</option>
+          <option value='lg'>LG</option>
+          <option value='xl'>XL</option>
+        </select>
+        
+        <label>
           <input
             type='checkbox'
             checked={loading}
             onChange={e => setLoading(e.target.checked)}
           />
-          Loading State
-        </label>
-
-        <label className='flex items-center gap-2'>
-          <input
-            type='checkbox'
-            checked={hasIcon}
-            onChange={e => setHasIcon(e.target.checked)}
-          />
-          Show Icon
+          Loading
         </label>
       </div>
 
-      {/* Preview */}
-      <div className='flex justify-center p-8 bg-gray-50 rounded-lg'>
-        <GlassButton
-          variant={variant}
-          size={size}
-          loading={loading}
-          leftIcon={hasIcon ? <span>🚀</span> : undefined}
-        >
-          Button Preview
-        </GlassButton>
-      </div>
-
-      {/* Generated Code */}
-      <div className='bg-gray-900 text-green-400 p-4 rounded font-mono text-sm overflow-x-auto'>
-        {`<GlassButton
-  variant="${variant}"
-  size="${size}"${loading ? '\n  loading={true}' : ''}${hasIcon ? '\n  leftIcon={<Icon />}' : ''}
->
-  Button Preview
-</GlassButton>`}
-      </div>
+      <GlassButton variant={variant} size={size} loading={loading}>
+        Dynamic Button
+      </GlassButton>
     </div>
   );
 }

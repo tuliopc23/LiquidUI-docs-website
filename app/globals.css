@@ -372,7 +372,7 @@
 
 /* Apple HIG Liquid Glass System - Now handled by AppleLiquidGlass component */
 .apple-liquid-glass {
-  @apply relative;
+  position: relative;
   /* Apple HIG translucent material */
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -386,7 +386,15 @@
 }
 
 .apple-liquid-glass::before {
-  @apply content-[''] absolute inset-0 rounded-inherit z-10 pointer-events-none;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  z-index: 10;
+  pointer-events: none;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1) 0%,
@@ -398,7 +406,10 @@
 .apple-liquid-glass::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   border-radius: inherit;
   background: radial-gradient(
     circle at 50% 0%,
@@ -422,7 +433,17 @@
 
 /* Legacy glass-card for backwards compatibility */
 .glass-card {
-  @apply apple-liquid-glass;
+  position: relative;
+  /* Apple HIG translucent material */
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  /* Apple HIG shadows */
+  box-shadow:
+    0 8px 32px rgba(31, 38, 135, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  /* Apple HIG motion */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card::after {
@@ -469,7 +490,10 @@
 .glass-button::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 0;
   backdrop-filter: blur(4px);
   filter: url(#liquid-lens);
@@ -479,7 +503,10 @@
 .glass-button::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   box-shadow:
     inset 1px 1px 0 rgba(255, 255, 255, 0.75),
     inset 0 0 5px rgba(255, 255, 255, 0.75);
@@ -498,7 +525,10 @@
 /* Apple Liquid Glass Layers */
 .glass-filter {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 0;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -506,14 +536,20 @@
 
 .glass-overlay {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1;
   background: rgba(255, 255, 255, 0.15);
 }
 
 .glass-specular {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 2;
   border-radius: inherit;
   box-shadow:
@@ -556,5 +592,7 @@
 
 /* Focus styles */
 *:focus-visible {
-  @apply outline-none ring-2 ring-blue-500/50 ring-offset-2 ring-offset-transparent;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
 }

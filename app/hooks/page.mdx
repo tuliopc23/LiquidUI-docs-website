@@ -63,7 +63,7 @@ function App() {
         enableAnimations: true,
         enablePhysics: true,
         adaptivePerformance: true,
-        debugMode: process.env.NODE_ENV === 'development',
+        debugMode: process.env['NODE_ENV'] === 'development',
       }}
     >
       <IntegratedGlassDemo />
@@ -369,7 +369,7 @@ function App() {
 ```tsx
 // ✅ Good
 const { metrics } = usePerformanceMonitor({
-  enableFPSMonitoring: process.env.NODE_ENV === 'development',
+  enableFPSMonitoring: process.env['NODE_ENV'] === 'development',
   enableMemoryMonitoring: true,
 });
 
@@ -538,7 +538,7 @@ function AdaptiveModal({ isOpen, onClose, children }) {
 // Enable debug mode in development
 <LiquidGlassProvider
   config={{
-    debugMode: process.env.NODE_ENV === 'development',
+    debugMode: process.env['NODE_ENV'] === 'development',
     // ... other config
   }}
 >

@@ -1,4 +1,4 @@
-// === LIQUIDIFY V1.0.22 COMPONENTS ===
+// === LIQUIDIFY V1.1.1 COMPONENTS ===
 // Core Components available in liquidify package
 export {
   GlassButton,

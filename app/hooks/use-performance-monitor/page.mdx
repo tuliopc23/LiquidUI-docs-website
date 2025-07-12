@@ -392,7 +392,7 @@ interface PerformanceMonitorReturn {
   stopMonitoring: () => void;
   isMonitoring: boolean;
   recordCustomMetric: (name: string, value: number) => void;
-  measureFunction: <T extends (...args: any[]) => any>(
+  measureFunction: <T extends (...args: unknown[]) => unknown>(
     name: string,
     fn: T
   ) => T;

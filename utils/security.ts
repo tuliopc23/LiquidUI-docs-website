@@ -5,11 +5,16 @@
 // Content Security Policy configuration
 export const CSP_DIRECTIVES = {
   'default-src': ["'self'"],
-  'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'", "https://vercel.live"],
-  'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-  'img-src': ["'self'", "data:", "https:", "blob:"],
-  'font-src': ["'self'", "https://fonts.gstatic.com"],
-  'connect-src': ["'self'", "https://vitals.vercel-insights.com"],
+  'script-src': [
+    "'self'",
+    "'unsafe-eval'",
+    "'unsafe-inline'",
+    'https://vercel.live',
+  ],
+  'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+  'img-src': ["'self'", 'data:', 'https:', 'blob:'],
+  'font-src': ["'self'", 'https://fonts.gstatic.com'],
+  'connect-src': ["'self'", 'https://vitals.vercel-insights.com'],
   'frame-ancestors': ["'none'"],
 } as const;
 

@@ -1,4 +1,3 @@
-
 /**
  * Lazy-loaded component wrapper with performance optimizations
  */
@@ -22,19 +21,17 @@ export function LazyComponent({
   children,
   fallback = <LazyComponentSkeleton />,
   className,
-  threshold = 0.1,
-  rootMargin = '100px',
 }: LazyComponentProps) {
   const { isLoaded, ref } = useLazyLoad();
   const shouldAnimate = usePerformantAnimation();
 
   return (
     <div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
         'transition-opacity duration-300',
         shouldAnimate && 'animate-fade-in',
-        className,
+        className
       )}
     >
       {isLoaded ? children : fallback}
@@ -47,7 +44,7 @@ export function LazyComponent({
  */
 function LazyComponentSkeleton() {
   return (
-    <div className="animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg h-32 w-full" />
+    <div className='animate-pulse bg-gray-200 dark:bg-gray-800 rounded-lg h-32 w-full' />
   );
 }
 
@@ -55,8 +52,8 @@ function LazyComponentSkeleton() {
  * Higher-order component for lazy loading with error boundaries
  */
 export function withLazyLoading<P extends object>(
-  Component: ComponentType<P>,
-  fallback?: ReactNode,
+  Component: ComponentType<P> | React.LazyExoticComponent<ComponentType<P>>,
+  fallback?: ReactNode
 ) {
   const LazyWrapper = (props: P) => (
     <Suspense fallback={fallback || <LazyComponentSkeleton />}>
@@ -64,7 +61,7 @@ export function withLazyLoading<P extends object>(
     </Suspense>
   );
 
-  LazyWrapper.displayName = `LazyLoaded(${Component.displayName || Component.name})`;
+  LazyWrapper.displayName = `LazyLoaded(${(Component as { displayName?: string; name?: string }).displayName || (Component as { displayName?: string; name?: string }).name})`;
 
   return LazyWrapper;
 }
@@ -72,9 +69,9 @@ export function withLazyLoading<P extends object>(
 /**
  * Create lazy-loaded component with optimizations
  */
-export function createLazyComponent<T extends ComponentType<any>>(
+export function createLazyComponent<T extends ComponentType<unknown>>(
   factory: () => Promise<{ default: T }>,
-  fallback?: ReactNode,
+  fallback?: ReactNode
 ) {
   const LazyComponent = lazy(factory);
 
@@ -84,7 +81,7 @@ export function createLazyComponent<T extends ComponentType<any>>(
 /**
  * Preload a lazy component for better UX
  */
-export function preloadComponent(factory: () => Promise<any>) {
+export function preloadComponent(factory: () => Promise<unknown>) {
   // Preload on hover or focus
   const preload = () => {
     factory().catch(() => {

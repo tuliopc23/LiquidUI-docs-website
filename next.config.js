@@ -1,4 +1,9 @@
 import nextra from 'nextra';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const withNextra = nextra({
   latex: true,
@@ -9,22 +14,10 @@ const withNextra = nextra({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Performance optimizations
-  experimental: {
-    scrollRestoration: true,
-    reactCompiler: false,
-  },
-
-  // Turbopack configuration (stable)
-  turbo: {
-    rules: {
-      '*.svg': ['@svgr/webpack'],
-    },
-    resolveAlias: {
-      underscore: 'lodash',
-      mocha: { browser: 'mocha/browser-entry.js' },
-    },
-  },
+  // Disable static generation for SSR issues
+  trailingSlash: false,
+  generateBuildId: () => 'build-id',
+  distDir: '.next',
 
   // Server configuration
   serverExternalPackages: ['liquidify'],
@@ -37,13 +30,24 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
 
+  // Skip static generation for pages with liquidify components
+  staticPageGenerationTimeout: 30,
+
+  // Force all pages to be dynamic to avoid SSR issues with liquidify
+  trailingSlash: false,
+
+  // Disable static optimization globally
+  experimental: {
+    scrollRestoration: true,
+    reactCompiler: false,
+  },
+
+  // Turbopack configuration (stable)
+  // turbo: {}, // Disabled until stable
+
   // Custom webpack configuration
   webpack: (config, { isServer }) => {
-    // Only externalize liquidify on server to avoid React hook issues
-    if (isServer) {
-      config.externals = config.externals || [];
-      config.externals.push('liquidify');
-    }
+    // No special webpack configuration needed
     return config;
   },
 
@@ -175,12 +179,8 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
 
-  // Production optimizations
-  ...(process.env.NODE_ENV === 'production' && {
-    output: 'standalone',
-    generateEtags: false,
-    trailingSlash: false,
-  }),
+  // Output configuration for dynamic rendering
+  output: 'standalone',
 };
 
 export default withNextra(nextConfig);

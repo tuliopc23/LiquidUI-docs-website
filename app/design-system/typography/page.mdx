@@ -63,18 +63,22 @@ Apply typography styles using utility classes or styled-components.
 <pre class="font-mono">Code block</pre>
 ```
 
-### Styled-components
+### CSS-in-JS
 
 ```tsx
-const Title = styled.h1`
-  font-family: ${props => props.theme.fonts.display};
-  font-size: ${typography.fontSize['3xl'][0]};
-`;
+const titleStyles = {
+  fontFamily: 'SF Pro Display, -apple-system, sans-serif',
+  fontSize: typography.fontSize['3xl'][0],
+};
 
-const Body = styled.p`
-  font-family: ${props => props.theme.fonts.body};
-  font-size: ${typography.fontSize.base[0]};
-`;
+const bodyStyles = {
+  fontFamily: 'SF Pro Text, Inter, system-ui',
+  fontSize: typography.fontSize.base[0],
+};
+
+// Usage
+<h1 style={titleStyles}>Title</h1>
+<p style={bodyStyles}>Body text</p>
 ```
 
 ## Accessibility and Responsiveness
