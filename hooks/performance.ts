@@ -102,7 +102,8 @@ export function usePerformantAnimation() {
     // Check for low-end device indicators
     const isLowEndDevice =
       navigator.hardwareConcurrency <= 2 ||
-      ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4) <= 2;
+      ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ??
+        4) <= 2;
 
     setShouldAnimate(!reducedMotion && !isLowEndDevice);
   }, []);

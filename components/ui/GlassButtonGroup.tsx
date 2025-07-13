@@ -1,11 +1,9 @@
 'use client';
 
 import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { GlassCard, cn } from 'liquidify';
 
-export interface GlassButtonGroupProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassButtonGroupProps {
   children: React.ReactNode;
   orientation?: 'horizontal' | 'vertical';
   size?: 'sm' | 'md' | 'lg';
@@ -98,15 +96,14 @@ const GlassButtonGroup: React.FC<GlassButtonGroupProps> = ({
   });
 
   return (
-    <GlassEffect
-      variant='button'
+    <GlassCard
       className={baseClasses}
       role='group'
       aria-disabled={disabled}
       {...props}
     >
       {processedChildren}
-    </GlassEffect>
+    </GlassCard>
   );
 };
 

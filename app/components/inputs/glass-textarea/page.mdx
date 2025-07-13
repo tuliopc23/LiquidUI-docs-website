@@ -9,15 +9,10 @@ The `GlassTextarea` component provides a responsive multi-line text input, featu
 ## Basic Usage
 
 ```tsx
-import { GlassTextarea } from 'liquidify'
+import { GlassTextarea } from 'liquidify';
 
 function App() {
-  return (
-    <GlassTextarea
-      placeholder="Your message here..."
-      rows={4}
-    />
-  )
+  return <GlassTextarea placeholder='Your message here...' rows={4} />;
 }
 ```
 
@@ -27,23 +22,23 @@ function App() {
 - **Character count**: Display remaining/used characters
 
 ```tsx
-import { useState } from 'react'
-import { GlassTextarea } from 'liquidify'
+import { useState } from 'react';
+import { GlassTextarea } from 'liquidify';
 
 function AutoResizeTextarea() {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState('');
 
   return (
     <div>
       <GlassTextarea
         value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Share your thoughts..."
+        onChange={e => setMessage(e.target.value)}
+        placeholder='Share your thoughts...'
         autoResize
       />
       <div>{message.length}/500 characters</div>
     </div>
-  )
+  );
 }
 ```
 
@@ -70,8 +65,8 @@ function AutoResizeTextarea() {
 
 ```tsx
 <GlassTextarea
-  aria-label="Story description"
-  placeholder="Describe your story..."
+  aria-label='Story description'
+  placeholder='Describe your story...'
 />
 ```
 

@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { GlassCard, cn } from 'liquidify';
 
 export interface BreadcrumbItem {
   label: string;
@@ -11,8 +10,7 @@ export interface BreadcrumbItem {
   current?: boolean;
 }
 
-export interface GlassBreadcrumbProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassBreadcrumbProps {
   items: BreadcrumbItem[];
   separator?: React.ReactNode;
   maxItems?: number;
@@ -48,7 +46,7 @@ const GlassBreadcrumb: React.FC<GlassBreadcrumbProps> = ({
   );
 
   return (
-    <GlassEffect variant='widget' className={baseClasses} {...props}>
+    <GlassCard className={baseClasses} {...props}>
       <nav aria-label='Breadcrumb'>
         <ol className='flex items-center space-x-2'>
           {processedItems.map((item, index) => (
@@ -93,7 +91,7 @@ const GlassBreadcrumb: React.FC<GlassBreadcrumbProps> = ({
           ))}
         </ol>
       </nav>
-    </GlassEffect>
+    </GlassCard>
   );
 };
 

@@ -104,7 +104,9 @@ export default function HooksIntegrationDemo({
             <GlassSelect
               options={selectOptions}
               value={contentType}
-              onChange={value => setContentType(value as typeof contentType)}
+              onChange={(value: string) =>
+                setContentType(value as typeof contentType)
+              }
               placeholder='Select content type'
             />
           </div>
@@ -120,7 +122,7 @@ export default function HooksIntegrationDemo({
                 { value: 'dynamic', label: 'Dynamic' },
               ]}
               value={backgroundType}
-              onChange={value =>
+              onChange={(value: string) =>
                 setBackgroundType(value as typeof backgroundType)
               }
               placeholder='Select background type'
@@ -136,7 +138,9 @@ export default function HooksIntegrationDemo({
                 { value: 'blur', label: 'Blur' },
               ]}
               value={priority}
-              onChange={value => setPriority(value as typeof priority)}
+              onChange={(value: string) =>
+                setPriority(value as typeof priority)
+              }
               placeholder='Select priority'
             />
           </div>

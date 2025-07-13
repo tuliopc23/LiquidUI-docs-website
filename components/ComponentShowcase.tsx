@@ -210,7 +210,9 @@ const PropEditor: React.FC<{
           {control.type === 'string' && (
             <GlassInput
               value={String(values[control.name] || '')}
-              onChange={e => onChange(control.name, e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onChange(control.name, e.target.value)
+              }
               placeholder={`Enter ${control.name}`}
               className='w-full'
             />
@@ -220,7 +222,9 @@ const PropEditor: React.FC<{
             <GlassInput
               type='number'
               value={String(values[control.name] || 0)}
-              onChange={e => onChange(control.name, Number(e.target.value))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onChange(control.name, Number(e.target.value))
+              }
               className='w-full'
             />
           )}

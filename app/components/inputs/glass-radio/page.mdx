@@ -9,40 +9,40 @@ The `GlassRadio` component allows users to select a single option from a closely
 ## Basic Usage
 
 ```tsx
-import { GlassRadioGroup, GlassRadioItem } from 'liquidify'
+import { GlassRadioGroup, GlassRadioItem } from 'liquidify';
 
 function App() {
-  const [choice, setChoice] = useState('')
+  const [choice, setChoice] = useState('');
 
   return (
     <GlassRadioGroup value={choice} onValueChange={setChoice}>
-      <GlassRadioItem value="apple">Apple</GlassRadioItem>
-      <GlassRadioItem value="banana">Banana</GlassRadioItem>
-      <GlassRadioItem value="orange">Orange</GlassRadioItem>
+      <GlassRadioItem value='apple'>Apple</GlassRadioItem>
+      <GlassRadioItem value='banana'>Banana</GlassRadioItem>
+      <GlassRadioItem value='orange'>Orange</GlassRadioItem>
     </GlassRadioGroup>
-  )
+  );
 }
 ```
 
 ## Advanced Example
 
 ```tsx
-import { useState } from 'react'
-import { GlassRadioGroup, GlassRadioItem } from 'liquidify'
+import { useState } from 'react';
+import { GlassRadioGroup, GlassRadioItem } from 'liquidify';
 
 function RadioDemo() {
-  const [color, setColor] = useState('')
+  const [color, setColor] = useState('');
 
   const colors = [
     { value: 'red', label: 'Red' },
     { value: 'green', label: 'Green' },
-    { value: 'blue', label: 'Blue' }
-  ]
+    { value: 'blue', label: 'Blue' },
+  ];
 
   return (
-    <div className="space-y-6 p-6">
+    <div className='space-y-6 p-6'>
       <section>
-        <h3 className="hig-title-3 mb-4">Favorite Color</h3>
+        <h3 className='hig-title-3 mb-4'>Favorite Color</h3>
         <GlassRadioGroup value={color} onValueChange={setColor}>
           {colors.map(color => (
             <GlassRadioItem key={color.value} value={color.value}>
@@ -50,10 +50,10 @@ function RadioDemo() {
             </GlassRadioItem>
           ))}
         </GlassRadioGroup>
-        <p className="text-sm mt-2">Selected: {color}</p>
+        <p className='text-sm mt-2'>Selected: {color}</p>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -61,20 +61,20 @@ function RadioDemo() {
 
 ### GlassRadioGroup Props
 
-| Prop           | Type                     | Default | Description                    |
-| -------------- | ------------------------ | ------- | ------------------------------ |
-| `value`        | `string`                 | `''`    | Currently selected value       |
-| `onValueChange`| `(value: string) => void`| -       | Handler for value changes      |
-| `name`         | `string`                 | -       | Group name for form submission |
-| `disabled`     | `boolean`                | `false` | Disables the entire group      |
+| Prop            | Type                      | Default | Description                    |
+| --------------- | ------------------------- | ------- | ------------------------------ |
+| `value`         | `string`                  | `''`    | Currently selected value       |
+| `onValueChange` | `(value: string) => void` | -       | Handler for value changes      |
+| `name`          | `string`                  | -       | Group name for form submission |
+| `disabled`      | `boolean`                 | `false` | Disables the entire group      |
 
 ### GlassRadioItem Props
 
-| Prop       | Type      | Default | Description                |
-| ---------- | --------- | ------- | -------------------------- |
-| `value`    | `string`  | -       | Unique value for this item |
-| `disabled` | `boolean` | `false` | Disables this item         |
-| `children` | `ReactNode` | -     | Label content              |
+| Prop       | Type        | Default | Description                |
+| ---------- | ----------- | ------- | -------------------------- |
+| `value`    | `string`    | -       | Unique value for this item |
+| `disabled` | `boolean`   | `false` | Disables this item         |
+| `children` | `ReactNode` | -       | Label content              |
 
 ## Accessibility
 

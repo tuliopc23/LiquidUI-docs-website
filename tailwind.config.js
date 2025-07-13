@@ -11,6 +11,7 @@ export default {
   theme: {
     extend: {
       inset: {
+        0: '0px',
         auto: 'auto',
       },
       colors: {

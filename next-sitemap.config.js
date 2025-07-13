@@ -40,46 +40,46 @@ const config = {
     process.env['NEXT_PUBLIC_APP_URL'] || 'https://liquidify-docs.vercel.app',
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  
+
   // App Router exclusions - exclude Next.js App Router conventions
   exclude: [
-    '/api/*',           // API routes
-    '/404',             // Error pages
-    '/500',             // Error pages
+    '/api/*', // API routes
+    '/404', // Error pages
+    '/500', // Error pages
     '/server-sitemap-index.xml',
-    '/_next/*',         // Next.js internal files
-    '/_error',          // Error page
-    '/_document',       // Document page
-    '/_app',            // App page
-    '/layout',          // Layout files (App Router)
-    '/loading',         // Loading UI (App Router)
-    '/error',           // Error UI (App Router)
-    '/not-found',       // Not found UI (App Router)
-    '/global-error',    // Global error UI (App Router)
-    '/template',        // Template files (App Router)
-    '/route',           // Route handlers (App Router)
-    '/page',            // Direct page files (App Router)
-    '/default',         // Default files (App Router)
+    '/_next/*', // Next.js internal files
+    '/_error', // Error page
+    '/_document', // Document page
+    '/_app', // App page
+    '/layout', // Layout files (App Router)
+    '/loading', // Loading UI (App Router)
+    '/error', // Error UI (App Router)
+    '/not-found', // Not found UI (App Router)
+    '/global-error', // Global error UI (App Router)
+    '/template', // Template files (App Router)
+    '/route', // Route handlers (App Router)
+    '/page', // Direct page files (App Router)
+    '/default', // Default files (App Router)
     '/opengraph-image', // OpenGraph image files
-    '/twitter-image',   // Twitter image files
-    '/icon',            // Icon files
-    '/apple-icon',      // Apple icon files
-    '/favicon',         // Favicon files
-    '/manifest',        // Manifest files
-    '/robots',          // Robots.txt files
-    '/sitemap',         // Sitemap files
+    '/twitter-image', // Twitter image files
+    '/icon', // Icon files
+    '/apple-icon', // Apple icon files
+    '/favicon', // Favicon files
+    '/manifest', // Manifest files
+    '/robots', // Robots.txt files
+    '/sitemap', // Sitemap files
     '/pages/*',
     // Next.js 15 specific exclusions
-    '/_app/*',          // App directory internal files
-    '/_document/*',     // Document directory internal files
-    '/middleware',      // Middleware file
+    '/_app/*', // App directory internal files
+    '/_document/*', // Document directory internal files
+    '/middleware', // Middleware file
     '/instrumentation', // Instrumentation file
-    '/*.config.js',     // Config files
-    '/*.config.ts',     // Config files
-    '/*.config.mjs',    // Config files
-    '/*.config.cjs',    // Config files
+    '/*.config.js', // Config files
+    '/*.config.ts', // Config files
+    '/*.config.mjs', // Config files
+    '/*.config.cjs', // Config files
   ],
-  
+
   // Additional paths for dynamic routes specific to App Router structure
   additionalPaths: async () => [
     // Home page
@@ -89,7 +89,7 @@ const config = {
       priority: 1.0,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Main sections
     {
       loc: '/components',
@@ -127,7 +127,7 @@ const config = {
       priority: 0.6,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Component categories
     {
       loc: '/components/actions',
@@ -171,7 +171,7 @@ const config = {
       priority: 0.8,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Individual components
     {
       loc: '/components/actions/glass-button',
@@ -203,7 +203,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Input components
     {
       loc: '/components/inputs/glass-checkbox',
@@ -265,7 +265,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Navigation components
     {
       loc: '/components/navigation/glass-breadcrumb',
@@ -309,7 +309,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Presentation components
     {
       loc: '/components/presentation/glass-avatar',
@@ -335,7 +335,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Containment components
     {
       loc: '/components/containment/glass-card',
@@ -361,7 +361,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Data components
     {
       loc: '/components/data/glass-progress',
@@ -375,7 +375,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Layout components
     {
       loc: '/components/layout/glass-responsive-button',
@@ -389,7 +389,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Design System pages
     {
       loc: '/design-system/colors',
@@ -439,7 +439,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Physics System pages
     {
       loc: '/physics-system/constants',
@@ -471,7 +471,7 @@ const config = {
       priority: 0.7,
       lastmod: new Date().toISOString(),
     },
-    
+
     // Hooks pages
     {
       loc: '/hooks/use-content-aware-glass',
@@ -530,7 +530,7 @@ const config = {
           '/favicon',
           '/manifest',
           '/robots',
-          '/sitemap'
+          '/sitemap',
         ],
       },
     ],
@@ -538,7 +538,7 @@ const config = {
       `${process.env['NEXT_PUBLIC_APP_URL'] || 'https://liquidify-docs.vercel.app'}/sitemap.xml`,
     ],
   },
-  
+
   // Transform function optimized for App Router paths
   transform: async (config, path) => {
     // Custom transform for better SEO with App Router awareness
@@ -552,10 +552,10 @@ const config = {
       lastmod: new Date().toISOString(),
     };
   },
-  
+
   // Generate files in public directory
   outDir: './public',
-  
+
   // Ensure compatibility with ESM and standalone mode
   trailingSlash: false,
 };

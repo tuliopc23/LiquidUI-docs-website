@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { GlassCard, cn } from 'liquidify';
 
 export interface ChartDataPoint {
   label: string;
@@ -10,8 +9,7 @@ export interface ChartDataPoint {
   color?: string;
 }
 
-export interface GlassChartProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassChartProps {
   data: ChartDataPoint[];
   type?: 'bar' | 'line' | 'pie' | 'donut';
   title?: string;
@@ -273,7 +271,7 @@ const GlassChart: React.FC<GlassChartProps> = ({
   const baseClasses = cn('p-6 rounded-lg', 'backdrop-blur-xl', className);
 
   return (
-    <GlassEffect variant='card' className={baseClasses} {...props}>
+    <GlassCard className={baseClasses} {...props}>
       {title && (
         <h3 className='text-lg font-semibold text-white mb-4'>{title}</h3>
       )}
@@ -281,7 +279,7 @@ const GlassChart: React.FC<GlassChartProps> = ({
       <div className='flex justify-center'>{renderChart()}</div>
 
       {renderLegend()}
-    </GlassEffect>
+    </GlassCard>
   );
 };
 

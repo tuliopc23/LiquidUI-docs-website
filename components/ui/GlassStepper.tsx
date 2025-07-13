@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { cn } from 'liquidify';
 
 export interface Step {
   id: string;
@@ -13,8 +12,7 @@ export interface Step {
   disabled?: boolean;
 }
 
-export interface GlassStepperProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassStepperProps {
   steps: Step[];
   currentStep: number;
   onStepClick?: (stepIndex: number) => void;
@@ -197,14 +195,14 @@ const GlassStepper: React.FC<GlassStepperProps> = ({
   };
 
   return (
-    <GlassEffect variant='widget' className={baseClasses} {...props}>
+    <div className={baseClasses} {...props}>
       {steps.map((step, index) => (
         <React.Fragment key={step.id}>
           {renderStep(step, index)}
           {renderConnector(index)}
         </React.Fragment>
       ))}
-    </GlassEffect>
+    </div>
   );
 };
 

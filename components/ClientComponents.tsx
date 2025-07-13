@@ -28,11 +28,6 @@ const LiquidGlassProvider = dynamic(
   }
 );
 
-const GlassBackground = dynamic(() => import('./ui/GlassBackground'), {
-  ssr: false,
-  loading: () => null,
-});
-
 // Export properly typed liquidify components with SSR safety
 export const GlassFloatingAction = dynamic(
   () => import('liquidify').then(mod => ({ default: mod.GlassFloatingAction })),
@@ -309,13 +304,7 @@ export function ClientWrapper({ children }: ClientWrapperProps) {
     return <div style={{ display: 'contents' }}>{children}</div>;
   }
 
-  return (
-    <LiquidGlassProvider>
-      <GlassBackground variant='gradient' animated={true}>
-        {children}
-      </GlassBackground>
-    </LiquidGlassProvider>
-  );
+  return <LiquidGlassProvider>{children}</LiquidGlassProvider>;
 }
 
 export default ClientWrapper;

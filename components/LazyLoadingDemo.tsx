@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GlassCard, GlassButton, ThemeProvider } from 'liquidify';
+import { GlassCard, GlassButton, ThemeProvider, GlassInput } from 'liquidify';
 import {
   LazyGlassChart,
-  LazyGlassDatePicker,
   LazyGlassCommand,
   preloadGlassChart,
-  preloadGlassDatePicker,
   preloadGlassCommand,
 } from './ui';
 import { lazyLoadUtils } from '@/lib/performance-utils';
@@ -24,7 +22,6 @@ export const LazyLoadingDemo: React.FC = () => {
   const handlePreload = () => {
     // Preload all heavy components
     preloadGlassChart();
-    preloadGlassDatePicker();
     preloadGlassCommand();
     setIsPreloaded(true);
   };
@@ -61,9 +58,8 @@ export const LazyLoadingDemo: React.FC = () => {
             <GlassButton
               variant='primary'
               onClick={() => setActiveDemo('datepicker')}
-              onMouseEnter={() => preloadGlassDatePicker()}
             >
-              Load Date Picker (Lazy)
+              Load Date Picker
             </GlassButton>
 
             <GlassButton
@@ -120,10 +116,11 @@ export const LazyLoadingDemo: React.FC = () => {
                   <h3 className='text-lg font-semibold mb-4'>
                     Lazy Loaded Date Picker
                   </h3>
-                  <LazyGlassDatePicker
+                  <GlassInput
+                    type='date'
                     placeholder='Select a date'
-                    onChange={(value: string) =>
-                      console.log('Selected date:', value)
+                    onChange={e =>
+                      console.log('Selected date:', e.target.value)
                     }
                   />
                 </GlassCard>
@@ -203,11 +200,7 @@ export const LazyLoadingDemo: React.FC = () => {
 
         {/* Performance Monitoring */}
         <PerformanceMonitor
-          components={[
-            'LazyGlassChart',
-            'LazyGlassDatePicker',
-            'LazyGlassCommand',
-          ]}
+          components={['LazyGlassChart', 'LazyGlassCommand']}
           showBenchmarks={true}
           showBundleSize={true}
         />

@@ -15,43 +15,40 @@ npm install liquidify
 ## Basic Usage
 
 ```tsx
-import { GlassToggleButton } from 'liquidify'
-import { Star } from 'lucide-react'
+import { GlassToggleButton } from 'liquidify';
+import { Star } from 'lucide-react';
 
 function App() {
-  const [favorited, setFavorited] = useState(false)
+  const [favorited, setFavorited] = useState(false);
 
   return (
-    <GlassToggleButton
-      pressed={favorited}
-      onPressedChange={setFavorited}
-    >
+    <GlassToggleButton pressed={favorited} onPressedChange={setFavorited}>
       <Star size={16} />
       {favorited ? 'Favorited' : 'Add to Favorites'}
     </GlassToggleButton>
-  )
+  );
 }
 ```
 
 ## Advanced Example
 
 ```tsx
-import { useState } from 'react'
-import { GlassToggleButton } from 'liquidify'
-import { Star, Sun, Moon } from 'lucide-react'
+import { useState } from 'react';
+import { GlassToggleButton } from 'liquidify';
+import { Star, Sun, Moon } from 'lucide-react';
 
 function ToggleButtonDemo() {
-  const [theme, setTheme] = useState('light')
-  const [favorited, setFavorited] = useState(false)
+  const [theme, setTheme] = useState('light');
+  const [favorited, setFavorited] = useState(false);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className='space-y-6 p-6'>
       <section>
-        <h3 className="hig-title-3 mb-4">Theme Toggle</h3>
+        <h3 className='hig-title-3 mb-4'>Theme Toggle</h3>
         <GlassToggleButton
           pressed={theme === 'dark'}
           onPressedChange={toggleTheme}
@@ -62,17 +59,14 @@ function ToggleButtonDemo() {
       </section>
 
       <section>
-        <h3 className="hig-title-3 mb-4">Favorite Toggle</h3>
-        <GlassToggleButton
-          pressed={favorited}
-          onPressedChange={setFavorited}
-        >
+        <h3 className='hig-title-3 mb-4'>Favorite Toggle</h3>
+        <GlassToggleButton pressed={favorited} onPressedChange={setFavorited}>
           <Star size={16} />
           {favorited ? 'Favorited' : 'Add to Favorites'}
         </GlassToggleButton>
       </section>
     </div>
-  )
+  );
 }
 ```
 
@@ -80,14 +74,14 @@ function ToggleButtonDemo() {
 
 ### Props
 
-| Prop              | Type                      | Default | Description                    |
-| ----------------- | ------------------------- | ------- | ------------------------------ |
-| `pressed`         | `boolean`                 | `false` | Whether button is pressed/on   |
-| `onPressedChange` | `(pressed: boolean) => void` | -    | Handler for state changes      |
-| `disabled`        | `boolean`                 | `false` | Disables the toggle button     |
-| `size`            | `'sm' \| 'md' \| 'lg'`    | `'md'`  | Size variant                   |
-| `variant`         | `'default' \| 'outline'`  | `'default'` | Visual style variant       |
-| `children`        | `ReactNode`               | -       | Button content                 |
+| Prop              | Type                         | Default     | Description                  |
+| ----------------- | ---------------------------- | ----------- | ---------------------------- |
+| `pressed`         | `boolean`                    | `false`     | Whether button is pressed/on |
+| `onPressedChange` | `(pressed: boolean) => void` | -           | Handler for state changes    |
+| `disabled`        | `boolean`                    | `false`     | Disables the toggle button   |
+| `size`            | `'sm' \| 'md' \| 'lg'`       | `'md'`      | Size variant                 |
+| `variant`         | `'default' \| 'outline'`     | `'default'` | Visual style variant         |
+| `children`        | `ReactNode`                  | -           | Button content               |
 
 ## States
 

@@ -56,7 +56,7 @@ export function LiquidifyConfigProvider({
   },
 }: LiquidifyConfigProviderProps) {
   return (
-    <GlobalConfigProvider config={config}>
+    <GlobalConfigProvider config={config || {}}>
       <LiquidifyThemeProvider>
         <HapticProvider>
           <ToastProvider>

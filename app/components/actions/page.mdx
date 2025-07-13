@@ -84,28 +84,6 @@ import { Star } from 'lucide-react';
 </GlassToggleButton>;
 ```
 
-### [Glass Floating Action](/components/actions/glass-floating-action)
-
-Prominent action button that floats above content for primary actions.
-
-- **Material design**: Elevation and shadow effects
-- **Responsive positioning**: Adapts to screen size
-- **Extended FAB**: Support for text labels
-- **Smooth morphing**: Expands and contracts fluidly
-
-```tsx
-import { GlassFloatingAction } from 'liquidify';
-import { Plus } from 'lucide-react';
-
-<GlassFloatingAction
-  position='bottom-right'
-  extended
-  onClick={() => createNew()}
->
-  <Plus size={24} />
-  Create New
-</GlassFloatingAction>;
-```
 
 ## Design Principles
 
@@ -228,7 +206,6 @@ import {
   GlassIconButton,
   GlassButtonGroup,
   GlassToggleButton,
-  GlassFloatingAction,
 } from 'liquidify';
 import { Heart, Share, Download, Plus, Settings } from 'lucide-react';
 
@@ -328,15 +305,6 @@ export default function ActionsShowcase() {
         </GlassToggleButton>
       </section>
 
-      {/* Floating Action Button */}
-      <GlassFloatingAction
-        position='bottom-right'
-        extended
-        aria-label='Create new item'
-      >
-        <Plus size={24} />
-        Create
-      </GlassFloatingAction>
     </div>
   );
 }

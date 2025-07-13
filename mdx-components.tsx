@@ -31,7 +31,7 @@ import {
   GlassMobileNav,
   GlassResponsiveCard,
   GlassResponsiveButton,
-  
+
   // Additional components from package
   GlassSwitch,
   GlassSpinner,
@@ -56,7 +56,7 @@ import {
   GlassRadioGroup,
   GlassRadioItem,
   GlassBreadcrumbs,
-  
+
   // Aliases and placeholders
   GlassRadio,
   GlassBreadcrumb,
@@ -88,7 +88,7 @@ function GlassEffect({
   [key: string]: unknown;
 }) {
   const Element = Component as React.ElementType;
-  
+
   // Enhanced glass styling based on variant
   const getVariantClasses = (variant: string) => {
     switch (variant) {
@@ -103,9 +103,11 @@ function GlassEffect({
     }
   };
 
-  const hoverClasses = hover ? 'glass-magnetic transition-all duration-300 hover:scale-[1.02]' : '';
+  const hoverClasses = hover
+    ? 'glass-magnetic transition-all duration-300 hover:scale-[1.02]'
+    : '';
   const animatedClasses = animated ? 'animate-spring-entrance' : '';
-  
+
   return (
     <Element
       className={`${getVariantClasses(variant)} ${hoverClasses} ${animatedClasses} ${className}`}
@@ -441,7 +443,7 @@ const customComponents: MDXComponents = {
   GlassDropdown,
   GlassTab,
   GlassTabs,
-  
+
   // Core Glass components for MDX pages
   GlassSlider,
   GlassInput,
@@ -462,7 +464,7 @@ const customComponents: MDXComponents = {
   GlassMobileNav,
   GlassResponsiveCard,
   GlassResponsiveButton,
-  
+
   // Additional Glass components
   GlassSwitch,
   GlassSpinner,
@@ -487,7 +489,7 @@ const customComponents: MDXComponents = {
   GlassRadioGroup,
   GlassRadioItem,
   GlassBreadcrumbs,
-  
+
   // Aliases and placeholders for missing components
   GlassRadio,
   GlassBreadcrumb,

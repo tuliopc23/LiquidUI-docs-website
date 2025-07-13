@@ -9,6 +9,8 @@ import {
   GlobalConfigProvider,
 } from 'liquidify';
 
+import { ConfigProvider } from './ConfigContext';
+
 // Import CSS styles at the top level
 import 'liquidify/css';
 
@@ -32,76 +34,46 @@ function LiquidifyWrapper({ children }: { children: ReactNode }) {
   const currentTheme = (resolvedTheme || theme || 'light') as 'light' | 'dark';
 
   return (
-    <SSRConfigProvider>
-      <GlobalConfigProvider
-        config={{
-          defaultVariant: 'glass',
-          defaultSize: 'md',
-          enableAnimations: true,
-          enableA11y: true,
-          colorScheme: currentTheme === 'dark' ? 'dark' : 'light',
-          reducedMotion: false,
-          highContrast: false,
-        }}
-      >
-        <LiquidifyProvider
-          theme={currentTheme}
-          glassConfig={{
-            intensity: 0.8,
-            blur: 10,
-            saturation: 1.5,
-            enableMagnetic: true,
-            enableSpecular: true,
-          }}
-          hapticConfig={{
-            enableVibration: true,
-            enableAudio: true,
-            enableVisual: true,
+    <ConfigProvider>
+      <SSRConfigProvider>
+        <GlobalConfigProvider
+          config={{
+            defaultVariant: 'glass',
+            defaultSize: 'md',
+            enableAnimations: true,
+            enableA11y: true,
+            colorScheme: currentTheme === 'dark' ? 'dark' : 'light',
+            reducedMotion: false,
+            highContrast: false,
           }}
         >
-          {children}
-        </LiquidifyProvider>
-      </GlobalConfigProvider>
-    </SSRConfigProvider>
+          <LiquidifyProvider
+            theme={currentTheme}
+            glassConfig={{
+              intensity: 0.8,
+              blur: 10,
+              saturation: 1.5,
+              enableMagnetic: true,
+              enableSpecular: true,
+            }}
+            hapticConfig={{
+              enableVibration: true,
+              enableAudio: true,
+              enableVisual: true,
+            }}
+          >
+            {children}
+          </LiquidifyProvider>
+        </GlobalConfigProvider>
+      </SSRConfigProvider>
+    </ConfigProvider>
   );
 }
 
-// New server-safe provider wrapper without client hooks
+// Server-safe provider wrapper that only provides basic context without liquidify providers
 export function ServerSafeThemeProvider({ children }: { children: ReactNode }) {
-  // Provide default theme and config for SSR
-  return (
-    <SSRConfigProvider>
-      <GlobalConfigProvider
-        config={{
-          defaultVariant: 'glass',
-          defaultSize: 'md',
-          enableAnimations: true,
-          enableA11y: true,
-          colorScheme: 'light',
-          reducedMotion: false,
-          highContrast: false,
-        }}
-      >
-        <LiquidifyProvider
-          theme="light"
-          glassConfig={{
-            intensity: 0.8,
-            blur: 10,
-            saturation: 1.5,
-            enableMagnetic: true,
-            enableSpecular: true,
-          }}
-          hapticConfig={{
-            enableVibration: true,
-            enableAudio: true,
-            enableVisual: true,
-          }}
-        >
-          {children}
-        </LiquidifyProvider>
-      </GlobalConfigProvider>
-    </SSRConfigProvider>
-  );
+  // Only provide basic config context for SSR - no liquidify providers that use hooks
+  return <ConfigProvider>{children}</ConfigProvider>;
 }
 
 export function ClientThemeProvider({ children }: ClientThemeProviderProps) {

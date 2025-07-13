@@ -13,9 +13,29 @@ import {
   GlassLoading,
   ThemeProvider,
 } from 'liquidify';
-import { ComponentShowcase } from '@/components/ComponentShowcase';
-import { PhysicsShowcase } from '@/components/PhysicsShowcase';
-import ResponsiveDemo from '@/components/ResponsiveShowcase';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy components to avoid SSR issues
+const ComponentShowcase = dynamic(
+  () =>
+    import('@/components/ComponentShowcase').then(mod => ({
+      default: mod.ComponentShowcase,
+    })),
+  { ssr: false }
+);
+
+const PhysicsShowcase = dynamic(
+  () =>
+    import('@/components/PhysicsShowcase').then(mod => ({
+      default: mod.PhysicsShowcase,
+    })),
+  { ssr: false }
+);
+
+const ResponsiveDemo = dynamic(
+  () => import('@/components/ResponsiveShowcase'),
+  { ssr: false }
+);
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { scrollAnimations, pageTransitions } from '@/lib/enhanced-animations';

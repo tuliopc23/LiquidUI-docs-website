@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import GlassEffect from './ui/GlassEffect';
-import { GlassCard, GlassButton } from 'liquidify';
+import { GlassCard, GlassButton, GlassInput, GlassTextarea } from 'liquidify';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -134,27 +133,21 @@ export function SimpleShowcase() {
           description='Liquid glass inputs with Apple HIG focus states and accessibility'
           className='showcase-card'
         >
-          <GlassEffect variant='widget' className='w-full'>
-            <input
-              type='text'
-              placeholder='Enter your name...'
-              className='w-full p-3 bg-transparent border-none outline-none hig-body placeholder-apple-gray-500 focus:ring-2 focus:ring-apple-blue'
-            />
-          </GlassEffect>
-          <GlassEffect variant='widget' className='w-full'>
-            <input
-              type='email'
-              placeholder='Enter email address...'
-              className='w-full p-3 bg-transparent border-none outline-none hig-body placeholder-apple-gray-500 focus:ring-2 focus:ring-apple-purple'
-            />
-          </GlassEffect>
-          <GlassEffect variant='widget' className='w-full'>
-            <textarea
-              placeholder='Enter your message...'
-              rows={3}
-              className='w-full p-3 bg-transparent border-none outline-none hig-body placeholder-apple-gray-500 focus:ring-2 focus:ring-apple-indigo resize-none'
-            />
-          </GlassEffect>
+          <GlassInput
+            type='text'
+            placeholder='Enter your name...'
+            className='w-full'
+          />
+          <GlassInput
+            type='email'
+            placeholder='Enter email address...'
+            className='w-full'
+          />
+          <GlassTextarea
+            placeholder='Enter your message...'
+            rows={3}
+            className='w-full'
+          />
         </ShowcaseCard>
 
         <ShowcaseCard
@@ -162,24 +155,24 @@ export function SimpleShowcase() {
           description="Liquid glass cards with Apple's elevation system and typography hierarchy"
           className='showcase-card'
         >
-          <GlassEffect intensity='light' className='p-4'>
+          <GlassCard className='p-4'>
             <h4 className='hig-headline mb-2'>Light Glass</h4>
             <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
               Ultra-light glass effect
             </p>
-          </GlassEffect>
-          <GlassEffect intensity='medium' className='p-4'>
+          </GlassCard>
+          <GlassCard className='p-4'>
             <h4 className='hig-headline mb-2'>Medium Glass</h4>
             <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
               Standard liquid glass opacity
             </p>
-          </GlassEffect>
-          <GlassEffect intensity='heavy' className='p-4'>
+          </GlassCard>
+          <GlassCard className='p-4'>
             <h4 className='hig-headline mb-2'>Heavy Glass</h4>
             <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
               Enhanced glass with elevation
             </p>
-          </GlassEffect>
+          </GlassCard>
         </ShowcaseCard>
       </div>
 

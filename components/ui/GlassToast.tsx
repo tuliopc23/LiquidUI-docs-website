@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { cn } from 'liquidify';
 
-export interface GlassToastProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassToastProps {
   type?: 'info' | 'success' | 'warning' | 'error';
   title?: string;
   message: string;
@@ -116,7 +114,7 @@ const GlassToast: React.FC<GlassToastProps> = ({
   }
 
   return (
-    <GlassEffect variant='modal' className={baseClasses} {...props}>
+    <div className={baseClasses} {...props}>
       <div className={cn('flex-shrink-0 w-5 h-5 mt-0.5', currentStyle.color)}>
         <svg fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path
@@ -156,7 +154,7 @@ const GlassToast: React.FC<GlassToastProps> = ({
           </svg>
         </button>
       )}
-    </GlassEffect>
+    </div>
   );
 };
 

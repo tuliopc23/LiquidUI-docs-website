@@ -1,11 +1,9 @@
 'use client';
 
 import React from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { cn } from 'liquidify';
 
-export interface GlassToggleButtonProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassToggleButtonProps {
   children: React.ReactNode;
   pressed?: boolean;
   defaultPressed?: boolean;
@@ -85,7 +83,7 @@ const GlassToggleButton: React.FC<GlassToggleButtonProps> = ({
   );
 
   return (
-    <GlassEffect variant='button' className={baseClasses} {...props}>
+    <div className={baseClasses} {...props}>
       <button
         onClick={handleClick}
         disabled={disabled}
@@ -94,7 +92,7 @@ const GlassToggleButton: React.FC<GlassToggleButtonProps> = ({
       >
         {children}
       </button>
-    </GlassEffect>
+    </div>
   );
 };
 

@@ -122,13 +122,13 @@ export function monitorNetworkPerformance() {
   if (!('connection' in navigator)) return;
 
   const connection = (
-    navigator as Navigator & { 
-      connection?: { 
+    navigator as Navigator & {
+      connection?: {
         effectiveType?: string;
         downlink?: number;
         rtt?: number;
         saveData?: boolean;
-      } 
+      };
     }
   ).connection;
   if (!connection) return;

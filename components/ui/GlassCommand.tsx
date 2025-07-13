@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import GlassEffect, { GlassEffectProps } from './GlassEffect';
-import { cn } from '@/lib/utils';
+import { cn } from 'liquidify';
 
-export interface GlassCommandProps
-  extends Omit<GlassEffectProps, 'variant' | 'as'> {
+export interface GlassCommandProps {
   command: string;
   execute?: () => void;
   disableEditing?: boolean;
@@ -41,7 +39,7 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
   );
 
   return (
-    <GlassEffect variant='button' className={baseClasses} {...props}>
+    <div className={baseClasses} {...props}>
       <div className='flex items-center justify-between w-full'>
         <input
           type='text'
@@ -61,7 +59,7 @@ const GlassCommand: React.FC<GlassCommandProps> = ({
           {executing ? 'Executing' : 'Execute'}
         </button>
       </div>
-    </GlassEffect>
+    </div>
   );
 };
 
