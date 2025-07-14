@@ -5,6 +5,7 @@ This document provides a comprehensive overview of all components available in t
 ## 🚀 Available Components from Liquidify Package
 
 ### Core UI Components
+
 - `GlassButton` - Customizable button with glass morphism effects
 - `GlassCard` - Container component with glass styling
 - `GlassCardContent` - Card content wrapper
@@ -33,6 +34,7 @@ This document provides a comprehensive overview of all components available in t
 - `GlassDropdown` - Dropdown menu component
 
 ### Advanced Components
+
 - `GlassDatePicker` - Date picker component
 - `GlassFileUpload` - File upload component
 - `GlassFloatingAction` - Floating action button
@@ -55,6 +57,7 @@ This document provides a comprehensive overview of all components available in t
 - `GlassFeatureShowcase` - Feature showcase component
 
 ### Drawer Components
+
 - `GlassDrawer` - Drawer component
 - `GlassDrawerBody` - Drawer body
 - `GlassDrawerClose` - Drawer close button
@@ -68,12 +71,14 @@ This document provides a comprehensive overview of all components available in t
 - `GlassDrawerTrigger` - Drawer trigger
 
 ### Accordion Components
+
 - `GlassAccordion` - Accordion component
 - `GlassAccordionContent` - Accordion content
 - `GlassAccordionItem` - Accordion item
 - `GlassAccordionTrigger` - Accordion trigger
 
 ### Physics System Components
+
 - `FluidParticle` - Fluid particle system
 - `FluidSimulation` - Fluid simulation component
 - `LiquidGlassProvider` - Liquid glass context provider
@@ -85,6 +90,7 @@ This document provides a comprehensive overview of all components available in t
 - `Vector2D` - 2D vector component
 
 ### Hooks
+
 - `useContentAwareGlass` - Content-aware glass effects
 - `useGlassEffectPerformance` - Glass effect performance monitoring
 - `useLiquidGlass` - Liquid glass effects
@@ -103,11 +109,13 @@ This document provides a comprehensive overview of all components available in t
 - `useAppleLiquidGlass` - Apple liquid glass effects
 
 ### Data Visualization
+
 - `BarChart` - Bar chart component
 - `DonutChart` - Donut chart component
 - `LineChart` - Line chart component
 
 ### Navigation & Layout
+
 - `CommandPalette` - Command palette component
 - `Navbar` - Navigation bar
 - `NotificationCenter` - Notification center
@@ -118,12 +126,14 @@ This document provides a comprehensive overview of all components available in t
 - `HapticProvider` - Haptic feedback provider
 
 ### Spinner Components
+
 - `DotsSpinner` - Dots spinner animation
 - `PulseSpinner` - Pulse spinner animation
 - `RingSpinner` - Ring spinner animation
 - `WaveSpinner` - Wave spinner animation
 
 ### Additional Utility Components
+
 - `Accordion` - Basic accordion component
 - `AppleLiquidGlassButton` - Apple-style liquid glass button
 - `AppleLiquidGlassCard` - Apple-style liquid glass card
@@ -137,6 +147,7 @@ This document provides a comprehensive overview of all components available in t
 - `SkeletonText` - Skeleton text component
 
 ### Utilities
+
 - `AccessibilityChecker` - Accessibility testing utility
 - `ComponentShowcase` - Component showcase utility
 - `expectAccessible` - Accessibility assertion utility
@@ -144,6 +155,7 @@ This document provides a comprehensive overview of all components available in t
 - `toast` - Toast notification function
 
 ### Constants & Utilities
+
 - `PHYSICS_CONSTANTS` - Physics simulation constants
 - `SPRING_PRESETS` - Spring animation presets
 - `componentTokens` - Component design tokens
@@ -183,11 +195,13 @@ This document provides a comprehensive overview of all components available in t
 These components are implemented locally and extend the liquidify ecosystem:
 
 ### Actions Category
+
 - `GlassButtonGroup` - Button group component
 - `GlassIconButton` - Icon-only button
 - `GlassToggleButton` - Toggle button component
 
 ### Navigation Category
+
 - `GlassNavbar` - Custom navigation bar
 - `GlassSidebar` - Custom sidebar
 - `GlassBreadcrumb` - Custom breadcrumb navigation
@@ -195,27 +209,33 @@ These components are implemented locally and extend the liquidify ecosystem:
 - `GlassStepper` - Stepper component
 
 ### Inputs Category
+
 - `GlassRadio` - Custom radio button
 
 ### Presentation Category
+
 - `GlassNotification` - Custom notification component
 - `GlassToast` - Custom toast component
 - `GlassChart` - Custom chart component
 
 ### Containment Category
+
 - `GlassCommand` - Custom command component
 
 ### Performance Optimized
+
 - `LazyGlassChart` - Lazy-loaded chart component
 - `LazyGlassCommand` - Lazy-loaded command component
 
 ### Demo & Animation Components
+
 - `AnimationDemo` - Animation demonstration
 - `PageTransition` - Page transition effects
 - `LiquidifyInteractiveDemo` - Interactive demo component
 - `SimpleShowcase` - Simple component showcase
 
 ### Core Local Components
+
 - `AppleLiquidGlass` - Core Apple HIG Liquid Glass implementation
 
 ## 📋 Usage Guidelines
@@ -233,11 +253,7 @@ import {
 } from 'liquidify';
 
 // From local components
-import {
-  GlassButtonGroup,
-  GlassNavbar,
-  AnimationDemo,
-} from '@/components/ui';
+import { GlassButtonGroup, GlassNavbar, AnimationDemo } from '@/components/ui';
 ```
 
 ### Best Practices
@@ -251,6 +267,7 @@ import {
 ## 🔄 Migration Notes
 
 Components that were previously local implementations but are now available in liquidify:
+
 - `GlassDatePicker` → Use from liquidify package
 - `GlassFileUpload` → Use from liquidify package
 - `GlassFloatingAction` → Use from liquidify package
@@ -267,5 +284,5 @@ Components that were previously local implementations but are now available in l
 
 ---
 
-*Last updated: Current*
-*Liquidify Package Version: 1.2.0*
+_Last updated: Current_
+_Liquidify Package Version: 1.2.0_

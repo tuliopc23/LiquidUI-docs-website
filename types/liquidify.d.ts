@@ -1,5 +1,16 @@
 declare module 'liquidify' {
-  import { ReactNode, RefAttributes, ForwardRefExoticComponent, ReactElement, JSXElementConstructor, ButtonHTMLAttributes, InputHTMLAttributes, HTMLAttributes, TextareaHTMLAttributes, ComponentPropsWithoutRef } from 'react';
+  import {
+    ReactNode,
+    RefAttributes,
+    ForwardRefExoticComponent,
+    ReactElement,
+    JSXElementConstructor,
+    ButtonHTMLAttributes,
+    InputHTMLAttributes,
+    HTMLAttributes,
+    TextareaHTMLAttributes,
+    ComponentPropsWithoutRef,
+  } from 'react';
 
   export interface GlassConfig {
     intensity: number;
@@ -42,13 +53,9 @@ declare module 'liquidify' {
     config: GlobalConfig;
   }) => JSX.Element;
 
-  export const ThemeProvider: (props: {
-    children: ReactNode;
-  }) => JSX.Element;
+  export const ThemeProvider: (props: { children: ReactNode }) => JSX.Element;
 
-  export const ToastProvider: (props: {
-    children: ReactNode;
-  }) => JSX.Element;
+  export const ToastProvider: (props: { children: ReactNode }) => JSX.Element;
 
   export const HapticProvider: (props: {
     children: ReactNode;
@@ -60,8 +67,15 @@ declare module 'liquidify' {
   }) => JSX.Element;
 
   // Component Interfaces
-  export interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'destructive' | 'apple';
+  export interface GlassButtonProps
+    extends ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?:
+      | 'primary'
+      | 'secondary'
+      | 'tertiary'
+      | 'ghost'
+      | 'destructive'
+      | 'apple';
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     asChild?: boolean;
     leftIcon?: ReactNode;
@@ -84,7 +98,8 @@ declare module 'liquidify' {
     animated?: boolean;
   }
 
-  export interface GlassInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  export interface GlassInputProps
+    extends InputHTMLAttributes<HTMLInputElement> {
     variant?: 'default' | 'search' | 'password' | 'email';
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
@@ -115,7 +130,8 @@ declare module 'liquidify' {
     variant?: 'default' | 'minimal';
   }
 
-  export interface GlassSwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  export interface GlassSwitchProps
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     label?: string;
     onChange?: (checked: boolean) => void;
   }
@@ -147,16 +163,19 @@ declare module 'liquidify' {
     text?: string;
   }
 
-  export interface GlassCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+  export interface GlassCheckboxProps
+    extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
   }
 
-  export interface GlassTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  export interface GlassTextareaProps
+    extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     variant?: 'default' | 'minimal';
     resize?: 'none' | 'vertical' | 'horizontal' | 'both';
   }
 
-  export interface GlassFloatingActionProps extends HTMLAttributes<HTMLDivElement> {
+  export interface GlassFloatingActionProps
+    extends HTMLAttributes<HTMLDivElement> {
     mainIcon: ReactNode;
     actions?: Array<{
       icon: ReactNode;
@@ -164,7 +183,12 @@ declare module 'liquidify' {
       onClick: () => void;
       color?: 'primary' | 'secondary' | 'success' | 'warning' | 'error';
     }>;
-    position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'center';
+    position?:
+      | 'bottom-right'
+      | 'bottom-left'
+      | 'top-right'
+      | 'top-left'
+      | 'center';
     size?: 'sm' | 'md' | 'lg';
     variant?: 'default' | 'minimal' | 'glow';
     enableMagnetic?: boolean;
@@ -173,7 +197,12 @@ declare module 'liquidify' {
   }
 
   export interface GlassTabsProps {
-    tabs: Array<{ id: string; label: string; content: ReactNode; disabled?: boolean }>;
+    tabs: Array<{
+      id: string;
+      label: string;
+      content: ReactNode;
+      disabled?: boolean;
+    }>;
     defaultTab?: string;
     className?: string;
     tabListClassName?: string;
@@ -215,34 +244,84 @@ declare module 'liquidify' {
   }
 
   // Component Exports
-  export const GlassButton: ForwardRefExoticComponent<GlassButtonProps & RefAttributes<HTMLButtonElement>>;
-  export const GlassCard: ForwardRefExoticComponent<GlassCardProps & RefAttributes<HTMLDivElement>>;
-  export const GlassCardContent: ForwardRefExoticComponent<HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>>;
-  export const GlassCardDescription: ForwardRefExoticComponent<HTMLAttributes<HTMLParagraphElement> & RefAttributes<HTMLParagraphElement>>;
-  export const GlassCardFooter: ForwardRefExoticComponent<HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>>;
-  export const GlassCardHeader: ForwardRefExoticComponent<HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>>;
-  export const GlassCardTitle: ForwardRefExoticComponent<HTMLAttributes<HTMLHeadingElement> & RefAttributes<HTMLHeadingElement>>;
-  export const GlassInput: ForwardRefExoticComponent<GlassInputProps & RefAttributes<HTMLInputElement>>;
-  export const GlassSelect: ForwardRefExoticComponent<GlassSelectProps & RefAttributes<HTMLDivElement>>;
-  export const GlassSlider: ForwardRefExoticComponent<GlassSliderProps & RefAttributes<HTMLDivElement>>;
-  export const GlassSwitch: ForwardRefExoticComponent<GlassSwitchProps & RefAttributes<HTMLInputElement>>;
-  export const GlassBadge: ForwardRefExoticComponent<GlassBadgeProps & RefAttributes<HTMLSpanElement>>;
-  export const GlassProgress: ForwardRefExoticComponent<GlassProgressProps & RefAttributes<HTMLDivElement>>;
-  export const GlassSearch: ForwardRefExoticComponent<GlassSearchProps & RefAttributes<HTMLDivElement>>;
-  export const GlassLoading: ForwardRefExoticComponent<GlassLoadingProps & RefAttributes<HTMLDivElement>>;
-  export const GlassCheckbox: ForwardRefExoticComponent<GlassCheckboxProps & RefAttributes<HTMLInputElement>>;
-  export const GlassTextarea: ForwardRefExoticComponent<GlassTextareaProps & RefAttributes<HTMLTextAreaElement>>;
-  export const GlassFloatingAction: ForwardRefExoticComponent<GlassFloatingActionProps & RefAttributes<HTMLDivElement>>;
-  export const GlassTabs: ForwardRefExoticComponent<GlassTabsProps & RefAttributes<HTMLDivElement>>;
-  export const GlassModal: ForwardRefExoticComponent<GlassModalProps & RefAttributes<HTMLDivElement>>;
-  export const GlassTooltip: ForwardRefExoticComponent<GlassTooltipProps & RefAttributes<HTMLDivElement>>;
-  export const GlassAvatar: ForwardRefExoticComponent<GlassAvatarProps & RefAttributes<HTMLDivElement>>;
+  export const GlassButton: ForwardRefExoticComponent<
+    GlassButtonProps & RefAttributes<HTMLButtonElement>
+  >;
+  export const GlassCard: ForwardRefExoticComponent<
+    GlassCardProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassCardContent: ForwardRefExoticComponent<
+    HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassCardDescription: ForwardRefExoticComponent<
+    HTMLAttributes<HTMLParagraphElement> & RefAttributes<HTMLParagraphElement>
+  >;
+  export const GlassCardFooter: ForwardRefExoticComponent<
+    HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassCardHeader: ForwardRefExoticComponent<
+    HTMLAttributes<HTMLDivElement> & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassCardTitle: ForwardRefExoticComponent<
+    HTMLAttributes<HTMLHeadingElement> & RefAttributes<HTMLHeadingElement>
+  >;
+  export const GlassInput: ForwardRefExoticComponent<
+    GlassInputProps & RefAttributes<HTMLInputElement>
+  >;
+  export const GlassSelect: ForwardRefExoticComponent<
+    GlassSelectProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassSlider: ForwardRefExoticComponent<
+    GlassSliderProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassSwitch: ForwardRefExoticComponent<
+    GlassSwitchProps & RefAttributes<HTMLInputElement>
+  >;
+  export const GlassBadge: ForwardRefExoticComponent<
+    GlassBadgeProps & RefAttributes<HTMLSpanElement>
+  >;
+  export const GlassProgress: ForwardRefExoticComponent<
+    GlassProgressProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassSearch: ForwardRefExoticComponent<
+    GlassSearchProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassLoading: ForwardRefExoticComponent<
+    GlassLoadingProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassCheckbox: ForwardRefExoticComponent<
+    GlassCheckboxProps & RefAttributes<HTMLInputElement>
+  >;
+  export const GlassTextarea: ForwardRefExoticComponent<
+    GlassTextareaProps & RefAttributes<HTMLTextAreaElement>
+  >;
+  export const GlassFloatingAction: ForwardRefExoticComponent<
+    GlassFloatingActionProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassTabs: ForwardRefExoticComponent<
+    GlassTabsProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassModal: ForwardRefExoticComponent<
+    GlassModalProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassTooltip: ForwardRefExoticComponent<
+    GlassTooltipProps & RefAttributes<HTMLDivElement>
+  >;
+  export const GlassAvatar: ForwardRefExoticComponent<
+    GlassAvatarProps & RefAttributes<HTMLDivElement>
+  >;
 
   // Navigation Components
   export const Navbar: () => JSX.Element;
-  export const CommandPalette: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
-  export const NotificationCenter: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
-  export const Sidebar: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
+  export const CommandPalette: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
+  export const NotificationCenter: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
+  export const Sidebar: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
   export const ThemeToggle: () => JSX.Element;
 
   // Physics and Animation
@@ -322,7 +401,11 @@ declare module 'liquidify' {
   }
 
   export class FluidSimulation {
-    constructor(config: any, particleCount: number, bounds: { width: number; height: number });
+    constructor(
+      config: any,
+      particleCount: number,
+      bounds: { width: number; height: number }
+    );
     update(deltaTime: number, forces?: Vector2D[]): void;
     getParticles(): any[];
   }
@@ -343,21 +426,37 @@ declare module 'liquidify' {
   export function useContentAwareGlass(contentRef: any): any;
   export function useLiquidGlass(): any;
   export function useMagneticHover(strength?: number, radius?: number): any;
-  export function useRepulsionEffect(elements: HTMLElement[], repulsionStrength?: number): any;
+  export function useRepulsionEffect(
+    elements: HTMLElement[],
+    repulsionStrength?: number
+  ): any;
 
   // Utilities
   export function toast(props: any): any;
-  export function expectAccessible(element: HTMLElement, componentName: string, minScore?: number): void;
-  export function runAccessibilityCheck(element: HTMLElement, componentName: string): any;
+  export function expectAccessible(
+    element: HTMLElement,
+    componentName: string,
+    minScore?: number
+  ): void;
+  export function runAccessibilityCheck(
+    element: HTMLElement,
+    componentName: string
+  ): any;
   export function ComponentShowcase(props: any): JSX.Element;
   export class AccessibilityChecker {
     checkElement(element: HTMLElement, componentName: string): any;
   }
 
   // Charts
-  export const BarChart: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
-  export const DonutChart: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
-  export const LineChart: ForwardRefExoticComponent<any & RefAttributes<HTMLDivElement>>;
+  export const BarChart: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
+  export const DonutChart: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
+  export const LineChart: ForwardRefExoticComponent<
+    any & RefAttributes<HTMLDivElement>
+  >;
 
   // Constants and Tokens
   export const PHYSICS_CONSTANTS: any;
@@ -375,9 +474,20 @@ declare module 'liquidify' {
 
   // Utility functions
   export function cn(...inputs: any[]): string;
-  export function createFluidMorph(fromElement: HTMLElement, toElement: HTMLElement, duration?: number): any;
-  export function createGlassRipple(element: HTMLElement, x: number, y: number, color?: string): HTMLDivElement;
-  export function generateCSSCustomProperties(theme?: 'light' | 'dark'): Record<string, string>;
+  export function createFluidMorph(
+    fromElement: HTMLElement,
+    toElement: HTMLElement,
+    duration?: number
+  ): any;
+  export function createGlassRipple(
+    element: HTMLElement,
+    x: number,
+    y: number,
+    color?: string
+  ): HTMLDivElement;
+  export function generateCSSCustomProperties(
+    theme?: 'light' | 'dark'
+  ): Record<string, string>;
   export function getThemeToken(theme: 'light' | 'dark', path: string): any;
   export function getToken(path: string): any;
   export function getGlassClass(variant?: string): string;

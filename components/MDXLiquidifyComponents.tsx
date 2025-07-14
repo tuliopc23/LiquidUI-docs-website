@@ -1,10 +1,11 @@
 'use client';
 
+import React from 'react';
 import { ClientOnlyWrapper } from './ClientOnlyWrapper';
 import dynamic from 'next/dynamic';
 
-// Create client-only versions of all Liquidify components for MDX
-const createClientOnlyComponent = (
+// Create static-friendly versions of Liquidify components for MDX
+const createStaticComponent = (
   componentName: string,
   variant: 'card' | 'button' | 'panel' | 'default' = 'default'
 ) => {
@@ -16,7 +17,6 @@ const createClientOnlyComponent = (
             mod as unknown as Record<string, React.ComponentType>
           )[componentName];
           if (!component) {
-            // Return a fallback component if the specific component doesn't exist
             return {
               default: () => (
                 <ClientOnlyWrapper variant={variant}>{null}</ClientOnlyWrapper>
@@ -26,7 +26,6 @@ const createClientOnlyComponent = (
           return { default: component };
         })
         .catch(() => {
-          // Return fallback on import error
           return {
             default: () => (
               <ClientOnlyWrapper variant={variant}>{null}</ClientOnlyWrapper>
@@ -34,153 +33,125 @@ const createClientOnlyComponent = (
           };
         }),
     {
-      ssr: false,
+      ssr: false, // Disable SSR for proper static export
       loading: () => (
-        <ClientOnlyWrapper variant={variant}>{null}</ClientOnlyWrapper>
+        <div className='animate-pulse bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20'>
+          <div className='h-4 bg-white/20 rounded w-3/4' />
+        </div>
       ),
     }
   );
 };
 
-// Client-only Glass components for MDX - Only components that actually exist
-export const GlassSlider = createClientOnlyComponent('GlassSlider', 'default');
-export const GlassInput = createClientOnlyComponent('GlassInput', 'default');
-export const GlassTextarea = createClientOnlyComponent(
-  'GlassTextarea',
-  'default'
-);
-export const GlassSelect = createClientOnlyComponent('GlassSelect', 'default');
-export const GlassCheckbox = createClientOnlyComponent(
-  'GlassCheckbox',
-  'default'
-);
-export const GlassModal = createClientOnlyComponent('GlassModal', 'panel');
-export const GlassTooltip = createClientOnlyComponent(
-  'GlassTooltip',
-  'default'
-);
-export const GlassProgress = createClientOnlyComponent(
-  'GlassProgress',
-  'default'
-);
-export const GlassTable = createClientOnlyComponent('GlassTable', 'card');
-export const GlassBadge = createClientOnlyComponent('GlassBadge', 'button');
-export const GlassAvatar = createClientOnlyComponent('GlassAvatar', 'default');
-export const GlassPopover = createClientOnlyComponent('GlassPopover', 'panel');
-export const GlassDatePicker = createClientOnlyComponent(
+// Static-friendly Glass components for MDX - Only components that actually exist
+export const GlassSlider = createStaticComponent('GlassSlider', 'default');
+export const GlassInput = createStaticComponent('GlassInput', 'default');
+export const GlassTextarea = createStaticComponent('GlassTextarea', 'default');
+export const GlassSelect = createStaticComponent('GlassSelect', 'default');
+export const GlassCheckbox = createStaticComponent('GlassCheckbox', 'default');
+export const GlassModal = createStaticComponent('GlassModal', 'panel');
+export const GlassTooltip = createStaticComponent('GlassTooltip', 'default');
+export const GlassProgress = createStaticComponent('GlassProgress', 'default');
+export const GlassTable = createStaticComponent('GlassTable', 'card');
+export const GlassBadge = createStaticComponent('GlassBadge', 'button');
+export const GlassAvatar = createStaticComponent('GlassAvatar', 'default');
+export const GlassPopover = createStaticComponent('GlassPopover', 'panel');
+export const GlassDatePicker = createStaticComponent(
   'GlassDatePicker',
   'default'
 );
-export const GlassFileUpload = createClientOnlyComponent(
-  'GlassFileUpload',
-  'card'
-);
-export const GlassSearch = createClientOnlyComponent('GlassSearch', 'default');
-export const GlassLoading = createClientOnlyComponent(
-  'GlassLoading',
-  'default'
-);
-export const GlassMobileNav = createClientOnlyComponent(
-  'GlassMobileNav',
-  'panel'
-);
-export const GlassResponsiveCard = createClientOnlyComponent(
+export const GlassFileUpload = createStaticComponent('GlassFileUpload', 'card');
+export const GlassSearch = createStaticComponent('GlassSearch', 'default');
+export const GlassLoading = createStaticComponent('GlassLoading', 'default');
+export const GlassMobileNav = createStaticComponent('GlassMobileNav', 'panel');
+export const GlassResponsiveCard = createStaticComponent(
   'GlassResponsiveCard',
   'card'
 );
-export const GlassResponsiveButton = createClientOnlyComponent(
+export const GlassResponsiveButton = createStaticComponent(
   'GlassResponsiveButton',
   'button'
 );
 
 // Additional components that exist in the package
-export const GlassSwitch = createClientOnlyComponent('GlassSwitch', 'button');
-export const GlassSpinner = createClientOnlyComponent(
-  'GlassSpinner',
-  'default'
-);
-export const GlassSkeleton = createClientOnlyComponent(
-  'GlassSkeleton',
-  'default'
-);
-export const GlassNumberInput = createClientOnlyComponent(
+export const GlassSwitch = createStaticComponent('GlassSwitch', 'button');
+export const GlassSpinner = createStaticComponent('GlassSpinner', 'default');
+export const GlassSkeleton = createStaticComponent('GlassSkeleton', 'default');
+export const GlassNumberInput = createStaticComponent(
   'GlassNumberInput',
   'default'
 );
-export const GlassCombobox = createClientOnlyComponent(
-  'GlassCombobox',
-  'default'
-);
-export const GlassAccordion = createClientOnlyComponent(
+export const GlassCombobox = createStaticComponent('GlassCombobox', 'default');
+export const GlassAccordion = createStaticComponent(
   'GlassAccordion',
   'default'
 );
-export const GlassAccordionItem = createClientOnlyComponent(
+export const GlassAccordionItem = createStaticComponent(
   'GlassAccordionItem',
   'default'
 );
-export const GlassAccordionTrigger = createClientOnlyComponent(
+export const GlassAccordionTrigger = createStaticComponent(
   'GlassAccordionTrigger',
   'button'
 );
-export const GlassAccordionContent = createClientOnlyComponent(
+export const GlassAccordionContent = createStaticComponent(
   'GlassAccordionContent',
   'default'
 );
-export const GlassDrawer = createClientOnlyComponent('GlassDrawer', 'panel');
-export const GlassDrawerTrigger = createClientOnlyComponent(
+export const GlassDrawer = createStaticComponent('GlassDrawer', 'panel');
+export const GlassDrawerTrigger = createStaticComponent(
   'GlassDrawerTrigger',
   'button'
 );
-export const GlassDrawerContent = createClientOnlyComponent(
+export const GlassDrawerContent = createStaticComponent(
   'GlassDrawerContent',
   'panel'
 );
-export const GlassDrawerHeader = createClientOnlyComponent(
+export const GlassDrawerHeader = createStaticComponent(
   'GlassDrawerHeader',
   'default'
 );
-export const GlassDrawerTitle = createClientOnlyComponent(
+export const GlassDrawerTitle = createStaticComponent(
   'GlassDrawerTitle',
   'default'
 );
-export const GlassDrawerDescription = createClientOnlyComponent(
+export const GlassDrawerDescription = createStaticComponent(
   'GlassDrawerDescription',
   'default'
 );
-export const GlassDrawerBody = createClientOnlyComponent(
+export const GlassDrawerBody = createStaticComponent(
   'GlassDrawerBody',
   'default'
 );
-export const GlassDrawerFooter = createClientOnlyComponent(
+export const GlassDrawerFooter = createStaticComponent(
   'GlassDrawerFooter',
   'default'
 );
-export const GlassDrawerClose = createClientOnlyComponent(
+export const GlassDrawerClose = createStaticComponent(
   'GlassDrawerClose',
   'button'
 );
-export const GlassPagination = createClientOnlyComponent(
+export const GlassPagination = createStaticComponent(
   'GlassPagination',
   'default'
 );
-export const GlassFormField = createClientOnlyComponent(
+export const GlassFormField = createStaticComponent(
   'GlassFormField',
   'default'
 );
 
 // Use correct names for radio components
-export const GlassRadioGroup = createClientOnlyComponent(
+export const GlassRadioGroup = createStaticComponent(
   'GlassRadioGroup',
   'default'
 );
-export const GlassRadioItem = createClientOnlyComponent(
+export const GlassRadioItem = createStaticComponent(
   'GlassRadioItem',
   'default'
 );
 
 // Use correct name for breadcrumbs
-export const GlassBreadcrumbs = createClientOnlyComponent(
+export const GlassBreadcrumbs = createStaticComponent(
   'GlassBreadcrumbs',
   'default'
 );

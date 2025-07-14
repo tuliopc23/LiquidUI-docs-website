@@ -14,9 +14,9 @@ const withNextra = nextra({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable static generation for SSR issues
-  trailingSlash: false,
-  generateBuildId: () => 'build-id',
+  // Enable static generation with optimizations
+  trailingSlash: true,
+  generateBuildId: () => 'liquidify-docs-static',
   distDir: '.next',
 
   // Server configuration
@@ -30,8 +30,8 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
 
-  // Skip static generation for pages with liquidify components
-  staticPageGenerationTimeout: 30,
+  // Optimize static generation
+  staticPageGenerationTimeout: 60,
 
   experimental: {
     scrollRestoration: true,
@@ -76,7 +76,7 @@ const nextConfig = {
   poweredByHeader: false,
 
   // Output configuration for static export
-  // output: 'export', // Temporarily disabled to debug build issues
+  // output: 'export', // Enable once all MDX components use static rendering
 };
 
 export default withNextra(nextConfig);

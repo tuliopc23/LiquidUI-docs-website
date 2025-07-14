@@ -15,13 +15,22 @@ import {
 } from 'liquidify';
 import dynamic from 'next/dynamic';
 
-// Dynamically import heavy components to avoid SSR issues
+// Dynamic imports for interactive components only
 const ComponentShowcase = dynamic(
   () =>
     import('@/components/ComponentShowcase').then(mod => ({
       default: mod.ComponentShowcase,
     })),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className='animate-pulse bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20'>
+        <div className='h-6 bg-white/20 rounded w-1/4 mb-4' />
+        <div className='h-4 bg-white/20 rounded w-3/4 mb-6' />
+        <div className='h-32 bg-white/20 rounded' />
+      </div>
+    ),
+  }
 );
 
 const PhysicsShowcase = dynamic(
@@ -29,16 +38,44 @@ const PhysicsShowcase = dynamic(
     import('@/components/PhysicsShowcase').then(mod => ({
       default: mod.PhysicsShowcase,
     })),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className='animate-pulse bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20'>
+        <div className='h-6 bg-white/20 rounded w-1/3 mb-4' />
+        <div className='h-4 bg-white/20 rounded w-2/3 mb-6' />
+        <div className='grid grid-cols-2 gap-4'>
+          <div className='h-24 bg-white/20 rounded' />
+          <div className='h-24 bg-white/20 rounded' />
+        </div>
+      </div>
+    ),
+  }
 );
 
 const ResponsiveDemo = dynamic(
   () => import('@/components/ResponsiveShowcase'),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className='animate-pulse bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20'>
+        <div className='h-6 bg-white/20 rounded w-1/2 mb-4' />
+        <div className='h-16 bg-white/20 rounded' />
+      </div>
+    ),
+  }
 );
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { scrollAnimations, pageTransitions } from '@/lib/enhanced-animations';
+import {
+  AppleHIGContainer,
+  AppleButton,
+  AppleCard,
+  AppleText,
+  AppleSection,
+} from '@/components/AppleHIGSystem';
+// Remove unused import - appleDesign is used through AppleHIGSystem components
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -524,88 +561,113 @@ export default function PlaygroundPage() {
 
   return (
     <ThemeProvider>
-      <div
-        ref={pageRef}
-        className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900'
+      <AppleHIGContainer
+        variant='page'
+        enableAnimations={true}
+        enableScrollEffects={true}
+        className='relative overflow-hidden'
       >
-        {/* Header */}
-        <div className='playground-section sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700'>
-          <div className='container mx-auto px-4 py-6'>
-            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
-              <div>
-                <h1 className='text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
+        {/* Apple-style Header */}
+        <div className='playground-section sticky top-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border-b border-white/20 dark:border-gray-700/50'>
+          <div className='container mx-auto px-6 py-8'>
+            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-6'>
+              <div className='space-y-3'>
+                <AppleText
+                  variant='largeTitle'
+                  className='bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent font-bold'
+                >
                   Liquidify Playground
-                </h1>
-                <p className='text-gray-600 dark:text-gray-400 mt-2'>
+                </AppleText>
+                <AppleText
+                  variant='body'
+                  color='secondary'
+                  className='max-w-2xl'
+                >
                   Interactive component demonstrations with real-time editing
-                </p>
+                  and Apple HIG design principles
+                </AppleText>
               </div>
 
               <div className='flex items-center gap-4'>
                 <GlassSearch
                   placeholder='Search components...'
                   onSearch={(query: string) => setSearchQuery(query)}
-                  className='mb-6'
+                  className='min-w-[280px]'
                 />
               </div>
             </div>
           </div>
         </div>
 
-        <div className='container mx-auto px-4 py-8'>
+        <div className='container mx-auto px-6 py-12'>
           <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
-            {/* Sidebar */}
+            {/* Apple-style Sidebar */}
             <div className='lg:col-span-1'>
-              <div className='playground-section sticky top-32'>
-                <GlassCard className='p-6'>
-                  <h3 className='text-lg font-semibold mb-4'>Categories</h3>
+              <div className='playground-section sticky top-36'>
+                <AppleCard hover={true} className='p-6 space-y-6'>
+                  <div>
+                    <AppleText variant='headline' className='mb-4 block'>
+                      Categories
+                    </AppleText>
 
-                  <div className='space-y-2'>
-                    {Object.keys(categories).map(category => (
-                      <GlassButton
-                        key={category}
-                        variant={
-                          activeCategory === category ? 'primary' : 'ghost'
-                        }
-                        size='sm'
-                        onClick={() => setActiveCategory(category)}
-                        className='w-full justify-start'
-                      >
-                        {category}
-                      </GlassButton>
-                    ))}
+                    <div className='space-y-2'>
+                      {Object.keys(categories).map(category => (
+                        <AppleButton
+                          key={category}
+                          variant={
+                            activeCategory === category ? 'primary' : 'tertiary'
+                          }
+                          size='sm'
+                          onClick={() => setActiveCategory(category)}
+                          className='w-full justify-start text-left'
+                        >
+                          {category}
+                        </AppleButton>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className='mt-6 pt-6 border-t border-gray-200 dark:border-gray-700'>
-                    <h4 className='text-sm font-medium mb-3'>Components</h4>
+                  <div className='pt-6 border-t border-white/20 dark:border-gray-700/50'>
+                    <AppleText
+                      variant='subhead'
+                      color='secondary'
+                      className='mb-3 block font-medium'
+                    >
+                      Components
+                    </AppleText>
                     <div className='space-y-1'>
                       {(searchQuery
                         ? filteredComponents
                         : categoryComponents
                       ).map(componentName => (
-                        <GlassButton
+                        <AppleButton
                           key={componentName}
                           variant={
                             selectedComponent === componentName
                               ? 'secondary'
-                              : 'ghost'
+                              : 'tertiary'
                           }
-                          size='xs'
+                          size='sm'
                           onClick={() => setSelectedComponent(componentName)}
                           className='w-full justify-start text-sm'
                         >
                           {componentName}
-                        </GlassButton>
+                        </AppleButton>
                       ))}
                     </div>
                   </div>
-                </GlassCard>
+                </AppleCard>
               </div>
             </div>
 
             {/* Main Content */}
-            <div className='lg:col-span-3'>
-              <div className='playground-section'>
+            <div className='lg:col-span-3 space-y-12'>
+              {/* Component Showcase Section */}
+              <AppleSection
+                title='Interactive Component Demo'
+                subtitle='Real-time component editing with live preview and Apple HIG design standards'
+                className='playground-section'
+              >
                 {selectedComponent &&
                   componentConfigs[
                     selectedComponent as keyof typeof componentConfigs
@@ -620,21 +682,29 @@ export default function PlaygroundPage() {
                       className='component-showcase'
                     />
                   )}
-              </div>
+              </AppleSection>
 
               {/* Physics Demo Section */}
-              <div className='playground-section mt-12'>
+              <AppleSection
+                title='Physics & Animation System'
+                subtitle='Advanced liquid glass physics with spring animations and magnetic interactions'
+                className='playground-section'
+              >
                 <PhysicsShowcase />
-              </div>
+              </AppleSection>
 
               {/* Responsive Demo Section */}
-              <div className='playground-section mt-12'>
+              <AppleSection
+                title='Responsive Design Showcase'
+                subtitle='Adaptive components that scale beautifully across all Apple devices'
+                className='playground-section'
+              >
                 <ResponsiveDemo />
-              </div>
+              </AppleSection>
             </div>
           </div>
         </div>
-      </div>
+      </AppleHIGContainer>
     </ThemeProvider>
   );
 }
