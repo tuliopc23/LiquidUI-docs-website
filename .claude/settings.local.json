@@ -50,7 +50,9 @@
       "Bash(npm ls:*)",
       "Bash(npm update:*)",
       "Bash(npm run format:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(npm run:*)",
+      "Bash(npx eslint:*)"
     ],
     "deny": []
   }

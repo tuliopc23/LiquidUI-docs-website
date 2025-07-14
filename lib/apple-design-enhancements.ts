@@ -224,6 +224,9 @@ export const appleMicroInteractions = {
 export const applePageTransitions = {
   // Smooth fade in with scale
   fadeInScale: (duration = 0.8) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     gsap.fromTo(
       '[data-animate="page"]',
       {
@@ -244,6 +247,9 @@ export const applePageTransitions = {
 
   // Stagger reveal animation
   staggerReveal: (selector: string, stagger = 0.1) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     gsap.fromTo(
       selector,
       {
@@ -264,6 +270,9 @@ export const applePageTransitions = {
 
   // Liquid slide in
   liquidSlideIn: (selector: string, direction = 'up') => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     const yValue = direction === 'up' ? 50 : direction === 'down' ? -50 : 0;
     const xValue = direction === 'left' ? 50 : direction === 'right' ? -50 : 0;
 
@@ -292,6 +301,9 @@ export const applePageTransitions = {
 export const appleScrollAnimations = {
   // Parallax scrolling
   parallax: (selector: string, speed = 0.5) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     gsap.to(selector, {
       yPercent: -50 * speed,
       ease: 'none',
@@ -306,6 +318,9 @@ export const appleScrollAnimations = {
 
   // Reveal on scroll
   revealOnScroll: (selector: string) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     gsap.fromTo(
       selector,
       {
@@ -331,6 +346,9 @@ export const appleScrollAnimations = {
 
   // Pinned section animation
   pinnedSection: (selector: string) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     gsap.to(selector, {
       scale: 0.8,
       opacity: 0.5,
@@ -352,18 +370,27 @@ export const appleScrollAnimations = {
 export const applePerformance = {
   // Optimize element for animations
   optimizeElement: (element: HTMLElement) => {
+    if (typeof window === 'undefined' || !element) {
+      return; // SSR safety
+    }
     element.style.willChange = 'transform, opacity';
     element.style.transform = 'translateZ(0)'; // Force hardware acceleration
   },
 
   // Cleanup optimizations
   cleanupElement: (element: HTMLElement) => {
+    if (typeof window === 'undefined' || !element) {
+      return; // SSR safety
+    }
     element.style.willChange = 'auto';
     element.style.transform = '';
   },
 
   // Batch DOM updates
   batchUpdates: (updates: (() => void)[]) => {
+    if (typeof window === 'undefined') {
+      return; // SSR safety
+    }
     requestAnimationFrame(() => {
       updates.forEach(update => update());
     });
@@ -374,6 +401,10 @@ export const applePerformance = {
 export const appleAccessibility = {
   // Respect reduced motion preference
   respectReducedMotion: () => {
+    if (typeof window === 'undefined') {
+      return false; // SSR safety
+    }
+
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
@@ -393,6 +424,10 @@ export const appleAccessibility = {
 
   // Enhance focus indicators
   enhanceFocusIndicators: () => {
+    if (typeof document === 'undefined') {
+      return; // SSR safety
+    }
+
     const style = document.createElement('style');
     style.textContent = `
       *:focus-visible {
@@ -412,6 +447,10 @@ export const appleAccessibility = {
 
   // High contrast mode support
   highContrastMode: () => {
+    if (typeof window === 'undefined') {
+      return false; // SSR safety
+    }
+
     const isHighContrast = window.matchMedia(
       '(prefers-contrast: high)'
     ).matches;

@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ErrorBoundary } from 'components/ErrorBoundary';
-import { CommunityFeedback } from 'components/CommunityFeatures';
-import { ServerSafeThemeProvider } from 'components/ClientThemeProvider';
+import ClientLayout from './ClientLayout';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -60,6 +58,8 @@ export const metadata: Metadata = {
     google: process.env['GOOGLE_SITE_VERIFICATION'],
   },
 };
+
+export const dynamic = 'force-static';
 
 export default function RootLayout({
   children,
@@ -122,15 +122,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <ServerSafeThemeProvider>
-          <ErrorBoundary>
-            {children}
-
-            {/* Community features for OSS */}
-            {process.env['NEXT_PUBLIC_ENABLE_COMMUNITY_FEATURES'] ===
-              'true' && <CommunityFeedback />}
-          </ErrorBoundary>
-        </ServerSafeThemeProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

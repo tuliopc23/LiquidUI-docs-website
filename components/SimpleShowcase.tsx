@@ -10,7 +10,6 @@ import {
   AppleText,
   AppleSection,
 } from './AppleHIGSystem';
-import { StaticComponentWrapper } from './StaticComponentWrapper';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -159,7 +158,7 @@ export function SimpleShowcase() {
           description='Apple HIG-compliant buttons with magnetic hover effects and haptic-style feedback'
           className='showcase-card'
         >
-          <StaticComponentWrapper enableClientInteraction={true}>
+          <div>
             <div className='space-y-3'>
               <AppleButton variant='primary' size='lg' className='w-full'>
                 Primary Action
@@ -171,7 +170,7 @@ export function SimpleShowcase() {
                 Tertiary Action
               </AppleButton>
             </div>
-          </StaticComponentWrapper>
+          </div>
         </ShowcaseCard>
 
         <ShowcaseCard
@@ -179,7 +178,7 @@ export function SimpleShowcase() {
           description='Liquid glass inputs with premium focus animations and Apple HIG accessibility'
           className='showcase-card'
         >
-          <StaticComponentWrapper enableClientInteraction={true}>
+          <div>
             <div className='space-y-4'>
               <GlassInput
                 type='text'
@@ -207,7 +206,7 @@ export function SimpleShowcase() {
                 </AppleText>
               </div>
             </div>
-          </StaticComponentWrapper>
+          </div>
         </ShowcaseCard>
 
         <ShowcaseCard
@@ -215,7 +214,7 @@ export function SimpleShowcase() {
           description="Premium liquid glass components with Apple's elevation system and micro-interactions"
           className='showcase-card'
         >
-          <StaticComponentWrapper enableClientInteraction={true}>
+          <div>
             <div className='space-y-4'>
               <AppleCard className='p-4' interactive={true}>
                 <AppleText variant='headline' className='block mb-2'>
@@ -251,7 +250,7 @@ export function SimpleShowcase() {
                 </AppleText>
               </AppleCard>
             </div>
-          </StaticComponentWrapper>
+          </div>
         </ShowcaseCard>
       </div>
 
@@ -276,7 +275,7 @@ export function SimpleShowcase() {
                 and premium animations.
               </AppleText>
             </div>
-            <StaticComponentWrapper enableClientInteraction={true}>
+            <div>
               <div className='flex flex-col sm:flex-row gap-4 justify-center'>
                 <AppleButton variant='primary' size='lg'>
                   Get Started →
@@ -285,7 +284,7 @@ export function SimpleShowcase() {
                   View Documentation
                 </AppleButton>
               </div>
-            </StaticComponentWrapper>
+            </div>
           </AppleCard>
         </div>
       </AppleSection>

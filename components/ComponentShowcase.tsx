@@ -10,7 +10,6 @@ import {
   GlassSlider,
   GlassSwitch,
 } from 'liquidify';
-import { MockThemeProvider } from '@/components/MockThemeProvider';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -397,250 +396,248 @@ export const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
   ];
 
   return (
-    <MockThemeProvider>
-      <div ref={showcaseRef} className={`component-showcase ${className}`}>
-        <GlassCard className='showcase-card'>
-          {/* Header */}
-          <div className='showcase-section border-b border-gray-200 dark:border-gray-700 p-6'>
-            <div className='flex justify-between items-start'>
-              <div>
-                <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2'>
-                  {componentName}
-                </h2>
-                {description && (
-                  <p className='text-gray-600 dark:text-gray-400'>
-                    {description}
-                  </p>
-                )}
-              </div>
+    <div ref={showcaseRef} className={`component-showcase ${className}`}>
+      <GlassCard className='showcase-card'>
+        {/* Header */}
+        <div className='showcase-section border-b border-gray-200 dark:border-gray-700 p-6'>
+          <div className='flex justify-between items-start'>
+            <div>
+              <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2'>
+                {componentName}
+              </h2>
+              {description && (
+                <p className='text-gray-600 dark:text-gray-400'>
+                  {description}
+                </p>
+              )}
+            </div>
 
-              <div className='flex gap-2'>
-                {showPhysics && (
-                  <GlassSwitch
-                    checked={physicsEnabled}
-                    onChange={setPhysicsEnabled}
-                    label='Physics'
-                    size={20}
-                  />
-                )}
+            <div className='flex gap-2'>
+              {showPhysics && (
                 <GlassSwitch
-                  checked={showPerformanceMonitor}
-                  onChange={setShowPerformanceMonitor}
-                  label='Performance'
+                  checked={physicsEnabled}
+                  onChange={setPhysicsEnabled}
+                  label='Physics'
                   size={20}
                 />
+              )}
+              <GlassSwitch
+                checked={showPerformanceMonitor}
+                onChange={setShowPerformanceMonitor}
+                label='Performance'
+                size={20}
+              />
+            </div>
+          </div>
+
+          {/* Variants selector */}
+          {variants.length > 0 && (
+            <div className='mt-4'>
+              <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
+                Variants
+              </label>
+              <div className='flex flex-wrap gap-2'>
+                {variants.map((variant, index) => (
+                  <GlassButton
+                    key={index}
+                    variant={activeVariant === index ? 'primary' : 'ghost'}
+                    size='sm'
+                    onClick={() => setActiveVariant(index)}
+                  >
+                    {variant.name}
+                  </GlassButton>
+                ))}
               </div>
             </div>
+          )}
+        </div>
 
-            {/* Variants selector */}
-            {variants.length > 0 && (
-              <div className='mt-4'>
-                <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
-                  Variants
-                </label>
-                <div className='flex flex-wrap gap-2'>
-                  {variants.map((variant, index) => (
-                    <GlassButton
-                      key={index}
-                      variant={activeVariant === index ? 'primary' : 'ghost'}
-                      size='sm'
-                      onClick={() => setActiveVariant(index)}
-                    >
-                      {variant.name}
-                    </GlassButton>
-                  ))}
-                </div>
-              </div>
+        {/* Navigation */}
+        <div className='showcase-section p-6 border-b border-gray-200 dark:border-gray-700'>
+          <div className='flex gap-2'>
+            {tabs.map(tab => (
+              <GlassButton
+                key={tab.id}
+                variant={activeTab === tab.id ? 'primary' : 'ghost'}
+                size='sm'
+                onClick={() => setActiveTab(tab.id)}
+              >
+                {tab.label}
+              </GlassButton>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className='showcase-section p-6'>
+          <AnimatePresence mode='wait'>
+            {activeTab === 'preview' && (
+              <motion.div
+                key='preview'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className='space-y-6'
+              >
+                <PhysicsWrapper enabled={physicsEnabled}>
+                  <div className='preview-container p-8 bg-gray-50 dark:bg-gray-800 rounded-lg'>
+                    <div className='flex justify-center'>
+                      <Component
+                        {...currentProps}
+                        className={`physics-element ${currentProps['className'] || ''}`}
+                        ref={(el: HTMLElement) => {
+                          if (el) {
+                            measureGlassEffect(
+                              `${componentName}-render`,
+                              () => {
+                                // Measure component render performance
+                              }
+                            );
+                          }
+                        }}
+                      >
+                        {children || componentName}
+                      </Component>
+                    </div>
+                  </div>
+                </PhysicsWrapper>
+
+                {showPerformanceMonitor && (
+                  <PerformanceMonitor
+                    componentName={componentName}
+                    components={[componentName]}
+                    className='mt-4'
+                  />
+                )}
+
+                {variants.length > 0 && (
+                  <div className='variant-info p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg'>
+                    <h4 className='font-semibold mb-2'>
+                      {variants[activeVariant]?.name}
+                    </h4>
+                    {variants[activeVariant]?.description && (
+                      <p className='text-sm text-gray-600 dark:text-gray-400'>
+                        {variants[activeVariant]?.description}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </motion.div>
             )}
-          </div>
 
-          {/* Navigation */}
-          <div className='showcase-section p-6 border-b border-gray-200 dark:border-gray-700'>
-            <div className='flex gap-2'>
-              {tabs.map(tab => (
-                <GlassButton
-                  key={tab.id}
-                  variant={activeTab === tab.id ? 'primary' : 'ghost'}
-                  size='sm'
-                  onClick={() => setActiveTab(tab.id)}
-                >
-                  {tab.label}
-                </GlassButton>
-              ))}
-            </div>
-          </div>
+            {activeTab === 'props' && (
+              <motion.div
+                key='props'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {propControls.length > 0 ? (
+                  <PropEditor
+                    controls={propControls}
+                    values={propValues}
+                    onChange={handlePropChange}
+                  />
+                ) : (
+                  <div className='text-center py-8 text-gray-500'>
+                    No configurable props available
+                  </div>
+                )}
+              </motion.div>
+            )}
 
-          {/* Content */}
-          <div className='showcase-section p-6'>
-            <AnimatePresence mode='wait'>
-              {activeTab === 'preview' && (
-                <motion.div
-                  key='preview'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className='space-y-6'
-                >
-                  <PhysicsWrapper enabled={physicsEnabled}>
-                    <div className='preview-container p-8 bg-gray-50 dark:bg-gray-800 rounded-lg'>
-                      <div className='flex justify-center'>
-                        <Component
-                          {...currentProps}
-                          className={`physics-element ${currentProps['className'] || ''}`}
-                          ref={(el: HTMLElement) => {
-                            if (el) {
-                              measureGlassEffect(
-                                `${componentName}-render`,
-                                () => {
-                                  // Measure component render performance
-                                }
-                              );
-                            }
-                          }}
-                        >
-                          {children || componentName}
-                        </Component>
+            {activeTab === 'code' && (
+              <motion.div
+                key='code'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CodeViewer code={currentCode} language={codeLanguage} />
+              </motion.div>
+            )}
+
+            {activeTab === 'responsive' && showResponsive && (
+              <motion.div
+                key='responsive'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ResponsivePreview>
+                  <Component
+                    {...currentProps}
+                    className={`physics-element ${currentProps['className'] || ''}`}
+                  >
+                    {children || componentName}
+                  </Component>
+                </ResponsivePreview>
+              </motion.div>
+            )}
+
+            {activeTab === 'performance' && (
+              <motion.div
+                key='performance'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className='space-y-6'>
+                  <PerformanceMonitor
+                    componentName={componentName}
+                    components={[componentName]}
+                    showBenchmarks={true}
+                    showBundleSize={true}
+                  />
+
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div className='p-4 bg-gray-50 dark:bg-gray-800 rounded-lg'>
+                      <h4 className='font-semibold mb-2'>Bundle Size</h4>
+                      <div className='text-2xl font-bold text-blue-600'>
+                        {bundleUtils
+                          .estimateComponentSize(componentName)
+                          .toFixed(1)}
+                        KB
+                      </div>
+                      <div className='text-sm text-gray-600 mt-2'>
+                        Estimated size for {componentName}
                       </div>
                     </div>
-                  </PhysicsWrapper>
 
-                  {showPerformanceMonitor && (
-                    <PerformanceMonitor
-                      componentName={componentName}
-                      components={[componentName]}
-                      className='mt-4'
-                    />
-                  )}
-
-                  {variants.length > 0 && (
-                    <div className='variant-info p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg'>
-                      <h4 className='font-semibold mb-2'>
-                        {variants[activeVariant]?.name}
-                      </h4>
-                      {variants[activeVariant]?.description && (
-                        <p className='text-sm text-gray-600 dark:text-gray-400'>
-                          {variants[activeVariant]?.description}
-                        </p>
-                      )}
-                    </div>
-                  )}
-                </motion.div>
-              )}
-
-              {activeTab === 'props' && (
-                <motion.div
-                  key='props'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {propControls.length > 0 ? (
-                    <PropEditor
-                      controls={propControls}
-                      values={propValues}
-                      onChange={handlePropChange}
-                    />
-                  ) : (
-                    <div className='text-center py-8 text-gray-500'>
-                      No configurable props available
-                    </div>
-                  )}
-                </motion.div>
-              )}
-
-              {activeTab === 'code' && (
-                <motion.div
-                  key='code'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <CodeViewer code={currentCode} language={codeLanguage} />
-                </motion.div>
-              )}
-
-              {activeTab === 'responsive' && showResponsive && (
-                <motion.div
-                  key='responsive'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ResponsivePreview>
-                    <Component
-                      {...currentProps}
-                      className={`physics-element ${currentProps['className'] || ''}`}
-                    >
-                      {children || componentName}
-                    </Component>
-                  </ResponsivePreview>
-                </motion.div>
-              )}
-
-              {activeTab === 'performance' && (
-                <motion.div
-                  key='performance'
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className='space-y-6'>
-                    <PerformanceMonitor
-                      componentName={componentName}
-                      components={[componentName]}
-                      showBenchmarks={true}
-                      showBundleSize={true}
-                    />
-
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                      <div className='p-4 bg-gray-50 dark:bg-gray-800 rounded-lg'>
-                        <h4 className='font-semibold mb-2'>Bundle Size</h4>
-                        <div className='text-2xl font-bold text-blue-600'>
-                          {bundleUtils
-                            .estimateComponentSize(componentName)
-                            .toFixed(1)}
-                          KB
-                        </div>
-                        <div className='text-sm text-gray-600 mt-2'>
-                          Estimated size for {componentName}
-                        </div>
-                      </div>
-
-                      <div className='p-4 bg-gray-50 dark:bg-gray-800 rounded-lg'>
-                        <h4 className='font-semibold mb-2'>Recommendations</h4>
-                        <div className='space-y-1'>
-                          {bundleUtils
-                            .getBundleRecommendations([componentName])
-                            .map((rec, index) => (
-                              <div
-                                key={index}
-                                className='text-sm text-yellow-600'
-                              >
-                                • {rec}
-                              </div>
-                            ))}
-                          {bundleUtils.getBundleRecommendations([componentName])
-                            .length === 0 && (
-                            <div className='text-sm text-green-600'>
-                              ✓ No optimization recommendations
+                    <div className='p-4 bg-gray-50 dark:bg-gray-800 rounded-lg'>
+                      <h4 className='font-semibold mb-2'>Recommendations</h4>
+                      <div className='space-y-1'>
+                        {bundleUtils
+                          .getBundleRecommendations([componentName])
+                          .map((rec, index) => (
+                            <div
+                              key={index}
+                              className='text-sm text-yellow-600'
+                            >
+                              • {rec}
                             </div>
-                          )}
-                        </div>
+                          ))}
+                        {bundleUtils.getBundleRecommendations([componentName])
+                          .length === 0 && (
+                          <div className='text-sm text-green-600'>
+                            ✓ No optimization recommendations
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </GlassCard>
-      </div>
-    </MockThemeProvider>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </GlassCard>
+    </div>
   );
 };
 

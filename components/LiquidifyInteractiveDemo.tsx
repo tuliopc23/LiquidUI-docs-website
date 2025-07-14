@@ -18,8 +18,6 @@ import {
   GlassLoading,
 } from 'liquidify';
 
-import { MockThemeProvider } from '@/components/MockThemeProvider';
-
 import { cn } from '@/utils';
 import { BUTTON_VARIANTS, ANIMATION_DURATION } from '@/constants';
 import { useDebouncedState, usePerformantAnimation } from '@/hooks/performance';
@@ -396,42 +394,40 @@ function LiquidifyInteractiveDemo() {
   };
 
   return (
-    <MockThemeProvider>
-      <div className={cn('space-y-8 p-6', shouldAnimate && 'animate-fade-in')}>
-        {/* Header Section */}
-        <header className='text-center mb-8'>
-          <h2 className='hig-title-1 mb-4 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent'>
-            Liquidify Interactive Demo
-          </h2>
-          <p className='hig-body text-apple-gray-600 dark:text-apple-gray-300'>
-            Experience real Liquidify components with live interactions
-          </p>
-        </header>
+    <div className={cn('space-y-8 p-6', shouldAnimate && 'animate-fade-in')}>
+      {/* Header Section */}
+      <header className='text-center mb-8'>
+        <h2 className='hig-title-1 mb-4 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent'>
+          Liquidify Interactive Demo
+        </h2>
+        <p className='hig-body text-apple-gray-600 dark:text-apple-gray-300'>
+          Experience real Liquidify components with live interactions
+        </p>
+      </header>
 
-        {/* Lazy-loaded sections for better performance */}
-        <LazyComponent>
-          <ButtonSection
-            loading={state.loading}
-            onButtonClick={handlers.handleButtonClick}
-          />
-        </LazyComponent>
+      {/* Lazy-loaded sections for better performance */}
+      <LazyComponent>
+        <ButtonSection
+          loading={state.loading}
+          onButtonClick={handlers.handleButtonClick}
+        />
+      </LazyComponent>
 
-        <LazyComponent>
-          <FormSection state={state} handlers={handlers} />
-        </LazyComponent>
+      <LazyComponent>
+        <FormSection state={state} handlers={handlers} />
+      </LazyComponent>
 
-        <LazyComponent>
-          <DisplaySection
-            state={state}
-            handlers={{
-              handleModalToggle: handlers.handleModalToggle,
-              updateProgress: handlers.updateProgress,
-              resetProgress: handlers.resetProgress,
-            }}
-          />
-        </LazyComponent>
-      </div>
-    </MockThemeProvider>
+      <LazyComponent>
+        <DisplaySection
+          state={state}
+          handlers={{
+            handleModalToggle: handlers.handleModalToggle,
+            updateProgress: handlers.updateProgress,
+            resetProgress: handlers.resetProgress,
+          }}
+        />
+      </LazyComponent>
+    </div>
   );
 }
 

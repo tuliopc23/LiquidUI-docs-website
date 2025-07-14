@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard, GlassButton, GlassSlider, GlassSwitch } from 'liquidify';
-import { MockThemeProvider } from '@/components/MockThemeProvider';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -396,118 +395,112 @@ export const PhysicsShowcase: React.FC = () => {
   };
 
   return (
-    <MockThemeProvider>
-      <div ref={showcaseRef} className='physics-showcase space-y-8'>
-        <div className='physics-section'>
-          <div className='text-center mb-8'>
-            <h2 className='text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4'>
-              Physics Animations Showcase
-            </h2>
-            <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-              Experience advanced physics simulations with magnetic hover
-              effects, spring animations, and haptic feedback
+    <div ref={showcaseRef} className='physics-showcase space-y-8'>
+      <div className='physics-section'>
+        <div className='text-center mb-8'>
+          <h2 className='text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4'>
+            Physics Animations Showcase
+          </h2>
+          <p className='text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
+            Experience advanced physics simulations with magnetic hover effects,
+            spring animations, and haptic feedback
+          </p>
+        </div>
+
+        <div className='demo-selector mb-8'>
+          <div className='flex justify-center gap-4'>
+            {Object.entries(demos).map(([key, demo]) => (
+              <GlassButton
+                key={key}
+                variant={activeDemo === key ? 'primary' : 'ghost'}
+                onClick={() =>
+                  setActiveDemo(key as 'magnetic' | 'spring' | 'haptic')
+                }
+                className='min-w-[120px]'
+              >
+                {demo.title.split(' ')[0]}
+              </GlassButton>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className='physics-section'>
+        <GlassCard className='p-8'>
+          <div className='mb-6'>
+            <h3 className='text-2xl font-bold mb-2'>
+              {demos[activeDemo].title}
+            </h3>
+            <p className='text-gray-600 dark:text-gray-400'>
+              {demos[activeDemo].description}
             </p>
           </div>
 
-          <div className='demo-selector mb-8'>
-            <div className='flex justify-center gap-4'>
-              {Object.entries(demos).map(([key, demo]) => (
-                <GlassButton
-                  key={key}
-                  variant={activeDemo === key ? 'primary' : 'ghost'}
-                  onClick={() =>
-                    setActiveDemo(key as 'magnetic' | 'spring' | 'haptic')
-                  }
-                  className='min-w-[120px]'
-                >
-                  {demo.title.split(' ')[0]}
-                </GlassButton>
-              ))}
+          <motion.div
+            key={activeDemo}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {demos[activeDemo].component}
+          </motion.div>
+        </GlassCard>
+      </div>
+
+      <div className='physics-section'>
+        <GlassCard className='p-8'>
+          <h3 className='text-2xl font-bold mb-6'>Technical Implementation</h3>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+            <div>
+              <h4 className='text-lg font-semibold mb-3'>Technologies Used</h4>
+              <ul className='space-y-2 text-sm'>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-blue-500 rounded-full' />
+                  GSAP for high-performance animations
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-green-500 rounded-full' />
+                  Framer Motion for React animations
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-purple-500 rounded-full' />
+                  Custom easing curves for natural feel
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-orange-500 rounded-full' />
+                  Hardware acceleration with transform3d
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className='text-lg font-semibold mb-3'>
+                Performance Features
+              </h4>
+              <ul className='space-y-2 text-sm'>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-blue-500 rounded-full' />
+                  60fps animations with GPU acceleration
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-green-500 rounded-full' />
+                  Efficient DOM manipulation batching
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-purple-500 rounded-full' />
+                  Automatic cleanup and memory management
+                </li>
+                <li className='flex items-center gap-2'>
+                  <div className='w-2 h-2 bg-orange-500 rounded-full' />
+                  Responsive design with touch support
+                </li>
+              </ul>
             </div>
           </div>
-        </div>
-
-        <div className='physics-section'>
-          <GlassCard className='p-8'>
-            <div className='mb-6'>
-              <h3 className='text-2xl font-bold mb-2'>
-                {demos[activeDemo].title}
-              </h3>
-              <p className='text-gray-600 dark:text-gray-400'>
-                {demos[activeDemo].description}
-              </p>
-            </div>
-
-            <motion.div
-              key={activeDemo}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              {demos[activeDemo].component}
-            </motion.div>
-          </GlassCard>
-        </div>
-
-        <div className='physics-section'>
-          <GlassCard className='p-8'>
-            <h3 className='text-2xl font-bold mb-6'>
-              Technical Implementation
-            </h3>
-
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-              <div>
-                <h4 className='text-lg font-semibold mb-3'>
-                  Technologies Used
-                </h4>
-                <ul className='space-y-2 text-sm'>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-blue-500 rounded-full' />
-                    GSAP for high-performance animations
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-green-500 rounded-full' />
-                    Framer Motion for React animations
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-purple-500 rounded-full' />
-                    Custom easing curves for natural feel
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-orange-500 rounded-full' />
-                    Hardware acceleration with transform3d
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className='text-lg font-semibold mb-3'>
-                  Performance Features
-                </h4>
-                <ul className='space-y-2 text-sm'>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-blue-500 rounded-full' />
-                    60fps animations with GPU acceleration
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-green-500 rounded-full' />
-                    Efficient DOM manipulation batching
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-purple-500 rounded-full' />
-                    Automatic cleanup and memory management
-                  </li>
-                  <li className='flex items-center gap-2'>
-                    <div className='w-2 h-2 bg-orange-500 rounded-full' />
-                    Responsive design with touch support
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </GlassCard>
-        </div>
+        </GlassCard>
       </div>
-    </MockThemeProvider>
+    </div>
   );
 };
 
