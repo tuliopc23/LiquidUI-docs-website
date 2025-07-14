@@ -3,7 +3,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GlassCard, GlassButton, GlassInput, GlassTextarea } from 'liquidify';
+import { GlassInput, GlassSlider, GlassSwitch, GlassSelect } from 'liquidify';
+import {
+  AppleButton,
+  AppleCard,
+  AppleText,
+  AppleSection,
+} from './AppleHIGSystem';
+import { StaticComponentWrapper } from './StaticComponentWrapper';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -32,34 +39,66 @@ function ShowcaseCard({
 
     const card = cardRef.current;
 
-    // Simple scroll reveal animation
+    // Apple HIG scroll reveal animation
     gsap.fromTo(
       card,
-      { opacity: 0, y: 50 },
+      {
+        opacity: 0,
+        y: 30,
+        scale: 0.95,
+        rotationY: -5,
+      },
       {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
+        scale: 1,
+        rotationY: 0,
+        duration: 1.2,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: card,
-          start: 'top 80%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
       }
     );
+
+    // Add premium hover effects
+    const hoverTl = gsap.timeline({ paused: true });
+    hoverTl.to(card, {
+      scale: 1.02,
+      boxShadow: '0 20px 40px rgba(0, 122, 255, 0.15)',
+      backdropFilter: 'blur(24px) saturate(200%)',
+      duration: 0.4,
+      ease: 'power2.out',
+    });
+
+    card.addEventListener('mouseenter', () => hoverTl.play());
+    card.addEventListener('mouseleave', () => hoverTl.reverse());
+
+    return () => {
+      hoverTl.kill();
+    };
   }, []);
 
   return (
-    <GlassCard ref={cardRef} className={`hig-touch-target ${className}`}>
-      <h3 className='hig-title-3 mb-2 bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent'>
+    <AppleCard
+      ref={cardRef}
+      className={`showcase-card p-6 ${className}`}
+      hover={true}
+    >
+      <AppleText
+        variant='title3'
+        color='accent'
+        className='block mb-3 font-semibold'
+      >
         {title}
-      </h3>
-      <p className='hig-callout text-gray-600 dark:text-gray-300 mb-4'>
+      </AppleText>
+      <AppleText variant='callout' color='secondary' className='block mb-6'>
         {description}
-      </p>
-      <div className='space-y-3'>{children}</div>
-    </GlassCard>
+      </AppleText>
+      <div className='space-y-4'>{children}</div>
+    </AppleCard>
   );
 }
 
@@ -99,103 +138,157 @@ export function SimpleShowcase() {
   }
 
   return (
-    <div ref={containerRef} className='py-16 showcase-container'>
+    <div
+      className='py-20 showcase-container min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900'
+      ref={containerRef}
+    >
       {/* Hero Section */}
-      <div className='text-center mb-16'>
-        <h2 className='hero-title hig-large-title font-bold bg-gradient-to-r from-apple-blue via-apple-purple to-apple-indigo bg-clip-text text-transparent mb-4'>
-          Experience Liquidify
-        </h2>
-        <p className='hero-subtitle hig-title-2 text-apple-gray-600 dark:text-apple-gray-300 max-w-2xl mx-auto'>
-          Interactive showcase of liquid glass components with fluid animations
-        </p>
-      </div>
+      <AppleSection
+        title='Experience Liquidify'
+        subtitle='Interactive showcase of liquid glass components with premium Apple HIG animations and interactions'
+        centered={true}
+        className='mb-20'
+      >
+        <div />
+      </AppleSection>
 
       {/* Component Grid */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-4'>
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto px-6'>
         <ShowcaseCard
-          title='Liquid Glass Buttons'
-          description="Interactive buttons with Apple's liquid glass effects and spring animations"
+          title='Premium Glass Buttons'
+          description='Apple HIG-compliant buttons with magnetic hover effects and haptic-style feedback'
           className='showcase-card'
         >
-          <GlassButton variant='primary' className='w-full'>
-            Primary Action
-          </GlassButton>
-          <GlassButton variant='ghost' className='w-full'>
-            Secondary Action
-          </GlassButton>
-          <GlassButton variant='ghost' className='w-full'>
-            Tertiary Action
-          </GlassButton>
+          <StaticComponentWrapper enableClientInteraction={true}>
+            <div className='space-y-3'>
+              <AppleButton variant='primary' size='lg' className='w-full'>
+                Primary Action
+              </AppleButton>
+              <AppleButton variant='secondary' size='md' className='w-full'>
+                Secondary Action
+              </AppleButton>
+              <AppleButton variant='tertiary' size='md' className='w-full'>
+                Tertiary Action
+              </AppleButton>
+            </div>
+          </StaticComponentWrapper>
         </ShowcaseCard>
 
         <ShowcaseCard
-          title='Input Elements'
-          description='Liquid glass inputs with Apple HIG focus states and accessibility'
+          title='Advanced Input Elements'
+          description='Liquid glass inputs with premium focus animations and Apple HIG accessibility'
           className='showcase-card'
         >
-          <GlassInput
-            type='text'
-            placeholder='Enter your name...'
-            className='w-full'
-          />
-          <GlassInput
-            type='email'
-            placeholder='Enter email address...'
-            className='w-full'
-          />
-          <GlassTextarea
-            placeholder='Enter your message...'
-            rows={3}
-            className='w-full'
-          />
+          <StaticComponentWrapper enableClientInteraction={true}>
+            <div className='space-y-4'>
+              <GlassInput
+                type='text'
+                placeholder='Full Name'
+                className='w-full transition-all duration-300'
+              />
+              <GlassInput
+                type='email'
+                placeholder='Email Address'
+                className='w-full transition-all duration-300'
+              />
+              <GlassSelect
+                options={[
+                  { value: 'design', label: 'Design' },
+                  { value: 'engineering', label: 'Engineering' },
+                  { value: 'product', label: 'Product' },
+                ]}
+                placeholder='Select Department'
+                className='w-full'
+              />
+              <div className='flex items-center gap-4'>
+                <GlassSwitch defaultChecked={false} />
+                <AppleText variant='callout' color='secondary'>
+                  Enable notifications
+                </AppleText>
+              </div>
+            </div>
+          </StaticComponentWrapper>
         </ShowcaseCard>
 
         <ShowcaseCard
-          title='Layout Components'
-          description="Liquid glass cards with Apple's elevation system and typography hierarchy"
+          title='Interactive Components'
+          description="Premium liquid glass components with Apple's elevation system and micro-interactions"
           className='showcase-card'
         >
-          <GlassCard className='p-4'>
-            <h4 className='hig-headline mb-2'>Light Glass</h4>
-            <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
-              Ultra-light glass effect
-            </p>
-          </GlassCard>
-          <GlassCard className='p-4'>
-            <h4 className='hig-headline mb-2'>Medium Glass</h4>
-            <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
-              Standard liquid glass opacity
-            </p>
-          </GlassCard>
-          <GlassCard className='p-4'>
-            <h4 className='hig-headline mb-2'>Heavy Glass</h4>
-            <p className='hig-caption-1 text-apple-gray-600 dark:text-apple-gray-300'>
-              Enhanced glass with elevation
-            </p>
-          </GlassCard>
+          <StaticComponentWrapper enableClientInteraction={true}>
+            <div className='space-y-4'>
+              <AppleCard className='p-4' interactive={true}>
+                <AppleText variant='headline' className='block mb-2'>
+                  Interactive Card
+                </AppleText>
+                <AppleText
+                  variant='footnote'
+                  color='secondary'
+                  className='block'
+                >
+                  Click me for haptic feedback
+                </AppleText>
+              </AppleCard>
+              <div className='space-y-3'>
+                <div className='flex items-center justify-between'>
+                  <AppleText variant='callout'>Volume</AppleText>
+                  <AppleText variant='caption1' color='secondary'>
+                    75%
+                  </AppleText>
+                </div>
+                <GlassSlider value={75} min={0} max={100} className='w-full' />
+              </div>
+              <AppleCard className='p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10'>
+                <AppleText variant='headline' className='block mb-2'>
+                  Premium Glass
+                </AppleText>
+                <AppleText
+                  variant='footnote'
+                  color='secondary'
+                  className='block'
+                >
+                  Enhanced with gradient overlay
+                </AppleText>
+              </AppleCard>
+            </div>
+          </StaticComponentWrapper>
         </ShowcaseCard>
       </div>
 
       {/* Call to Action */}
-      <div className='text-center mt-16'>
-        <GlassCard className='max-w-2xl mx-auto'>
-          <h3 className='hig-title-2 font-bold bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent mb-4'>
-            Ready to Build?
-          </h3>
-          <p className='hig-body text-apple-gray-600 dark:text-apple-gray-300 mb-6'>
-            Start creating beautiful liquid glass interfaces with our
-            comprehensive component library
-          </p>
-          <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <GlassButton variant='primary' size='lg'>
-              Get Started
-            </GlassButton>
-            <GlassButton variant='ghost' size='lg'>
-              View Documentation
-            </GlassButton>
-          </div>
-        </GlassCard>
-      </div>
+      <AppleSection className='mt-24'>
+        <div className='text-center'>
+          <AppleCard className='max-w-3xl mx-auto p-8'>
+            <div className='mb-8'>
+              <AppleText
+                variant='title2'
+                className='block mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-bold'
+              >
+                Ready to Build Premium Interfaces?
+              </AppleText>
+              <AppleText
+                variant='body'
+                color='secondary'
+                className='block max-w-2xl mx-auto'
+              >
+                Start creating beautiful liquid glass interfaces with our
+                comprehensive component library, featuring Apple HIG compliance
+                and premium animations.
+              </AppleText>
+            </div>
+            <StaticComponentWrapper enableClientInteraction={true}>
+              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
+                <AppleButton variant='primary' size='lg'>
+                  Get Started →
+                </AppleButton>
+                <AppleButton variant='secondary' size='lg'>
+                  View Documentation
+                </AppleButton>
+              </div>
+            </StaticComponentWrapper>
+          </AppleCard>
+        </div>
+      </AppleSection>
     </div>
   );
 }

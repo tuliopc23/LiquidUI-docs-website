@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, ReactNode } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import appleDesign from '@/lib/apple-design-enhancements';
+import appleDesignSystem from '@/lib/apple-design-enhancements';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -21,76 +21,89 @@ interface AppleHIGContainerProps {
 /**
  * Apple HIG-compliant container with premium animations and interactions
  */
-export function AppleHIGContainer({
-  children,
-  variant = 'section',
-  enableAnimations = true,
-  enableScrollEffects = true,
-  className = '',
-}: AppleHIGContainerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+export const AppleHIGContainer = React.forwardRef<
+  HTMLDivElement,
+  AppleHIGContainerProps
+>(
+  (
+    {
+      children,
+      variant = 'section',
+      enableAnimations = true,
+      enableScrollEffects = true,
+      className = '',
+    },
+    ref
+  ) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const actualRef = (ref as React.RefObject<HTMLDivElement>) || containerRef;
 
-  useEffect(() => {
-    if (!enableAnimations || !containerRef.current) {
-      return;
-    }
+    useEffect(() => {
+      if (!enableAnimations || !actualRef.current) {
+        return;
+      }
 
-    const element = containerRef.current;
+      const element = actualRef.current;
 
-    // Setup accessibility
-    appleDesign.accessibility.respectReducedMotion();
-    appleDesign.accessibility.enhanceFocusIndicators();
-    appleDesign.accessibility.highContrastMode();
+      // Setup accessibility
+      appleDesignSystem.accessibility.respectReducedMotion();
+      appleDesignSystem.accessibility.enhanceFocusIndicators();
+      appleDesignSystem.accessibility.highContrastMode();
 
-    // Apply performance optimizations
-    appleDesign.performance.optimizeElement(element);
+      // Apply performance optimizations
+      appleDesignSystem.performance.optimizeElement(element);
 
-    // Setup animations based on variant
-    const animations: gsap.core.Timeline[] = [];
+      // Setup animations based on variant
+      const animations: gsap.core.Timeline[] = [];
 
-    if (variant === 'page') {
-      appleDesign.pageTransitions.fadeInScale(0.8);
-      if (enableScrollEffects) {
-        appleDesign.scrollAnimations.revealOnScroll(
-          `#${element.id || 'page-container'}`
+      if (variant === 'page') {
+        appleDesignSystem.pageTransitions.fadeInScale(0.8);
+        if (enableScrollEffects) {
+          appleDesignSystem.scrollAnimations.revealOnScroll(
+            `#${element.id || 'page-container'}`
+          );
+        }
+      }
+
+      if (variant === 'card') {
+        animations.push(
+          appleDesignSystem.microInteractions.magneticHover(element, 1.02)
+        );
+        animations.push(
+          appleDesignSystem.microInteractions.glassIntensify(element)
         );
       }
-    }
 
-    if (variant === 'card') {
-      animations.push(
-        appleDesign.microInteractions.magneticHover(element, 1.02)
-      );
-      animations.push(appleDesign.microInteractions.glassIntensify(element));
-    }
+      // Cleanup
+      return () => {
+        animations.forEach(animation => animation.kill());
+        appleDesignSystem.performance.cleanupElement(element);
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      };
+    }, [variant, enableAnimations, enableScrollEffects, actualRef]);
 
-    // Cleanup
-    return () => {
-      animations.forEach(animation => animation.kill());
-      appleDesign.performance.cleanupElement(element);
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    const baseClasses = {
+      page: 'min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900',
+      section: 'relative',
+      card: 'relative backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500',
+      modal:
+        'relative backdrop-blur-xl bg-white/20 border border-white/30 rounded-3xl shadow-2xl',
     };
-  }, [variant, enableAnimations, enableScrollEffects]);
 
-  const baseClasses = {
-    page: 'min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900',
-    section: 'relative',
-    card: 'relative backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500',
-    modal:
-      'relative backdrop-blur-xl bg-white/20 border border-white/30 rounded-3xl shadow-2xl',
-  };
+    return (
+      <div
+        ref={actualRef}
+        className={`apple-hig-container ${baseClasses[variant]} ${className}`}
+        data-animate='page'
+        data-respect-motion
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
-  return (
-    <div
-      ref={containerRef}
-      className={`apple-hig-container ${baseClasses[variant]} ${className}`}
-      data-animate='page'
-      data-respect-motion
-    >
-      {children}
-    </div>
-  );
-}
+AppleHIGContainer.displayName = 'AppleHIGContainer';
 
 interface AppleButtonProps {
   children: ReactNode;
@@ -124,12 +137,14 @@ export function AppleButton({
     const button = buttonRef.current;
 
     // Setup micro interactions
-    const hoverAnimation = appleDesign.microInteractions.magneticHover(
+    const hoverAnimation = appleDesignSystem.microInteractions.magneticHover(
       button,
       1.05
     );
-    const pressAnimation = appleDesign.microInteractions.hapticPress(button);
-    const focusAnimation = appleDesign.microInteractions.focusRing(button);
+    const pressAnimation =
+      appleDesignSystem.microInteractions.hapticPress(button);
+    const focusAnimation =
+      appleDesignSystem.microInteractions.focusRing(button);
 
     return () => {
       hoverAnimation.kill();
@@ -198,46 +213,47 @@ interface AppleCardProps {
 /**
  * Apple HIG-compliant card with liquid glass effects
  */
-export function AppleCard({
-  children,
-  hover = true,
-  interactive = false,
-  className = '',
-}: AppleCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
+export const AppleCard = React.forwardRef<HTMLDivElement, AppleCardProps>(
+  ({ children, hover = true, interactive = false, className = '' }, ref) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const actualRef = (ref as React.RefObject<HTMLDivElement>) || cardRef;
 
-  useEffect(() => {
-    if (!cardRef.current) {
-      return;
-    }
+    useEffect(() => {
+      if (!actualRef.current) {
+        return;
+      }
 
-    const card = cardRef.current;
-    const animations: gsap.core.Timeline[] = [];
+      const card = actualRef.current;
+      const animations: gsap.core.Timeline[] = [];
 
-    if (hover) {
-      animations.push(appleDesign.microInteractions.magneticHover(card, 1.02));
-      animations.push(appleDesign.microInteractions.glassIntensify(card));
-    }
+      if (hover) {
+        animations.push(
+          appleDesignSystem.microInteractions.magneticHover(card, 1.02)
+        );
+        animations.push(
+          appleDesignSystem.microInteractions.glassIntensify(card)
+        );
+      }
 
-    if (interactive) {
-      animations.push(appleDesign.microInteractions.hapticPress(card));
-      card.style.cursor = 'pointer';
-    }
+      if (interactive) {
+        animations.push(appleDesignSystem.microInteractions.hapticPress(card));
+        card.style.cursor = 'pointer';
+      }
 
-    // Scroll reveal animation
-    appleDesign.scrollAnimations.revealOnScroll(
-      `#${card.id || 'apple-card-' + Math.random().toString(36).substr(2, 9)}`
-    );
+      // Scroll reveal animation
+      appleDesignSystem.scrollAnimations.revealOnScroll(
+        `#${card.id || 'apple-card-' + Math.random().toString(36).substr(2, 9)}`
+      );
 
-    return () => {
-      animations.forEach(animation => animation.kill());
-    };
-  }, [hover, interactive]);
+      return () => {
+        animations.forEach(animation => animation.kill());
+      };
+    }, [hover, interactive, actualRef]);
 
-  return (
-    <div
-      ref={cardRef}
-      className={`
+    return (
+      <div
+        ref={actualRef}
+        className={`
         apple-card glass-focus
         backdrop-blur-xl bg-white/10 dark:bg-white/5
         border border-white/20 dark:border-white/10
@@ -246,19 +262,22 @@ export function AppleCard({
         ${interactive ? 'cursor-pointer hover:scale-105' : ''}
         ${className}
       `}
-      style={{
-        backdropFilter: 'blur(20px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+        style={{
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+AppleCard.displayName = 'AppleCard';
 
 interface AppleTextProps {
   children: ReactNode;
-  variant?: keyof typeof appleDesign.typography;
+  variant?: keyof typeof appleDesignSystem.typography;
   color?: 'primary' | 'secondary' | 'tertiary' | 'accent';
   className?: string;
 }
@@ -272,7 +291,10 @@ export function AppleText({
   color = 'primary',
   className = '',
 }: AppleTextProps) {
-  const typography = appleDesign.typography[variant];
+  const typography =
+    appleDesignSystem.typography[
+      variant as keyof typeof appleDesignSystem.typography
+    ];
 
   const colorClasses = {
     primary: 'text-gray-900 dark:text-white',
@@ -323,10 +345,13 @@ export function AppleSection({
     const section = sectionRef.current;
 
     // Stagger reveal children
-    appleDesign.pageTransitions.staggerReveal('.apple-section-child', 0.1);
+    appleDesignSystem.pageTransitions.staggerReveal(
+      '.apple-section-child',
+      0.1
+    );
 
     // Setup scroll animations
-    appleDesign.scrollAnimations.revealOnScroll(
+    appleDesignSystem.scrollAnimations.revealOnScroll(
       `#${section.id || 'section-' + Math.random().toString(36).substr(2, 9)}`
     );
   }, []);
@@ -363,4 +388,4 @@ export function AppleSection({
 }
 
 // Export all components
-export { appleDesign };
+export { appleDesignSystem };
